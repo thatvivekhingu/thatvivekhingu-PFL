@@ -26,7 +26,7 @@ export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       try {
-        return sessionStorage.getItem("hasSeenIntro_mobile_smooth_v9") !== "true";
+        return sessionStorage.getItem("hasSeenIntro_blur_transition_v10") !== "true";
       } catch {
         return true;
       }
@@ -41,7 +41,7 @@ export function IntroAnimation() {
 
   useEffect(() => {
     try {
-      const hasSeen = sessionStorage.getItem("hasSeenIntro_mobile_smooth_v9");
+      const hasSeen = sessionStorage.getItem("hasSeenIntro_blur_transition_v10");
       if (hasSeen === "true") {
         setShouldShow(false);
       }
@@ -63,41 +63,41 @@ export function IntroAnimation() {
         timer = setTimeout(() => {
           setQuestionChars((prev) => prev + 1);
           playTapSound("hover");
-        }, 50);
+        }, 45);
       } else {
         timer = setTimeout(() => {
           setCurrentIndex(1);
           playTapSound("pop");
-        }, 650);
+        }, 600);
       }
       return () => clearTimeout(timer);
     }
 
-    // Index 1 to 4: Single line role cards (1.3s display per card)
+    // Index 1 to 4: Single line role cards (1.2s display per card)
     if (currentIndex >= 1 && currentIndex <= 4) {
       timer = setTimeout(() => {
         setCurrentIndex((prev) => prev + 1);
         playTapSound("pop");
-      }, 1300);
+      }, 1200);
       return () => clearTimeout(timer);
     }
 
-    // Index 5: DARK BLURRY ARC REACTOR BLINK & REPULSOR BLAST
+    // Index 5: DARK BLURRY ARC REACTOR BLINK -> SMOOTH BLUR EXIT TO DASHBOARD
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {
           handleComplete();
-        }, 1000);
-      }, 2400);
+        }, 900);
+      }, 2200);
       return () => clearTimeout(timer);
     }
   }, [shouldShow, currentIndex, questionChars, isComplete]);
 
   const handleComplete = () => {
     try {
-      sessionStorage.setItem("hasSeenIntro_mobile_smooth_v9", "true");
+      sessionStorage.setItem("hasSeenIntro_blur_transition_v10", "true");
     } catch {
       // Ignore storage errors
     }
@@ -114,33 +114,22 @@ export function IntroAnimation() {
   const activeCard = INTRO_CARDS[currentIndex] ?? INTRO_CARDS[0];
   const questionText = (INTRO_CARDS[0]?.text ?? "> Who am I?").slice(0, questionChars);
 
-  // Generate 12 Copper Coils SVG elements
+  // Generate 12 Copper Coils (Lightweight clean SVG)
   const coilElements = Array.from({ length: 12 }).map((_, i) => {
     const angle = (360 / 12) * i;
     return (
-      <g key={`coil-${i}`} transform={`rotate(${angle} 200 200)`}>
-        <rect
-          x={183}
-          y={17}
-          width={34}
-          height={46}
-          rx={4}
-          fill="#b9702f"
-          stroke="#5c3a1a"
-          strokeWidth={1.5}
-        />
-        {Array.from({ length: 6 }).map((_, w) => (
-          <line
-            key={`wire-${i}-${w}`}
-            x1={186 + w * 5}
-            y1={19}
-            x2={186 + w * 5}
-            y2={59}
-            stroke="#7a4a24"
-            strokeWidth={1}
-          />
-        ))}
-      </g>
+      <rect
+        key={`coil-${i}`}
+        x={185}
+        y={18}
+        width={30}
+        height={42}
+        rx={3}
+        fill="#c9773f"
+        stroke="#5c3a1a"
+        strokeWidth={1.5}
+        transform={`rotate(${angle} 200 200)`}
+      />
     );
   });
 
@@ -150,13 +139,13 @@ export function IntroAnimation() {
     return (
       <rect
         key={`slot-${i}`}
-        x={196.5}
+        x={197}
         y={72}
-        width={7}
+        width={6}
         height={10}
-        rx={3}
+        rx={2}
         fill="#5fe0ff"
-        opacity={0.8}
+        opacity={0.85}
         transform={`rotate(${angle} 200 200)`}
       />
     );
@@ -167,28 +156,29 @@ export function IntroAnimation() {
       {!isComplete && (
         <motion.div
           key="intro-viewport"
-          initial={{ opacity: 1, clipPath: "circle(150% at 50% 50%)" }}
+          initial={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
           animate={
             isTransitioning
               ? {
-                  opacity: [1, 1, 0],
-                  clipPath: "circle(0% at 50% 50%)",
+                  opacity: 0,
+                  filter: "blur(28px)",
+                  scale: 1.08,
                 }
               : {
                   opacity: 1,
-                  clipPath: "circle(150% at 50% 50%)",
+                  filter: "blur(0px)",
+                  scale: 1,
                 }
           }
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#05070a] text-[#F8FAFC] select-none overflow-hidden will-change-transform transform-gpu"
+          exit={{ opacity: 0, filter: "blur(30px)" }}
+          transition={{ duration: 0.85, ease: [0.4, 0, 0.2, 1] }}
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#05070a] text-[#F8FAFC] select-none overflow-hidden transform-gpu will-change-[opacity,filter,transform]"
         >
           {/* Cyan Anamorphic Radial Flare */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(95,224,255,0.18)_0%,rgba(5,7,10,0)_60%)] pointer-events-none opacity-85" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(95,224,255,0.18)_0%,rgba(5,7,10,0)_65%)] pointer-events-none opacity-80" />
           
-          {/* Suitable Dark Dot Matrix Grid Pattern (Active from Who am I to Access Granted) */}
+          {/* Dotted Grid Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1.2px,transparent_1.2px)] [background-size:28px_28px] opacity-20 pointer-events-none" />
-          <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.015)_0px,rgba(255,255,255,0.015)_1px,transparent_1px,transparent_3px)] pointer-events-none" />
 
           {/* Skip Button */}
           <button
@@ -199,20 +189,20 @@ export function IntroAnimation() {
           </button>
 
           {/* Stage Container */}
-          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[380px] text-center gap-4">
+          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[360px] text-center gap-4">
             <AnimatePresence mode="wait">
               {/* Question Phase */}
               {currentIndex === 0 && (
                 <motion.div
                   key="question-card"
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15, scale: 0.95 }}
-                  transition={{ duration: 0.35 }}
+                  exit={{ opacity: 0, y: -12, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
                   className="flex items-center text-2xl sm:text-4xl font-mono text-[#5fe0ff] font-bold tracking-wider"
                 >
                   <span>{questionText}</span>
-                  <span className="inline-block w-3 h-7 sm:h-9 ml-2.5 bg-[#5fe0ff] animate-pulse shadow-[0_0_15px_rgba(95,224,255,0.9)]" />
+                  <span className="inline-block w-3 h-7 sm:h-9 ml-2.5 bg-[#5fe0ff] animate-pulse shadow-[0_0_12px_rgba(95,224,255,0.9)]" />
                 </motion.div>
               )}
 
@@ -220,13 +210,13 @@ export function IntroAnimation() {
               {currentIndex >= 1 && currentIndex <= 4 && (
                 <motion.div
                   key={activeCard.id}
-                  initial={{ opacity: 0, y: 35, scale: 0.92, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -35, scale: 1.08, filter: "blur(12px)" }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col items-center space-y-4"
+                  initial={{ opacity: 0, y: 25, scale: 0.94 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -25, scale: 1.06 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="flex flex-col items-center space-y-3"
                 >
-                  <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-100 drop-shadow-[0_0_40px_rgba(255,255,255,0.4)]">
+                  <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-100 drop-shadow-[0_0_30px_rgba(255,255,255,0.35)]">
                     {activeCard.title ?? ""}
                   </h2>
                   <p className="text-xs sm:text-base font-mono text-[#5fe0ff]/90 tracking-widest uppercase">
@@ -239,77 +229,60 @@ export function IntroAnimation() {
               {currentIndex === 5 && (
                 <motion.div
                   key="clean-arc-stage"
-                  initial={{ opacity: 0, scale: 0.6, filter: "blur(14px)" }}
-                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                   className="relative flex flex-col items-center space-y-3"
                 >
                   {/* HUD Header Status Line */}
                   <motion.div
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.15 }}
-                    className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-[#5fe0ff] tracking-[0.18em] sm:tracking-[0.3em] uppercase font-bold drop-shadow-[0_0_12px_rgba(95,224,255,0.8)] text-center px-2"
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-[#5fe0ff] tracking-[0.18em] sm:tracking-[0.3em] uppercase font-bold drop-shadow-[0_0_10px_rgba(95,224,255,0.8)] text-center px-2"
                   >
                     <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-[#5fe0ff] animate-ping flex-shrink-0" />
                     <span>SYSTEM INITIALIZATION // NEURAL CORE MAXIMUM OUTPUT</span>
                   </motion.div>
 
-                  {/* Pure Arc Reactor Graphic Wrapper */}
+                  {/* Lightweight Zero-Lag Arc Reactor Graphic Wrapper */}
                   <div className="relative flex items-center justify-center">
-                    {/* Deep Dark Blurry Energy Pulsing Glow */}
-                    <motion.div
-                      animate={{
-                        scale: [0.88, 1.15, 0.88],
-                        opacity: [0.35, 0.9, 0.35],
-                        filter: ["blur(20px)", "blur(6px)", "blur(20px)"],
-                      }}
-                      transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute w-[360px] h-[360px] sm:w-[480px] sm:h-[480px] rounded-full bg-[radial-gradient(circle,rgba(95,224,255,0.45)_0%,rgba(56,189,248,0.2)_45%,transparent_75%)] pointer-events-none"
-                    />
+                    {/* Dark Blurry Pulsing Ambient Halo (CSS Powered - 0 Lag) */}
+                    <div className="absolute w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] rounded-full bg-[radial-gradient(circle,rgba(95,224,255,0.35)_0%,rgba(56,189,248,0.15)_45%,transparent_75%)] pointer-events-none animate-pulse blur-xl" />
 
-                    {/* Pure Arc Reactor SVG (60 FPS CSS Spin Keyframes - No Mobile JS Lag!) */}
+                    {/* Pure High-Performance Lightweight Arc Reactor SVG */}
                     <motion.div
                       animate={
                         isTransitioning
-                          ? { scale: [1, 1.6, 2.8], filter: "brightness(4)" }
-                          : { scale: [0.96, 1.04, 0.96] }
+                          ? { scale: [1, 1.3, 1.8], opacity: [1, 0.8, 0] }
+                          : { scale: [0.97, 1.03, 0.97] }
                       }
                       transition={
                         isTransitioning
                           ? { duration: 0.8, ease: "easeIn" }
-                          : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }
+                          : { duration: 2.0, repeat: Infinity, ease: "easeInOut" }
                       }
-                      className="relative w-52 h-52 sm:w-72 sm:h-72 drop-shadow-[0_0_50px_rgba(95,224,255,0.9)] transform-gpu will-change-transform"
+                      className="relative w-52 h-52 sm:w-72 sm:h-72 drop-shadow-[0_0_35px_rgba(95,224,255,0.8)] transform-gpu will-change-transform"
                     >
                       <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible">
-                        <defs>
-                          <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-                            <feGaussianBlur stdDeviation="4" result="b" />
-                            <feMerge>
-                              <feMergeNode in="b" />
-                              <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                          </filter>
-                          <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stopColor="#ffffff" />
-                            <stop offset="45%" stopColor="#8fefff" />
-                            <stop offset="100%" stopColor="#0f4a5c" stopOpacity="0" />
-                          </radialGradient>
-                          <pattern
-                            id="hex"
-                            width="14"
-                            height="12"
-                            patternUnits="userSpaceOnUse"
-                          >
-                            <polygon
-                              points="7,0 14,3.5 14,8.5 7,12 0,8.5 0,3.5"
-                              fill="none"
-                              stroke="#1c5b6e"
-                              strokeWidth="0.8"
-                            />
-                          </pattern>
-                        </defs>
+                        <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                          <stop offset="0%" stopColor="#ffffff" />
+                          <stop offset="50%" stopColor="#8fefff" />
+                          <stop offset="100%" stopColor="#0f4a5c" stopOpacity="0" />
+                        </radialGradient>
+                        <pattern
+                          id="hex"
+                          width="14"
+                          height="12"
+                          patternUnits="userSpaceOnUse"
+                        >
+                          <polygon
+                            points="7,0 14,3.5 14,8.5 7,12 0,8.5 0,3.5"
+                            fill="none"
+                            stroke="#1c5b6e"
+                            strokeWidth="0.8"
+                          />
+                        </pattern>
 
                         {/* Outer metal housing */}
                         <circle cx="200" cy="200" r="192" fill="#0a0d10" stroke="#3a4048" strokeWidth="2" />
@@ -326,25 +299,25 @@ export function IntroAnimation() {
                         </g>
 
                         {/* Concentric cyan glow rings */}
-                        <circle cx="200" cy="200" r="105" fill="none" stroke="#5fe0ff" strokeWidth="3" opacity="0.6" filter="url(#glow)" />
-                        <circle cx="200" cy="200" r="82" fill="none" stroke="#5fe0ff" strokeWidth="2.5" opacity="0.75" filter="url(#glow)" />
-                        <circle cx="200" cy="200" r="58" fill="none" stroke="#5fe0ff" strokeWidth="2" opacity="0.9" filter="url(#glow)" />
+                        <circle cx="200" cy="200" r="105" fill="none" stroke="#5fe0ff" strokeWidth="3" opacity="0.65" />
+                        <circle cx="200" cy="200" r="82" fill="none" stroke="#5fe0ff" strokeWidth="2.5" opacity="0.8" />
+                        <circle cx="200" cy="200" r="58" fill="none" stroke="#5fe0ff" strokeWidth="2" opacity="0.95" />
 
                         {/* Inner Core */}
                         <circle cx="200" cy="200" r="52" fill="url(#coreGlow)" />
                         <circle cx="200" cy="200" r="44" fill="#081014" stroke="#2a3238" strokeWidth="2" />
                         <circle cx="200" cy="200" r="40" fill="url(#hex)" />
-                        <circle cx="200" cy="200" r="40" fill="url(#coreGlow)" opacity="0.4" />
+                        <circle cx="200" cy="200" r="40" fill="url(#coreGlow)" opacity="0.45" />
                       </svg>
                     </motion.div>
                   </div>
 
                   {/* ACCESS GRANTED BADGE PLACED DIRECTLY BELOW ARC REACTOR */}
                   <motion.div
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.25 }}
-                    className="z-10 relative mt-2 px-5 sm:px-14 py-3 sm:py-4 rounded-2xl bg-[#081014]/90 border-2 border-[#5fe0ff]/80 backdrop-blur-2xl shadow-[0_0_60px_rgba(95,224,255,0.6)] text-center max-w-[92vw] sm:max-w-none"
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="z-10 relative mt-2 px-5 sm:px-14 py-3 sm:py-4 rounded-2xl bg-[#081014]/90 border-2 border-[#5fe0ff]/80 backdrop-blur-2xl shadow-[0_0_50px_rgba(95,224,255,0.5)] text-center max-w-[92vw] sm:max-w-none"
                   >
                     {/* Futuristic Corner Brackets */}
                     <div className="absolute top-1.5 left-1.5 w-3.5 h-3.5 border-t-2 border-l-2 border-[#5fe0ff]" />
@@ -353,7 +326,7 @@ export function IntroAnimation() {
                     <div className="absolute bottom-1.5 right-1.5 w-3.5 h-3.5 border-b-2 border-r-2 border-[#5fe0ff]" />
 
                     {/* ACCESS GRANTED Main Bold Header */}
-                    <span className="font-mono text-2xl sm:text-4xl font-black tracking-[0.35em] bg-gradient-to-r from-cyan-300 via-white to-sky-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(95,224,255,0.95)] uppercase block">
+                    <span className="font-mono text-2xl sm:text-4xl font-black tracking-[0.35em] bg-gradient-to-r from-cyan-300 via-white to-sky-300 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(95,224,255,0.95)] uppercase block">
                       ACCESS GRANTED
                     </span>
 
@@ -366,16 +339,6 @@ export function IntroAnimation() {
               )}
             </AnimatePresence>
           </div>
-
-          {/* Repulsor Beam Light Blast Explosion to Open Dashboard */}
-          {isTransitioning && (
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: [0, 10, 45], opacity: [0, 1, 0] }}
-              transition={{ duration: 0.9, ease: "easeInOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-[radial-gradient(circle,#ffffff_0%,#5fe0ff_30%,rgba(95,224,255,0.6)_60%,transparent_80%)] shadow-[0_0_180px_rgba(95,224,255,1)] pointer-events-none z-[100000]"
-            />
-          )}
         </motion.div>
       )}
     </AnimatePresence>
