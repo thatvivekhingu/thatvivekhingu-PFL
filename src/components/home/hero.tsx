@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import profilePic from "@/images/profile-bw.jpg";
 import profilePicHover from "@/images/profile-color.jpg";
 import { HeroConstellation } from "@/components/ui/hero-constellation";
@@ -20,6 +19,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { data } from "@/data/data";
+
+import { OrbitingAvatar } from "@/components/ui/orbiting-avatar";
 
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
@@ -48,46 +49,16 @@ export default function Hero() {
   };
 
   return (
-    <div className="pt-28 pb-14 sm:pt-40 sm:pb-16 relative flex items-center justify-center overflow-hidden">
+    <div className="pt-24 pb-12 sm:pt-36 sm:pb-16 relative flex items-center justify-center overflow-hidden">
       <HeroConstellation desktopDots={300} mobileDots={75} />
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative flex-col space-y-1">
             <div className="relative flex flex-col items-center justify-center">
-              {/* Sleek Floating Avatar with Dual Ambient Aura Ring */}
-              <div
-                className="group relative z-50 cursor-pointer transition-all duration-500 hover:scale-105"
-                onClick={() => playTapSound("chime")}
-              >
-                {/* Glowing Outer Gradient Halo */}
-                <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-sky-400 to-indigo-500 opacity-60 blur-md group-hover:opacity-90 transition-opacity duration-500 animate-pulse" />
+              {/* 3D Orbit Ring Avatar with Real Tech Language Logos */}
+              <OrbitingAvatar profilePic={profilePic} profilePicHover={profilePicHover} />
 
-                {/* Clean Avatar Container */}
-                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-48 md:w-48 overflow-hidden rounded-full p-1 bg-gradient-to-tr from-cyan-500 via-indigo-500 to-amber-500 shadow-2xl">
-                  <div className="relative h-full w-full rounded-full overflow-hidden bg-zinc-950">
-                    <Image
-                      src={profilePic}
-                      alt="Vivek Hingu"
-                      priority
-                      fill
-                      className="object-cover transition-opacity duration-500 opacity-100 group-hover:opacity-0"
-                    />
-                    <Image
-                      src={profilePicHover}
-                      alt="Vivek Hingu Hover"
-                      fill
-                      className="object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-                    />
-                  </div>
-
-                  {/* Tech Badge */}
-                  <div className="absolute bottom-2 inset-x-0 mx-auto w-max px-3 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-cyan-500/40 text-[10px] font-extrabold text-cyan-300 tracking-wider uppercase shadow-lg">
-                    AI / ML
-                  </div>
-                </div>
-              </div>
-
-              <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-5">
+              <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-2">
                 <div className="z-50 relative flex items-center justify-center">
                   <div
                     className={`absolute h-1.5 w-1.5 rounded-full border-1 ${

@@ -19,49 +19,73 @@ interface AnimatedNameProps {
 }
 
 export function AnimatedName({ className }: AnimatedNameProps) {
-  const fullText = "Vivek Hingu";
-  const [displayedText, setDisplayedText] = useState("");
-  const [isTypingDone, setIsTypingDone] = useState(false);
+  const name = "Vivek Hingu";
+  const [typedIndex, setTypedIndex] = useState(0);
 
   useEffect(() => {
-    let index = 0;
-    setDisplayedText("");
-    setIsTypingDone(false);
-
-    const interval = setInterval(() => {
-      if (index < fullText.length) {
-        setDisplayedText(fullText.slice(0, index + 1));
-        index++;
-      } else {
-        setIsTypingDone(true);
-        clearInterval(interval);
-      }
-    }, 90);
-
-    return () => clearInterval(interval);
+    const timer = setInterval(() => {
+      setTypedIndex((prev) => {
+        if (prev < name.length) return prev + 1;
+        clearInterval(timer);
+        return prev;
+      });
+    }, 80);
+    return () => clearInterval(timer);
   }, []);
 
   return (
-    <motion.span
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <span
       className={cn(
-        "inline-inline items-center justify-center whitespace-nowrap cursor-pointer group relative",
+        "relative inline-flex items-center select-none cursor-pointer group whitespace-nowrap",
         className
       )}
     >
-      <span className="relative inline-block font-script text-transparent bg-clip-text bg-[length:200%_100%] bg-gradient-to-r from-cyan-400 via-indigo-400 via-amber-400 to-cyan-400 dark:from-cyan-300 dark:via-indigo-300 dark:via-amber-300 dark:to-cyan-300 animate-shimmer transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_20px_rgba(56,189,248,0.4)]">
-        {displayedText}
+      {name.split("").map((char, i) => {
+        const isVisible = i < typedIndex;
+        if (char === " ") {
+          return (
+            <span key={i} className="w-2.5 sm:w-4 inline-block">
+              &nbsp;
+            </span>
+          );
+        }
+        return (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 25, rotateX: -90, scale: 0.4 }}
+            animate={
+              isVisible
+                ? { opacity: 1, y: 0, rotateX: 0, scale: 1 }
+                : { opacity: 0, y: 25, rotateX: -90, scale: 0.4 }
+            }
+            transition={{
+              duration: 0.5,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="inline-block transition-all duration-300 group-hover:-translate-y-2 group-hover:scale-110"
+            style={{
+              transitionDelay: `${i * 25}ms`,
+            }}
+          >
+            <span className="font-extrabold bg-gradient-to-r from-cyan-400 via-sky-300 via-indigo-400 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(56,189,248,0.45)]">
+              {char}
+            </span>
+          </motion.span>
+        );
+      })}
 
-        {/* Typing Blinking Cursor */}
-        {!isTypingDone && (
-          <span className="inline-block w-[3px] h-[0.8em] ml-1 bg-cyan-400 dark:bg-amber-400 animate-pulse align-middle rounded-full" />
-        )}
-      </span>
+      {/* Typing Cursor */}
+      {typedIndex < name.length && (
+        <span className="inline-block w-1.5 sm:w-2 h-[0.75em] ml-1 bg-cyan-400 dark:bg-amber-400 animate-ping align-middle rounded-full shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+      )}
 
-      {/* Subtle Bottom Accent Glow Line */}
-      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-amber-500 opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" />
-    </motion.span>
+      {/* Dynamic Underline Light Glow Sweep */}
+      <motion.span
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: typedIndex === name.length ? 1 : 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-cyan-500 via-sky-400 via-indigo-500 to-amber-400 shadow-[0_0_15px_rgba(34,211,238,0.9)] origin-left group-hover:scale-y-125 transition-transform"
+      />
+    </span>
   );
 }
