@@ -27,7 +27,7 @@ export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       try {
-        return sessionStorage.getItem("hasSeenIntro_4dx_v3") !== "true";
+        return sessionStorage.getItem("hasSeenIntro_stark_arc_v4") !== "true";
       } catch {
         return true;
       }
@@ -42,7 +42,7 @@ export function IntroAnimation() {
 
   useEffect(() => {
     try {
-      const hasSeen = sessionStorage.getItem("hasSeenIntro_4dx_v3");
+      const hasSeen = sessionStorage.getItem("hasSeenIntro_stark_arc_v4");
       if (hasSeen === "true") {
         setShouldShow(false);
       }
@@ -98,7 +98,7 @@ export function IntroAnimation() {
 
   const handleComplete = () => {
     try {
-      sessionStorage.setItem("hasSeenIntro_4dx_v3", "true");
+      sessionStorage.setItem("hasSeenIntro_stark_arc_v4", "true");
     } catch {
       // Ignore storage errors
     }
