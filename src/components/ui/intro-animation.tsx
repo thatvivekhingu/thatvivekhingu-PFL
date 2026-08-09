@@ -23,27 +23,36 @@ const INTRO_CARDS: IntroCardItem[] = [
 ];
 
 export function IntroAnimation() {
-  const [shouldShow, setShouldShow] = useState<boolean | null>(null);
+  // Synchronously initialize to true so black screen is rendered IMMEDIATELY at millisecond 0 without background flash
+  const [shouldShow, setShouldShow] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        return sessionStorage.getItem("hasSeenIntro_4dx_v3") !== "true";
+      } catch {
+        return true;
+      }
+    }
+    return true;
+  });
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [questionChars, setQuestionChars] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
-  // Session storage check
+  // Sync session storage on mount
   useEffect(() => {
     try {
       const hasSeen = sessionStorage.getItem("hasSeenIntro_4dx_v3");
       if (hasSeen === "true") {
         setShouldShow(false);
-      } else {
-        setShouldShow(true);
       }
     } catch {
       setShouldShow(false);
     }
   }, []);
 
-  // 4DX Cinema Timeline Engine
+  // Timeline Engine
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
@@ -56,35 +65,35 @@ export function IntroAnimation() {
         timer = setTimeout(() => {
           setQuestionChars((prev) => prev + 1);
           playTapSound("hover");
-        }, 70);
+        }, 60);
       } else {
-        // Pause 900ms after question, then move to first role
+        // Pause 700ms after question, then move to first role
         timer = setTimeout(() => {
           setCurrentIndex(1);
           playTapSound("pop");
-        }, 900);
+        }, 700);
       }
       return () => clearTimeout(timer);
     }
 
-    // Index 1 to 4: Single line 4DX role cards (1.6s display per card)
+    // Index 1 to 4: Single line role cards (1.4s display per card)
     if (currentIndex >= 1 && currentIndex <= 4) {
       timer = setTimeout(() => {
         setCurrentIndex((prev) => prev + 1);
         playTapSound("pop");
-      }, 1600); // 1.6 seconds display per card
+      }, 1400);
       return () => clearTimeout(timer);
     }
 
-    // Index 5: ACCESS GRANTED (2.6s hold for deep security authorization feel)
+    // Index 5: ACCESS GRANTED (2.0s hold)
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {
           handleComplete();
-        }, 1100);
-      }, 2600); // Hold ACCESS GRANTED badge for 2.6 seconds
+        }, 900);
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [shouldShow, currentIndex, questionChars, isComplete]);
@@ -103,7 +112,7 @@ export function IntroAnimation() {
     handleComplete();
   };
 
-  if (shouldShow === null || !shouldShow || isComplete) return null;
+  if (!shouldShow || isComplete) return null;
 
   const activeCard = INTRO_CARDS[currentIndex] ?? INTRO_CARDS[0];
   const questionText = (INTRO_CARDS[0]?.text ?? "> Who am I?").slice(0, questionChars);
@@ -126,7 +135,7 @@ export function IntroAnimation() {
                 }
           }
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black text-[#F8FAFC] select-none overflow-hidden"
         >
           {/* Deep Anamorphic Cinematic Flares */}
@@ -136,12 +145,12 @@ export function IntroAnimation() {
           {/* Skip Button */}
           <button
             onClick={handleSkip}
-            className="absolute top-6 right-6 z-50 px-4 py-1.5 rounded-full border border-white/10 bg-black/60 backdrop-blur-md text-xs font-mono text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 hover:bg-black/90 transition-all duration-300 shadow-2xl"
+            className="absolute top-6 right-6 z-50 px-4 py-1.5 rounded-full border border-white/10 bg-black/60 backdrop-blur-md text-xs font-mono text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 hover:bg-black/90 transition-all duration-300 shadow-2xl cursor-pointer"
           >
             Skip Intro →
           </button>
 
-          {/* 4DX Stage Container */}
+          {/* Stage Container */}
           <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[240px] text-center">
             <AnimatePresence mode="wait">
               {/* Question Phase */}
@@ -151,7 +160,7 @@ export function IntroAnimation() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15, scale: 0.95 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.4 }}
                   className="flex items-center text-2xl sm:text-4xl font-mono text-cyan-400 font-bold tracking-wider"
                 >
                   <span>{questionText}</span>
@@ -159,14 +168,14 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* Single Line Role Cards (1.6s Optimal Pacing) */}
+              {/* Single Line Role Cards */}
               {currentIndex >= 1 && currentIndex <= 4 && (
                 <motion.div
                   key={activeCard.id}
                   initial={{ opacity: 0, y: 35, scale: 0.92, filter: "blur(10px)" }}
                   animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
                   exit={{ opacity: 0, y: -35, scale: 1.08, filter: "blur(12px)" }}
-                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="flex flex-col items-center space-y-4"
                 >
                   <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-100 drop-shadow-[0_0_40px_rgba(255,255,255,0.4)]">
@@ -178,13 +187,13 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* Authentic High-Tech Security Clearance Card (2.6s Hold) */}
+              {/* Security Clearance Card */}
               {currentIndex === 5 && (
                 <motion.div
                   key="granted-card"
                   initial={{ opacity: 0, scale: 0.82, filter: "blur(10px)" }}
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                   className="flex flex-col items-center space-y-4"
                 >
                   <div className="flex items-center gap-2 font-mono text-xs sm:text-sm text-emerald-400/90 tracking-[0.25em] uppercase">
@@ -207,7 +216,7 @@ export function IntroAnimation() {
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: [0, 8, 25], opacity: [0, 0.9, 0] }}
-              transition={{ duration: 1.1, ease: "easeOut" }}
+              transition={{ duration: 0.9, ease: "easeOut" }}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-tr from-cyan-400 via-emerald-400 to-white shadow-[0_0_100px_rgba(0,240,255,1)] pointer-events-none"
             />
           )}
