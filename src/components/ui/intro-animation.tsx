@@ -22,11 +22,13 @@ const INTRO_CARDS: IntroCardItem[] = [
   { id: "granted", title: "ACCESS GRANTED.", isGranted: true },
 ];
 
+const INTRO_STORAGE_KEY = "hasSeenIntro_v15_restored_final";
+
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       try {
-        return sessionStorage.getItem("hasSeenIntro_3d_arc_v12") !== "true";
+        return sessionStorage.getItem(INTRO_STORAGE_KEY) !== "true";
       } catch {
         return true;
       }
@@ -41,7 +43,7 @@ export function IntroAnimation() {
 
   useEffect(() => {
     try {
-      const hasSeen = sessionStorage.getItem("hasSeenIntro_3d_arc_v12");
+      const hasSeen = sessionStorage.getItem(INTRO_STORAGE_KEY);
       if (hasSeen === "true") {
         setShouldShow(false);
       }
@@ -97,12 +99,13 @@ export function IntroAnimation() {
 
   const handleComplete = () => {
     try {
-      sessionStorage.setItem("hasSeenIntro_3d_arc_v12", "true");
+      sessionStorage.setItem(INTRO_STORAGE_KEY, "true");
     } catch {
       // Ignore storage errors
     }
     setIsComplete(true);
   };
+
 
   const handleSkip = () => {
     playTapSound("pop");
