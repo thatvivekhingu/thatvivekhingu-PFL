@@ -33,18 +33,35 @@ export default function Achievements() {
   const [certPaused, setCertPaused] = useState(false);
   const certTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Achievements Auto-Scroll
+  // Set initial scroll position to middle set on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (achRef.current && achRef.current.scrollWidth > 0) {
+        achRef.current.scrollLeft = achRef.current.scrollWidth / 4;
+      }
+      if (certRef.current && certRef.current.scrollWidth > 0) {
+        certRef.current.scrollLeft = certRef.current.scrollWidth / 4;
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Achievements Auto-Scroll & Infinite Boundary Wrap
   useEffect(() => {
     const el = achRef.current;
     if (!el) return;
     let animId: number;
 
     const scroll = () => {
-      if (!achPaused && el) {
+      if (el) {
         const singleSetWidth = el.scrollWidth / 4;
-        el.scrollLeft += 0.8;
+        if (!achPaused) {
+          el.scrollLeft += 0.8;
+        }
         if (el.scrollLeft >= singleSetWidth * 2) {
           el.scrollLeft -= singleSetWidth;
+        } else if (el.scrollLeft <= 5) {
+          el.scrollLeft += singleSetWidth;
         }
       }
       animId = requestAnimationFrame(scroll);
@@ -54,18 +71,22 @@ export default function Achievements() {
     return () => cancelAnimationFrame(animId);
   }, [achPaused]);
 
-  // Certifications Auto-Scroll
+  // Certifications Auto-Scroll & Infinite Boundary Wrap
   useEffect(() => {
     const el = certRef.current;
     if (!el) return;
     let animId: number;
 
     const scroll = () => {
-      if (!certPaused && el) {
+      if (el) {
         const singleSetWidth = el.scrollWidth / 4;
-        el.scrollLeft += 0.8;
+        if (!certPaused) {
+          el.scrollLeft += 0.8;
+        }
         if (el.scrollLeft >= singleSetWidth * 2) {
           el.scrollLeft -= singleSetWidth;
+        } else if (el.scrollLeft <= 5) {
+          el.scrollLeft += singleSetWidth;
         }
       }
       animId = requestAnimationFrame(scroll);
@@ -103,7 +124,12 @@ export default function Achievements() {
     playTapSound("pop");
     triggerAchManual();
     if (achRef.current) {
-      achRef.current.scrollBy({ left: -360, behavior: "smooth" });
+      const el = achRef.current;
+      const singleSetWidth = el.scrollWidth / 4;
+      if (el.scrollLeft <= 10) {
+        el.scrollLeft += singleSetWidth;
+      }
+      el.scrollBy({ left: -360, behavior: "smooth" });
     }
   };
 
@@ -111,7 +137,12 @@ export default function Achievements() {
     playTapSound("pop");
     triggerAchManual();
     if (achRef.current) {
-      achRef.current.scrollBy({ left: 360, behavior: "smooth" });
+      const el = achRef.current;
+      const singleSetWidth = el.scrollWidth / 4;
+      if (el.scrollLeft >= singleSetWidth * 2) {
+        el.scrollLeft -= singleSetWidth;
+      }
+      el.scrollBy({ left: 360, behavior: "smooth" });
     }
   };
 
@@ -119,7 +150,12 @@ export default function Achievements() {
     playTapSound("pop");
     triggerCertManual();
     if (certRef.current) {
-      certRef.current.scrollBy({ left: 340, behavior: "smooth" });
+      const el = certRef.current;
+      const singleSetWidth = el.scrollWidth / 4;
+      if (el.scrollLeft <= 10) {
+        el.scrollLeft += singleSetWidth;
+      }
+      el.scrollBy({ left: -340, behavior: "smooth" });
     }
   };
 
@@ -127,7 +163,12 @@ export default function Achievements() {
     playTapSound("pop");
     triggerCertManual();
     if (certRef.current) {
-      certRef.current.scrollBy({ left: 340, behavior: "smooth" });
+      const el = certRef.current;
+      const singleSetWidth = el.scrollWidth / 4;
+      if (el.scrollLeft >= singleSetWidth * 2) {
+        el.scrollLeft -= singleSetWidth;
+      }
+      el.scrollBy({ left: 340, behavior: "smooth" });
     }
   };
 
