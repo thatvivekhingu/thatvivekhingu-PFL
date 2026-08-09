@@ -22,7 +22,7 @@ const INTRO_CARDS: IntroCardItem[] = [
   { id: "granted", title: "ACCESS GRANTED.", isGranted: true },
 ];
 
-const INTRO_STORAGE_KEY = "hasSeenIntro_v17_framer_spin";
+const INTRO_STORAGE_KEY = "hasSeenIntro_v18_css_spin_guaranteed";
 
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
@@ -51,6 +51,7 @@ export function IntroAnimation() {
       setShouldShow(false);
     }
   }, []);
+
 
 
 
@@ -216,7 +217,26 @@ export function IntroAnimation() {
           transition={{ duration: 0.85, ease: [0.4, 0, 0.2, 1] }}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#020617] text-[#F8FAFC] select-none overflow-hidden transform-gpu will-change-[opacity,filter,transform]"
         >
+          <style>{`
+            @keyframes spinCoils {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+            @keyframes spinLedSlots {
+              0% { transform: rotate(360deg); }
+              100% { transform: rotate(0deg); }
+            }
+            .arc-spin-coils {
+              animation: spinCoils 10s linear infinite !important;
+              transform-origin: 200px 200px !important;
+            }
+            .arc-spin-slots {
+              animation: spinLedSlots 6s linear infinite !important;
+              transform-origin: 200px 200px !important;
+            }
+          `}</style>
           {/* Cyan Anamorphic Radial Ambient Energy Glow */}
+
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.25)_0%,rgba(2,6,23,0)_68%)] pointer-events-none opacity-90" />
           
           {/* High Tech Cyber Dot Matrix Grid */}
@@ -355,15 +375,16 @@ export function IntroAnimation() {
 
                         <circle cx="200" cy="200" r="164" fill="none" stroke="#38bdf8" strokeWidth="1.5" opacity="0.65" strokeDasharray="8 5" />
 
-                        {/* 10 Photorealistic 3D Copper Wire Hardware Coils (Rotates smoothly) */}
-                        <g className="animate-[spin_16s_linear_infinite] origin-center transform-gpu will-change-transform" id="hardwareCopperRing">
+                        {/* 10 Photorealistic 3D Copper Wire Hardware Coils (Rotates smoothly 360 degrees) */}
+                        <g className="arc-spin-coils" id="hardwareCopperRing">
                           {copperCoilBlocks}
                         </g>
 
                         {/* 30 Counter-Rotating LED Slots */}
-                        <g className="animate-[spin_10s_linear_infinite_reverse] origin-center transform-gpu will-change-transform" id="hardwareLedRing">
+                        <g className="arc-spin-slots" id="hardwareLedRing">
                           {slotNodes}
                         </g>
+
 
                         {/* 3D Concentric Neon Glass Lens Rings */}
                         <circle cx="200" cy="200" r="106" fill="none" stroke="#38bdf8" strokeWidth="3.5" opacity="0.8" />
