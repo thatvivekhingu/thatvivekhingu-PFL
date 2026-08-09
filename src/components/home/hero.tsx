@@ -109,11 +109,12 @@ export default function Hero() {
 
             <div className="w-full space-y-6 pt-2">
               <div className="z-50 text-center px-2">
-                <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap select-none">
+                <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight break-words sm:whitespace-nowrap select-none">
                   <span className="text-foreground">Hi, I&#39;m </span>
                   <AnimatedName className="inline-block" />
                 </h1>
               </div>
+
                 <p className="mt-3 text-sm sm:text-2xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
                   AI & ML Engineer building{" "}
                   <span className="text-cyan-400 font-semibold underline decoration-cyan-500/40 underline-offset-4">

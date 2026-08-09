@@ -327,7 +327,7 @@ export function VianAssistant() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[99990] flex flex-col items-end select-none">
+    <div className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-[99990] flex flex-col items-end select-none">
       {/* Pop-Over Chat Window */}
       <AnimatePresence>
         {isOpen && (
@@ -336,8 +336,9 @@ export function VianAssistant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.92 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative mb-4 w-[92vw] sm:w-[420px] h-[580px] max-h-[85vh] rounded-3xl border border-cyan-500/40 bg-zinc-950/95 backdrop-blur-2xl shadow-[0_0_50px_rgba(6,182,212,0.35)] flex flex-col overflow-hidden text-slate-100 font-sans"
+            className="relative mb-3 w-[calc(100vw-24px)] sm:w-[420px] max-w-[420px] h-[540px] sm:h-[580px] max-h-[82vh] rounded-3xl border border-cyan-500/40 bg-zinc-950/95 backdrop-blur-2xl shadow-[0_0_50px_rgba(6,182,212,0.35)] flex flex-col overflow-hidden text-slate-100 font-sans"
           >
+
             {/* Header Bar */}
             <div className="px-4 py-3 bg-zinc-900/90 border-b border-cyan-500/30 flex items-center justify-between z-20">
               <div className="flex items-center gap-3">
