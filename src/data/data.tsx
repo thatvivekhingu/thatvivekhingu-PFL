@@ -32,13 +32,13 @@ export interface AchievementItem {
 }
 
 export const data = {
-  summary: "Aspiring AI & Machine Learning Engineer pursuing a B.E. in Information Technology at SAL College of Engineering (CGPA 8.35/10). Skilled in Python, Machine Learning, Data Science, NumPy, Pandas, Scikit-learn, and Generative AI with hands-on experience building AI-powered applications and intelligent systems.",
+  summary: "Aspiring AI & Machine Learning Engineer pursuing a B.E. in Information Technology at SAL College of Engineering (CGPA 8.61/10). Skilled in Python, Machine Learning, Data Science, NumPy, Pandas, Scikit-learn, and Generative AI with hands-on experience building AI-powered applications and intelligent systems.",
 
   experience: [
     {
       image: "/experience/foundr_ai.svg",
       company: "SAL College of Engineering",
-      role: "B.E. in Information Technology (CGPA: 8.35 / 10)",
+      role: "B.E. in Information Technology (CGPA: 8.61 / 10)",
       date: "July 2023 – June 2027",
       description: "Pursuing Bachelor of Engineering in IT. Core Coursework: Machine Learning, Artificial Intelligence, Data Science, Probability & Statistics, Linear Algebra, Data Structures & Algorithms, DBMS, Python Programming.",
       location: "Ahmedabad, Gujarat, India",
