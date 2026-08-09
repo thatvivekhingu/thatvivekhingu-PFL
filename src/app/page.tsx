@@ -18,39 +18,40 @@ export default async function Home() {
     <div className="relative min-h-screen w-full bg-background">
       <IntroAnimation />
       <div className="mx-auto flex max-w-5xl flex-col space-y-12 sm:space-y-32 px-4">
-        <BlurFade delay={BLUR_FADE_DELAY} inView>
+        <BlurFade delay={BLUR_FADE_DELAY} offset={0} inView>
           <section id="hero" className="scroll-mt-24 sm:scroll-mt-28">
             <Hero />
           </section>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 2} inView>
+        <BlurFade delay={BLUR_FADE_DELAY * 2} offset={0} inView>
           <section id="dashboard" className="scroll-mt-24 sm:scroll-mt-28">
             <Dashboard />
           </section>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 3} inView>
+        <BlurFade delay={BLUR_FADE_DELAY * 3} offset={0} inView>
           <section id="projects" className="scroll-mt-24 sm:scroll-mt-28">
             <Projects />
           </section>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 4} inView>
+        <BlurFade delay={BLUR_FADE_DELAY * 4} offset={0} inView>
           <section id="achievements" className="scroll-mt-24 sm:scroll-mt-28 space-y-8">
             <Achievements />
             <HackathonBox />
           </section>
         </BlurFade>
 
-        <BlurFade delay={BLUR_FADE_DELAY * 5} inView>
+        <BlurFade delay={BLUR_FADE_DELAY * 5} offset={0} inView>
           <section id="experience" className="scroll-mt-24 sm:scroll-mt-28">
             <Experience />
           </section>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 6} inView>
+        <BlurFade delay={BLUR_FADE_DELAY * 6} offset={0} inView>
           <section id="earth" className="scroll-mt-24 sm:scroll-mt-28">
             <Earth photos={sunsetPhotos} />
           </section>
         </BlurFade>
       </div>
+
     </div>
   );
 }

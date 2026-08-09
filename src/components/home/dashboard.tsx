@@ -302,11 +302,12 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
       <div className="relative mx-auto h-full rounded-xl border p-2 md:rounded-2xl md:p-2">
         <GlowingEffect
           spread={40}
-          glow={true}
-          disabled={false}
+          glow={false}
+          disabled={true}
           proximity={64}
           inactiveZone={0.01}
         />
+
         <div
           className="group/glow relative flex h-full flex-col justify-between gap-2 overflow-hidden rounded-lg border-0.75 p-4 shadow-[0px_0px_12px_0px_#ebecf0] dark:shadow-[0px_0px_27px_0px_#2D2D2D] bg-background transition-all"
           style={{
