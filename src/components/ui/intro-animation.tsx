@@ -82,14 +82,14 @@ export function IntroAnimation() {
       return () => clearTimeout(timer);
     }
 
-    // Index 5: STARK ARC REACTOR // ACCESS GRANTED (2.6s hold)
+    // Index 5: REAL STARK ARC REACTOR LIGHT BLAST (2.6s hold)
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {
           handleComplete();
-        }, 1000);
+        }, 1100);
       }, 2600);
       return () => clearTimeout(timer);
     }
@@ -132,7 +132,7 @@ export function IntroAnimation() {
                 }
           }
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black text-[#F8FAFC] select-none overflow-hidden"
         >
           {/* Stark HUD Anamorphic Background Flares */}
@@ -184,7 +184,7 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* Authentic Iron Man Arc Reactor + ACCESS GRANTED Stage */}
+              {/* Realistic Arc Reactor Core + Repulsor Light Blast */}
               {currentIndex === 5 && (
                 <motion.div
                   key="arc-reactor-card"
@@ -193,79 +193,124 @@ export function IntroAnimation() {
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   className="relative flex flex-col items-center space-y-4"
                 >
-                  {/* Authentic Arc Reactor Glowing Core SVG */}
-                  <div className="relative mb-1 flex items-center justify-center">
-                    <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-2xl animate-pulse" />
+                  {/* Arc Reactor Core Element */}
+                  <div className="relative mb-2 flex items-center justify-center">
+                    {/* Glowing Core Ambient Halo */}
+                    <div className="absolute inset-0 rounded-full bg-cyan-400/40 blur-3xl animate-pulse" />
+
+                    {/* Realistic Iron Man Arc Reactor Chassis & Core SVG */}
                     <motion.svg
-                      initial={{ scale: 0.8 }}
-                      animate={{ scale: [0.95, 1.05, 0.95] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      initial={{ scale: 0.85 }}
+                      animate={
+                        isTransitioning
+                          ? { scale: [1, 1.4, 2], filter: "brightness(3)" }
+                          : { scale: [0.96, 1.04, 0.96] }
+                      }
+                      transition={
+                        isTransitioning
+                          ? { duration: 1.0, ease: "easeIn" }
+                          : { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                      }
                       viewBox="0 0 200 200"
-                      className="w-32 h-32 sm:w-40 sm:h-40 drop-shadow-[0_0_30px_rgba(56,189,248,0.95)]"
+                      className="w-36 h-36 sm:w-48 sm:h-48 drop-shadow-[0_0_45px_rgba(56,189,248,1)]"
                     >
-                      {/* Outer Counter-Rotating Segmented HUD Rings */}
+                      {/* Heavy Outer Metallic Rim */}
                       <circle
                         cx="100"
                         cy="100"
-                        r="88"
+                        r="92"
+                        fill="none"
+                        stroke="#0369a1"
+                        strokeWidth="8"
+                      />
+                      <circle
+                        cx="100"
+                        cy="100"
+                        r="84"
                         fill="none"
                         stroke="#0284c7"
-                        strokeWidth="4"
-                        strokeDasharray="14 8"
-                        className="animate-[spin_14s_linear_infinite]"
+                        strokeWidth="3"
+                        strokeDasharray="16 8"
+                        className="animate-[spin_12s_linear_infinite]"
                       />
                       <circle
                         cx="100"
                         cy="100"
-                        r="76"
+                        r="74"
                         fill="none"
                         stroke="#38bdf8"
-                        strokeWidth="3"
-                        strokeDasharray="4 10"
-                        className="animate-[spin_9s_linear_infinite_reverse]"
+                        strokeWidth="2"
+                        strokeDasharray="4 12"
+                        className="animate-[spin_8s_linear_infinite_reverse]"
                       />
 
-                      {/* 10 Arc Reactor Energy Coils */}
+                      {/* 10 Copper Arc Reactor Coils */}
                       {[0, 36, 72, 108, 144, 180, 216, 252, 288, 324].map((deg) => (
-                        <rect
-                          key={deg}
-                          x="95"
-                          y="18"
-                          width="10"
-                          height="22"
-                          rx="2"
-                          fill="#38bdf8"
-                          transform={`rotate(${deg} 100 100)`}
-                          className="opacity-95"
-                        />
+                        <g key={deg} transform={`rotate(${deg} 100 100)`}>
+                          <rect
+                            x="94"
+                            y="14"
+                            width="12"
+                            height="24"
+                            rx="3"
+                            fill="#38bdf8"
+                            stroke="#7dd3fc"
+                            strokeWidth="1.5"
+                            className="opacity-95"
+                          />
+                          <line
+                            x1="100"
+                            y1="14"
+                            x2="100"
+                            y2="38"
+                            stroke="#bae6fd"
+                            strokeWidth="2"
+                          />
+                        </g>
                       ))}
 
-                      {/* Inner Ring */}
+                      {/* Inner Vibranium Ring */}
                       <circle
                         cx="100"
                         cy="100"
-                        r="46"
-                        fill="none"
+                        r="45"
+                        fill="#0284c7"
+                        fillOpacity="0.2"
                         stroke="#38bdf8"
-                        strokeWidth="5"
+                        strokeWidth="6"
+                        className="drop-shadow-[0_0_20px_#38bdf8]"
                       />
 
-                      {/* Arc Reactor Triangular Vibranium Core */}
+                      {/* Triangular Arc Reactor Energy Core */}
                       <polygon
-                        points="100,62 132,118 68,118"
+                        points="100,60 134,118 66,118"
                         fill="none"
-                        stroke="#f0f9ff"
-                        strokeWidth="4"
+                        stroke="#ffffff"
+                        strokeWidth="4.5"
                         strokeLinejoin="round"
+                        className="drop-shadow-[0_0_25px_rgba(255,255,255,1)]"
+                      />
+                      <polygon
+                        points="100,68 126,113 74,113"
+                        fill="#38bdf8"
+                        fillOpacity="0.4"
+                        stroke="#7dd3fc"
+                        strokeWidth="2"
                       />
 
-                      {/* Center Power Gem */}
+                      {/* Center Blinding Plasma Core Gem */}
                       <circle
                         cx="100"
                         cy="100"
-                        r="16"
+                        r="18"
                         fill="#ffffff"
-                        className="drop-shadow-[0_0_20px_rgba(255,255,255,1)]"
+                        className="drop-shadow-[0_0_30px_rgba(255,255,255,1)]"
+                      />
+                      <circle
+                        cx="100"
+                        cy="100"
+                        r="8"
+                        fill="#e0f2fe"
                       />
                     </motion.svg>
                   </div>
@@ -273,18 +318,18 @@ export function IntroAnimation() {
                   {/* Stark Clearance Status Line */}
                   <div className="z-10 flex items-center gap-2 font-mono text-[11px] sm:text-xs text-cyan-300 tracking-[0.3em] uppercase font-bold">
                     <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-                    <span>STARK INDUSTRIES // ARC REACTOR ONLINE</span>
+                    <span>STARK INDUSTRIES // ARC REACTOR MAXIMUM OUTPUT</span>
                   </div>
 
                   {/* Metallic Hologram Badge */}
                   <div className="z-10 relative px-8 sm:px-14 py-4 sm:py-5 rounded-2xl bg-black/90 border-2 border-cyan-400/90 backdrop-blur-2xl shadow-[0_0_80px_rgba(34,211,238,0.75)] text-center">
-                    {/* Futuristic Corner Brackets */}
+                    {/* Corner HUD Brackets */}
                     <div className="absolute top-1.5 left-1.5 w-3.5 h-3.5 border-t-2 border-l-2 border-cyan-300" />
                     <div className="absolute top-1.5 right-1.5 w-3.5 h-3.5 border-t-2 border-r-2 border-cyan-300" />
                     <div className="absolute bottom-1.5 left-1.5 w-3.5 h-3.5 border-b-2 border-l-2 border-cyan-300" />
                     <div className="absolute bottom-1.5 right-1.5 w-3.5 h-3.5 border-b-2 border-r-2 border-cyan-300" />
 
-                    {/* ACCESS GRANTED Bold Gradient Header */}
+                    {/* ACCESS GRANTED Bold Header */}
                     <span className="font-mono text-2xl sm:text-4xl font-black tracking-[0.35em] bg-gradient-to-r from-cyan-300 via-white to-sky-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(56,189,248,0.95)] uppercase block">
                       ACCESS GRANTED
                     </span>
@@ -299,13 +344,13 @@ export function IntroAnimation() {
             </AnimatePresence>
           </div>
 
-          {/* Stark Repulsor Blast Iris Exit Pulse */}
+          {/* Real Repulsor Light Beam Blast Burst to Open Dashboard */}
           {isTransitioning && (
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: [0, 10, 30], opacity: [0, 0.95, 0] }}
-              transition={{ duration: 1.0, ease: "easeOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-tr from-cyan-400 via-sky-300 to-amber-300 shadow-[0_0_120px_rgba(56,189,248,1)] pointer-events-none"
+              animate={{ scale: [0, 8, 35], opacity: [0, 1, 0] }}
+              transition={{ duration: 1.1, ease: "easeInOut" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-gradient-to-tr from-cyan-300 via-white to-sky-400 shadow-[0_0_160px_rgba(56,189,248,1)] pointer-events-none z-[100000]"
             />
           )}
         </motion.div>
