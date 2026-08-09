@@ -12,8 +12,7 @@ import {
 import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
 import { PhotoLightbox, PhotoLightboxItem } from "@/components/ui/photo-lightbox";
 import { playTapSound } from "@/lib/sound";
-
-
+import { Marquee } from "@/components/ui/marquee";
 
 export default function Achievements() {
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoLightboxItem | null>(null);
@@ -39,19 +38,19 @@ export default function Achievements() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
-            <IconAward className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            <IconAward className="h-5 w-5 text-cyan-400" />
             Key Achievements & Recognition
           </h3>
           <span className="text-xs text-muted-foreground hidden sm:inline-block">
-            Scroll horizontally • Click image for Full View
+            Infinite Loop • Pause on Hover • Click Image for Full View
           </span>
         </div>
 
-        <div className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none snap-x snap-mandatory">
+        <Marquee pauseOnHover repeat={4} className="[--duration:35s] [--gap:1.5rem] py-2">
           {data.achievements.map((item) => (
             <div
               key={item.title}
-              className="w-80 sm:w-96 shrink-0 snap-start group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/70 backdrop-blur-md transition-all duration-500 hover:border-amber-500/80 hover:shadow-2xl hover:shadow-amber-500/20 hover:scale-[1.02]"
+              className="w-80 sm:w-96 shrink-0 group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/30 bg-zinc-900/80 backdrop-blur-md transition-all duration-500 hover:border-cyan-400 hover:shadow-2xl hover:shadow-cyan-500/20 hover:scale-[1.02]"
             >
               {/* Photo Preview Container */}
               {item.image && (
@@ -163,29 +162,30 @@ export default function Achievements() {
               </div>
             </div>
           ))}
-        </div>
+        </Marquee>
       </div>
 
       {/* Certifications */}
       <div className="space-y-6 pt-4">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
-            <IconCertificate className="h-5 w-5 text-indigo-500" />
+            <IconCertificate className="h-5 w-5 text-cyan-400" />
             Certifications & Specializations
           </h3>
           <span className="text-xs text-muted-foreground hidden sm:inline-block">
-            Scroll horizontally • Click card to flip 3D
+            Infinite Loop • Reverse Scroll • Click Card for 3D Flip
           </span>
         </div>
 
-        <div className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none snap-x snap-mandatory">
+        <Marquee reverse pauseOnHover repeat={4} className="[--duration:30s] [--gap:1.5rem] py-2">
           {data.certificates.map((cert) => (
-            <div key={cert.title} className="snap-start shrink-0">
+            <div key={cert.title} className="shrink-0">
               <CertFlipCard cert={cert} handleOpenPhoto={handleOpenPhoto} />
             </div>
           ))}
-        </div>
+        </Marquee>
       </div>
+
 
       {/* Lightbox Modal */}
       <PhotoLightbox item={selectedPhoto} onClose={() => setSelectedPhoto(null)} />
