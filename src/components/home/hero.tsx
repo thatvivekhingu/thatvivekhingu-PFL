@@ -109,31 +109,31 @@ export default function Hero() {
             </div>
 
             <div className="w-full space-y-6 pt-2">
-              <BlurFade delay={0.005 * 1} inView>
-                <div className="z-50 text-center px-2">
-                  <motion.h1
-                    initial={{
-                      opacity: 0,
-                      y: 18,
-                      scale: 0.98,
-                      filter: "blur(4px)",
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      filter: "blur(0px)",
-                    }}
-                    transition={{
-                      duration: 0.9,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap select-none"
-                  >
-                    <span className="text-foreground">Hi, I&#39;m </span>
-                    <AnimatedName className="inline-block" />
-                  </motion.h1>
-                </div>
+              <div className="z-50 text-center px-2">
+                <motion.h1
+                  initial={{
+                    opacity: 0,
+                    y: 25,
+                    scale: 0.97,
+                    filter: "blur(8px)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                  }}
+                  transition={{
+                    duration: 1.0,
+                    delay: 0.25,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap select-none"
+                >
+                  <span className="text-foreground">Hi, I&#39;m </span>
+                  <AnimatedName className="inline-block" />
+                </motion.h1>
+              </div>
                 <p className="mt-3 text-sm sm:text-2xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
                   AI & ML Engineer building{" "}
                   <span className="text-cyan-400 font-semibold underline decoration-cyan-500/40 underline-offset-4">
@@ -141,7 +141,6 @@ export default function Hero() {
                   </span>
                   .
                 </p>
-              </BlurFade>
               <BlurFade delay={0.005 * 2} direction="down" inView>
                 <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
                   <div className="px-4 py-2 rounded-full border border-border/60 bg-background/50 backdrop-blur-md shadow-lg">
