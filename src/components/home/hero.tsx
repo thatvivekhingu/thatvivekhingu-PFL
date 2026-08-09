@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import profilePic from "@/images/profile-bw.jpg";
 import profilePicHover from "@/images/profile-color.jpg";
@@ -111,7 +112,14 @@ export default function Hero() {
               <BlurFade delay={0.005 * 1} inView>
                 <div className="z-50 text-center px-2">
                   <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap">
-                    <span className="text-foreground">Hi, I&#39;m </span>
+                    <motion.span
+                      initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-foreground inline-block"
+                    >
+                      Hi, I&#39;m{" "}
+                    </motion.span>
                     <AnimatedName className="inline-block" />
                   </h1>
                 </div>
