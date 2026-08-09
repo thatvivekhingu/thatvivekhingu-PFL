@@ -1,5 +1,6 @@
 import Hero from "@/components/home/hero"
 import Experience from "@/components/home/experience"
+import SkillsStack from "@/components/home/skills-stack"
 import Dashboard from "@/components/home/dashboard";
 import Projects from "@/components/home/projects"
 import Achievements from "@/components/home/achievements"
@@ -17,7 +18,7 @@ export default async function Home() {
   return (
     <div className="relative min-h-screen w-full bg-background">
       <IntroAnimation />
-      <div className="mx-auto flex max-w-5xl flex-col space-y-12 sm:space-y-32 px-4">
+      <div className="mx-auto flex max-w-5xl flex-col space-y-12 sm:space-y-20 px-4">
         <BlurFade delay={BLUR_FADE_DELAY} offset={0} inView>
           <section id="hero" className="scroll-mt-24 sm:scroll-mt-28">
             <Hero />
@@ -46,12 +47,17 @@ export default async function Home() {
           </section>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 6} offset={0} inView>
+          <section id="skills" className="scroll-mt-24 sm:scroll-mt-28">
+            <SkillsStack />
+          </section>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 7} offset={0} inView>
           <section id="earth" className="scroll-mt-24 sm:scroll-mt-28">
             <Earth photos={sunsetPhotos} />
           </section>
         </BlurFade>
       </div>
-
     </div>
   );
 }
+
