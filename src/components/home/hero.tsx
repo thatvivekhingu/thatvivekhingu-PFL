@@ -141,16 +141,16 @@ export default function Hero() {
 
             <div className="w-full space-y-6">
               <BlurFade delay={0.005 * 1} inView>
-                <p className="z-50 subpixel-antialiased leading-[1.3] text-3xl sm:text-6xl md:text-7xl font-bold text-center whitespace-normal sm:whitespace-nowrap px-2">
-                  <span className="inline-block pb-2 bg-gradient-to-b from-zinc-200 dark:from-zinc-50 to-zinc-950 dark:to-zinc-300 bg-clip-text text-transparent">
+                <p className="z-50 subpixel-antialiased leading-[1.2] text-3xl sm:text-6xl md:text-7xl font-bold text-center px-2">
+                  <span className="text-zinc-900 dark:text-zinc-50 font-extrabold tracking-tight">
                     Hi, I&#39;m{" "}
-                    <AnimatedName
-                      phase={phase}
-                      suffix={suffix}
-                      onExitComplete={handleExitComplete}
-                      className="font-script font-normal text-[1.05em] leading-none align-baseline"
-                    />
                   </span>
+                  <AnimatedName
+                    phase={phase}
+                    suffix={suffix}
+                    onExitComplete={handleExitComplete}
+                    className="font-script font-normal text-[1.05em] leading-none align-baseline inline-block"
+                  />
                 </p>
                 <p className="text-sm tracking-tight font-medium sm:text-2xl text-center text-secondary-foreground px-4">
                   AI & ML Engineer building{" "}

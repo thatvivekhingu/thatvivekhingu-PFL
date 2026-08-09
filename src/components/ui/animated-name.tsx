@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const INITIAL_REVEAL_MS = 1100;
@@ -19,59 +19,49 @@ interface AnimatedNameProps {
 }
 
 export function AnimatedName({ className }: AnimatedNameProps) {
-  const nameText = "Vivek Hingu";
-  const letters = nameText.split("");
+  const fullText = "Vivek Hingu";
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTypingDone, setIsTypingDone] = useState(false);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.04, delayChildren: 0.1 * i },
-    }),
-  };
+  useEffect(() => {
+    let index = 0;
+    setDisplayedText("");
+    setIsTypingDone(false);
 
-  const childVariants = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      scale: 1,
-      transition: {
-        type: "spring" as const,
-        damping: 12,
-        stiffness: 200,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 20,
-      rotateX: -90,
-      scale: 0.8,
-    },
-  };
+    const interval = setInterval(() => {
+      if (index < fullText.length) {
+        setDisplayedText(fullText.slice(0, index + 1));
+        index++;
+      } else {
+        setIsTypingDone(true);
+        clearInterval(interval);
+      }
+    }, 90);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <motion.span
-      className={cn("inline-flex flex-wrap items-center justify-center gap-[0.02em] cursor-pointer group", className)}
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={cn(
+        "inline-inline items-center justify-center whitespace-nowrap cursor-pointer group relative",
+        className
+      )}
     >
-      {letters.map((char, index) => (
-        <motion.span
-          key={`${char}-${index}`}
-          variants={childVariants}
-          whileHover={{
-            scale: 1.25,
-            y: -6,
-            rotate: index % 2 === 0 ? 8 : -8,
-            transition: { duration: 0.15 },
-          }}
-          className="inline-block bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-950 dark:from-zinc-50 dark:via-zinc-200 dark:to-zinc-400 bg-clip-text text-transparent group-hover:from-cyan-400 group-hover:via-indigo-400 group-hover:to-amber-400 transition-all duration-300 drop-shadow-[0_0_10px_rgba(56,189,248,0.2)]"
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
-      ))}
+      <span className="relative inline-block font-script text-transparent bg-clip-text bg-[length:200%_100%] bg-gradient-to-r from-cyan-400 via-indigo-400 via-amber-400 to-cyan-400 dark:from-cyan-300 dark:via-indigo-300 dark:via-amber-300 dark:to-cyan-300 animate-shimmer transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+        {displayedText}
+
+        {/* Typing Blinking Cursor */}
+        {!isTypingDone && (
+          <span className="inline-block w-[3px] h-[0.8em] ml-1 bg-cyan-400 dark:bg-amber-400 animate-pulse align-middle rounded-full" />
+        )}
+      </span>
+
+      {/* Subtle Bottom Accent Glow Line */}
+      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-amber-500 opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" />
     </motion.span>
   );
 }
