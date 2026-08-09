@@ -106,11 +106,11 @@ export const Navbar = ({
           )}
         >
           {/* Logo on the left */}
-          <div className="flex items-center mr-4 sm:mr-16">
+          <div className="flex items-center mr-3 sm:mr-10 flex-shrink-0">
             {mounted && (
               <AnimatedLogo
                 theme={resolvedTheme === "dark" ? "dark" : "light"}
-                className="w-6 h-6 sm:w-7 sm:h-7 cursor-pointer"
+                className="w-9 h-9 sm:w-10 sm:h-10 cursor-pointer flex-shrink-0"
                 onClick={handleLogoClick}
               />
             )}
