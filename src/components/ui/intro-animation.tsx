@@ -22,7 +22,7 @@ const INTRO_CARDS: IntroCardItem[] = [
   { id: "granted", title: "ACCESS GRANTED.", isGranted: true },
 ];
 
-const INTRO_STORAGE_KEY = "hasSeenIntro_v16_spinning_reactor";
+const INTRO_STORAGE_KEY = "hasSeenIntro_v17_framer_spin";
 
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
@@ -51,6 +51,7 @@ export function IntroAnimation() {
       setShouldShow(false);
     }
   }, []);
+
 
 
   // Timeline Engine (Starts IMMEDIATELY at millisecond 0)
@@ -284,17 +285,21 @@ export function IntroAnimation() {
                     <motion.div
                       animate={
                         isTransitioning
-                          ? { scale: [1, 1.35, 1.9], opacity: [1, 0.8, 0] }
-                          : { scale: [0.98, 1.02, 0.98] }
+                          ? { scale: [1, 1.35, 1.9], opacity: [1, 0.8, 0], rotate: 360 }
+                          : { scale: [0.98, 1.02, 0.98], rotate: [0, 360] }
                       }
                       transition={
                         isTransitioning
                           ? { duration: 0.8, ease: "easeIn" }
-                          : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }
+                          : {
+                              scale: { duration: 2.2, repeat: Infinity, ease: "easeInOut" },
+                              rotate: { duration: 12, repeat: Infinity, ease: "linear" },
+                            }
                       }
                       className="relative w-64 h-64 sm:w-84 sm:h-84 drop-shadow-[0_0_50px_rgba(56,189,248,0.9)] transform-gpu will-change-transform"
                     >
-                      <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible animate-[spin_12s_linear_infinite] origin-center transform-gpu will-change-transform">
+                      <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible">
+
 
                         <defs>
                           {/* Outer Heavy Steel Chassis Metallic Gradients */}
