@@ -212,7 +212,7 @@ export const data = {
       location: "LDCE, Ahmedabad",
       award: "Certificate of Participation",
       badgeType: "Participation",
-      image: "/hackathons/tarkshaastra-2k26.png",
+      image: "/hackathons/tarkshaastra-2k26.jpg",
       tags: ["24-Hour Hackathon", "LDCE TechFest 2026", "Lakshya 2.0", "Online Round"],
       description: "Participated in the intense 24-hour sprint for tarkShaastra 2k26 during Lakshya 2.0 TechFest at LDCE Ahmedabad.",
     },
@@ -225,11 +225,12 @@ export const data = {
       location: "Dhirubhai Ambani University (DA-IICT)",
       award: "Certificate of Participation",
       badgeType: "Participation",
-      image: "/hackathons/hackout-25.png",
+      image: "/hackathons/hackout-25.jpg",
       tags: ["DA-IICT", "Hackathon Sprint", "DA-IICT Fest", "Innovative Solution"],
       description: "Participated in HACKOUT '25 organized by the Annual Festival Committee at Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT).",
     },
   ] as HackathonCertificateItem[],
+
 
 
   contact: [

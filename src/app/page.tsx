@@ -3,6 +3,7 @@ import Experience from "@/components/home/experience"
 import Dashboard from "@/components/home/dashboard";
 import Projects from "@/components/home/projects"
 import Achievements from "@/components/home/achievements"
+import HackathonBox from "@/components/home/hackathon-box"
 import Earth from "@/components/home/earth"
 import { BlurFade } from "@/components/ui/blur-fade";
 import { getSunsetPhotos } from "@/lib/sunsets";
@@ -33,10 +34,12 @@ export default async function Home() {
           </section>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4} inView>
-          <section id="achievements" className="scroll-mt-24 sm:scroll-mt-28">
+          <section id="achievements" className="scroll-mt-24 sm:scroll-mt-28 space-y-8">
             <Achievements />
+            <HackathonBox />
           </section>
         </BlurFade>
+
         <BlurFade delay={BLUR_FADE_DELAY * 5} inView>
           <section id="experience" className="scroll-mt-24 sm:scroll-mt-28">
             <Experience />

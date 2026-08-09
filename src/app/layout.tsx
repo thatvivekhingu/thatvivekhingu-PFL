@@ -58,8 +58,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { HackathonVaultDrawer } from "@/components/ui/hackathon-vault";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -81,7 +79,6 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <Navbar navItems={data.nav} />
             <CommandPalette posts={palettePosts} />
-            <HackathonVaultDrawer />
             <Image
               src="/layout/background-ellipse3.svg"
               alt=""
@@ -101,4 +98,5 @@ export default function RootLayout({
     </ViewTransitions>
   );
 }
+
 

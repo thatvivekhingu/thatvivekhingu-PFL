@@ -8,12 +8,11 @@ import {
   IconCertificate,
   IconExternalLink,
   IconMaximize,
-  IconTrophy,
 } from "@tabler/icons-react";
 import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
 import { PhotoLightbox, PhotoLightboxItem } from "@/components/ui/photo-lightbox";
 import { playTapSound } from "@/lib/sound";
-import { openHackathonVault } from "@/components/ui/hackathon-vault";
+
 
 
 export default function Achievements() {
@@ -310,43 +309,8 @@ function CertFlipCard({
           </div>
         </div>
       </div>
-
-      {/* HACKATHON VAULT SPECIAL SIDEWAY CALLOUT BANNER */}
-      <div className="pt-4">
-        <div
-          onClick={() => {
-            playTapSound("access_granted");
-            openHackathonVault();
-          }}
-
-          className="group relative overflow-hidden rounded-3xl border border-cyan-500/40 bg-gradient-to-r from-cyan-950/40 via-zinc-900/90 to-blue-950/40 p-6 sm:p-8 backdrop-blur-xl shadow-[0_0_40px_rgba(6,182,212,0.15)] hover:shadow-[0_0_60px_rgba(6,182,212,0.3)] transition-all duration-500 cursor-pointer flex flex-col md:flex-row items-center justify-between gap-6"
-        >
-          <div className="space-y-2 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-mono font-bold border border-cyan-500/40">
-              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-              <span>SPECIAL VAULT PROTOCOL</span>
-            </div>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-cyan-300 transition-colors flex items-center justify-center md:justify-start gap-2">
-              <IconTrophy className="h-6 w-6 text-cyan-400 group-hover:scale-125 transition-transform duration-300" />
-              Explore Hackathon Vault
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-xl">
-              Access the exclusive side drawer containing verified hackathon certificates from <strong>TIC-TECH-TOE &apos;25 (IEEE DA-IICT)</strong>, <strong>tarkShaastra 2k26 (LDCE)</strong>, and <strong>HACKOUT &apos;25</strong>.
-            </p>
-          </div>
-
-          <div className="shrink-0 flex items-center gap-3">
-            <button className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-extrabold rounded-2xl text-xs sm:text-sm font-mono tracking-wider shadow-lg shadow-cyan-500/30 group-hover:shadow-cyan-400/50 group-hover:scale-105 transition-all flex items-center gap-2">
-              <span>OPEN VAULT DRAWER</span>
-              <IconExternalLink className="h-4 w-4" />
-            </button>
-          </div>
-
-          {/* Sci-fi glowing background element */}
-          <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all pointer-events-none" />
-        </div>
-      </div>
     </div>
   );
 }
+
 
