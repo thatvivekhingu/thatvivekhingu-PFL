@@ -101,7 +101,7 @@ export const Navbar = ({
             duration: 0.2,
           }}
           className={cn(
-            "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-lg fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg sm:bg-none dark:bg-background/10 sm:dark:bg-background/20 bg-white/30 z-[5000] pr-4 pl-6 py-4 items-center justify-between",
+            "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-full dark:bg-zinc-950/80 bg-white/80 border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl shadow-black/20 z-[5000] pr-4 pl-6 py-3 items-center justify-between transition-all duration-300",
             className
           )}
         >
@@ -117,34 +117,34 @@ export const Navbar = ({
           </div>
 
           {/* Links in the center */}
-          <div className="flex items-center gap-3 sm:gap-6 ml-auto mr-0 sm:mr-4">
+          <div className="flex items-center gap-1 sm:gap-3 ml-auto mr-0 sm:mr-4">
             {navItems.map((navItem, idx) => (
               <button
                 key={`link=${idx}`}
                 onClick={() => handleNavClick(navItem.link)}
                 className={cn(
-                  "relative font-semibold text-slate-700 dark:text-muted-foreground items-center flex space-x-1 hover:text-black dark:hover:text-white transition-colors duration-300"
+                  "relative font-bold text-zinc-800 dark:text-zinc-100 px-3 py-1.5 rounded-full hover:bg-zinc-200/70 dark:hover:bg-zinc-800/80 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer"
                 )}
               >
                 <span className="block sm:hidden">{navItem.icon}</span>
-                <span className="hidden sm:block text-sm">{navItem.name}</span>
+                <span className="hidden sm:block text-xs sm:text-sm tracking-wide">{navItem.name}</span>
               </button>
             ))}
             <span
               aria-hidden
-              className="h-5 w-px self-center bg-zinc-300/60 dark:bg-zinc-700/60"
+              className="h-5 w-px self-center bg-zinc-300 dark:bg-zinc-700"
             />
             <a
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Star this site on GitHub`}
-              className="group inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 hover:bg-background/70 hover:border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              className="group inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-background/80 hover:bg-background hover:border-amber-500/50 px-2.5 py-1 text-xs font-bold text-foreground transition-all"
             >
               <IconBrandGithub className="h-3.5 w-3.5" />
               <span className="flex items-center gap-0.5 tabular-nums">
-                <IconStar className="h-3 w-3 transition-colors group-hover:text-amber-400 group-hover:animate-spin-grow" />
-                {stars > 0 ? stars : 1}
+                <IconStar className="h-3.5 w-3.5 text-amber-500 fill-amber-500/20 group-hover:fill-amber-500 transition-colors" />
+                <span>{stars > 0 ? stars : 1}</span>
               </span>
             </a>
             <CommandPaletteButton />
