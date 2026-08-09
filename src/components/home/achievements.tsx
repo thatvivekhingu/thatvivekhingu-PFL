@@ -22,14 +22,22 @@ export default function Achievements() {
   const scrollLeft = (ref: React.RefObject<HTMLDivElement | null>) => {
     playTapSound("pop");
     if (ref.current) {
-      ref.current.scrollBy({ left: -320, behavior: "smooth" });
+      const step = ((ref.current.firstElementChild as HTMLElement)?.offsetWidth || 340) + 24;
+      ref.current.scrollTo({
+        left: ref.current.scrollLeft - step,
+        behavior: "smooth",
+      });
     }
   };
 
   const scrollRight = (ref: React.RefObject<HTMLDivElement | null>) => {
     playTapSound("pop");
     if (ref.current) {
-      ref.current.scrollBy({ left: 320, behavior: "smooth" });
+      const step = ((ref.current.firstElementChild as HTMLElement)?.offsetWidth || 340) + 24;
+      ref.current.scrollTo({
+        left: ref.current.scrollLeft + step,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -49,19 +57,19 @@ export default function Achievements() {
           </h3>
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              Auto-scroll • Manual navigation
+              Click arrows or drag to scroll
             </span>
             <button
               onClick={() => scrollLeft(achievementsRef)}
               aria-label="Scroll left"
-              className="p-1.5 rounded-full border border-border/60 bg-background/80 hover:bg-muted text-foreground transition-colors"
+              className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
               <IconChevronLeft className="h-4 w-4" />
             </button>
             <button
               onClick={() => scrollRight(achievementsRef)}
               aria-label="Scroll right"
-              className="p-1.5 rounded-full border border-border/60 bg-background/80 hover:bg-muted text-foreground transition-colors"
+              className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
               <IconChevronRight className="h-4 w-4" />
             </button>
@@ -70,7 +78,7 @@ export default function Achievements() {
 
         <div
           ref={achievementsRef}
-          className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-6 py-2 scrollbar-none"
+          className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none"
         >
           {data.achievements.map((item) => (
             <div
@@ -202,14 +210,14 @@ export default function Achievements() {
             <button
               onClick={() => scrollLeft(certificatesRef)}
               aria-label="Scroll left"
-              className="p-1.5 rounded-full border border-border/60 bg-background/80 hover:bg-muted text-foreground transition-colors"
+              className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
               <IconChevronLeft className="h-4 w-4" />
             </button>
             <button
               onClick={() => scrollRight(certificatesRef)}
               aria-label="Scroll right"
-              className="p-1.5 rounded-full border border-border/60 bg-background/80 hover:bg-muted text-foreground transition-colors"
+              className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
               <IconChevronRight className="h-4 w-4" />
             </button>
@@ -218,7 +226,7 @@ export default function Achievements() {
 
         <div
           ref={certificatesRef}
-          className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-6 py-2 scrollbar-none"
+          className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none"
         >
           {data.certificates.map((cert) => (
             <div key={cert.title} className="snap-start shrink-0">
