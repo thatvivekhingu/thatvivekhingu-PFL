@@ -14,6 +14,8 @@ export default function Achievements() {
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoLightboxItem | null>(null);
   const [achievementsOffset, setAchievementsOffset] = useState(0);
   const [certificatesOffset, setCertificatesOffset] = useState(0);
+  const [isAchievementsPaused, setIsAchievementsPaused] = useState(false);
+  const [isCertificatesPaused, setIsCertificatesPaused] = useState(false);
 
   const handleOpenPhoto = (item: PhotoLightboxItem) => {
     playTapSound("chime");
@@ -22,21 +24,25 @@ export default function Achievements() {
 
   const handleAchievementsPrev = () => {
     playTapSound("pop");
+    setIsAchievementsPaused(true);
     setAchievementsOffset((prev) => prev + 360);
   };
 
   const handleAchievementsNext = () => {
     playTapSound("pop");
+    setIsAchievementsPaused(true);
     setAchievementsOffset((prev) => prev - 360);
   };
 
   const handleCertificatesPrev = () => {
     playTapSound("pop");
+    setIsCertificatesPaused(true);
     setCertificatesOffset((prev) => prev + 340);
   };
 
   const handleCertificatesNext = () => {
     playTapSound("pop");
+    setIsCertificatesPaused(true);
     setCertificatesOffset((prev) => prev - 340);
   };
 
@@ -56,8 +62,20 @@ export default function Achievements() {
           </h3>
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              Continuous auto-scroll • Manual navigation
+              {isAchievementsPaused ? "Manual mode active" : "Auto-scrolling"}
             </span>
+            {isAchievementsPaused && (
+              <button
+                onClick={() => {
+                  playTapSound("pop");
+                  setIsAchievementsPaused(false);
+                  setAchievementsOffset(0);
+                }}
+                className="text-[11px] font-semibold text-amber-500 hover:underline mr-1"
+              >
+                Reset Auto-scroll
+              </button>
+            )}
             <button
               onClick={handleAchievementsPrev}
               aria-label="Scroll left"
@@ -82,7 +100,7 @@ export default function Achievements() {
               transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
-            <Marquee pauseOnHover repeat={3} reverse={true} className="[--duration:35s] py-1">
+            <Marquee paused={isAchievementsPaused} pauseOnHover repeat={3} reverse={true} className="[--duration:35s] py-1">
               {data.achievements.map((item) => (
                 <div
                   key={item.title}
@@ -210,8 +228,20 @@ export default function Achievements() {
           </h3>
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              Continuous auto-scroll • Tap card to flip 3D
+              {isCertificatesPaused ? "Manual mode active" : "Auto-scrolling"}
             </span>
+            {isCertificatesPaused && (
+              <button
+                onClick={() => {
+                  playTapSound("pop");
+                  setIsCertificatesPaused(false);
+                  setCertificatesOffset(0);
+                }}
+                className="text-[11px] font-semibold text-indigo-400 hover:underline mr-1"
+              >
+                Reset Auto-scroll
+              </button>
+            )}
             <button
               onClick={handleCertificatesPrev}
               aria-label="Scroll left"
@@ -236,7 +266,7 @@ export default function Achievements() {
               transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
-            <Marquee pauseOnHover repeat={3} reverse={false} className="[--duration:28s] py-1">
+            <Marquee paused={isCertificatesPaused} pauseOnHover repeat={3} reverse={false} className="[--duration:28s] py-1">
               {data.certificates.map((cert) => (
                 <CertFlipCard key={cert.title} cert={cert} handleOpenPhoto={handleOpenPhoto} />
               ))}
