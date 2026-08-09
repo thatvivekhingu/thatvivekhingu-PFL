@@ -101,16 +101,16 @@ export const Navbar = ({
             duration: 0.2,
           }}
           className={cn(
-            "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-full dark:bg-zinc-950/80 bg-white/80 border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl shadow-black/20 z-[5000] pr-4 pl-6 py-3 items-center justify-between transition-all duration-300",
+            "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-full dark:bg-zinc-950/85 bg-white/85 border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl shadow-black/20 z-[5000] px-3 sm:px-6 py-2 sm:py-3 items-center justify-between transition-all duration-300",
             className
           )}
         >
           {/* Logo on the left */}
-          <div className="flex items-center mr-3 sm:mr-8 flex-shrink-0">
+          <div className="flex items-center mr-2 sm:mr-8 flex-shrink-0">
             {mounted && (
               <AnimatedLogo
                 theme={resolvedTheme === "dark" ? "dark" : "light"}
-                className="w-10 h-10 sm:w-12 sm:h-12 cursor-pointer flex-shrink-0"
+                className="w-8 h-8 sm:w-12 sm:h-12 cursor-pointer flex-shrink-0"
                 onClick={handleLogoClick}
               />
             )}
@@ -123,7 +123,7 @@ export const Navbar = ({
                 key={`link=${idx}`}
                 onClick={() => handleNavClick(navItem.link)}
                 className={cn(
-                  "relative font-extrabold text-zinc-900 dark:text-zinc-50 px-3.5 py-1.5 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer"
+                  "relative font-extrabold text-zinc-900 dark:text-zinc-50 px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer text-xs sm:text-sm"
                 )}
               >
                 <span className="block sm:hidden">{navItem.icon}</span>

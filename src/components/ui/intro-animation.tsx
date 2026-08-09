@@ -274,9 +274,9 @@ export function IntroAnimation() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="flex items-center gap-2.5 font-mono text-xs sm:text-sm text-[#5fe0ff] tracking-[0.3em] uppercase font-bold drop-shadow-[0_0_12px_rgba(95,224,255,0.8)]"
+                    className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-[#5fe0ff] tracking-[0.18em] sm:tracking-[0.3em] uppercase font-bold drop-shadow-[0_0_12px_rgba(95,224,255,0.8)] text-center px-2"
                   >
-                    <span className="h-2 w-2 rounded-full bg-[#5fe0ff] animate-ping" />
+                    <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-[#5fe0ff] animate-ping flex-shrink-0" />
                     <span>SYSTEM INITIALIZATION // NEURAL CORE MAXIMUM OUTPUT</span>
                   </motion.div>
 
@@ -305,7 +305,7 @@ export function IntroAnimation() {
                           ? { duration: 0.8, ease: "easeIn" }
                           : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }
                       }
-                      className="relative w-60 h-60 sm:w-72 sm:h-72 drop-shadow-[0_0_50px_rgba(95,224,255,0.9)]"
+                      className="relative w-52 h-52 sm:w-72 sm:h-72 drop-shadow-[0_0_50px_rgba(95,224,255,0.9)]"
                     >
                       <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible">
                         <defs>
@@ -369,7 +369,7 @@ export function IntroAnimation() {
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="z-10 relative mt-2 px-8 sm:px-14 py-3.5 sm:py-4 rounded-2xl bg-[#081014]/90 border-2 border-[#5fe0ff]/80 backdrop-blur-2xl shadow-[0_0_60px_rgba(95,224,255,0.6)] text-center"
+                    className="z-10 relative mt-2 px-5 sm:px-14 py-3 sm:py-4 rounded-2xl bg-[#081014]/90 border-2 border-[#5fe0ff]/80 backdrop-blur-2xl shadow-[0_0_60px_rgba(95,224,255,0.6)] text-center max-w-[92vw] sm:max-w-none"
                   >
                     {/* Futuristic Corner Brackets */}
                     <div className="absolute top-1.5 left-1.5 w-3.5 h-3.5 border-t-2 border-l-2 border-[#5fe0ff]" />
