@@ -117,13 +117,13 @@ export const Navbar = ({
           </div>
 
           {/* Links in the center */}
-          <div className="flex items-center gap-1 sm:gap-3 ml-auto mr-0 sm:mr-4">
+          <div className="flex items-center gap-1 sm:gap-2 ml-auto mr-0 sm:mr-4">
             {navItems.map((navItem, idx) => (
               <button
                 key={`link=${idx}`}
                 onClick={() => handleNavClick(navItem.link)}
                 className={cn(
-                  "relative font-bold text-zinc-800 dark:text-zinc-100 px-3 py-1.5 rounded-full hover:bg-zinc-200/70 dark:hover:bg-zinc-800/80 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer"
+                  "relative font-extrabold text-zinc-900 dark:text-zinc-50 px-3.5 py-1.5 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer"
                 )}
               >
                 <span className="block sm:hidden">{navItem.icon}</span>

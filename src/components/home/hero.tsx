@@ -111,17 +111,28 @@ export default function Hero() {
             <div className="w-full space-y-6 pt-2">
               <BlurFade delay={0.005 * 1} inView>
                 <div className="z-50 text-center px-2">
-                  <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap">
-                    <motion.span
-                      initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      className="text-foreground inline-block"
-                    >
-                      Hi, I&#39;m{" "}
-                    </motion.span>
+                  <motion.h1
+                    initial={{
+                      opacity: 0,
+                      y: 18,
+                      scale: 0.98,
+                      filter: "blur(4px)",
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      filter: "blur(0px)",
+                    }}
+                    transition={{
+                      duration: 0.9,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap select-none"
+                  >
+                    <span className="text-foreground">Hi, I&#39;m </span>
                     <AnimatedName className="inline-block" />
-                  </h1>
+                  </motion.h1>
                 </div>
                 <p className="mt-3 text-sm sm:text-2xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
                   AI & ML Engineer building{" "}
