@@ -3,76 +3,148 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { data } from "@/data/data";
-import { IconAward, IconCertificate, IconChevronLeft, IconChevronRight, IconExternalLink, IconMaximize } from "@tabler/icons-react";
+import {
+  IconAward,
+  IconCertificate,
+  IconChevronLeft,
+  IconChevronRight,
+  IconExternalLink,
+  IconMaximize,
+} from "@tabler/icons-react";
 import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
-import { Badge } from "@/components/ui/badge";
 import { PhotoLightbox, PhotoLightboxItem } from "@/components/ui/photo-lightbox";
-import { Marquee } from "@/components/ui/marquee";
 import { playTapSound } from "@/lib/sound";
 
 export default function Achievements() {
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoLightboxItem | null>(null);
-  const [achievementsOffset, setAchievementsOffset] = useState(0);
-  const [certificatesOffset, setCertificatesOffset] = useState(0);
-  const [isAchievementsPaused, setIsAchievementsPaused] = useState(false);
-  const [isCertificatesPaused, setIsCertificatesPaused] = useState(false);
-
-  const achievementsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const certificatesTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (achievementsTimerRef.current) clearTimeout(achievementsTimerRef.current);
-      if (certificatesTimerRef.current) clearTimeout(certificatesTimerRef.current);
-    };
-  }, []);
 
   const handleOpenPhoto = (item: PhotoLightboxItem) => {
     playTapSound("chime");
     setSelectedPhoto(item);
   };
 
-  const triggerAchievementsManual = () => {
-    setIsAchievementsPaused(true);
-    if (achievementsTimerRef.current) clearTimeout(achievementsTimerRef.current);
-    achievementsTimerRef.current = setTimeout(() => {
-      setIsAchievementsPaused(false);
-      setAchievementsOffset(0);
+  // Achievements Infinite Loop Track
+  const achRef = useRef<HTMLDivElement>(null);
+  const [achPaused, setAchPaused] = useState(false);
+  const achTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Certifications Infinite Loop Track
+  const certRef = useRef<HTMLDivElement>(null);
+  const [certPaused, setCertPaused] = useState(false);
+  const certTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Achievements Auto-Scroll
+  useEffect(() => {
+    const el = achRef.current;
+    if (!el) return;
+    let animId: number;
+
+    const scroll = () => {
+      if (!achPaused && el) {
+        const singleSetWidth = el.scrollWidth / 4;
+        el.scrollLeft += 0.8;
+        if (el.scrollLeft >= singleSetWidth * 2) {
+          el.scrollLeft -= singleSetWidth;
+        }
+      }
+      animId = requestAnimationFrame(scroll);
+    };
+
+    animId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animId);
+  }, [achPaused]);
+
+  // Certifications Auto-Scroll
+  useEffect(() => {
+    const el = certRef.current;
+    if (!el) return;
+    let animId: number;
+
+    const scroll = () => {
+      if (!certPaused && el) {
+        const singleSetWidth = el.scrollWidth / 4;
+        el.scrollLeft += 0.8;
+        if (el.scrollLeft >= singleSetWidth * 2) {
+          el.scrollLeft -= singleSetWidth;
+        }
+      }
+      animId = requestAnimationFrame(scroll);
+    };
+
+    animId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animId);
+  }, [certPaused]);
+
+  // Cleanup Timers
+  useEffect(() => {
+    return () => {
+      if (achTimerRef.current) clearTimeout(achTimerRef.current);
+      if (certTimerRef.current) clearTimeout(certTimerRef.current);
+    };
+  }, []);
+
+  const triggerAchManual = () => {
+    setAchPaused(true);
+    if (achTimerRef.current) clearTimeout(achTimerRef.current);
+    achTimerRef.current = setTimeout(() => {
+      setAchPaused(false);
     }, 30000);
   };
 
-  const triggerCertificatesManual = () => {
-    setIsCertificatesPaused(true);
-    if (certificatesTimerRef.current) clearTimeout(certificatesTimerRef.current);
-    certificatesTimerRef.current = setTimeout(() => {
-      setIsCertificatesPaused(false);
-      setCertificatesOffset(0);
+  const triggerCertManual = () => {
+    setCertPaused(true);
+    if (certTimerRef.current) clearTimeout(certTimerRef.current);
+    certTimerRef.current = setTimeout(() => {
+      setCertPaused(false);
     }, 30000);
   };
 
-  const handleAchievementsPrev = () => {
+  const handleAchPrev = () => {
     playTapSound("pop");
-    triggerAchievementsManual();
-    setAchievementsOffset((prev) => prev + 360);
+    triggerAchManual();
+    if (achRef.current) {
+      achRef.current.scrollBy({ left: -360, behavior: "smooth" });
+    }
   };
 
-  const handleAchievementsNext = () => {
+  const handleAchNext = () => {
     playTapSound("pop");
-    triggerAchievementsManual();
-    setAchievementsOffset((prev) => prev - 360);
+    triggerAchManual();
+    if (achRef.current) {
+      achRef.current.scrollBy({ left: 360, behavior: "smooth" });
+    }
   };
 
-  const handleCertificatesPrev = () => {
+  const handleCertPrev = () => {
     playTapSound("pop");
-    triggerCertificatesManual();
-    setCertificatesOffset((prev) => prev + 340);
+    triggerCertManual();
+    if (certRef.current) {
+      certRef.current.scrollBy({ left: 340, behavior: "smooth" });
+    }
   };
 
-  const handleCertificatesNext = () => {
+  const handleCertNext = () => {
     playTapSound("pop");
-    triggerCertificatesManual();
-    setCertificatesOffset((prev) => prev - 340);
+    triggerCertManual();
+    if (certRef.current) {
+      certRef.current.scrollBy({ left: 340, behavior: "smooth" });
+    }
   };
+
+  // Quadrupled Items for Seamless Infinite Looping
+  const quadAchievements = [
+    ...data.achievements,
+    ...data.achievements,
+    ...data.achievements,
+    ...data.achievements,
+  ];
+
+  const quadCertificates = [
+    ...data.certificates,
+    ...data.certificates,
+    ...data.certificates,
+    ...data.certificates,
+  ];
 
   return (
     <div className="flex flex-col space-y-12">
@@ -90,29 +162,17 @@ export default function Achievements() {
           </h3>
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              {isAchievementsPaused ? "Manual mode active" : "Auto-scrolling"}
+              {achPaused ? "Manual Mode (Auto-resumes in 30s)" : "Infinite Auto-scroll"}
             </span>
-            {isAchievementsPaused && (
-              <button
-                onClick={() => {
-                  playTapSound("pop");
-                  setIsAchievementsPaused(false);
-                  setAchievementsOffset(0);
-                }}
-                className="text-[11px] font-semibold text-amber-500 hover:underline mr-1"
-              >
-                Reset Auto-scroll
-              </button>
-            )}
             <button
-              onClick={handleAchievementsPrev}
+              onClick={handleAchPrev}
               aria-label="Scroll left"
               className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
               <IconChevronLeft className="h-4 w-4" />
             </button>
             <button
-              onClick={handleAchievementsNext}
+              onClick={handleAchNext}
               aria-label="Scroll right"
               className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
@@ -121,129 +181,127 @@ export default function Achievements() {
           </div>
         </div>
 
-        <div className="overflow-hidden py-2">
-          <div
-            style={{
-              transform: `translateX(${achievementsOffset}px)`,
-              transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-          >
-            <Marquee paused={isAchievementsPaused} pauseOnHover repeat={3} reverse={true} className="[--duration:35s] py-1">
-              {data.achievements.map((item) => (
+        <div
+          ref={achRef}
+          onMouseEnter={() => setAchPaused(true)}
+          onMouseLeave={() => !achTimerRef.current && setAchPaused(false)}
+          className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none"
+        >
+          {quadAchievements.map((item, idx) => (
+            <div
+              key={`${item.title}-${idx}`}
+              className="w-80 sm:w-96 shrink-0 group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/70 backdrop-blur-md transition-all duration-500 hover:border-amber-500/80 hover:shadow-2xl hover:shadow-amber-500/20 hover:scale-[1.02]"
+            >
+              {/* Photo Preview Container */}
+              {item.image && (
                 <div
-                  key={item.title}
-                  className="w-80 sm:w-96 shrink-0 group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/70 backdrop-blur-md transition-all duration-500 hover:border-amber-500/80 hover:shadow-2xl hover:shadow-amber-500/20 hover:scale-[1.02]"
+                  className="relative w-full h-56 sm:h-64 overflow-hidden border-b border-border/40 bg-zinc-950/90 cursor-pointer"
+                  onClick={() =>
+                    handleOpenPhoto({
+                      src: item.image!,
+                      alt: item.title,
+                      title: item.title,
+                      subtitle: item.category,
+                      description: item.description,
+                      metrics: item.metrics,
+                      link: item.link,
+                    })
+                  }
                 >
-                  {/* Photo Preview Container */}
-                  {item.image && (
-                    <div
-                      className="relative w-full h-56 sm:h-64 overflow-hidden border-b border-border/40 bg-zinc-950/90 cursor-pointer"
-                      onClick={() =>
-                        handleOpenPhoto({
-                          src: item.image!,
-                          alt: item.title,
-                          title: item.title,
-                          subtitle: item.category,
-                          description: item.description,
-                          metrics: item.metrics,
-                          link: item.link,
-                        })
-                      }
-                    >
-                      <Image
-                        src={item.image}
-                        alt=""
-                        fill
-                        className="object-cover blur-xl scale-110 opacity-45 pointer-events-none"
-                        aria-hidden="true"
-                      />
+                  <Image
+                    src={item.image}
+                    alt=""
+                    fill
+                    className="object-cover blur-xl scale-110 opacity-45 pointer-events-none"
+                    aria-hidden="true"
+                  />
 
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className="object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"
-                        sizes="384px"
-                      />
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"
+                    sizes="384px"
+                  />
 
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-300 z-20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-300 z-20" />
 
-                      <div className="absolute top-3 right-3 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 text-amber-400 text-xs font-medium backdrop-blur-md border border-amber-500/40">
-                          <IconMaximize className="h-3.5 w-3.5" />
-                          <span>Full View</span>
-                        </span>
-                      </div>
+                  <div className="absolute top-3 right-3 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 text-amber-400 text-xs font-medium backdrop-blur-md border border-amber-500/40">
+                      <IconMaximize className="h-3.5 w-3.5" />
+                      <span>Full View</span>
+                    </span>
+                  </div>
 
-                      <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between text-white">
-                        <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/90 backdrop-blur-sm text-black">
-                          {item.category}
-                        </span>
-                        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-zinc-200 tabular-nums">
-                          {item.date}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Card Content */}
-                  <div className="p-5 flex flex-col justify-between flex-1 space-y-4">
-                    <div className="space-y-2">
-                      <h4 className="text-base font-bold tracking-tight text-foreground group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2">
-                        {item.title}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                        {item.description}
-                      </p>
-                    </div>
-
-                    <div className="pt-3 border-t border-border/40 flex items-center justify-between gap-2">
-                      {item.metrics ? (
-                        <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
-                          ✨ {item.metrics}
-                        </span>
-                      ) : <span />}
-
-                      <div className="flex items-center gap-3">
-                        {item.image && (
-                          <button
-                            onClick={() =>
-                              handleOpenPhoto({
-                                src: item.image!,
-                                alt: item.title,
-                                title: item.title,
-                                subtitle: item.category,
-                                description: item.description,
-                                metrics: item.metrics,
-                                link: item.link,
-                              })
-                            }
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
-                          >
-                            <IconMaximize className="h-3.5 w-3.5" />
-                            <span>Full View</span>
-                          </button>
-                        )}
-
-                        {item.link && (
-                          <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => playTapSound("pop")}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
-                          >
-                            <span>Details</span>
-                            <IconExternalLink className="h-3.5 w-3.5" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
+                  <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between text-white">
+                    <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/90 backdrop-blur-sm text-black">
+                      {item.category}
+                    </span>
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-zinc-200 tabular-nums">
+                      {item.date}
+                    </span>
                   </div>
                 </div>
-              ))}
-            </Marquee>
-          </div>
+              )}
+
+              {/* Card Content */}
+              <div className="p-5 flex flex-col justify-between flex-1 space-y-4">
+                <div className="space-y-2">
+                  <h4 className="text-base font-bold tracking-tight text-foreground group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-border/40 flex items-center justify-between gap-2">
+                  {item.metrics ? (
+                    <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
+                      ✨ {item.metrics}
+                    </span>
+                  ) : (
+                    <span />
+                  )}
+
+                  <div className="flex items-center gap-3">
+                    {item.image && (
+                      <button
+                        onClick={() =>
+                          handleOpenPhoto({
+                            src: item.image!,
+                            alt: item.title,
+                            title: item.title,
+                            subtitle: item.category,
+                            description: item.description,
+                            metrics: item.metrics,
+                            link: item.link,
+                          })
+                        }
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
+                      >
+                        <IconMaximize className="h-3.5 w-3.5" />
+                        <span>Full View</span>
+                      </button>
+                    )}
+
+                    {item.link && (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => playTapSound("pop")}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
+                      >
+                        <span>Details</span>
+                        <IconExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -256,29 +314,17 @@ export default function Achievements() {
           </h3>
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              {isCertificatesPaused ? "Manual mode active" : "Auto-scrolling"}
+              {certPaused ? "Manual Mode (Auto-resumes in 30s)" : "Infinite Auto-scroll"}
             </span>
-            {isCertificatesPaused && (
-              <button
-                onClick={() => {
-                  playTapSound("pop");
-                  setIsCertificatesPaused(false);
-                  setCertificatesOffset(0);
-                }}
-                className="text-[11px] font-semibold text-indigo-400 hover:underline mr-1"
-              >
-                Reset Auto-scroll
-              </button>
-            )}
             <button
-              onClick={handleCertificatesPrev}
+              onClick={handleCertPrev}
               aria-label="Scroll left"
               className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
               <IconChevronLeft className="h-4 w-4" />
             </button>
             <button
-              onClick={handleCertificatesNext}
+              onClick={handleCertNext}
               aria-label="Scroll right"
               className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
@@ -287,19 +333,17 @@ export default function Achievements() {
           </div>
         </div>
 
-        <div className="overflow-hidden py-2">
-          <div
-            style={{
-              transform: `translateX(${certificatesOffset}px)`,
-              transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-          >
-            <Marquee paused={isCertificatesPaused} pauseOnHover repeat={3} reverse={false} className="[--duration:28s] py-1">
-              {data.certificates.map((cert) => (
-                <CertFlipCard key={cert.title} cert={cert} handleOpenPhoto={handleOpenPhoto} />
-              ))}
-            </Marquee>
-          </div>
+        <div
+          ref={certRef}
+          onMouseEnter={() => setCertPaused(true)}
+          onMouseLeave={() => !certTimerRef.current && setCertPaused(false)}
+          className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none"
+        >
+          {quadCertificates.map((cert, idx) => (
+            <div key={`${cert.title}-${idx}`} className="shrink-0">
+              <CertFlipCard cert={cert} handleOpenPhoto={handleOpenPhoto} />
+            </div>
+          ))}
         </div>
       </div>
 
@@ -332,111 +376,101 @@ function CertFlipCard({
         }`}
       >
         {/* FRONT SIDE */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl border border-indigo-500/30 bg-background/80 backdrop-blur-xl flex flex-col justify-between overflow-hidden shadow-xl hover:border-indigo-500/80 hover:shadow-indigo-500/20 transition-all duration-300">
-          <div className="relative w-full h-48 overflow-hidden bg-zinc-950/90 border-b border-border/40">
-            <Image
-              src={cert.image}
-              alt=""
-              fill
-              className="object-cover blur-xl scale-110 opacity-45 pointer-events-none"
-              aria-hidden="true"
-            />
+        <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl border border-border/60 bg-background/80 backdrop-blur-md p-4 flex flex-col justify-between overflow-hidden shadow-lg group-hover:border-indigo-500/60 transition-colors">
+          <div className="relative w-full h-44 rounded-xl overflow-hidden bg-zinc-950/80 border border-border/40">
             <Image
               src={cert.image}
               alt={cert.title}
               fill
-              className="object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"
+              className="object-contain p-2"
               sizes="320px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 z-20" />
-            <div className="absolute top-3 right-3 z-30">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/80 text-indigo-400 text-xs font-semibold backdrop-blur-md border border-indigo-500/40">
-                <span>3D Flip Card ↻</span>
-              </span>
+            <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/80 text-indigo-300 text-[10px] font-bold backdrop-blur-sm border border-indigo-500/30 flex items-center gap-1">
+              <span>3D Flip Card</span>
+              <span>↻</span>
             </div>
-            <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between text-white">
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-indigo-600/90 text-white">
-                {cert.issuer}
-              </span>
-              <span className="text-xs font-medium px-2 py-0.5 rounded bg-black/80 text-zinc-200 tabular-nums">
-                {cert.date}
-              </span>
+            <div className="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-full bg-indigo-600 text-white text-[10px] font-extrabold uppercase tracking-wider">
+              {cert.issuer}
+            </div>
+            <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-black/80 text-zinc-300 text-[10px] font-mono">
+              {cert.date}
             </div>
           </div>
 
-          <div className="p-4 flex flex-col justify-between flex-1 space-y-3">
-            <h4 className="text-base font-bold tracking-tight text-foreground group-hover:text-indigo-400 transition-colors line-clamp-2">
+          <div className="space-y-1 pt-2">
+            <h4 className="text-sm font-bold text-foreground line-clamp-2 group-hover:text-indigo-400 transition-colors">
               {cert.title}
             </h4>
-            <div className="flex items-center justify-between pt-2 border-t border-border/40 text-xs text-indigo-400 font-semibold">
-              <span className="flex items-center gap-1">
-                <span>Click / Tap to flip</span> ↻
-              </span>
-              <span className="text-muted-foreground font-normal">Interactive</span>
-            </div>
+            <p className="text-xs text-muted-foreground font-medium">{cert.issuer}</p>
+          </div>
+
+          <div className="pt-2 border-t border-border/40 flex items-center justify-between text-xs text-indigo-400 font-semibold">
+            <span>Click / Tap to flip ↻</span>
+            <span className="text-[11px] text-muted-foreground font-normal">Interactive</span>
           </div>
         </div>
 
         {/* BACK SIDE */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-indigo-500/60 bg-zinc-950/95 backdrop-blur-2xl p-5 flex flex-col justify-between overflow-hidden shadow-2xl">
+        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-indigo-500/60 bg-gradient-to-br from-indigo-950/90 via-background to-zinc-950 p-5 flex flex-col justify-between overflow-hidden shadow-2xl text-foreground">
           <div className="space-y-3">
-            <div className="flex items-center justify-between border-b border-indigo-500/20 pb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-400 px-2 py-0.5 rounded bg-indigo-500/10">
-                {cert.issuer} • {cert.date}
+            <div className="flex items-center justify-between border-b border-indigo-500/30 pb-2">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-indigo-400">
+                Skills & Verification
               </span>
-              <span className="text-xs text-zinc-400 font-mono">↺ Flip Back</span>
+              <span className="text-xs text-muted-foreground font-mono">{cert.date}</span>
             </div>
 
-            <h4 className="text-base font-bold text-white tracking-tight">
-              {cert.title}
-            </h4>
+            <h4 className="text-sm font-bold text-foreground">{cert.title}</h4>
 
-            <div className="space-y-1.5 pt-1">
-              <p className="text-xs font-semibold text-zinc-300">Skills & Competencies:</p>
-              <div className="flex flex-wrap gap-1.5">
+            <div className="space-y-1">
+              <p className="text-[11px] font-semibold text-indigo-300 uppercase">Core Skills</p>
+              <div className="flex flex-wrap gap-1">
                 {cert.skills.map((skill) => (
-                  <Badge
+                  <span
                     key={skill}
-                    variant="secondary"
-                    className="text-[11px] px-2 py-0.5 bg-indigo-950/60 text-indigo-300 border border-indigo-500/30"
+                    className="text-[10px] font-medium px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-200 border border-indigo-500/30"
                   >
                     {skill}
-                  </Badge>
+                  </span>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="pt-3 border-t border-indigo-500/20 flex items-center justify-between gap-2" onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={() =>
-                handleOpenPhoto({
-                  src: cert.image,
-                  alt: `${cert.title} Certificate`,
-                  title: cert.title,
-                  subtitle: cert.issuer,
-                  description: `Issued by ${cert.issuer} (${cert.date}). Skills: ${cert.skills.join(", ")}.`,
-                  link: cert.credentialUrl,
-                })
-              }
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-xs font-medium text-indigo-300 border border-indigo-500/30 transition-colors"
-            >
-              <IconMaximize className="h-3.5 w-3.5" />
-              <span>Full View</span>
-            </button>
-
+          <div className="space-y-2 pt-3 border-t border-indigo-500/30">
             {cert.credentialUrl && (
               <a
                 href={cert.credentialUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => playTapSound("pop")}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  playTapSound("pop");
+                }}
+                className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-md"
               >
                 <span>Verify Credential</span>
                 <IconExternalLink className="h-3.5 w-3.5" />
               </a>
             )}
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpenPhoto({
+                  src: cert.image,
+                  alt: cert.title,
+                  title: cert.title,
+                  subtitle: cert.issuer,
+                  description: `Issued by ${cert.issuer} (${cert.date}). Skills: ${cert.skills.join(", ")}`,
+                  link: cert.credentialUrl,
+                });
+              }}
+              className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-border/60 bg-background/60 hover:bg-muted text-xs font-semibold text-foreground transition-colors"
+            >
+              <IconMaximize className="h-3.5 w-3.5" />
+              <span>Full View</span>
+            </button>
           </div>
         </div>
       </div>
