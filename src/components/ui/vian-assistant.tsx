@@ -8,31 +8,34 @@ import {
   IconSend,
   IconSparkles,
   IconMinus,
+  IconVolume,
+  IconVolumeOff,
 } from "@tabler/icons-react";
-
 import { playTapSound } from "@/lib/sound";
 
 interface Message {
   id: string;
   sender: "user" | "vian";
   text: string;
+  isStreaming?: boolean;
   timestamp: string;
 }
 
-const PRESET_PROMPTS = [
+const INITIAL_PROMPTS = [
   "⚡ Featured AI Projects",
   "🎓 Tech Stack & Skills",
-  "🏆 Hackathon Victories",
+  "🏆 Hackathon Wins",
   "📬 Contact Vivek",
 ];
 
 export function VianAssistant() {
   const [isOpen, setIsOpen] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "init-1",
       sender: "vian",
-      text: "Greetings! I am **VIAN** — Vivek Hingu's Neural Assistant. 🤖 How can I assist you with Vivek's AI projects, skills, or background today?",
+      text: "Greetings! I am **VIAN** — Vivek Hingu's Neural AI Assistant. 🤖 How can I assist you with Vivek's AI/ML projects, skills, or background today?",
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     },
   ]);
@@ -50,9 +53,62 @@ export function VianAssistant() {
     }
   }, [messages, isOpen]);
 
+  // Web Speech Synthesis (Text To Speech)
+  const speakText = (text: string) => {
+    if (!voiceEnabled || typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    try {
+      window.speechSynthesis.cancel(); // Stop current speech
+      const cleanText = text.replace(/[*#_`\[\]()]/g, ""); // Strip markdown tags
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    } catch {
+      // Ignore speech errors
+    }
+  };
+
   const handleToggle = () => {
     playTapSound("chime");
     setIsOpen((prev) => !prev);
+  };
+
+  const toggleVoice = () => {
+    playTapSound("pop");
+    setVoiceEnabled((prev) => !prev);
+  };
+
+  // Word-by-word streaming effect
+  const streamTextResponse = (fullText: string, messageId: string) => {
+    const words = fullText.split(" ");
+    let currentWordIndex = 0;
+
+    const interval = setInterval(() => {
+      if (currentWordIndex >= words.length) {
+        clearInterval(interval);
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === messageId
+              ? { ...msg, text: fullText, isStreaming: false }
+              : msg
+          )
+        );
+        speakText(fullText);
+        setIsLoading(false);
+        return;
+      }
+
+      currentWordIndex++;
+      const partialText = words.slice(0, currentWordIndex).join(" ");
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === messageId ? { ...msg, text: partialText } : msg
+        )
+      );
+      if (currentWordIndex % 4 === 0) {
+        playTapSound("hover");
+      }
+    }, 35);
   };
 
   const handleSend = async (customText?: string) => {
@@ -68,6 +124,11 @@ export function VianAssistant() {
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
+    const currentHistory = messages.map((m) => ({
+      sender: m.sender,
+      text: m.text,
+    }));
+
     setMessages((prev) => [...prev, userMsg]);
     if (!customText) setInput("");
     setIsLoading(true);
@@ -76,30 +137,40 @@ export function VianAssistant() {
       const res = await fetch("/api/vian", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: textToSend }),
+        body: JSON.stringify({
+          message: textToSend,
+          history: currentHistory,
+        }),
       });
 
       const data = await res.json();
-      playTapSound("hover");
+      const rawReply = data.reply || "VIAN systems online. How can I assist you with Vivek's portfolio?";
+      const vianMsgId = `vian-${Date.now()}`;
 
       const vianMsg: Message = {
-        id: `vian-${Date.now()}`,
+        id: vianMsgId,
         sender: "vian",
-        text: data.reply || "VIAN systems online. How can I assist you?",
+        text: "",
+        isStreaming: true,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
       setMessages((prev) => [...prev, vianMsg]);
+      streamTextResponse(rawReply, vianMsgId);
     } catch {
+      const fallbackText = "VIAN Neural Core online. Vivek Hingu is an AI/ML Engineer specializing in Autonomous Systems, PyTorch models, and Full-Stack apps!";
+      const vianMsgId = `vian-err-${Date.now()}`;
+
       const errorMsg: Message = {
-        id: `vian-err-${Date.now()}`,
+        id: vianMsgId,
         sender: "vian",
-        text: "Neural connection standby. Vivek Hingu is an AI/ML Engineer specializing in Autonomous Systems, PyTorch models, and Full-Stack apps!",
+        text: "",
+        isStreaming: true,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
+
       setMessages((prev) => [...prev, errorMsg]);
-    } finally {
-      setIsLoading(false);
+      streamTextResponse(fallbackText, vianMsgId);
     }
   };
 
@@ -119,12 +190,12 @@ export function VianAssistant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.92 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mb-4 w-[92vw] sm:w-[380px] h-[520px] max-h-[82vh] rounded-3xl border border-cyan-500/40 bg-zinc-950/95 backdrop-blur-2xl shadow-[0_0_50px_rgba(6,182,212,0.3)] flex flex-col overflow-hidden text-slate-100 font-sans"
+            className="mb-4 w-[92vw] sm:w-[390px] h-[540px] max-h-[82vh] rounded-3xl border border-cyan-500/40 bg-zinc-950/95 backdrop-blur-2xl shadow-[0_0_50px_rgba(6,182,212,0.35)] flex flex-col overflow-hidden text-slate-100 font-sans"
           >
             {/* Drawer Header */}
             <div className="px-4 py-3 bg-zinc-900/90 border-b border-cyan-500/30 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="relative w-10 h-10 rounded-full overflow-hidden border border-cyan-400/80 shadow-[0_0_12px_rgba(6,182,212,0.5)]">
+                <div className="relative w-10 h-10 rounded-full overflow-hidden border border-cyan-400/80 shadow-[0_0_12px_rgba(6,182,212,0.6)]">
                   <Image
                     src="/vian-avatar.png"
                     alt="VIAN Avatar"
@@ -138,17 +209,33 @@ export function VianAssistant() {
                       VIAN
                     </span>
                     <span className="px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-[9px] font-mono text-cyan-400 font-bold uppercase tracking-widest border border-cyan-500/40">
-                      AI Core
+                      AI STREAMING
                     </span>
                   </div>
-                  <p className="text-[11px] text-zinc-400 flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 text-[11px] text-zinc-400">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Neural Core Online
-                  </p>
+                    <span>Neural Core Active</span>
+                  </div>
                 </div>
               </div>
 
+              {/* Voice & Window Controls */}
               <div className="flex items-center gap-1">
+                <button
+                  onClick={toggleVoice}
+                  className={`p-1.5 rounded-full transition-colors ${
+                    voiceEnabled
+                      ? "text-cyan-300 bg-cyan-500/20 border border-cyan-500/40"
+                      : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+                  }`}
+                  title={voiceEnabled ? "Voice Output Active" : "Enable Voice Speech"}
+                >
+                  {voiceEnabled ? (
+                    <IconVolume className="w-4 h-4 text-cyan-400 animate-pulse" />
+                  ) : (
+                    <IconVolumeOff className="w-4 h-4" />
+                  )}
+                </button>
                 <button
                   onClick={handleToggle}
                   className="p-1.5 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
@@ -187,13 +274,18 @@ export function VianAssistant() {
                   )}
 
                   <div
-                    className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
+                    className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
                       msg.sender === "user"
                         ? "bg-cyan-600 text-white rounded-tr-none shadow-[0_0_15px_rgba(6,182,212,0.3)]"
                         : "bg-zinc-900/90 text-zinc-200 border border-zinc-800 rounded-tl-none"
                     }`}
                   >
-                    <p className="whitespace-pre-wrap">{msg.text}</p>
+                    <p className="whitespace-pre-wrap">
+                      {msg.text}
+                      {msg.isStreaming && (
+                        <span className="inline-block w-1.5 h-3 ml-1 bg-cyan-400 animate-pulse" />
+                      )}
+                    </p>
                     <span
                       className={`block text-[9px] mt-1 ${
                         msg.sender === "user" ? "text-cyan-200 text-right" : "text-zinc-500"
@@ -205,12 +297,19 @@ export function VianAssistant() {
                 </div>
               ))}
 
-              {isLoading && (
-                <div className="flex gap-2.5 items-center text-xs text-zinc-400 font-mono animate-pulse">
+              {isLoading && messages[messages.length - 1]?.sender !== "vian" && (
+                <div className="flex gap-2.5 items-center text-xs text-cyan-400 font-mono animate-pulse">
                   <div className="relative w-7 h-7 rounded-full overflow-hidden shrink-0 border border-cyan-400/60">
                     <Image src="/vian-avatar.png" alt="VIAN" fill className="object-cover" />
                   </div>
-                  <span>VIAN is thinking...</span>
+                  <div className="flex items-center gap-1">
+                    <span>VIAN Neural Core processing</span>
+                    <span className="inline-flex gap-0.5">
+                      <span className="w-1 h-3 bg-cyan-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1 h-3 bg-cyan-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-1 h-3 bg-cyan-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                    </span>
+                  </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
@@ -218,7 +317,7 @@ export function VianAssistant() {
 
             {/* Quick Action Preset Chips */}
             <div className="px-3 py-2 bg-zinc-950 border-t border-zinc-900 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-              {PRESET_PROMPTS.map((prompt) => (
+              {INITIAL_PROMPTS.map((prompt) => (
                 <button
                   key={prompt}
                   onClick={() => handleSend(prompt)}
