@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
@@ -26,7 +26,7 @@ export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       try {
-        return sessionStorage.getItem("hasSeenIntro_dotgrid_blur_v8") !== "true";
+        return sessionStorage.getItem("hasSeenIntro_mobile_smooth_v9") !== "true";
       } catch {
         return true;
       }
@@ -39,12 +39,9 @@ export function IntroAnimation() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
-  const coilRingRef = useRef<SVGGElement | null>(null);
-  const slotRingRef = useRef<SVGGElement | null>(null);
-
   useEffect(() => {
     try {
-      const hasSeen = sessionStorage.getItem("hasSeenIntro_dotgrid_blur_v8");
+      const hasSeen = sessionStorage.getItem("hasSeenIntro_mobile_smooth_v9");
       if (hasSeen === "true") {
         setShouldShow(false);
       }
@@ -53,29 +50,7 @@ export function IntroAnimation() {
     }
   }, []);
 
-  // Continuous spin for copper coil & slot ring
-  useEffect(() => {
-    let animId: number;
-    let a1 = 0;
-    let a2 = 0;
-
-    const spin = () => {
-      a1 = (a1 + 0.14) % 360;
-      a2 = (a2 - 0.2 + 360) % 360;
-      if (coilRingRef.current) {
-        coilRingRef.current.setAttribute("transform", `rotate(${a1} 200 200)`);
-      }
-      if (slotRingRef.current) {
-        slotRingRef.current.setAttribute("transform", `rotate(${a2} 200 200)`);
-      }
-      animId = requestAnimationFrame(spin);
-    };
-
-    animId = requestAnimationFrame(spin);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
-  // Timeline Engine
+  // Timeline Engine (Starts IMMEDIATELY at millisecond 0)
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
@@ -88,22 +63,22 @@ export function IntroAnimation() {
         timer = setTimeout(() => {
           setQuestionChars((prev) => prev + 1);
           playTapSound("hover");
-        }, 60);
+        }, 50);
       } else {
         timer = setTimeout(() => {
           setCurrentIndex(1);
           playTapSound("pop");
-        }, 700);
+        }, 650);
       }
       return () => clearTimeout(timer);
     }
 
-    // Index 1 to 4: Single line role cards (1.4s display per card)
+    // Index 1 to 4: Single line role cards (1.3s display per card)
     if (currentIndex >= 1 && currentIndex <= 4) {
       timer = setTimeout(() => {
         setCurrentIndex((prev) => prev + 1);
         playTapSound("pop");
-      }, 1400);
+      }, 1300);
       return () => clearTimeout(timer);
     }
 
@@ -114,15 +89,15 @@ export function IntroAnimation() {
         setIsTransitioning(true);
         setTimeout(() => {
           handleComplete();
-        }, 1100);
-      }, 2600);
+        }, 1000);
+      }, 2400);
       return () => clearTimeout(timer);
     }
   }, [shouldShow, currentIndex, questionChars, isComplete]);
 
   const handleComplete = () => {
     try {
-      sessionStorage.setItem("hasSeenIntro_dotgrid_blur_v8", "true");
+      sessionStorage.setItem("hasSeenIntro_mobile_smooth_v9", "true");
     } catch {
       // Ignore storage errors
     }
@@ -205,10 +180,10 @@ export function IntroAnimation() {
                 }
           }
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#05070a] text-[#F8FAFC] select-none overflow-hidden"
+          transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#05070a] text-[#F8FAFC] select-none overflow-hidden will-change-transform transform-gpu"
         >
-          {/* Cyan Anamorphic Radial Flare & Scanlines */}
+          {/* Cyan Anamorphic Radial Flare */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(95,224,255,0.18)_0%,rgba(5,7,10,0)_60%)] pointer-events-none opacity-85" />
           
           {/* Suitable Dark Dot Matrix Grid Pattern (Active from Who am I to Access Granted) */}
@@ -233,7 +208,7 @@ export function IntroAnimation() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15, scale: 0.95 }}
-                  transition={{ duration: 0.4 }}
+                  transition={{ duration: 0.35 }}
                   className="flex items-center text-2xl sm:text-4xl font-mono text-[#5fe0ff] font-bold tracking-wider"
                 >
                   <span>{questionText}</span>
@@ -248,7 +223,7 @@ export function IntroAnimation() {
                   initial={{ opacity: 0, y: 35, scale: 0.92, filter: "blur(10px)" }}
                   animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
                   exit={{ opacity: 0, y: -35, scale: 1.08, filter: "blur(12px)" }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className="flex flex-col items-center space-y-4"
                 >
                   <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-100 drop-shadow-[0_0_40px_rgba(255,255,255,0.4)]">
@@ -266,14 +241,14 @@ export function IntroAnimation() {
                   key="clean-arc-stage"
                   initial={{ opacity: 0, scale: 0.6, filter: "blur(14px)" }}
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
+                  transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
                   className="relative flex flex-col items-center space-y-3"
                 >
                   {/* HUD Header Status Line */}
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    transition={{ duration: 0.4, delay: 0.15 }}
                     className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-[#5fe0ff] tracking-[0.18em] sm:tracking-[0.3em] uppercase font-bold drop-shadow-[0_0_12px_rgba(95,224,255,0.8)] text-center px-2"
                   >
                     <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-[#5fe0ff] animate-ping flex-shrink-0" />
@@ -293,7 +268,7 @@ export function IntroAnimation() {
                       className="absolute w-[360px] h-[360px] sm:w-[480px] sm:h-[480px] rounded-full bg-[radial-gradient(circle,rgba(95,224,255,0.45)_0%,rgba(56,189,248,0.2)_45%,transparent_75%)] pointer-events-none"
                     />
 
-                    {/* Pure Arc Reactor SVG (12 Coils, Slot Ring, Core Hex) */}
+                    {/* Pure Arc Reactor SVG (60 FPS CSS Spin Keyframes - No Mobile JS Lag!) */}
                     <motion.div
                       animate={
                         isTransitioning
@@ -305,7 +280,7 @@ export function IntroAnimation() {
                           ? { duration: 0.8, ease: "easeIn" }
                           : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }
                       }
-                      className="relative w-52 h-52 sm:w-72 sm:h-72 drop-shadow-[0_0_50px_rgba(95,224,255,0.9)]"
+                      className="relative w-52 h-52 sm:w-72 sm:h-72 drop-shadow-[0_0_50px_rgba(95,224,255,0.9)] transform-gpu will-change-transform"
                     >
                       <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible">
                         <defs>
@@ -340,13 +315,13 @@ export function IntroAnimation() {
                         <circle cx="200" cy="200" r="192" fill="#0a0d10" stroke="#3a4048" strokeWidth="2" />
                         <circle cx="200" cy="200" r="184" fill="#12161a" stroke="#4a525c" strokeWidth="1.5" />
 
-                        {/* Rotating copper coil ring */}
-                        <g ref={coilRingRef} id="coilRing">
+                        {/* 60 FPS CSS Spin Rotating copper coil ring */}
+                        <g className="animate-[spin_12s_linear_infinite] origin-center transform-gpu will-change-transform" id="coilRing">
                           {coilElements}
                         </g>
 
-                        {/* Counter-rotating slot ring */}
-                        <g ref={slotRingRef} id="slotRing">
+                        {/* 60 FPS CSS Spin Counter-rotating slot ring */}
+                        <g className="animate-[spin_8s_linear_infinite_reverse] origin-center transform-gpu will-change-transform" id="slotRing">
                           {slotElements}
                         </g>
 
@@ -368,7 +343,7 @@ export function IntroAnimation() {
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
+                    transition={{ duration: 0.5, delay: 0.25 }}
                     className="z-10 relative mt-2 px-5 sm:px-14 py-3 sm:py-4 rounded-2xl bg-[#081014]/90 border-2 border-[#5fe0ff]/80 backdrop-blur-2xl shadow-[0_0_60px_rgba(95,224,255,0.6)] text-center max-w-[92vw] sm:max-w-none"
                   >
                     {/* Futuristic Corner Brackets */}

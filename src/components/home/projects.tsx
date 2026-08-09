@@ -26,24 +26,25 @@ export default function Projects() {
             </SectionHeading>
             <SeamlessCodingLoop className="mb-2" />
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+            {/* Horizontal Swipeable Card Carousel on Mobile & Grid on Desktop */}
+            <div className="flex md:grid md:grid-cols-2 gap-6 w-full overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0">
                 {data.projects.map((item, index) => (
-                    <BlurFade
-                        key={item.title}
-                        delay={0.04 * 12 + index * 0.05}
-                    >
-                        <ProjectCard
-                            href={item.href}
-                            key={item.title}
-                            title={item.title}
-                            description={item.description}
-                            dates={item.dates}
-                            tags={item.technologies}
-                            video={item.video}
-                            thumbnail={item.thumbnail}
-                            type={item.type}
-                        />
-                    </BlurFade>
+                    <div key={item.title} className="w-[86vw] sm:w-auto flex-shrink-0 snap-center">
+                        <BlurFade
+                            delay={0.04 * 12 + index * 0.05}
+                        >
+                            <ProjectCard
+                                href={item.href}
+                                title={item.title}
+                                description={item.description}
+                                dates={item.dates}
+                                tags={item.technologies}
+                                video={item.video}
+                                thumbnail={item.thumbnail}
+                                type={item.type}
+                            />
+                        </BlurFade>
+                    </div>
                 ))}
             </div>
         </div>
@@ -116,13 +117,13 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
                     console.log("Autoplay prevented:", error);
                     setTimeout(() => {
                         setIsVideoPlaying(true);
-                    }, 500);
+                    }, 300);
                 });
         }
 
         const fallbackTimer = setTimeout(() => {
             setIsVideoPlaying(true);
-        }, 3000);
+        }, 2000);
 
         return () => {
             video.removeEventListener("playing", handleVideoPlaying);
@@ -140,7 +141,7 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
     return (
         <motion.div
             animate={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY }}
-            whileHover={{ y: -8, scale: 1.02 }}
+            whileHover={{ y: -6, scale: 1.01 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="h-full perspective-1000"
         >
@@ -155,7 +156,7 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
                     ref={cardRef}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className="relative h-full rounded-2xl p-[1px] bg-gradient-to-b from-border/80 via-border/40 to-border/10 hover:from-amber-500/60 hover:via-cyan-500/40 hover:to-border/60 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10"
+                    className="relative h-full rounded-2xl p-[1px] bg-gradient-to-b from-border/80 via-border/40 to-border/10 hover:from-amber-500/60 hover:via-cyan-500/40 hover:to-border/60 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10"
                 >
                     {/* Interactive Cursor Spotlight Beam */}
                     <div
@@ -180,13 +181,15 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
                         </div>
 
                         {/* Thumbnail Image Container */}
-                        <div className="relative overflow-hidden h-52 sm:h-56 bg-zinc-950/80 border-b border-border/40">
+                        <div className="relative overflow-hidden h-48 sm:h-56 bg-zinc-950/80 border-b border-border/40">
                             {/* Soft Ambient Blur Background */}
                             {(thumbnail || image) && (
                                 <Image
                                     src={thumbnail || image || ""}
                                     alt=""
                                     fill
+                                    priority
+                                    unoptimized
                                     className="object-cover blur-xl scale-110 opacity-40 pointer-events-none"
                                     aria-hidden="true"
                                 />
@@ -198,9 +201,10 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
                                     src={thumbnail}
                                     alt={title}
                                     fill
-                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                    className={video ? "object-contain p-2 blur-sm scale-105 transition-transform duration-500 group-hover:scale-105 z-10" : "object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"}
                                     priority
+                                    unoptimized
+                                    sizes="(max-width: 768px) 86vw, 50vw"
+                                    className={video ? "object-contain p-2 blur-sm scale-105 transition-transform duration-500 group-hover:scale-105 z-10" : "object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"}
                                 />
                             )}
 
@@ -216,7 +220,7 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
                                     preload="auto"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: isVideoPlaying ? 1 : 0 }}
-                                    transition={{ duration: 0.3 }}
+                                    transition={{ duration: 0.2 }}
                                     className="pointer-events-none absolute top-0 left-0 w-full h-full object-cover object-top z-15"
                                 />
                             )}
@@ -227,7 +231,9 @@ export function ProjectCard({ title, href, description, tags, image, video, thum
                                     src={image}
                                     alt={title}
                                     fill
-                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    priority
+                                    unoptimized
+                                    sizes="(max-width: 768px) 86vw, 50vw"
                                     className="object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"
                                 />
                             )}
