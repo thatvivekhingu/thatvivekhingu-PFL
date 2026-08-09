@@ -23,7 +23,6 @@ const INTRO_CARDS: IntroCardItem[] = [
 ];
 
 export function IntroAnimation() {
-  // Synchronously initialize to true so black screen is rendered IMMEDIATELY at millisecond 0 without background flash
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       try {
@@ -40,7 +39,6 @@ export function IntroAnimation() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
-  // Sync session storage on mount
   useEffect(() => {
     try {
       const hasSeen = sessionStorage.getItem("hasSeenIntro_4dx_v3");
@@ -67,7 +65,6 @@ export function IntroAnimation() {
           playTapSound("hover");
         }, 60);
       } else {
-        // Pause 700ms after question, then move to first role
         timer = setTimeout(() => {
           setCurrentIndex(1);
           playTapSound("pop");
@@ -85,15 +82,15 @@ export function IntroAnimation() {
       return () => clearTimeout(timer);
     }
 
-    // Index 5: ACCESS GRANTED (2.0s hold)
+    // Index 5: STARK TECH // ACCESS GRANTED (2.4s hold)
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {
           handleComplete();
-        }, 900);
-      }, 2000);
+        }, 1000);
+      }, 2400);
       return () => clearTimeout(timer);
     }
   }, [shouldShow, currentIndex, questionChars, isComplete]);
@@ -135,23 +132,23 @@ export function IntroAnimation() {
                 }
           }
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black text-[#F8FAFC] select-none overflow-hidden"
         >
-          {/* Deep Anamorphic Cinematic Flares */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-cyan-500/10 via-slate-400/10 to-indigo-500/10 rounded-full blur-[110px] pointer-events-none opacity-60" />
-          <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:32px_32px] opacity-25 pointer-events-none" />
+          {/* Stark HUD Anamorphic Background Flares */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[380px] bg-gradient-to-r from-cyan-500/15 via-sky-400/10 to-amber-500/10 rounded-full blur-[120px] pointer-events-none opacity-70" />
+          <div className="absolute inset-0 bg-[radial-gradient(#0284c7_1px,transparent_1px)] [background-size:32px_32px] opacity-20 pointer-events-none" />
 
           {/* Skip Button */}
           <button
             onClick={handleSkip}
-            className="absolute top-6 right-6 z-50 px-4 py-1.5 rounded-full border border-white/10 bg-black/60 backdrop-blur-md text-xs font-mono text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 hover:bg-black/90 transition-all duration-300 shadow-2xl cursor-pointer"
+            className="absolute top-6 right-6 z-50 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-black/80 backdrop-blur-md text-xs font-mono text-cyan-300 hover:text-white hover:border-cyan-400 hover:bg-black/95 transition-all duration-300 shadow-2xl cursor-pointer"
           >
             Skip Intro →
           </button>
 
           {/* Stage Container */}
-          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[240px] text-center">
+          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[300px] text-center">
             <AnimatePresence mode="wait">
               {/* Question Phase */}
               {currentIndex === 0 && (
@@ -187,23 +184,49 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* Security Clearance Card */}
+              {/* Stark Tech // Iron Man HUD Access Granted Card */}
               {currentIndex === 5 && (
                 <motion.div
-                  key="granted-card"
-                  initial={{ opacity: 0, scale: 0.82, filter: "blur(10px)" }}
+                  key="stark-granted-card"
+                  initial={{ opacity: 0, scale: 0.75, filter: "blur(12px)" }}
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="flex flex-col items-center space-y-4"
+                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative flex flex-col items-center space-y-5"
                 >
-                  <div className="flex items-center gap-2 font-mono text-xs sm:text-sm text-emerald-400/90 tracking-[0.25em] uppercase">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span>SYSTEM VERIFIED // IDENTITY CONFIRMED</span>
+                  {/* Rotating Arc Reactor Targeting HUD Rings */}
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                    className="absolute -top-16 w-72 h-72 sm:w-96 sm:h-96 rounded-full border-2 border-dashed border-cyan-400/40 pointer-events-none"
+                  />
+                  <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    className="absolute -top-10 w-56 h-56 sm:w-72 sm:h-72 rounded-full border border-dotted border-amber-400/40 pointer-events-none"
+                  />
+
+                  {/* Stark Protocol Status Line */}
+                  <div className="z-10 flex items-center gap-2 font-mono text-[11px] sm:text-xs text-cyan-300 tracking-[0.3em] uppercase font-bold">
+                    <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
+                    <span>STARK PROTOCOL v4.2 // BIOMETRIC CLEARANCE</span>
                   </div>
 
-                  <div className="relative px-8 sm:px-12 py-4 sm:py-5 rounded-2xl bg-emerald-950/50 border-2 border-emerald-500/70 backdrop-blur-2xl shadow-[0_0_60px_rgba(16,185,129,0.5)]">
-                    <span className="font-mono text-base sm:text-xl font-black tracking-[0.35em] text-emerald-300 uppercase">
-                      [ ACCESS GRANTED ]
+                  {/* Metallic Hologram Badge */}
+                  <div className="z-10 relative px-8 sm:px-14 py-5 sm:py-6 rounded-2xl bg-black/90 border-2 border-cyan-400/90 backdrop-blur-2xl shadow-[0_0_80px_rgba(34,211,238,0.65)] text-center">
+                    {/* Futuristic Corner Brackets */}
+                    <div className="absolute top-1.5 left-1.5 w-3.5 h-3.5 border-t-2 border-l-2 border-cyan-300" />
+                    <div className="absolute top-1.5 right-1.5 w-3.5 h-3.5 border-t-2 border-r-2 border-cyan-300" />
+                    <div className="absolute bottom-1.5 left-1.5 w-3.5 h-3.5 border-b-2 border-l-2 border-cyan-300" />
+                    <div className="absolute bottom-1.5 right-1.5 w-3.5 h-3.5 border-b-2 border-r-2 border-cyan-300" />
+
+                    {/* ACCESS GRANTED Bold Gradient Header */}
+                    <span className="font-mono text-2xl sm:text-4xl font-black tracking-[0.35em] bg-gradient-to-r from-cyan-300 via-white to-sky-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(56,189,248,0.9)] uppercase block">
+                      ACCESS GRANTED
+                    </span>
+
+                    {/* Commander Subtitle */}
+                    <span className="mt-2.5 block font-mono text-[10px] sm:text-xs text-amber-300 tracking-[0.3em] uppercase font-extrabold">
+                      WELCOME COMMANDER VIVEK HINGU
                     </span>
                   </div>
                 </motion.div>
@@ -211,13 +234,13 @@ export function IntroAnimation() {
             </AnimatePresence>
           </div>
 
-          {/* Center Iris Shutter Opening Pulse */}
+          {/* Stark Repulsor Blast Iris Exit Pulse */}
           {isTransitioning && (
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: [0, 8, 25], opacity: [0, 0.9, 0] }}
-              transition={{ duration: 0.9, ease: "easeOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-tr from-cyan-400 via-emerald-400 to-white shadow-[0_0_100px_rgba(0,240,255,1)] pointer-events-none"
+              animate={{ scale: [0, 10, 30], opacity: [0, 0.95, 0] }}
+              transition={{ duration: 1.0, ease: "easeOut" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-tr from-cyan-400 via-sky-300 to-amber-300 shadow-[0_0_120px_rgba(56,189,248,1)] pointer-events-none"
             />
           )}
         </motion.div>
