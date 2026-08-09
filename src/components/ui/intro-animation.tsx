@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
@@ -27,7 +26,7 @@ export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       try {
-        return sessionStorage.getItem("hasSeenIntro_v6_force") !== "true";
+        return sessionStorage.getItem("hasSeenIntro_clean_arc_v7") !== "true";
       } catch {
         return true;
       }
@@ -45,7 +44,7 @@ export function IntroAnimation() {
 
   useEffect(() => {
     try {
-      const hasSeen = sessionStorage.getItem("hasSeenIntro_v6_force");
+      const hasSeen = sessionStorage.getItem("hasSeenIntro_clean_arc_v7");
       if (hasSeen === "true") {
         setShouldShow(false);
       }
@@ -61,8 +60,8 @@ export function IntroAnimation() {
     let a2 = 0;
 
     const spin = () => {
-      a1 = (a1 + 0.12) % 360;
-      a2 = (a2 - 0.18 + 360) % 360;
+      a1 = (a1 + 0.14) % 360;
+      a2 = (a2 - 0.2 + 360) % 360;
       if (coilRingRef.current) {
         coilRingRef.current.setAttribute("transform", `rotate(${a1} 200 200)`);
       }
@@ -108,7 +107,7 @@ export function IntroAnimation() {
       return () => clearTimeout(timer);
     }
 
-    // Index 5: UNIQUE ARC REACTOR BLINK & REPULSOR BLAST
+    // Index 5: CLEAN ARC REACTOR BLINK & REPULSOR BLAST
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
@@ -123,7 +122,7 @@ export function IntroAnimation() {
 
   const handleComplete = () => {
     try {
-      sessionStorage.setItem("hasSeenIntro_v6_force", "true");
+      sessionStorage.setItem("hasSeenIntro_clean_arc_v7", "true");
     } catch {
       // Ignore storage errors
     }
@@ -222,7 +221,7 @@ export function IntroAnimation() {
           </button>
 
           {/* Stage Container */}
-          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[360px] text-center gap-6">
+          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[380px] text-center gap-4">
             <AnimatePresence mode="wait">
               {/* Question Phase */}
               {currentIndex === 0 && (
@@ -258,16 +257,16 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* UNIQUE BLINKING ARC REACTOR & PORTFOLIO ENTRANCE */}
+              {/* ARC REACTOR SVG BLINK + ACCESS GRANTED BELOW */}
               {currentIndex === 5 && (
                 <motion.div
-                  key="unique-arc-stage"
+                  key="clean-arc-stage"
                   initial={{ opacity: 0, scale: 0.6, filter: "blur(14px)" }}
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
-                  className="relative flex flex-col items-center space-y-5"
+                  className="relative flex flex-col items-center space-y-3"
                 >
-                  {/* HUD Header Status Line */}
+                  {/* HUD Header Status Line (No Stark Mentions) */}
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -275,10 +274,10 @@ export function IntroAnimation() {
                     className="flex items-center gap-2.5 font-mono text-xs sm:text-sm text-[#5fe0ff] tracking-[0.3em] uppercase font-bold drop-shadow-[0_0_12px_rgba(95,224,255,0.8)]"
                   >
                     <span className="h-2 w-2 rounded-full bg-[#5fe0ff] animate-ping" />
-                    <span>SYSTEM INITIALIZATION // NEURAL CORE ONLINE</span>
+                    <span>SYSTEM INITIALIZATION // NEURAL CORE MAXIMUM OUTPUT</span>
                   </motion.div>
 
-                  {/* Arc Reactor Graphic Wrapper */}
+                  {/* Pure Arc Reactor Graphic Wrapper (Zero Photo Image) */}
                   <div className="relative flex items-center justify-center">
                     {/* Pulsing Ambient Halo */}
                     <motion.div
@@ -287,10 +286,10 @@ export function IntroAnimation() {
                         opacity: [0.4, 0.85, 0.4],
                       }}
                       transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] rounded-full bg-[radial-gradient(circle,rgba(95,224,255,0.35)_0%,rgba(95,224,255,0.1)_40%,transparent_70%)] pointer-events-none filter blur-md"
+                      className="absolute w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] rounded-full bg-[radial-gradient(circle,rgba(95,224,255,0.35)_0%,rgba(95,224,255,0.1)_40%,transparent_70%)] pointer-events-none filter blur-md"
                     />
 
-                    {/* Arc Reactor SVG & Real Image Overlay */}
+                    {/* Pure Arc Reactor SVG (12 Coils, Slot Ring, Core Hex) */}
                     <motion.div
                       animate={
                         isTransitioning
@@ -302,7 +301,7 @@ export function IntroAnimation() {
                           ? { duration: 0.8, ease: "easeIn" }
                           : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }
                       }
-                      className="relative w-64 h-64 sm:w-80 sm:h-80 drop-shadow-[0_0_50px_rgba(95,224,255,0.9)]"
+                      className="relative w-60 h-60 sm:w-72 sm:h-72 drop-shadow-[0_0_50px_rgba(95,224,255,0.9)]"
                     >
                       <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible">
                         <defs>
@@ -331,7 +330,6 @@ export function IntroAnimation() {
                               strokeWidth="0.8"
                             />
                           </pattern>
-                          <path id="topArc" d="M 60,200 A 140,140 0 1,1 340,200" fill="none" />
                         </defs>
 
                         {/* Outer metal housing */}
@@ -353,40 +351,38 @@ export function IntroAnimation() {
                         <circle cx="200" cy="200" r="82" fill="none" stroke="#5fe0ff" strokeWidth="2.5" opacity="0.75" filter="url(#glow)" />
                         <circle cx="200" cy="200" r="58" fill="none" stroke="#5fe0ff" strokeWidth="2" opacity="0.9" filter="url(#glow)" />
 
-                        {/* Core */}
+                        {/* Inner Core */}
                         <circle cx="200" cy="200" r="52" fill="url(#coreGlow)" />
                         <circle cx="200" cy="200" r="44" fill="#081014" stroke="#2a3238" strokeWidth="2" />
                         <circle cx="200" cy="200" r="40" fill="url(#hex)" />
-                        <circle cx="200" cy="200" r="40" fill="url(#coreGlow)" opacity="0.35" />
-
-                        {/* Curved VIVEK HINGU // ACCESS GRANTED text on topArc */}
-                        <g filter="url(#glow)">
-                          <text
-                            fontFamily="Orbitron, sans-serif"
-                            fontWeight="700"
-                            fontSize="17"
-                            letterSpacing="5"
-                            fill="#5fe0ff"
-                          >
-                            <textPath href="#topArc" startOffset="50%" textAnchor="middle">
-                              VIVEK HINGU // ACCESS GRANTED
-                            </textPath>
-                          </text>
-                        </g>
+                        <circle cx="200" cy="200" r="40" fill="url(#coreGlow)" opacity="0.4" />
                       </svg>
-
-                      {/* Real Arc Reactor Center Image Overlay */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-[#5fe0ff]/80 shadow-[0_0_25px_rgba(95,224,255,0.9)]">
-                        <Image
-                          src="/logo/arc-reactor-top.jpg"
-                          alt="Real Arc Reactor"
-                          fill
-                          className="object-cover rounded-full"
-                          priority
-                        />
-                      </div>
                     </motion.div>
                   </div>
+
+                  {/* ACCESS GRANTED BADGE PLACED DIRECTLY BELOW ARC REACTOR */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="z-10 relative mt-2 px-8 sm:px-14 py-3.5 sm:py-4 rounded-2xl bg-[#081014]/90 border-2 border-[#5fe0ff]/80 backdrop-blur-2xl shadow-[0_0_60px_rgba(95,224,255,0.6)] text-center"
+                  >
+                    {/* Futuristic Corner Brackets */}
+                    <div className="absolute top-1.5 left-1.5 w-3.5 h-3.5 border-t-2 border-l-2 border-[#5fe0ff]" />
+                    <div className="absolute top-1.5 right-1.5 w-3.5 h-3.5 border-t-2 border-r-2 border-[#5fe0ff]" />
+                    <div className="absolute bottom-1.5 left-1.5 w-3.5 h-3.5 border-b-2 border-l-2 border-[#5fe0ff]" />
+                    <div className="absolute bottom-1.5 right-1.5 w-3.5 h-3.5 border-b-2 border-r-2 border-[#5fe0ff]" />
+
+                    {/* ACCESS GRANTED Main Bold Header */}
+                    <span className="font-mono text-2xl sm:text-4xl font-black tracking-[0.35em] bg-gradient-to-r from-cyan-300 via-white to-sky-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(95,224,255,0.95)] uppercase block">
+                      ACCESS GRANTED
+                    </span>
+
+                    {/* Vivek Hingu Subtitle */}
+                    <span className="mt-1.5 block font-mono text-[10px] sm:text-xs text-[#5fe0ff] tracking-[0.3em] uppercase font-extrabold">
+                      VIVEK HINGU // PORTFOLIO UNLOCKED
+                    </span>
+                  </motion.div>
                 </motion.div>
               )}
             </AnimatePresence>
