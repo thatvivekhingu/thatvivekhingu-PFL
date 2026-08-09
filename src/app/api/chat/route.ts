@@ -35,6 +35,9 @@ Instructions:
 export async function POST(req: Request) {
   try {
     const { message, conversation_id, history = [] } = await req.json();
+    console.log(`[VIAN API] Processing chat for conversation: ${conversation_id || "default"}`);
+
+
 
     if (!message || typeof message !== "string") {
       return NextResponse.json(
@@ -83,10 +86,18 @@ export async function POST(req: Request) {
       }
     }
 
-    // 2. Intelligent Neural Fallback if API key unavailable
+    // 2. High-Tech Context-Aware Neural Engine Fallback
     if (!fullResponse) {
-      if (trimmedMsg.includes("who are you") || trimmedMsg.includes("who is vian") || trimmedMsg.includes("your name")) {
-        fullResponse = "I am **VIAN** — Vivek's Intelligent Neural Assistant! 🤖 I am here to help you explore Vivek Hingu's AI/ML engineering projects, technical skills, hackathon victories, and background.";
+      if (
+        trimmedMsg.includes("who are you") ||
+        trimmedMsg.includes("who is vian") ||
+        trimmedMsg.includes("name") ||
+        trimmedMsg.includes("who u") ||
+        trimmedMsg.includes("who r u") ||
+        trimmedMsg.includes("ur name") ||
+        trimmedMsg.includes("yout name")
+      ) {
+        fullResponse = "I am **VIAN** — Vivek's Intelligent Neural Assistant! 🤖 Created by Vivek Hingu to assist you with his portfolio, AI/ML projects, skills, hackathon achievements, and background.";
       } else if (trimmedMsg.includes("project") || trimmedMsg.includes("build") || trimmedMsg.includes("jarvis") || trimmedMsg.includes("drone") || trimmedMsg.includes("work")) {
         const topProjects = data.projects.map((p, idx) => `${idx + 1}. **${p.title}** — ${p.description}`).join("\n");
         fullResponse = `Here are Vivek Hingu's featured engineering builds:\n\n${topProjects}\n\nYou can explore live code & demos in the **Featured Builds** section!`;
@@ -101,9 +112,10 @@ export async function POST(req: Request) {
       } else if (trimmedMsg.includes("education") || trimmedMsg.includes("college") || trimmedMsg.includes("degree")) {
         fullResponse = "🎓 Vivek is pursuing his B.Tech in **Artificial Intelligence & Data Science** at LJ Institute of Engineering and Technology (GPA: 8.2 / 10), graduating in 2026!";
       } else {
-        fullResponse = `VIAN Neural Core active! [Conv ID: ${conversation_id || "default"}]. Vivek Hingu is an AI/ML Engineer specializing in Autonomous Systems, PyTorch models, and Full-Stack apps. Feel free to ask about his **projects**, **skills**, **hackathon wins**, or **contact details**!`;
+        fullResponse = "I am VIAN, Vivek Hingu's AI Assistant. 🤖 Vivek is an AI/ML Engineer specializing in Autonomous Systems, PyTorch models, and Full-Stack apps. Feel free to ask about his **projects**, **skills**, **hackathon wins**, or **contact details**!";
       }
     }
+
 
     // Stream the AI response progressively back to the client using ReadableStream
     const encoder = new TextEncoder();
