@@ -98,58 +98,53 @@ export const Navbar = ({
             opacity: visible ? 1 : 0,
           }}
           transition={{
-            duration: 0.3,
-            ease: "easeOut",
+            duration: 0.2,
           }}
           className={cn(
-            "fixed top-3 sm:top-5 inset-x-0 mx-auto w-[92%] sm:w-auto max-w-4xl z-[5000] flex items-center justify-between gap-3 px-4 sm:px-6 py-2.5 rounded-full border border-white/15 dark:border-white/10 bg-background/60 dark:bg-zinc-950/70 backdrop-blur-xl shadow-2xl shadow-black/20 transition-all duration-300",
+            "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-lg fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-lg sm:bg-none dark:bg-background/10 sm:dark:bg-background/20 bg-white/30 z-[5000] pr-4 pl-6 py-4 items-center justify-between",
             className
           )}
         >
           {/* Logo on the left */}
-          <div className="flex items-center">
+          <div className="flex items-center mr-4 sm:mr-16">
             {mounted && (
               <AnimatedLogo
                 theme={resolvedTheme === "dark" ? "dark" : "light"}
-                className="w-6 h-6 sm:w-7 sm:h-7 cursor-pointer hover:scale-110 transition-transform"
+                className="w-6 h-6 sm:w-7 sm:h-7 cursor-pointer"
                 onClick={handleLogoClick}
               />
             )}
           </div>
 
-          {/* Nav Links */}
-          <div className="flex items-center gap-1 sm:gap-2">
+          {/* Links in the center */}
+          <div className="flex items-center gap-3 sm:gap-6 ml-auto mr-0 sm:mr-4">
             {navItems.map((navItem, idx) => (
               <button
                 key={`link=${idx}`}
                 onClick={() => handleNavClick(navItem.link)}
                 className={cn(
-                  "relative px-3 py-1 rounded-full text-xs sm:text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200"
+                  "relative font-semibold text-slate-700 dark:text-muted-foreground items-center flex space-x-1 hover:text-black dark:hover:text-white transition-colors duration-300"
                 )}
               >
                 <span className="block sm:hidden">{navItem.icon}</span>
-                <span className="hidden sm:block">{navItem.name}</span>
+                <span className="hidden sm:block text-sm">{navItem.name}</span>
               </button>
             ))}
-          </div>
-
-          {/* Right Action Icons */}
-          <div className="flex items-center gap-2">
             <span
               aria-hidden
-              className="hidden sm:inline-block h-4 w-px bg-border/60"
+              className="h-5 w-px self-center bg-zinc-300/60 dark:bg-zinc-700/60"
             />
             <a
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Star this site on GitHub`}
-              className="group inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 hover:border-amber-500/50 px-3 py-1 text-xs font-semibold text-amber-400 dark:text-amber-300 transition-all duration-300 shadow-[0_0_12px_rgba(245,158,11,0.15)]"
+              className="group inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 hover:bg-background/70 hover:border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               <IconBrandGithub className="h-3.5 w-3.5" />
-              <span className="flex items-center gap-1 tabular-nums">
-                <IconStar className="h-3 w-3 fill-amber-400 text-amber-400 transition-transform group-hover:scale-125" />
-                <span>{stars > 0 ? stars : 1}</span>
+              <span className="flex items-center gap-0.5 tabular-nums">
+                <IconStar className="h-3 w-3 transition-colors group-hover:text-amber-400 group-hover:animate-spin-grow" />
+                {stars > 0 ? stars : 1}
               </span>
             </a>
             <CommandPaletteButton />
