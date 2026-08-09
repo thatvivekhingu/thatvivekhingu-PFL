@@ -1,44 +1,43 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { data } from "@/data/data";
 import { IconAward, IconCertificate, IconChevronLeft, IconChevronRight, IconExternalLink, IconMaximize } from "@tabler/icons-react";
 import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { PhotoLightbox, PhotoLightboxItem } from "@/components/ui/photo-lightbox";
+import { Marquee } from "@/components/ui/marquee";
 import { playTapSound } from "@/lib/sound";
 
 export default function Achievements() {
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoLightboxItem | null>(null);
-  const achievementsRef = useRef<HTMLDivElement>(null);
-  const certificatesRef = useRef<HTMLDivElement>(null);
+  const [achievementsOffset, setAchievementsOffset] = useState(0);
+  const [certificatesOffset, setCertificatesOffset] = useState(0);
 
   const handleOpenPhoto = (item: PhotoLightboxItem) => {
     playTapSound("chime");
     setSelectedPhoto(item);
   };
 
-  const scrollLeft = (ref: React.RefObject<HTMLDivElement | null>) => {
+  const handleAchievementsPrev = () => {
     playTapSound("pop");
-    if (ref.current) {
-      const step = ((ref.current.firstElementChild as HTMLElement)?.offsetWidth || 340) + 24;
-      ref.current.scrollTo({
-        left: ref.current.scrollLeft - step,
-        behavior: "smooth",
-      });
-    }
+    setAchievementsOffset((prev) => prev + 360);
   };
 
-  const scrollRight = (ref: React.RefObject<HTMLDivElement | null>) => {
+  const handleAchievementsNext = () => {
     playTapSound("pop");
-    if (ref.current) {
-      const step = ((ref.current.firstElementChild as HTMLElement)?.offsetWidth || 340) + 24;
-      ref.current.scrollTo({
-        left: ref.current.scrollLeft + step,
-        behavior: "smooth",
-      });
-    }
+    setAchievementsOffset((prev) => prev - 360);
+  };
+
+  const handleCertificatesPrev = () => {
+    playTapSound("pop");
+    setCertificatesOffset((prev) => prev + 340);
+  };
+
+  const handleCertificatesNext = () => {
+    playTapSound("pop");
+    setCertificatesOffset((prev) => prev - 340);
   };
 
   return (
@@ -57,17 +56,17 @@ export default function Achievements() {
           </h3>
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              Click arrows or drag to scroll
+              Continuous auto-scroll • Manual navigation
             </span>
             <button
-              onClick={() => scrollLeft(achievementsRef)}
+              onClick={handleAchievementsPrev}
               aria-label="Scroll left"
               className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
               <IconChevronLeft className="h-4 w-4" />
             </button>
             <button
-              onClick={() => scrollRight(achievementsRef)}
+              onClick={handleAchievementsNext}
               aria-label="Scroll right"
               className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
@@ -76,123 +75,129 @@ export default function Achievements() {
           </div>
         </div>
 
-        <div
-          ref={achievementsRef}
-          className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none"
-        >
-          {data.achievements.map((item) => (
-            <div
-              key={item.title}
-              className="w-80 sm:w-96 shrink-0 snap-start group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/70 backdrop-blur-md transition-all duration-500 hover:border-amber-500/80 hover:shadow-2xl hover:shadow-amber-500/20 hover:scale-[1.02]"
-            >
-              {/* Photo Preview Container */}
-              {item.image && (
+        <div className="overflow-hidden py-2">
+          <div
+            style={{
+              transform: `translateX(${achievementsOffset}px)`,
+              transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+          >
+            <Marquee pauseOnHover repeat={3} reverse={true} className="[--duration:35s] py-1">
+              {data.achievements.map((item) => (
                 <div
-                  className="relative w-full h-56 sm:h-64 overflow-hidden border-b border-border/40 bg-zinc-950/90 cursor-pointer"
-                  onClick={() =>
-                    handleOpenPhoto({
-                      src: item.image!,
-                      alt: item.title,
-                      title: item.title,
-                      subtitle: item.category,
-                      description: item.description,
-                      metrics: item.metrics,
-                      link: item.link,
-                    })
-                  }
+                  key={item.title}
+                  className="w-80 sm:w-96 shrink-0 group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/70 backdrop-blur-md transition-all duration-500 hover:border-amber-500/80 hover:shadow-2xl hover:shadow-amber-500/20 hover:scale-[1.02]"
                 >
-                  <Image
-                    src={item.image}
-                    alt=""
-                    fill
-                    className="object-cover blur-xl scale-110 opacity-45 pointer-events-none"
-                    aria-hidden="true"
-                  />
+                  {/* Photo Preview Container */}
+                  {item.image && (
+                    <div
+                      className="relative w-full h-56 sm:h-64 overflow-hidden border-b border-border/40 bg-zinc-950/90 cursor-pointer"
+                      onClick={() =>
+                        handleOpenPhoto({
+                          src: item.image!,
+                          alt: item.title,
+                          title: item.title,
+                          subtitle: item.category,
+                          description: item.description,
+                          metrics: item.metrics,
+                          link: item.link,
+                        })
+                      }
+                    >
+                      <Image
+                        src={item.image}
+                        alt=""
+                        fill
+                        className="object-cover blur-xl scale-110 opacity-45 pointer-events-none"
+                        aria-hidden="true"
+                      />
 
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"
-                    sizes="384px"
-                  />
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"
+                        sizes="384px"
+                      />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-300 z-20" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-300 z-20" />
 
-                  <div className="absolute top-3 right-3 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 text-amber-400 text-xs font-medium backdrop-blur-md border border-amber-500/40">
-                      <IconMaximize className="h-3.5 w-3.5" />
-                      <span>Full View</span>
-                    </span>
-                  </div>
+                      <div className="absolute top-3 right-3 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 text-amber-400 text-xs font-medium backdrop-blur-md border border-amber-500/40">
+                          <IconMaximize className="h-3.5 w-3.5" />
+                          <span>Full View</span>
+                        </span>
+                      </div>
 
-                  <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between text-white">
-                    <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/90 backdrop-blur-sm text-black">
-                      {item.category}
-                    </span>
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-zinc-200 tabular-nums">
-                      {item.date}
-                    </span>
+                      <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between text-white">
+                        <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/90 backdrop-blur-sm text-black">
+                          {item.category}
+                        </span>
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-zinc-200 tabular-nums">
+                          {item.date}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Card Content */}
+                  <div className="p-5 flex flex-col justify-between flex-1 space-y-4">
+                    <div className="space-y-2">
+                      <h4 className="text-base font-bold tracking-tight text-foreground group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-border/40 flex items-center justify-between gap-2">
+                      {item.metrics ? (
+                        <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
+                          ✨ {item.metrics}
+                        </span>
+                      ) : <span />}
+
+                      <div className="flex items-center gap-3">
+                        {item.image && (
+                          <button
+                            onClick={() =>
+                              handleOpenPhoto({
+                                src: item.image!,
+                                alt: item.title,
+                                title: item.title,
+                                subtitle: item.category,
+                                description: item.description,
+                                metrics: item.metrics,
+                                link: item.link,
+                              })
+                            }
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
+                          >
+                            <IconMaximize className="h-3.5 w-3.5" />
+                            <span>Full View</span>
+                          </button>
+                        )}
+
+                        {item.link && (
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => playTapSound("pop")}
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
+                          >
+                            <span>Details</span>
+                            <IconExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              )}
-
-              {/* Card Content */}
-              <div className="p-5 flex flex-col justify-between flex-1 space-y-4">
-                <div className="space-y-2">
-                  <h4 className="text-base font-bold tracking-tight text-foreground group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                    {item.description}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-border/40 flex items-center justify-between gap-2">
-                  {item.metrics ? (
-                    <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
-                      ✨ {item.metrics}
-                    </span>
-                  ) : <span />}
-
-                  <div className="flex items-center gap-3">
-                    {item.image && (
-                      <button
-                        onClick={() =>
-                          handleOpenPhoto({
-                            src: item.image!,
-                            alt: item.title,
-                            title: item.title,
-                            subtitle: item.category,
-                            description: item.description,
-                            metrics: item.metrics,
-                            link: item.link,
-                          })
-                        }
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
-                      >
-                        <IconMaximize className="h-3.5 w-3.5" />
-                        <span>Full View</span>
-                      </button>
-                    )}
-
-                    {item.link && (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
-                      >
-                        <span>Details</span>
-                        <IconExternalLink className="h-3.5 w-3.5" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+              ))}
+            </Marquee>
+          </div>
         </div>
       </div>
 
@@ -205,17 +210,17 @@ export default function Achievements() {
           </h3>
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              Manual navigation • Tap to flip 3D
+              Continuous auto-scroll • Tap card to flip 3D
             </span>
             <button
-              onClick={() => scrollLeft(certificatesRef)}
+              onClick={handleCertificatesPrev}
               aria-label="Scroll left"
               className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
               <IconChevronLeft className="h-4 w-4" />
             </button>
             <button
-              onClick={() => scrollRight(certificatesRef)}
+              onClick={handleCertificatesNext}
               aria-label="Scroll right"
               className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
             >
@@ -224,15 +229,19 @@ export default function Achievements() {
           </div>
         </div>
 
-        <div
-          ref={certificatesRef}
-          className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none"
-        >
-          {data.certificates.map((cert) => (
-            <div key={cert.title} className="snap-start shrink-0">
-              <CertFlipCard cert={cert} handleOpenPhoto={handleOpenPhoto} />
-            </div>
-          ))}
+        <div className="overflow-hidden py-2">
+          <div
+            style={{
+              transform: `translateX(${certificatesOffset}px)`,
+              transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+          >
+            <Marquee pauseOnHover repeat={3} reverse={false} className="[--duration:28s] py-1">
+              {data.certificates.map((cert) => (
+                <CertFlipCard key={cert.title} cert={cert} handleOpenPhoto={handleOpenPhoto} />
+              ))}
+            </Marquee>
+          </div>
         </div>
       </div>
 
