@@ -16,7 +16,6 @@ import { IconBrush, IconExternalLink, IconSparkles } from "@tabler/icons-react";
 import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
 import { motion } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
-import { SeamlessCodingLoop } from "@/components/ui/seamless-coding-loop";
 
 export default function Projects() {
     return (
@@ -28,10 +27,9 @@ export default function Projects() {
             >
                 Featured AI Systems & Engineering Projects
             </SectionHeading>
-
-            <SeamlessCodingLoop className="mb-2" />
             
             {/* Horizontal Swipeable Card Carousel on Mobile & Grid on Desktop */}
+
             <div className="flex md:grid md:grid-cols-2 gap-6 w-full overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0">
                 {data.projects.map((item, index) => (
                     <div key={item.title} className="w-[86vw] sm:w-auto flex-shrink-0 snap-center">
