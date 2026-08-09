@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
@@ -82,7 +83,7 @@ export function IntroAnimation() {
       return () => clearTimeout(timer);
     }
 
-    // Index 5: REAL STARK ARC REACTOR LIGHT BLAST (2.6s hold)
+    // Index 5: REAL IRON MAN ARC REACTOR LIGHT BLAST (2.6s hold)
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
@@ -148,7 +149,7 @@ export function IntroAnimation() {
           </button>
 
           {/* Stage Container */}
-          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[320px] text-center">
+          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[340px] text-center">
             <AnimatePresence mode="wait">
               {/* Question Phase */}
               {currentIndex === 0 && (
@@ -184,7 +185,7 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* Realistic Arc Reactor Core + Repulsor Light Blast */}
+              {/* REAL Iron Man Arc Reactor Prop Photo + Light Blast Stage */}
               {currentIndex === 5 && (
                 <motion.div
                   key="arc-reactor-card"
@@ -193,126 +194,34 @@ export function IntroAnimation() {
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   className="relative flex flex-col items-center space-y-4"
                 >
-                  {/* Arc Reactor Core Element */}
+                  {/* Real Photorealistic Arc Reactor Image Element */}
                   <div className="relative mb-2 flex items-center justify-center">
-                    {/* Glowing Core Ambient Halo */}
+                    {/* Ambient Glow Halo */}
                     <div className="absolute inset-0 rounded-full bg-cyan-400/40 blur-3xl animate-pulse" />
 
-                    {/* Realistic Iron Man Arc Reactor Chassis & Core SVG */}
-                    <motion.svg
+                    {/* Real Arc Reactor Image Casing */}
+                    <motion.div
                       initial={{ scale: 0.85 }}
                       animate={
                         isTransitioning
-                          ? { scale: [1, 1.4, 2], filter: "brightness(3)" }
+                          ? { scale: [1, 1.5, 2.5], filter: "brightness(4)" }
                           : { scale: [0.96, 1.04, 0.96] }
                       }
                       transition={
                         isTransitioning
                           ? { duration: 1.0, ease: "easeIn" }
-                          : { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                          : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }
                       }
-                      viewBox="0 0 200 200"
-                      className="w-36 h-36 sm:w-48 sm:h-48 drop-shadow-[0_0_45px_rgba(56,189,248,1)]"
+                      className="relative w-44 h-44 sm:w-60 sm:h-60 rounded-full border-4 border-cyan-400/90 p-1 shadow-[0_0_60px_rgba(34,211,238,0.95)] overflow-hidden bg-black"
                     >
-                      {/* Heavy Outer Metallic Rim */}
-                      <circle
-                        cx="100"
-                        cy="100"
-                        r="92"
-                        fill="none"
-                        stroke="#0369a1"
-                        strokeWidth="8"
+                      <Image
+                        src="/logo/arc-reactor.jpg"
+                        alt="Iron Man Arc Reactor"
+                        fill
+                        className="object-cover rounded-full"
+                        priority
                       />
-                      <circle
-                        cx="100"
-                        cy="100"
-                        r="84"
-                        fill="none"
-                        stroke="#0284c7"
-                        strokeWidth="3"
-                        strokeDasharray="16 8"
-                        className="animate-[spin_12s_linear_infinite]"
-                      />
-                      <circle
-                        cx="100"
-                        cy="100"
-                        r="74"
-                        fill="none"
-                        stroke="#38bdf8"
-                        strokeWidth="2"
-                        strokeDasharray="4 12"
-                        className="animate-[spin_8s_linear_infinite_reverse]"
-                      />
-
-                      {/* 10 Copper Arc Reactor Coils */}
-                      {[0, 36, 72, 108, 144, 180, 216, 252, 288, 324].map((deg) => (
-                        <g key={deg} transform={`rotate(${deg} 100 100)`}>
-                          <rect
-                            x="94"
-                            y="14"
-                            width="12"
-                            height="24"
-                            rx="3"
-                            fill="#38bdf8"
-                            stroke="#7dd3fc"
-                            strokeWidth="1.5"
-                            className="opacity-95"
-                          />
-                          <line
-                            x1="100"
-                            y1="14"
-                            x2="100"
-                            y2="38"
-                            stroke="#bae6fd"
-                            strokeWidth="2"
-                          />
-                        </g>
-                      ))}
-
-                      {/* Inner Vibranium Ring */}
-                      <circle
-                        cx="100"
-                        cy="100"
-                        r="45"
-                        fill="#0284c7"
-                        fillOpacity="0.2"
-                        stroke="#38bdf8"
-                        strokeWidth="6"
-                        className="drop-shadow-[0_0_20px_#38bdf8]"
-                      />
-
-                      {/* Triangular Arc Reactor Energy Core */}
-                      <polygon
-                        points="100,60 134,118 66,118"
-                        fill="none"
-                        stroke="#ffffff"
-                        strokeWidth="4.5"
-                        strokeLinejoin="round"
-                        className="drop-shadow-[0_0_25px_rgba(255,255,255,1)]"
-                      />
-                      <polygon
-                        points="100,68 126,113 74,113"
-                        fill="#38bdf8"
-                        fillOpacity="0.4"
-                        stroke="#7dd3fc"
-                        strokeWidth="2"
-                      />
-
-                      {/* Center Blinding Plasma Core Gem */}
-                      <circle
-                        cx="100"
-                        cy="100"
-                        r="18"
-                        fill="#ffffff"
-                        className="drop-shadow-[0_0_30px_rgba(255,255,255,1)]"
-                      />
-                      <circle
-                        cx="100"
-                        cy="100"
-                        r="8"
-                        fill="#e0f2fe"
-                      />
-                    </motion.svg>
+                    </motion.div>
                   </div>
 
                   {/* Stark Clearance Status Line */}
@@ -344,13 +253,13 @@ export function IntroAnimation() {
             </AnimatePresence>
           </div>
 
-          {/* Real Repulsor Light Beam Blast Burst to Open Dashboard */}
+          {/* Real Repulsor Light Beam Blast Burst from Arc Reactor Core */}
           {isTransitioning && (
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: [0, 8, 35], opacity: [0, 1, 0] }}
+              animate={{ scale: [0, 10, 35], opacity: [0, 1, 0] }}
               transition={{ duration: 1.1, ease: "easeInOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-gradient-to-tr from-cyan-300 via-white to-sky-400 shadow-[0_0_160px_rgba(56,189,248,1)] pointer-events-none z-[100000]"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-44 rounded-full bg-gradient-to-tr from-cyan-300 via-white to-sky-400 shadow-[0_0_160px_rgba(56,189,248,1)] pointer-events-none z-[100000]"
             />
           )}
         </motion.div>
