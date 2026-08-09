@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { CommandPalette } from "@/components/command-palette/command-palette";
 import { getAllPosts } from "@/lib/blog";
 import { ViewTransitions } from "next-view-transitions";
+import { VianAssistant } from "@/components/ui/vian-assistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,7 +92,9 @@ export default function RootLayout({
             />
             {children}
             <Footer />
+            <VianAssistant />
           </ThemeProvider>
+
           <Analytics />
         </body>
       </html>
