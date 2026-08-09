@@ -113,20 +113,18 @@ export default function Hero() {
                 <motion.h1
                   initial={{
                     opacity: 0,
-                    y: 25,
-                    scale: 0.97,
-                    filter: "blur(8px)",
+                    y: 10,
+                    filter: "blur(2px)",
                   }}
                   animate={{
                     opacity: 1,
                     y: 0,
-                    scale: 1,
                     filter: "blur(0px)",
                   }}
                   transition={{
-                    duration: 1.0,
-                    delay: 0.25,
-                    ease: [0.16, 1, 0.3, 1],
+                    duration: 0.4,
+                    delay: 0,
+                    ease: "easeOut",
                   }}
                   className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap select-none"
                 >
