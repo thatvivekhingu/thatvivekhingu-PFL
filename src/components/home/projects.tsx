@@ -16,6 +16,7 @@ import { IconBrush, IconExternalLink, IconSparkles } from "@tabler/icons-react";
 import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
 import { motion } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
+import { SeamlessCodingLoop } from "@/components/ui/seamless-coding-loop";
 
 export default function Projects() {
     return (
@@ -23,6 +24,7 @@ export default function Projects() {
             <SectionHeading icon={<IconBrush className={headingIconClass} />}>
                 Projects
             </SectionHeading>
+            <SeamlessCodingLoop className="mb-2" />
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                 {data.projects.map((item, index) => (
