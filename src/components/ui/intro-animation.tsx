@@ -26,7 +26,7 @@ export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       try {
-        return sessionStorage.getItem("hasSeenIntro_clean_arc_v7") !== "true";
+        return sessionStorage.getItem("hasSeenIntro_dotgrid_blur_v8") !== "true";
       } catch {
         return true;
       }
@@ -44,7 +44,7 @@ export function IntroAnimation() {
 
   useEffect(() => {
     try {
-      const hasSeen = sessionStorage.getItem("hasSeenIntro_clean_arc_v7");
+      const hasSeen = sessionStorage.getItem("hasSeenIntro_dotgrid_blur_v8");
       if (hasSeen === "true") {
         setShouldShow(false);
       }
@@ -107,7 +107,7 @@ export function IntroAnimation() {
       return () => clearTimeout(timer);
     }
 
-    // Index 5: CLEAN ARC REACTOR BLINK & REPULSOR BLAST
+    // Index 5: DARK BLURRY ARC REACTOR BLINK & REPULSOR BLAST
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
@@ -122,7 +122,7 @@ export function IntroAnimation() {
 
   const handleComplete = () => {
     try {
-      sessionStorage.setItem("hasSeenIntro_clean_arc_v7", "true");
+      sessionStorage.setItem("hasSeenIntro_dotgrid_blur_v8", "true");
     } catch {
       // Ignore storage errors
     }
@@ -209,7 +209,10 @@ export function IntroAnimation() {
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#05070a] text-[#F8FAFC] select-none overflow-hidden"
         >
           {/* Cyan Anamorphic Radial Flare & Scanlines */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(95,224,255,0.15)_0%,rgba(5,7,10,0)_60%)] pointer-events-none opacity-80" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(95,224,255,0.18)_0%,rgba(5,7,10,0)_60%)] pointer-events-none opacity-85" />
+          
+          {/* Suitable Dark Dot Matrix Grid Pattern (Active from Who am I to Access Granted) */}
+          <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1.2px,transparent_1.2px)] [background-size:28px_28px] opacity-20 pointer-events-none" />
           <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.015)_0px,rgba(255,255,255,0.015)_1px,transparent_1px,transparent_3px)] pointer-events-none" />
 
           {/* Skip Button */}
@@ -266,7 +269,7 @@ export function IntroAnimation() {
                   transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
                   className="relative flex flex-col items-center space-y-3"
                 >
-                  {/* HUD Header Status Line (No Stark Mentions) */}
+                  {/* HUD Header Status Line */}
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -277,16 +280,17 @@ export function IntroAnimation() {
                     <span>SYSTEM INITIALIZATION // NEURAL CORE MAXIMUM OUTPUT</span>
                   </motion.div>
 
-                  {/* Pure Arc Reactor Graphic Wrapper (Zero Photo Image) */}
+                  {/* Pure Arc Reactor Graphic Wrapper */}
                   <div className="relative flex items-center justify-center">
-                    {/* Pulsing Ambient Halo */}
+                    {/* Deep Dark Blurry Energy Pulsing Glow */}
                     <motion.div
                       animate={{
-                        scale: [0.92, 1.08, 0.92],
-                        opacity: [0.4, 0.85, 0.4],
+                        scale: [0.88, 1.15, 0.88],
+                        opacity: [0.35, 0.9, 0.35],
+                        filter: ["blur(20px)", "blur(6px)", "blur(20px)"],
                       }}
-                      transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] rounded-full bg-[radial-gradient(circle,rgba(95,224,255,0.35)_0%,rgba(95,224,255,0.1)_40%,transparent_70%)] pointer-events-none filter blur-md"
+                      transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute w-[360px] h-[360px] sm:w-[480px] sm:h-[480px] rounded-full bg-[radial-gradient(circle,rgba(95,224,255,0.45)_0%,rgba(56,189,248,0.2)_45%,transparent_75%)] pointer-events-none"
                     />
 
                     {/* Pure Arc Reactor SVG (12 Coils, Slot Ring, Core Hex) */}
