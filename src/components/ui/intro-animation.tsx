@@ -22,7 +22,7 @@ const INTRO_CARDS: IntroCardItem[] = [
   { id: "granted", title: "ACCESS GRANTED.", isGranted: true },
 ];
 
-const INTRO_STORAGE_KEY = "hasSeenIntro_v15_restored_final";
+const INTRO_STORAGE_KEY = "hasSeenIntro_v16_spinning_reactor";
 
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
@@ -51,6 +51,7 @@ export function IntroAnimation() {
       setShouldShow(false);
     }
   }, []);
+
 
   // Timeline Engine (Starts IMMEDIATELY at millisecond 0)
   useEffect(() => {
@@ -293,7 +294,8 @@ export function IntroAnimation() {
                       }
                       className="relative w-64 h-64 sm:w-84 sm:h-84 drop-shadow-[0_0_50px_rgba(56,189,248,0.9)] transform-gpu will-change-transform"
                     >
-                      <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible">
+                      <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible animate-[spin_12s_linear_infinite] origin-center transform-gpu will-change-transform">
+
                         <defs>
                           {/* Outer Heavy Steel Chassis Metallic Gradients */}
                           <radialGradient id="metalBevelGrad" cx="30%" cy="30%" r="70%">
