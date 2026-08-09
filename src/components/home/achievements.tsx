@@ -1,18 +1,17 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { data } from "@/data/data";
 import {
   IconAward,
   IconCertificate,
-  IconChevronLeft,
-  IconChevronRight,
   IconExternalLink,
   IconMaximize,
 } from "@tabler/icons-react";
 import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
 import { PhotoLightbox, PhotoLightboxItem } from "@/components/ui/photo-lightbox";
+import { Marquee } from "@/components/ui/marquee";
 import { playTapSound } from "@/lib/sound";
 
 export default function Achievements() {
@@ -22,170 +21,6 @@ export default function Achievements() {
     playTapSound("chime");
     setSelectedPhoto(item);
   };
-
-  // Achievements Infinite Loop Track
-  const achRef = useRef<HTMLDivElement>(null);
-  const [achPaused, setAchPaused] = useState(false);
-  const achTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Certifications Infinite Loop Track
-  const certRef = useRef<HTMLDivElement>(null);
-  const [certPaused, setCertPaused] = useState(false);
-  const certTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Set initial scroll position to middle set on mount
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (achRef.current && achRef.current.scrollWidth > 0) {
-        achRef.current.scrollLeft = achRef.current.scrollWidth / 4;
-      }
-      if (certRef.current && certRef.current.scrollWidth > 0) {
-        certRef.current.scrollLeft = certRef.current.scrollWidth / 4;
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Achievements Auto-Scroll & Infinite Boundary Wrap
-  useEffect(() => {
-    const el = achRef.current;
-    if (!el) return;
-    let animId: number;
-
-    const scroll = () => {
-      if (el) {
-        const singleSetWidth = el.scrollWidth / 4;
-        if (!achPaused) {
-          el.scrollLeft += 0.8;
-        }
-        if (el.scrollLeft >= singleSetWidth * 2) {
-          el.scrollLeft -= singleSetWidth;
-        } else if (el.scrollLeft <= 5) {
-          el.scrollLeft += singleSetWidth;
-        }
-      }
-      animId = requestAnimationFrame(scroll);
-    };
-
-    animId = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(animId);
-  }, [achPaused]);
-
-  // Certifications Auto-Scroll & Infinite Boundary Wrap
-  useEffect(() => {
-    const el = certRef.current;
-    if (!el) return;
-    let animId: number;
-
-    const scroll = () => {
-      if (el) {
-        const singleSetWidth = el.scrollWidth / 4;
-        if (!certPaused) {
-          el.scrollLeft += 0.8;
-        }
-        if (el.scrollLeft >= singleSetWidth * 2) {
-          el.scrollLeft -= singleSetWidth;
-        } else if (el.scrollLeft <= 5) {
-          el.scrollLeft += singleSetWidth;
-        }
-      }
-      animId = requestAnimationFrame(scroll);
-    };
-
-    animId = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(animId);
-  }, [certPaused]);
-
-  // Cleanup Timers
-  useEffect(() => {
-    return () => {
-      if (achTimerRef.current) clearTimeout(achTimerRef.current);
-      if (certTimerRef.current) clearTimeout(certTimerRef.current);
-    };
-  }, []);
-
-  const triggerAchManual = () => {
-    setAchPaused(true);
-    if (achTimerRef.current) clearTimeout(achTimerRef.current);
-    achTimerRef.current = setTimeout(() => {
-      setAchPaused(false);
-    }, 30000);
-  };
-
-  const triggerCertManual = () => {
-    setCertPaused(true);
-    if (certTimerRef.current) clearTimeout(certTimerRef.current);
-    certTimerRef.current = setTimeout(() => {
-      setCertPaused(false);
-    }, 30000);
-  };
-
-  const handleAchPrev = () => {
-    playTapSound("pop");
-    triggerAchManual();
-    if (achRef.current) {
-      const el = achRef.current;
-      const singleSetWidth = el.scrollWidth / 4;
-      if (el.scrollLeft <= 10) {
-        el.scrollLeft += singleSetWidth;
-      }
-      el.scrollBy({ left: -360, behavior: "smooth" });
-    }
-  };
-
-  const handleAchNext = () => {
-    playTapSound("pop");
-    triggerAchManual();
-    if (achRef.current) {
-      const el = achRef.current;
-      const singleSetWidth = el.scrollWidth / 4;
-      if (el.scrollLeft >= singleSetWidth * 2) {
-        el.scrollLeft -= singleSetWidth;
-      }
-      el.scrollBy({ left: 360, behavior: "smooth" });
-    }
-  };
-
-  const handleCertPrev = () => {
-    playTapSound("pop");
-    triggerCertManual();
-    if (certRef.current) {
-      const el = certRef.current;
-      const singleSetWidth = el.scrollWidth / 4;
-      if (el.scrollLeft <= 10) {
-        el.scrollLeft += singleSetWidth;
-      }
-      el.scrollBy({ left: -340, behavior: "smooth" });
-    }
-  };
-
-  const handleCertNext = () => {
-    playTapSound("pop");
-    triggerCertManual();
-    if (certRef.current) {
-      const el = certRef.current;
-      const singleSetWidth = el.scrollWidth / 4;
-      if (el.scrollLeft >= singleSetWidth * 2) {
-        el.scrollLeft -= singleSetWidth;
-      }
-      el.scrollBy({ left: 340, behavior: "smooth" });
-    }
-  };
-
-  // Quadrupled Items for Seamless Infinite Looping
-  const quadAchievements = [
-    ...data.achievements,
-    ...data.achievements,
-    ...data.achievements,
-    ...data.achievements,
-  ];
-
-  const quadCertificates = [
-    ...data.certificates,
-    ...data.certificates,
-    ...data.certificates,
-    ...data.certificates,
-  ];
 
   return (
     <div className="flex flex-col space-y-12">
@@ -201,36 +36,15 @@ export default function Achievements() {
             <IconAward className="h-5 w-5 text-amber-600 dark:text-amber-400" />
             Key Achievements & Recognition
           </h3>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              {achPaused ? "Manual Mode (Auto-resumes in 30s)" : "Infinite Auto-scroll"}
-            </span>
-            <button
-              onClick={handleAchPrev}
-              aria-label="Scroll left"
-              className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
-            >
-              <IconChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              onClick={handleAchNext}
-              aria-label="Scroll right"
-              className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
-            >
-              <IconChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+          <span className="text-xs text-muted-foreground hidden sm:inline-block">
+            Hover to pause • Click image for Full View
+          </span>
         </div>
 
-        <div
-          ref={achRef}
-          onMouseEnter={() => setAchPaused(true)}
-          onMouseLeave={() => !achTimerRef.current && setAchPaused(false)}
-          className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none"
-        >
-          {quadAchievements.map((item, idx) => (
+        <Marquee pauseOnHover repeat={4} reverse={true} className="[--duration:40s] py-2">
+          {data.achievements.map((item) => (
             <div
-              key={`${item.title}-${idx}`}
+              key={item.title}
               className="w-80 sm:w-96 shrink-0 group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/70 backdrop-blur-md transition-all duration-500 hover:border-amber-500/80 hover:shadow-2xl hover:shadow-amber-500/20 hover:scale-[1.02]"
             >
               {/* Photo Preview Container */}
@@ -343,7 +157,7 @@ export default function Achievements() {
               </div>
             </div>
           ))}
-        </div>
+        </Marquee>
       </div>
 
       {/* Certifications */}
@@ -353,39 +167,16 @@ export default function Achievements() {
             <IconCertificate className="h-5 w-5 text-indigo-500" />
             Certifications & Specializations
           </h3>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground hidden sm:inline-block mr-2">
-              {certPaused ? "Manual Mode (Auto-resumes in 30s)" : "Infinite Auto-scroll"}
-            </span>
-            <button
-              onClick={handleCertPrev}
-              aria-label="Scroll left"
-              className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
-            >
-              <IconChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              onClick={handleCertNext}
-              aria-label="Scroll right"
-              className="p-2 rounded-full border border-border/60 bg-background/90 hover:bg-muted text-foreground transition-colors shadow-md active:scale-95 cursor-pointer z-10"
-            >
-              <IconChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+          <span className="text-xs text-muted-foreground hidden sm:inline-block">
+            Hover to pause • Click card to flip 3D
+          </span>
         </div>
 
-        <div
-          ref={certRef}
-          onMouseEnter={() => setCertPaused(true)}
-          onMouseLeave={() => !certTimerRef.current && setCertPaused(false)}
-          className="flex overflow-x-auto scroll-smooth gap-6 py-2 scrollbar-none"
-        >
-          {quadCertificates.map((cert, idx) => (
-            <div key={`${cert.title}-${idx}`} className="shrink-0">
-              <CertFlipCard cert={cert} handleOpenPhoto={handleOpenPhoto} />
-            </div>
+        <Marquee pauseOnHover repeat={4} reverse={false} className="[--duration:32s] py-2">
+          {data.certificates.map((cert) => (
+            <CertFlipCard key={cert.title} cert={cert} handleOpenPhoto={handleOpenPhoto} />
           ))}
-        </div>
+        </Marquee>
       </div>
 
       {/* Lightbox Modal */}
