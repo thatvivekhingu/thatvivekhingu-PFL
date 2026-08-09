@@ -31,6 +31,24 @@ export interface AchievementItem {
   link?: string;
 }
 
+export interface HackathonCertificateItem {
+  id: string;
+  title: string;
+  event: string;
+  organizer: string;
+  date: string;
+  location: string;
+  team?: string;
+  award: string;
+  badgeType: "Appreciation" | "Participation" | "Winner" | "Special Mention";
+  image: string;
+  verificationUrl?: string;
+  verificationId?: string;
+  tags: string[];
+  description: string;
+}
+
+
 export const data = {
   summary: "Aspiring AI & Machine Learning Engineer pursuing a B.E. in Information Technology at SAL College of Engineering (CGPA 8.61/10). Skilled in Python, Machine Learning, Data Science, NumPy, Pandas, Scikit-learn, and Generative AI with hands-on experience building AI-powered applications and intelligent systems.",
 
@@ -167,6 +185,52 @@ export const data = {
       link: "https://github.com/thatvivekhingu",
     },
   ] as AchievementItem[],
+
+  hackathons: [
+    {
+      id: "tic-tech-toe-25",
+      title: "TIC-TECH-TOE '25",
+      event: "TIC-TECH-TOE '25 Hackathon",
+      organizer: "IEEE SB DAIICT & Eduget Global",
+      date: "April 11th–13th, 2025",
+      location: "DA-IICT, Gandhinagar",
+      team: "Astro Debuggers",
+      award: "Certificate of Appreciation",
+      badgeType: "Appreciation",
+      image: "/hackathons/tic-tech-toe-25.jpg",
+      verificationId: "7900a832-6a1b-4b1c-9c13-",
+      verificationUrl: "https://verification.givemycertificate.com/v/7900a832-6a1b-4b1c-9c13-",
+      tags: ["IEEE SB DA-IICT", "3-Day Hackathon", "Team Astro Debuggers", "Certificate of Appreciation"],
+      description: "Recognized for valuable participation and technical solution at TIC-TECH-TOE '25 organized by IEEE SB DAIICT & Eduget Global.",
+    },
+    {
+      id: "tarkshaastra-2k26",
+      title: "tarkShaastra 2k26",
+      event: "24 Hours Hackathon (Lakshya 2.0 TechFest)",
+      organizer: "L.D. College of Engineering (LDCE), Ahmedabad",
+      date: "April 5th, 2026",
+      location: "LDCE, Ahmedabad",
+      award: "Certificate of Participation",
+      badgeType: "Participation",
+      image: "/hackathons/tarkshaastra-2k26.png",
+      tags: ["24-Hour Hackathon", "LDCE TechFest 2026", "Lakshya 2.0", "Online Round"],
+      description: "Participated in the intense 24-hour sprint for tarkShaastra 2k26 during Lakshya 2.0 TechFest at LDCE Ahmedabad.",
+    },
+    {
+      id: "hackout-25",
+      title: "HACKOUT '25",
+      event: "HACKOUT '25 Hackathon",
+      organizer: "Annual Festival Committee, DA-IICT",
+      date: "2025",
+      location: "Dhirubhai Ambani University (DA-IICT)",
+      award: "Certificate of Participation",
+      badgeType: "Participation",
+      image: "/hackathons/hackout-25.png",
+      tags: ["DA-IICT", "Hackathon Sprint", "DA-IICT Fest", "Innovative Solution"],
+      description: "Participated in HACKOUT '25 organized by the Annual Festival Committee at Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT).",
+    },
+  ] as HackathonCertificateItem[],
+
 
   contact: [
     {
