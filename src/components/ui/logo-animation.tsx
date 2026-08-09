@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 
 export const AnimatedLogo = ({
-  className = "w-9 h-9 sm:w-10 sm:h-10",
+  className = "w-10 h-10 sm:w-12 sm:h-12",
   onClick,
 }: {
   theme?: "dark" | "light";
@@ -16,13 +16,14 @@ export const AnimatedLogo = ({
       whileHover={{ scale: 1.12, rotate: 4 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className={`relative cursor-pointer overflow-hidden rounded-full border-2 border-cyan-400 dark:border-cyan-400/80 shadow-[0_0_15px_rgba(34,211,238,0.45)] ring-2 ring-cyan-500/20 transition-all ${className}`}
+      className={`relative cursor-pointer overflow-hidden rounded-full border border-cyan-400/60 shadow-[0_0_18px_rgba(34,211,238,0.5)] transition-all ${className}`}
     >
+      {/* scale-[1.45] crops out the outer black background padding so the circular VIVEK HINGU emblem fills 100% of the box */}
       <Image
         src="/logo/personal-logo.png"
         alt="Vivek Hingu Logo"
         fill
-        className="object-cover rounded-full p-0.5"
+        className="object-cover rounded-full scale-[1.45]"
         priority
       />
     </motion.div>
