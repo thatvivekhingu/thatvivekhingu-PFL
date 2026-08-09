@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion } from "motion/react";
 import Image from "next/image";
 import profilePic from "@/images/profile-bw.jpg";
 import profilePicHover from "@/images/profile-color.jpg";
@@ -110,27 +109,10 @@ export default function Hero() {
 
             <div className="w-full space-y-6 pt-2">
               <div className="z-50 text-center px-2">
-                <motion.h1
-                  initial={{
-                    opacity: 0,
-                    y: 10,
-                    filter: "blur(2px)",
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    filter: "blur(0px)",
-                  }}
-                  transition={{
-                    duration: 0.4,
-                    delay: 0,
-                    ease: "easeOut",
-                  }}
-                  className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap select-none"
-                >
+                <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap select-none">
                   <span className="text-foreground">Hi, I&#39;m </span>
                   <AnimatedName className="inline-block" />
-                </motion.h1>
+                </h1>
               </div>
                 <p className="mt-3 text-sm sm:text-2xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
                   AI & ML Engineer building{" "}
