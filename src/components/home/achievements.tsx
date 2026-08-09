@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { data } from "@/data/data";
 import { IconAward, IconCertificate, IconChevronLeft, IconChevronRight, IconExternalLink, IconMaximize } from "@tabler/icons-react";
@@ -17,32 +17,60 @@ export default function Achievements() {
   const [isAchievementsPaused, setIsAchievementsPaused] = useState(false);
   const [isCertificatesPaused, setIsCertificatesPaused] = useState(false);
 
+  const achievementsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const certificatesTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (achievementsTimerRef.current) clearTimeout(achievementsTimerRef.current);
+      if (certificatesTimerRef.current) clearTimeout(certificatesTimerRef.current);
+    };
+  }, []);
+
   const handleOpenPhoto = (item: PhotoLightboxItem) => {
     playTapSound("chime");
     setSelectedPhoto(item);
   };
 
+  const triggerAchievementsManual = () => {
+    setIsAchievementsPaused(true);
+    if (achievementsTimerRef.current) clearTimeout(achievementsTimerRef.current);
+    achievementsTimerRef.current = setTimeout(() => {
+      setIsAchievementsPaused(false);
+      setAchievementsOffset(0);
+    }, 30000);
+  };
+
+  const triggerCertificatesManual = () => {
+    setIsCertificatesPaused(true);
+    if (certificatesTimerRef.current) clearTimeout(certificatesTimerRef.current);
+    certificatesTimerRef.current = setTimeout(() => {
+      setIsCertificatesPaused(false);
+      setCertificatesOffset(0);
+    }, 30000);
+  };
+
   const handleAchievementsPrev = () => {
     playTapSound("pop");
-    setIsAchievementsPaused(true);
+    triggerAchievementsManual();
     setAchievementsOffset((prev) => prev + 360);
   };
 
   const handleAchievementsNext = () => {
     playTapSound("pop");
-    setIsAchievementsPaused(true);
+    triggerAchievementsManual();
     setAchievementsOffset((prev) => prev - 360);
   };
 
   const handleCertificatesPrev = () => {
     playTapSound("pop");
-    setIsCertificatesPaused(true);
+    triggerCertificatesManual();
     setCertificatesOffset((prev) => prev + 340);
   };
 
   const handleCertificatesNext = () => {
     playTapSound("pop");
-    setIsCertificatesPaused(true);
+    triggerCertificatesManual();
     setCertificatesOffset((prev) => prev - 340);
   };
 
