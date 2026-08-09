@@ -44,9 +44,14 @@ export default function SkillsStack() {
 
   return (
     <div className="flex flex-col space-y-8" id="skills">
-      <SectionHeading icon={<IconCpu className={headingIconClass} />}>
-        AI & ML Engineering Stack
+      <SectionHeading
+        badge="TECH MATRIX & TOOLS"
+        icon={<IconCpu className={headingIconClass} />}
+        subtitle="Generative AI, LLMs, RAG Architecture, Machine Learning pipelines, and full-stack software development"
+      >
+        Core Engineering & AI Stack
       </SectionHeading>
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {domains.map((domain, index) => (

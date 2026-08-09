@@ -2,7 +2,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh } from "@tabler/icons-react";
+import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconLayoutDashboard } from "@tabler/icons-react";
+import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
 import { Globe } from "@/components/ui/globe";
 import styles from "./dashboard.module.css";
 import { NumberTicker } from "@/components/ui/number-ticker";
@@ -30,23 +31,22 @@ import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 
 export default function Dashboard() {
   const { totalHours } = useWakaTime();
+
   const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
-  const [scratchGif, setScratchGif] = useState("");
+  const [scratchGif, setScratchGif] = useState<string>("");
   const spotlightColor = useAlbumColor(track?.albumImageUrl || null);
 
   const dashboardIconClass = "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary";
 
   useEffect(() => {
-    // Randomly select a GIF on mount
-    const randomGif = data.scratchGifs[Math.floor(Math.random() * data.scratchGifs.length)];
-    setScratchGif(randomGif);
+    pickNewGif();
   }, []);
 
   const pickNewGif = () => {
-    const availableGifs = data.scratchGifs.filter(gif => gif !== scratchGif);
-    const randomGif = availableGifs[Math.floor(Math.random() * availableGifs.length)];
+    const gifs = data.scratchGifs;
+    const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
     setScratchGif(randomGif);
   };
 
@@ -57,9 +57,14 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col w-full">
       <CustomCursor />
-      {/* <SectionHeading icon={<IconLayoutDashboard className={headingIconClass} />}>
-        About Me
-      </SectionHeading> */}
+      <SectionHeading
+        badge="SYSTEM MATRIX // 01"
+        icon={<IconLayoutDashboard className={headingIconClass} />}
+        subtitle="Live telemetry grid, active coding velocity, hardware metrics, and tech stack stackup"
+      >
+        Developer Telemetry & Core Matrix
+      </SectionHeading>
+
       <ul
         className={`grid w-full gap-4 ${styles.dashboardGrid}`}>
         <GridItem

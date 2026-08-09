@@ -11,9 +11,14 @@ import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 export default function Experience() {
   return (
     <div className="flex flex-col">
-      <SectionHeading icon={<IconSchool className={headingIconClass} />}>
-        Education & Background
+      <SectionHeading
+        badge="ACADEMICS & FOUNDATION // 04"
+        icon={<IconSchool className={headingIconClass} />}
+        subtitle="Bachelor of Engineering in Information Technology at SAL College of Engineering (CGPA 8.61 / 10) with coursework in AI, ML, Data Science & Algorithms"
+      >
+        Education & Engineering Background
       </SectionHeading>
+
       <TracingBeam>
         <div className="space-y-4">
           {data.experience.map((item, index) => (

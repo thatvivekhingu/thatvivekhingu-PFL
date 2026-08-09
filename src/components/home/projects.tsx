@@ -21,9 +21,14 @@ import { SeamlessCodingLoop } from "@/components/ui/seamless-coding-loop";
 export default function Projects() {
     return (
         <div className="flex flex-col space-y-6">
-            <SectionHeading icon={<IconBrush className={headingIconClass} />}>
-                Projects
+            <SectionHeading
+                badge="FEATURED BUILDS // 02"
+                icon={<IconBrush className={headingIconClass} />}
+                subtitle="Production-grade AI architectures, machine learning recommendation engines, voice systems, and predictive analytics platforms"
+            >
+                Featured AI Systems & Engineering Projects
             </SectionHeading>
+
             <SeamlessCodingLoop className="mb-2" />
             
             {/* Horizontal Swipeable Card Carousel on Mobile & Grid on Desktop */}

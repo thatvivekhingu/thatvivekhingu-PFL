@@ -71,13 +71,14 @@ export default function Earth({ photos }: { photos: SunsetPhoto[] }) {
 
     return (
         <div className="flex flex-col">
-            <SectionHeading icon={<IconWorld className={headingIconClass} />}>
-                I like the earth
+            <SectionHeading
+                badge="BEYOND THE CODE // 05"
+                icon={<IconWorld className={headingIconClass} />}
+                subtitle="Capturing ancient temple architecture, royal lake palaces, night flower parks, and heritage landscapes"
+            >
+                Visual Journeys & Explorations
             </SectionHeading>
 
-            <p className="-mt-4 mb-8 text-center text-sm text-muted-foreground">
-                Places that made me stop and take a picture.
-            </p>
 
             <div className="relative">
                 <Marquee

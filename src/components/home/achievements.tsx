@@ -26,9 +26,14 @@ export default function Achievements() {
   return (
     <div className="flex flex-col space-y-12">
       {/* Section Heading */}
-      <SectionHeading icon={<IconAward className={headingIconClass} />}>
-        Certificates & Achievements
+      <SectionHeading
+        badge="RECOGNITION & HONORS // 03"
+        icon={<IconAward className={headingIconClass} />}
+        subtitle="International AI hackathon awards, Google Cloud Arcade milestones, robotics championships, and industry certifications"
+      >
+        Certificates, Awards & Key Achievements
       </SectionHeading>
+
 
       {/* Key Achievements */}
       <div className="space-y-6">
