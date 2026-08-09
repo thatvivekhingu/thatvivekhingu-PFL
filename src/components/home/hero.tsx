@@ -9,17 +9,9 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
 import { IconArrowRight, IconFileText } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
-import {
-  AnimatedName,
-  HOLD_MS,
-  INITIAL_REVEAL_MS,
-  SWAP_REVEAL_MS,
-  type Phase,
-  type Suffix,
-} from "@/components/ui/animated-name";
 import { VisitorBadge } from "@/components/ui/visitor-badge";
 import { ResumeModal } from "@/components/ui/resume-modal";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -30,28 +22,7 @@ import { data } from "@/data/data";
 
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
-  const [phase, setPhase] = useState<Phase>("initial");
-  const [suffix, setSuffix] = useState<Suffix>("hingu");
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    if (phase === "initial") {
-      timer = setTimeout(() => setPhase("hold"), INITIAL_REVEAL_MS);
-    } else if (phase === "hold") {
-      timer = setTimeout(() => setPhase("exit"), HOLD_MS);
-    } else if (phase === "enter") {
-      timer = setTimeout(() => setPhase("hold"), SWAP_REVEAL_MS);
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [phase]);
-
-  const handleExitComplete = () => {
-    setSuffix((s) => (s === "hingu" ? "tag" : "hingu"));
-    setPhase("enter");
-  };
 
   const { status, dotColor } = getStatus();
 
@@ -82,32 +53,34 @@ export default function Hero() {
         <BlurFade delay={0.005} inView>
           <div className="relative flex-col space-y-1">
             <div className="relative flex flex-col items-center justify-center">
-              {/* Sleek Floating Avatar with Ambient Pulse Halo (No bulky box frame) */}
+              {/* Sleek Floating Avatar with Dual Ambient Aura Ring */}
               <div
-                className="group relative z-50 cursor-pointer transition-transform duration-500 hover:scale-105"
+                className="group relative z-50 cursor-pointer transition-all duration-500 hover:scale-105"
                 onClick={() => playTapSound("chime")}
               >
-                {/* Ambient Subtle Accent Glow (Positioned above head, non-overpowering) */}
-                <div className="absolute -top-5 -inset-x-1 h-3/4 rounded-full bg-gradient-to-tr from-amber-500/20 via-indigo-500/20 to-cyan-500/20 blur-md opacity-25 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none" />
+                {/* Glowing Outer Gradient Halo */}
+                <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-sky-400 to-indigo-500 opacity-60 blur-md group-hover:opacity-90 transition-opacity duration-500 animate-pulse" />
 
-                {/* Clean Borderless Avatar Container */}
-                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-48 md:w-48 overflow-hidden rounded-full shadow-2xl ring-2 ring-white/10 dark:ring-white/20">
-                  <Image
-                    src={profilePic}
-                    alt="Vivek Hingu"
-                    priority
-                    fill
-                    className="object-cover transition-opacity duration-500 opacity-100 group-hover:opacity-0"
-                  />
-                  <Image
-                    src={profilePicHover}
-                    alt="Vivek Hingu Hover"
-                    fill
-                    className="object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-                  />
+                {/* Clean Avatar Container */}
+                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-48 md:w-48 overflow-hidden rounded-full p-1 bg-gradient-to-tr from-cyan-500 via-indigo-500 to-amber-500 shadow-2xl">
+                  <div className="relative h-full w-full rounded-full overflow-hidden bg-zinc-950">
+                    <Image
+                      src={profilePic}
+                      alt="Vivek Hingu"
+                      priority
+                      fill
+                      className="object-cover transition-opacity duration-500 opacity-100 group-hover:opacity-0"
+                    />
+                    <Image
+                      src={profilePicHover}
+                      alt="Vivek Hingu Hover"
+                      fill
+                      className="object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                    />
+                  </div>
 
-                  {/* Subtle Tech Badge */}
-                  <div className="absolute bottom-2 inset-x-0 mx-auto w-max px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[10px] font-bold text-cyan-300 tracking-wider">
+                  {/* Tech Badge */}
+                  <div className="absolute bottom-2 inset-x-0 mx-auto w-max px-3 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-cyan-500/40 text-[10px] font-extrabold text-cyan-300 tracking-wider uppercase shadow-lg">
                     AI / ML
                   </div>
                 </div>
@@ -139,22 +112,19 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className="w-full space-y-6">
+            <div className="w-full space-y-6 pt-2">
               <BlurFade delay={0.005 * 1} inView>
-                <p className="z-50 subpixel-antialiased leading-[1.2] text-3xl sm:text-6xl md:text-7xl font-bold text-center px-2">
-                  <span className="text-zinc-900 dark:text-zinc-50 font-extrabold tracking-tight">
-                    Hi, I&#39;m{" "}
-                  </span>
-                  <AnimatedName
-                    phase={phase}
-                    suffix={suffix}
-                    onExitComplete={handleExitComplete}
-                    className="font-script font-normal text-[1.05em] leading-none align-baseline inline-block"
-                  />
-                </p>
-                <p className="text-sm tracking-tight font-medium sm:text-2xl text-center text-secondary-foreground px-4">
+                <div className="z-50 text-center px-2">
+                  <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap">
+                    <span className="text-foreground">Hi, I&#39;m </span>
+                    <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(56,189,248,0.3)]">
+                      Vivek Hingu
+                    </span>
+                  </h1>
+                </div>
+                <p className="mt-3 text-sm sm:text-2xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
                   AI & ML Engineer building{" "}
-                  <span className="font-script font-normal text-[1.05em] leading-none align-baseline text-secondary-foreground">
+                  <span className="text-cyan-400 font-semibold underline decoration-cyan-500/40 underline-offset-4">
                     intelligent software
                   </span>
                   .
@@ -162,15 +132,17 @@ export default function Hero() {
               </BlurFade>
               <BlurFade delay={0.005 * 2} direction="down" inView>
                 <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
-                  <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
-                  <span className="hidden sm:inline-block h-5 w-px bg-zinc-300/60 dark:bg-zinc-700/60" aria-hidden />
+                  <div className="px-4 py-2 rounded-full border border-border/60 bg-background/50 backdrop-blur-md shadow-lg">
+                    <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
+                  </div>
+                  <span className="hidden sm:inline-block h-5 w-px bg-border/60" aria-hidden />
                   <div className="flex items-center gap-2.5 sm:gap-3">
                     <a
                       ref={ctaRef}
                       onMouseMove={handleCtaMove}
                       onClick={() => playTapSound("pop")}
                       href="#projects"
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-background/40 backdrop-blur-sm px-4 py-1.5 text-xs sm:text-sm font-medium text-secondary-foreground transition-colors hover:text-foreground"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
                     >
                       <span
                         aria-hidden
@@ -181,7 +153,7 @@ export default function Hero() {
                         }}
                       />
                       <span className="relative">View my work</span>
-                      <IconArrowRight className="relative h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      <IconArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                       <ShimmerBorder />
                     </a>
                     <button
@@ -189,9 +161,9 @@ export default function Hero() {
                         playTapSound("chime");
                         setIsResumeOpen(true);
                       }}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/40 bg-cyan-950/30 backdrop-blur-sm px-4 py-1.5 text-xs sm:text-sm font-semibold text-cyan-300 transition-all hover:text-white hover:border-cyan-400 hover:bg-cyan-900/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/50 bg-cyan-950/40 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-bold text-cyan-300 transition-all hover:text-white hover:border-cyan-400 hover:bg-cyan-900/60 shadow-[0_0_20px_rgba(34,211,238,0.25)]"
                     >
-                      <IconFileText className="relative h-3.5 w-3.5 sm:h-4 sm:w-4 text-cyan-400" />
+                      <IconFileText className="relative h-4 w-4 text-cyan-400 group-hover:scale-110 transition-transform" />
                       <span className="relative">Resume</span>
                     </button>
                   </div>

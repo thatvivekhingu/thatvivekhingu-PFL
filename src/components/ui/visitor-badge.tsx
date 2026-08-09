@@ -49,7 +49,7 @@ export function VisitorBadge({ className = "" }: { className?: string }) {
       <span>
         {data ? (
           <>
-            <NumberTicker value={data.totalVisits} className="font-bold text-emerald-300" /> real page views
+            <NumberTicker value={data.totalVisits} className="font-bold text-emerald-300" /> {data.totalVisits === 1 ? "real page view" : "real page views"}
           </>
         ) : (
           "Real stats loading..."
