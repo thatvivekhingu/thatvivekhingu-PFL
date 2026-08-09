@@ -9,6 +9,7 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
 import { IconArrowRight, IconFileText } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
+import { AnimatedName } from "@/components/ui/animated-name";
 import { VisitorBadge } from "@/components/ui/visitor-badge";
 import { ResumeModal } from "@/components/ui/resume-modal";
 import React, { useRef, useState } from "react";
@@ -117,9 +118,7 @@ export default function Hero() {
                 <div className="z-50 text-center px-2">
                   <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight whitespace-nowrap">
                     <span className="text-foreground">Hi, I&#39;m </span>
-                    <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(56,189,248,0.3)]">
-                      Vivek Hingu
-                    </span>
+                    <AnimatedName className="inline-block" />
                   </h1>
                 </div>
                 <p className="mt-3 text-sm sm:text-2xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
