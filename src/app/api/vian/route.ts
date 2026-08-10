@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { data } from "@/data/data";
+import { routeQueryToSpecialistAgent } from "@/lib/vian/multi-agent";
+import { executeWebSearch, executeCalculator } from "@/lib/vian/agent-tools";
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
@@ -192,6 +194,9 @@ export async function POST(req: Request) {
       });
     }
 
+    const specialist = routeQueryToSpecialistAgent(message);
+    const agentAugmentedPrompt = `${SYSTEM_PROMPT}\n\n[Active Multi-Agent Router Directive]:\n${specialist.systemDirective}`;
+
     let fullResponse = "";
 
     // 1. Primary Engine: Agno Agent / Groq API (llama-3.1-8b-instant)
@@ -203,7 +208,7 @@ export async function POST(req: Request) {
         }));
 
         const messages = [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: agentAugmentedPrompt },
           ...formattedHistory,
           { role: "user", content: message },
         ];
@@ -244,7 +249,7 @@ export async function POST(req: Request) {
         }));
 
         const contents = [
-          { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
+          { role: "user", parts: [{ text: agentAugmentedPrompt }] },
           ...formattedHistory,
           { role: "user", parts: [{ text: message }] },
         ];
@@ -271,9 +276,17 @@ export async function POST(req: Request) {
       }
     }
 
-    // 3. Dynamic Multi-Agent Synthesizer Fallback
+    // 3. Dynamic Multi-Agent Synthesizer Fallback & Agentic Tool Execution
     if (!fullResponse) {
-      fullResponse = synthesizeDynamicAgentResponse(message);
+      if (/^[0-9+\-*/().^%\s]+$/.test(message.trim()) && message.trim().length > 1) {
+        const calcRes = executeCalculator(message.trim());
+        fullResponse = `🧮 **Agent Tool Execution (Calculator)**:\n\n\`${calcRes.data}\``;
+      } else if (message.toLowerCase().startsWith("search ") || message.toLowerCase().includes("latest news")) {
+        const searchRes = await executeWebSearch(message);
+        fullResponse = `🌐 **Agent Tool Execution (WebSearch)**:\n\n${searchRes.data}\n\n${synthesizeDynamicAgentResponse(message)}`;
+      } else {
+        fullResponse = synthesizeDynamicAgentResponse(message);
+      }
     }
 
     // 4. Return Real-Time Progressive ReadableStream
