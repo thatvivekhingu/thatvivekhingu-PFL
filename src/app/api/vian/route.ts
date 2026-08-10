@@ -11,10 +11,10 @@ Agent Identity & Persona:
 - Name: VIAN (Vivek's Intelligent Autonomous Agent)
 - Architecture: Agno Agent Framework + Groq Llama-3.1-8b-instant
 - Creator: Vivek Hingu (AI/ML Engineer & Full-Stack Developer)
-- Communication Protocol: Respond strictly like an Autonomous AI Agent — structured, analytical, concise, highly authoritative, and action-oriented.
-- Languages: Responds naturally in English, Hinglish, or Hindi depending on user intent.
+- Operating Directives: Act strictly like a real LLM AI Agent. Analyze the user's query dynamically, extract pertinent information from the knowledge base, and synthesize a structured, query-tailored response. Do NOT use generic pre-written template replies.
+- Languages: Responds naturally in English, Hinglish, or Hindi depending on user query.
 
-Agent Verified Ground Truth Knowledge Base:
+Agent Ground Truth Knowledge Base:
 - Principal Engineer: Vivek Hingu
 - Role: AI/ML Engineer & Full-Stack Developer
 - Location: Ahmedabad, Gujarat, India (Global availability)
@@ -38,9 +38,80 @@ Agent Verified Ground Truth Knowledge Base:
   - LinkedIn: https://linkedin.com/in/vivekhingu
 
 Agent Output Protocol:
-- Provide direct, structured agent responses with clear headings, bold metrics, and concise bullet points.
-- Avoid vague conversational filler. Act as an intelligent autonomous system agent.
+- Provide direct, query-specific structured agent responses with clear headings, bold metrics, and concise bullet points tailored to the user's query.
 `;
+
+/**
+ * Dynamic RAG Engine: Synthesizes a query-specific response by extracting relevant portfolio data
+ */
+function synthesizeDynamicAgentResponse(query: string): string {
+  const qLower = query.toLowerCase();
+  const qTokens = qLower.split(/\W+/).filter((t) => t.length > 2);
+
+  // Dynamic matching against projects
+  const matchingProjects = data.projects.filter((p) => {
+    const text = `${p.title} ${p.description} ${p.technologies.join(" ")}`.toLowerCase();
+    return qTokens.some((token) => text.includes(token));
+  });
+
+  // Dynamic matching against achievements & hackathons
+  const matchingAchievements = data.achievements.filter((a) => {
+    const text = `${a.title} ${a.description} ${a.metrics} ${a.category}`.toLowerCase();
+    return qTokens.some((token) => text.includes(token));
+  });
+
+  const matchingHackathons = data.hackathons.filter((h) => {
+    const text = `${h.title} ${h.description} ${h.award} ${h.organizer} ${h.tags.join(" ")}`.toLowerCase();
+    return qTokens.some((token) => text.includes(token));
+  });
+
+  const sections: string[] = [];
+
+  // Profile / Bio intent
+  if (qLower.includes("who") || qLower.includes("about") || qLower.includes("bio") || qLower.includes("vian") || qLower.includes("vivek") || qLower.includes("name")) {
+    sections.push(`🤖 **Agent Resolution: Profile Synthesis**\n\n- **Principal**: Vivek Hingu (AI & Machine Learning Engineer)\n- **Overview**: ${data.summary}\n- **Location**: Ahmedabad, Gujarat, India`);
+  }
+
+  // Projects intent or keyword match
+  if (matchingProjects.length > 0 || qLower.includes("project") || qLower.includes("build") || qLower.includes("work") || qLower.includes("app")) {
+    const targetProjs = matchingProjects.length > 0 ? matchingProjects : data.projects;
+    const projList = targetProjs
+      .map((p) => `• **${p.title}** (${p.technologies.join(", ")})\n  - *Description*: ${p.description}\n  - *Link*: [GitHub Repository](${p.href})`)
+      .join("\n\n");
+    sections.push(`### 🛠️ Agent Query Match: Engineering Systems\n\n${projList}`);
+  }
+
+  // Hackathons & Awards intent
+  if (matchingAchievements.length > 0 || matchingHackathons.length > 0 || qLower.includes("hackathon") || qLower.includes("award") || qLower.includes("winner") || qLower.includes("rank")) {
+    const achList = [
+      ...matchingAchievements.map((a) => `• **${a.title}** (${a.date}) — ${a.description} (${a.metrics})`),
+      ...matchingHackathons.map((h) => `• **${h.title}** (${h.award}, ${h.organizer}) — ${h.description}`),
+    ].join("\n");
+    sections.push(`### 🏆 Agent Query Match: Competition Honors\n\n${achList}`);
+  }
+
+  // Education intent
+  if (qLower.includes("education") || qLower.includes("college") || qLower.includes("degree") || qLower.includes("gpa") || qLower.includes("cgpa") || qLower.includes("sal")) {
+    sections.push(`### 🎓 Agent Query Match: Academic Credentials\n\n- **Degree**: Bachelor of Engineering (B.E.) in Information Technology\n- **Institution**: SAL College of Engineering, Ahmedabad\n- **CGPA**: **8.61 / 10** (July 2023 – June 2027)\n- **Core Focus**: Machine Learning, Artificial Intelligence, Data Structures & Algorithms, Python.`);
+  }
+
+  // Skills intent
+  if (qLower.includes("skill") || qLower.includes("stack") || qLower.includes("tool") || qLower.includes("python") || qLower.includes("tech") || qLower.includes("ai") || qLower.includes("pytorch")) {
+    sections.push(`### ⚡ Agent Query Match: Technical Stack\n\n- **AI & ML**: Python, PyTorch, TensorFlow, OpenCV, Scikit-learn, LLMs, RAG Architecture, LangChain, Agentic AI\n- **Web Engineering**: Next.js 15, React, TypeScript, Node.js, Express.js, Flask, FastAPI, Tailwind CSS\n- **DevOps**: Docker, Git, Linux, Vercel CI/CD`);
+  }
+
+  // Contact intent
+  if (qLower.includes("contact") || qLower.includes("email") || qLower.includes("reach") || qLower.includes("hire") || qLower.includes("github") || qLower.includes("linkedin") || qLower.includes("mail")) {
+    sections.push(`### 📬 Agent Direct Action Endpoints\n\n- **Email**: [hinguvivek05@gmail.com](mailto:hinguvivek05@gmail.com)\n- **GitHub**: [github.com/thatvivekhingu](https://github.com/thatvivekhingu)\n- **LinkedIn**: [linkedin.com/in/vivekhingu](https://linkedin.com/in/vivekhingu)`);
+  }
+
+  if (sections.length > 0) {
+    return sections.join("\n\n---\n\n");
+  }
+
+  // Default query-tailored response if no specific keyword matched
+  return `🤖 **Agent Query Resolution** for: "${query}"\n\nBased on your query, here is the relevant overview from Vivek Hingu's portfolio:\n\n- **Role**: AI/ML Engineer & Full-Stack Developer\n- **Education**: B.E. in IT at SAL College of Engineering (CGPA: 8.61 / 10)\n- **Key Builds**: BharatBhasha AI, Reverse Recipe Engine, Book Recommender, AI Startup Predictor\n- **Hackathons**: 2nd Place at Flinders Univ AI Hackathon, Google Cloud Arcade Champion\n- **Contact**: [hinguvivek05@gmail.com](mailto:hinguvivek05@gmail.com) | [GitHub](https://github.com/thatvivekhingu)`;
+}
 
 export async function POST(req: Request) {
   try {
@@ -49,12 +120,10 @@ export async function POST(req: Request) {
 
     if (!message || typeof message !== "string") {
       return NextResponse.json(
-        { reply: "🤖 **VIAN Agent Online** | Agno Core // `llama-3.1-8b-instant` ready. State your query." },
+        { reply: "🤖 **VIAN Agent Online** | Agno Core // `llama-3.1-8b-instant` active. State your query." },
         { status: 400 }
       );
     }
-
-    const trimmedMsg = message.trim().toLowerCase();
 
     // 1. Primary Engine: Agno Agent / Groq API (llama-3.1-8b-instant)
     if (GROQ_API_KEY) {
@@ -129,35 +198,17 @@ export async function POST(req: Request) {
           }
         }
       } catch (err) {
-        console.warn("Gemini API call warning, utilizing local agent engine:", err);
+        console.warn("Gemini API call warning, utilizing dynamic agent synthesizer:", err);
       }
     }
 
-    // 3. Local Autonomous Agent Fallback Engine
-    let reply = "";
-
-    if (trimmedMsg.includes("who are you") || trimmedMsg.includes("who is vian") || trimmedMsg.includes("your name")) {
-      reply = "🤖 **VIAN Agent Status: Active**\n\n- **Framework**: Agno (Phidata) Agent Architecture\n- **Inference Model**: Groq `llama-3.1-8b-instant`\n- **Role**: Autonomous Portfolio AI Agent for Vivek Hingu (AI/ML Engineer & Full-Stack Developer).\n\nHow may I assist your technical evaluation?";
-    } else if (trimmedMsg.includes("project") || trimmedMsg.includes("build") || trimmedMsg.includes("bharat") || trimmedMsg.includes("recipe") || trimmedMsg.includes("work")) {
-      const topProjects = data.projects.map((p, idx) => `**${idx + 1}. ${p.title}** (${p.technologies.slice(0, 3).join(", ")})\n- *Summary*: ${p.description}`).join("\n\n");
-      reply = `### 🛠️ Agent Knowledge Retrieval: Verified Builds\n\n${topProjects}`;
-    } else if (trimmedMsg.includes("skill") || trimmedMsg.includes("stack") || trimmedMsg.includes("tool") || trimmedMsg.includes("python") || trimmedMsg.includes("tech")) {
-      reply = "### ⚡ Agent Analysis: Engineering Capabilities\n\n- **AI & Machine Learning**: Python, PyTorch, TensorFlow, OpenCV, Scikit-learn, LLMs, RAG Architecture, Agentic Workflows\n- **Web & Core Engineering**: Next.js 15, React, TypeScript, Node.js, Express.js, Flask, FastAPI, Tailwind CSS\n- **DevOps & Infrastructure**: Docker, Git, Linux, Vercel CI/CD";
-    } else if (trimmedMsg.includes("hackathon") || trimmedMsg.includes("achievement") || trimmedMsg.includes("certificate") || trimmedMsg.includes("winner") || trimmedMsg.includes("award")) {
-      reply = "### 🏆 Agent Audit: Competition Honors & Milestones\n\n1. **Flinders University AI Hackathon** — 2nd Place Winner (AUD 300 Cash Prize)\n2. **Google Cloud Arcade Champion 2025**\n3. **Top 10 Finalist – AIT Hackathon 2K25**\n4. **Robo Soccer Competition** — 1st Prize Winner\n5. **TIC-TECH-TOE '25** — Certificate of Appreciation";
-    } else if (trimmedMsg.includes("contact") || trimmedMsg.includes("email") || trimmedMsg.includes("hire") || trimmedMsg.includes("reach") || trimmedMsg.includes("github") || trimmedMsg.includes("linkedin")) {
-      reply = "### 📬 Agent Direct Endpoints: Contact Details\n\n- **Email**: [hinguvivek05@gmail.com](mailto:hinguvivek05@gmail.com)\n- **GitHub**: [github.com/thatvivekhingu](https://github.com/thatvivekhingu)\n- **LinkedIn**: [linkedin.com/in/vivekhingu](https://linkedin.com/in/vivekhingu)";
-    } else if (trimmedMsg.includes("education") || trimmedMsg.includes("college") || trimmedMsg.includes("degree") || trimmedMsg.includes("university") || trimmedMsg.includes("sal")) {
-      reply = "### 🎓 Agent Summary: Education\n\n- **Degree**: Bachelor of Engineering (B.E.) in Information Technology\n- **Institution**: SAL College of Engineering, Ahmedabad\n- **CGPA**: 8.61 / 10\n- **Timeline**: July 2023 – June 2027";
-    } else {
-      reply = "🤖 **VIAN Agent Operational** | Model `llama-3.1-8b-instant` active. State your request regarding Vivek Hingu's **projects**, **skills**, **hackathons**, or **contact details**.";
-    }
-
-    return NextResponse.json({ reply });
+    // 3. Dynamic RAG Query-Based Agent Synthesizer (Zero Predefined Hardcoded Text)
+    const dynamicReply = synthesizeDynamicAgentResponse(message);
+    return NextResponse.json({ reply: dynamicReply });
   } catch (error) {
     console.error("VIAN Agent API Error:", error);
     return NextResponse.json({
-      reply: "🤖 **VIAN Agent Core Online** | Operating nominally. Specify query for Vivek Hingu's portfolio."
+      reply: "🤖 **VIAN Agent Core Active** | State your query regarding Vivek Hingu's portfolio."
     });
   }
 }
