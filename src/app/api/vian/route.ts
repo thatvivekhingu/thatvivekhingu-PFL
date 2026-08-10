@@ -45,35 +45,44 @@ Agent Output Protocol:
  * Dynamic RAG Engine: Synthesizes a query-specific response by extracting relevant portfolio data
  */
 function synthesizeDynamicAgentResponse(query: string): string {
-  const qLower = query.toLowerCase();
-  const qTokens = qLower.split(/\W+/).filter((t) => t.length > 2);
+  const qLower = query.trim().toLowerCase();
+
+  // Clean greeting intent check
+  if (/^(hi|hello|hey|greetings|namaste|hola|good\s*(morning|afternoon|evening))[\s!.?]*$/i.test(qLower)) {
+    return "Greetings! 👋 I am **VIAN** — Vivek Hingu's Autonomous AI Agent (powered by Agno Framework & Groq `llama-3.1-8b-instant`).\n\nHow can I assist you with Vivek's **engineering projects**, **machine learning stack**, **hackathons**, or **contact details** today?";
+  }
+
+  const qTokens = qLower.split(/\W+/).filter((t) => t.length >= 3);
+
+  // Helper for word boundary matching
+  const hasWord = (text: string, token: string) => new RegExp(`\\b${token}\\b`, "i").test(text);
 
   // Dynamic matching against projects
   const matchingProjects = data.projects.filter((p) => {
-    const text = `${p.title} ${p.description} ${p.technologies.join(" ")}`.toLowerCase();
-    return qTokens.some((token) => text.includes(token));
+    const text = `${p.title} ${p.description} ${p.technologies.join(" ")}`;
+    return qTokens.some((token) => hasWord(text, token));
   });
 
   // Dynamic matching against achievements & hackathons
   const matchingAchievements = data.achievements.filter((a) => {
-    const text = `${a.title} ${a.description} ${a.metrics} ${a.category}`.toLowerCase();
-    return qTokens.some((token) => text.includes(token));
+    const text = `${a.title} ${a.description} ${a.metrics} ${a.category}`;
+    return qTokens.some((token) => hasWord(text, token));
   });
 
   const matchingHackathons = data.hackathons.filter((h) => {
-    const text = `${h.title} ${h.description} ${h.award} ${h.organizer} ${h.tags.join(" ")}`.toLowerCase();
-    return qTokens.some((token) => text.includes(token));
+    const text = `${h.title} ${h.description} ${h.award} ${h.organizer} ${h.tags.join(" ")}`;
+    return qTokens.some((token) => hasWord(text, token));
   });
 
   const sections: string[] = [];
 
   // Profile / Bio intent
-  if (qLower.includes("who") || qLower.includes("about") || qLower.includes("bio") || qLower.includes("vian") || qLower.includes("vivek") || qLower.includes("name")) {
+  if (qLower.includes("who") || qLower.includes("about") || qLower.includes("bio") || qLower.includes("vian") || qLower.includes("vivek")) {
     sections.push(`🤖 **Agent Resolution: Profile Synthesis**\n\n- **Principal**: Vivek Hingu (AI & Machine Learning Engineer)\n- **Overview**: ${data.summary}\n- **Location**: Ahmedabad, Gujarat, India`);
   }
 
   // Projects intent or keyword match
-  if (matchingProjects.length > 0 || qLower.includes("project") || qLower.includes("build") || qLower.includes("work") || qLower.includes("app")) {
+  if (matchingProjects.length > 0 || (qLower.includes("project") && !qLower.includes("skill"))) {
     const targetProjs = matchingProjects.length > 0 ? matchingProjects : data.projects;
     const projList = targetProjs
       .map((p) => `• **${p.title}** (${p.technologies.join(", ")})\n  - *Description*: ${p.description}\n  - *Link*: [GitHub Repository](${p.href})`)
@@ -82,7 +91,7 @@ function synthesizeDynamicAgentResponse(query: string): string {
   }
 
   // Hackathons & Awards intent
-  if (matchingAchievements.length > 0 || matchingHackathons.length > 0 || qLower.includes("hackathon") || qLower.includes("award") || qLower.includes("winner") || qLower.includes("rank")) {
+  if (matchingAchievements.length > 0 || matchingHackathons.length > 0 || qLower.includes("hackathon") || qLower.includes("award") || qLower.includes("winner")) {
     const achList = [
       ...matchingAchievements.map((a) => `• **${a.title}** (${a.date}) — ${a.description} (${a.metrics})`),
       ...matchingHackathons.map((h) => `• **${h.title}** (${h.award}, ${h.organizer}) — ${h.description}`),
@@ -91,12 +100,12 @@ function synthesizeDynamicAgentResponse(query: string): string {
   }
 
   // Education intent
-  if (qLower.includes("education") || qLower.includes("college") || qLower.includes("degree") || qLower.includes("gpa") || qLower.includes("cgpa") || qLower.includes("sal")) {
+  if (qLower.includes("education") || qLower.includes("college") || qLower.includes("degree") || qLower.includes("cgpa") || qLower.includes("sal")) {
     sections.push(`### 🎓 Agent Query Match: Academic Credentials\n\n- **Degree**: Bachelor of Engineering (B.E.) in Information Technology\n- **Institution**: SAL College of Engineering, Ahmedabad\n- **CGPA**: **8.61 / 10** (July 2023 – June 2027)\n- **Core Focus**: Machine Learning, Artificial Intelligence, Data Structures & Algorithms, Python.`);
   }
 
   // Skills intent
-  if (qLower.includes("skill") || qLower.includes("stack") || qLower.includes("tool") || qLower.includes("python") || qLower.includes("tech") || qLower.includes("ai") || qLower.includes("pytorch")) {
+  if (qLower.includes("skill") || qLower.includes("stack") || qLower.includes("tool") || qLower.includes("python") || qLower.includes("tech") || qLower.includes("pytorch")) {
     sections.push(`### ⚡ Agent Query Match: Technical Stack\n\n- **AI & ML**: Python, PyTorch, TensorFlow, OpenCV, Scikit-learn, LLMs, RAG Architecture, LangChain, Agentic AI\n- **Web Engineering**: Next.js 15, React, TypeScript, Node.js, Express.js, Flask, FastAPI, Tailwind CSS\n- **DevOps**: Docker, Git, Linux, Vercel CI/CD`);
   }
 

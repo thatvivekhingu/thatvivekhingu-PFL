@@ -10,7 +10,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { CommandPalette } from "@/components/command-palette/command-palette";
 import { getAllPosts } from "@/lib/blog";
 import { ViewTransitions } from "next-view-transitions";
-import { VianAssistant } from "@/components/ui/vian-assistant";
+import { VianAssistant } from "@/components/vian/VianAssistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
