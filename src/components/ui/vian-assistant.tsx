@@ -8,8 +8,6 @@ import {
   IconSend,
   IconSparkles,
   IconMinus,
-  IconVolume,
-  IconVolumeOff,
   IconPlus,
   IconHistory,
   IconCopy,
@@ -58,7 +56,6 @@ const getGroupForTimestamp = (ts: number): "Today" | "Yesterday" | "Earlier" => 
 export function VianAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [showHistorySidebar, setShowHistorySidebar] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
 
   // Chat Sessions Storage
   const [sessions, setSessions] = useState<ChatSession[]>([]);
@@ -156,11 +153,6 @@ export function VianAssistant() {
   const handleToggle = () => {
     playTapSound("chime");
     setIsOpen((prev) => !prev);
-  };
-
-  const toggleVoice = () => {
-    playTapSound("pop");
-    setVoiceEnabled((prev) => !prev);
   };
 
   // 4. NEW CHAT FUNCTION
@@ -390,22 +382,6 @@ export function VianAssistant() {
                   <IconHistory className="w-4 h-4" />
                 </button>
 
-                {/* Voice Speech Toggle */}
-                <button
-                  onClick={toggleVoice}
-                  className={`p-1.5 rounded-full transition-colors ${
-                    voiceEnabled
-                      ? "text-cyan-300 bg-cyan-500/20 border border-cyan-500/40"
-                      : "text-zinc-400 hover:text-white hover:bg-zinc-800"
-                  }`}
-                  title={voiceEnabled ? "Voice Output Active" : "Enable Voice Speech"}
-                >
-                  {voiceEnabled ? (
-                    <IconVolume className="w-4 h-4 text-cyan-400 animate-pulse" />
-                  ) : (
-                    <IconVolumeOff className="w-4 h-4" />
-                  )}
-                </button>
 
                 {/* Minimize & Close */}
                 <button
