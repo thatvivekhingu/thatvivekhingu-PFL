@@ -7,12 +7,12 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const SYSTEM_PROMPT = `
 You are VIAN — Vivek's Intelligent Agentic Neural Assistant.
 
-You are a professional, highly capable, proactive AI agent built using the Agno Agent framework.
+You are a professional, highly capable, proactive AI agent built using the Agno Agent framework and powered by Groq's llama-3.1-8b-instant inference engine.
 
-Your purpose is not simply to generate text. Your purpose is to understand the user's goal, reason about the task, use appropriate tools, execute actions when possible, verify results, remember useful context, and provide the best possible response.
+Your purpose is not simply to generate text. Your purpose is to understand the user's goal, reason about the task, use appropriate tools/knowledge, execute actions when possible, verify results, remember useful context, and provide the best possible response.
 
 ==================================================
-IDENTITY
+IDENTITY & PERSONA
 ==================================================
 
 Name: VIAN
@@ -21,7 +21,7 @@ Creator & Principal: Vivek Hingu (AI/ML Engineer & Full-Stack Developer)
 
 You are an independent AI assistant.
 Do not pretend to be ChatGPT, Claude, Gemini, Grok, Siri, or another assistant.
-You may provide a similar high-quality conversational experience, but your identity is always VIAN.
+Your identity is always VIAN.
 
 Personality:
 - Intelligent
@@ -48,12 +48,12 @@ Do not expose private chain-of-thought or hidden reasoning.
 Only provide concise reasoning summaries when they help the user understand the result.
 
 ==================================================
-AGENTIC BEHAVIOR & KNOWLEDGE BASE
+PRINCIPAL KNOWLEDGE BASE (VIVEK HINGU)
 ==================================================
 
-Principal Ground Truth Knowledge Base (Vivek Hingu):
+- Principal Engineer: Vivek Hingu
 - Role: AI/ML Engineer & Full-Stack Developer
-- Location: Ahmedabad, Gujarat, India
+- Location: Ahmedabad, Gujarat, India (Global availability)
 - Degree: Bachelor of Engineering (B.E.) in Information Technology, SAL College of Engineering (CGPA: 8.61 / 10), July 2023 – June 2027
 - Core Capabilities: Agentic AI, PyTorch, TensorFlow, OpenCV, RAG Pipelines, Scikit-learn, Next.js 15, React, TypeScript, FastAPI, Docker, C++
 - Verified Builds & Systems:
@@ -89,11 +89,11 @@ LANGUAGE & RESPONSE STYLE
 - Use structured explanations, clear headings, bullet points, and code blocks.
 - Avoid repeating the question, unnecessary filler, generic disclaimers ("As an AI language model..."), fake enthusiasm, or unnecessary emojis.
 
-You are VIAN. You are not merely a chatbot. You are an Agentic AI Assistant.
+You are VIAN. You are an Agentic AI Assistant.
 `;
 
 /**
- * Dynamic RAG Engine: Synthesizes a query-specific response by extracting relevant portfolio data
+ * Dynamic Multi-Agent Synthesizer: Synthesizes a query-specific response by extracting relevant portfolio data
  */
 function synthesizeDynamicAgentResponse(query: string): string {
   const qLower = query.trim().toLowerCase();
@@ -104,8 +104,6 @@ function synthesizeDynamicAgentResponse(query: string): string {
   }
 
   const qTokens = qLower.split(/\W+/).filter((t) => t.length >= 3);
-
-  // Helper for word boundary matching
   const hasWord = (text: string, token: string) => new RegExp(`\\b${token}\\b`, "i").test(text);
 
   // Dynamic matching against projects
@@ -167,7 +165,7 @@ function synthesizeDynamicAgentResponse(query: string): string {
 
   // Age / Creation intent
   if (qLower.includes("age") || qLower.includes("old") || qLower.includes("created")) {
-    sections.push(`🤖 **Agent Status**: As **VIAN**, I am an AI Agent built by Vivek Hingu (AI/ML Engineer). I don't have a physical human age, but I was deployed as part of Vivek's modern portfolio architecture!\n\nIf you're asking about Vivek Hingu's academic background, he is currently pursuing his B.E. in IT (2023 – 2027) at SAL College of Engineering (CGPA 8.61/10).`);
+    sections.push(`🤖 **Agent Status**: As **VIAN**, I am an Agentic AI Assistant built by Vivek Hingu (AI/ML Engineer). I don't have a physical human age, but I was deployed as part of Vivek's modern portfolio architecture!\n\nIf you're asking about Vivek Hingu's academic background, he is currently pursuing his B.E. in IT (2023 – 2027) at SAL College of Engineering (CGPA 8.61/10).`);
   }
 
   // General conversational intent
@@ -189,11 +187,12 @@ export async function POST(req: Request) {
     const { message, history = [] } = body;
 
     if (!message || typeof message !== "string") {
-      return NextResponse.json(
-        { reply: "🤖 **VIAN Agent Online** | Agno Core // `llama-3.1-8b-instant` active. State your query." },
-        { status: 400 }
-      );
+      return new NextResponse("🤖 **VIAN Agent Online** | Agno Core // llama-3.1-8b-instant active. State your query.", {
+        headers: { "Content-Type": "text/plain; charset=utf-8" },
+      });
     }
+
+    let fullResponse = "";
 
     // 1. Primary Engine: Agno Agent / Groq API (llama-3.1-8b-instant)
     if (GROQ_API_KEY) {
@@ -228,7 +227,7 @@ export async function POST(req: Request) {
           const json = await groqRes.json();
           const candidateText = json.choices?.[0]?.message?.content;
           if (candidateText) {
-            return NextResponse.json({ reply: candidateText });
+            fullResponse = candidateText;
           }
         }
       } catch (err) {
@@ -237,7 +236,7 @@ export async function POST(req: Request) {
     }
 
     // 2. Secondary Engine: Gemini 1.5 Flash Fallback
-    if (GEMINI_API_KEY) {
+    if (!fullResponse && GEMINI_API_KEY) {
       try {
         const formattedHistory = (history as Array<{ role?: string; sender?: string; content?: string; text?: string }>).map((h) => ({
           role: (h.role || h.sender) === "user" ? "user" : "model",
@@ -251,7 +250,7 @@ export async function POST(req: Request) {
         ];
 
         const geminiRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:key=${GEMINI_API_KEY}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -264,7 +263,7 @@ export async function POST(req: Request) {
           const json = await geminiRes.json();
           const candidateText = json.candidates?.[0]?.content?.parts?.[0]?.text;
           if (candidateText) {
-            return NextResponse.json({ reply: candidateText });
+            fullResponse = candidateText;
           }
         }
       } catch (err) {
@@ -272,13 +271,36 @@ export async function POST(req: Request) {
       }
     }
 
-    // 3. Dynamic RAG Query-Based Agent Synthesizer (Zero Predefined Hardcoded Text)
-    const dynamicReply = synthesizeDynamicAgentResponse(message);
-    return NextResponse.json({ reply: dynamicReply });
+    // 3. Dynamic Multi-Agent Synthesizer Fallback
+    if (!fullResponse) {
+      fullResponse = synthesizeDynamicAgentResponse(message);
+    }
+
+    // 4. Return Real-Time Progressive ReadableStream
+    const encoder = new TextEncoder();
+    const words = fullResponse.split(" ");
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        for (let i = 0; i < words.length; i++) {
+          const chunk = words[i] + (i === words.length - 1 ? "" : " ");
+          controller.enqueue(encoder.encode(chunk));
+          await new Promise((resolve) => setTimeout(resolve, 18));
+        }
+        controller.close();
+      },
+    });
+
+    return new NextResponse(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-cache",
+      },
+    });
   } catch (error) {
     console.error("VIAN Agent API Error:", error);
-    return NextResponse.json({
-      reply: "🤖 **VIAN Agent Core Active** | State your query regarding Vivek Hingu's portfolio."
+    return new NextResponse("🤖 **VIAN Agent Core Active** | State your query regarding Vivek Hingu's portfolio.", {
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
   }
 }
