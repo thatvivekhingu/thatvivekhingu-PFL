@@ -165,12 +165,22 @@ function synthesizeDynamicAgentResponse(query: string): string {
     sections.push(`### 📬 Agent Direct Action Endpoints\n\n- **Email**: [hinguvivek05@gmail.com](mailto:hinguvivek05@gmail.com)\n- **GitHub**: [github.com/thatvivekhingu](https://github.com/thatvivekhingu)\n- **LinkedIn**: [linkedin.com/in/vivekhingu](https://linkedin.com/in/vivekhingu)`);
   }
 
+  // Age / Creation intent
+  if (qLower.includes("age") || qLower.includes("old") || qLower.includes("created")) {
+    sections.push(`🤖 **Agent Status**: As **VIAN**, I am an AI Agent built by Vivek Hingu (AI/ML Engineer). I don't have a physical human age, but I was deployed as part of Vivek's modern portfolio architecture!\n\nIf you're asking about Vivek Hingu's academic background, he is currently pursuing his B.E. in IT (2023 – 2027) at SAL College of Engineering (CGPA 8.61/10).`);
+  }
+
+  // General conversational intent
+  if (qLower.includes("how are you") || qLower.includes("whats up") || qLower.includes("what's up") || qLower.includes("how r u")) {
+    sections.push(`🤖 **VIAN Agent Status**: Systems fully operational and running on Agno Framework & Groq \`llama-3.1-8b-instant\` core!\n\nHow can I help you evaluate Vivek Hingu's **AI projects**, **technical stack**, or **hackathons**?`);
+  }
+
   if (sections.length > 0) {
     return sections.join("\n\n---\n\n");
   }
 
-  // Default query-tailored response if no specific keyword matched
-  return `🤖 **Agent Query Resolution** for: "${query}"\n\nBased on your query, here is the relevant overview from Vivek Hingu's portfolio:\n\n- **Role**: AI/ML Engineer & Full-Stack Developer\n- **Education**: B.E. in IT at SAL College of Engineering (CGPA: 8.61 / 10)\n- **Key Builds**: BharatBhasha AI, Reverse Recipe Engine, Book Recommender, AI Startup Predictor\n- **Hackathons**: 2nd Place at Flinders Univ AI Hackathon, Google Cloud Arcade Champion\n- **Contact**: [hinguvivek05@gmail.com](mailto:hinguvivek05@gmail.com) | [GitHub](https://github.com/thatvivekhingu)`;
+  // Natural query fallback response
+  return `I am **VIAN** — Vivek Hingu's Agentic AI Assistant (Agno Framework / Groq \`llama-3.1-8b-instant\`).\n\nRegarding **"${query}"**: Vivek Hingu is an AI/ML Engineer based in Ahmedabad, building intelligent software, autonomous models, and full-stack applications. Feel free to ask me anything specific about his **projects**, **skills**, **hackathons**, or **contact details**!`;
 }
 
 export async function POST(req: Request) {
@@ -188,9 +198,9 @@ export async function POST(req: Request) {
     // 1. Primary Engine: Agno Agent / Groq API (llama-3.1-8b-instant)
     if (GROQ_API_KEY) {
       try {
-        const formattedHistory = (history as Array<{ sender: string; text: string }>).map((h) => ({
-          role: h.sender === "user" ? "user" : "assistant",
-          content: h.text,
+        const formattedHistory = (history as Array<{ role?: string; sender?: string; content?: string; text?: string }>).map((h) => ({
+          role: (h.role || h.sender) === "user" ? "user" : "assistant",
+          content: h.content || h.text || "",
         }));
 
         const messages = [
@@ -229,9 +239,9 @@ export async function POST(req: Request) {
     // 2. Secondary Engine: Gemini 1.5 Flash Fallback
     if (GEMINI_API_KEY) {
       try {
-        const formattedHistory = (history as Array<{ sender: string; text: string }>).map((h) => ({
-          role: h.sender === "user" ? "user" : "model",
-          parts: [{ text: h.text }],
+        const formattedHistory = (history as Array<{ role?: string; sender?: string; content?: string; text?: string }>).map((h) => ({
+          role: (h.role || h.sender) === "user" ? "user" : "model",
+          parts: [{ text: h.content || h.text || "" }],
         }));
 
         const contents = [
