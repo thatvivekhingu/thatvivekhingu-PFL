@@ -22,7 +22,7 @@ const INTRO_CARDS: IntroCardItem[] = [
   { id: "granted", title: "ACCESS GRANTED.", isGranted: true },
 ];
 
-const INTRO_STORAGE_KEY = "hasSeenIntro_v19_faster_reactor";
+const INTRO_STORAGE_KEY = "hasSeenIntro_v26_who_am_i_restored";
 
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
@@ -68,34 +68,34 @@ export function IntroAnimation() {
         timer = setTimeout(() => {
           setQuestionChars((prev) => prev + 1);
           playTapSound("hover");
-        }, 35);
+        }, 45);
       } else {
         timer = setTimeout(() => {
           setCurrentIndex(1);
           playTapSound("pop");
-        }, 400);
+        }, 600);
       }
       return () => clearTimeout(timer);
     }
 
-    // Index 1 to 4: Single line role cards (750ms fast display per card)
+    // Index 1 to 4: Single line role cards (1.2s display per card)
     if (currentIndex >= 1 && currentIndex <= 4) {
       timer = setTimeout(() => {
         setCurrentIndex((prev) => prev + 1);
         playTapSound("pop");
-      }, 750);
+      }, 1200);
       return () => clearTimeout(timer);
     }
 
-    // Index 5: FAST HARDWARE ARC REACTOR -> ACCESS GRANTED -> QUICK EXIT
+    // Index 5: REAL HARDWARE ARC REACTOR -> ACCESS GRANTED -> EXIT
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
         setIsTransitioning(true);
         setTimeout(() => {
           handleComplete();
-        }, 500);
-      }, 1100);
+        }, 900);
+      }, 2400);
       return () => clearTimeout(timer);
     }
   }, [shouldShow, currentIndex, questionChars, isComplete]);
