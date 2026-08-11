@@ -6,8 +6,6 @@ import { data } from "@/data/data";
 import {
   IconAward,
   IconCertificate,
-  IconExternalLink,
-  IconMaximize,
 } from "@tabler/icons-react";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { PhotoLightbox, PhotoLightboxItem } from "@/components/ui/photo-lightbox";
@@ -37,136 +35,255 @@ export default function Achievements() {
         Certificates, Awards & Key Achievements
       </SectionHeading>
 
-
-      {/* Key Achievements */}
+      {/* Futuristic Bento Grid Layout matching reference design */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
             <IconAward className="h-5 w-5 text-cyan-400" />
-            Key Achievements & Recognition
+            Key Achievements Bento Grid
           </h3>
-          <span className="text-xs text-muted-foreground hidden sm:inline-block">
-            Infinite Loop • Pause on Hover • Click Image for Full View
+          <span className="text-xs text-muted-foreground hidden sm:inline-block font-mono">
+            {"// Click any card to expand full view"}
           </span>
         </div>
 
-        <Marquee pauseOnHover repeat={4} className="[--duration:35s] [--gap:1.5rem] py-2">
-          {data.achievements.map((item) => (
-            <div
-              key={item.title}
-              className="w-80 sm:w-96 shrink-0 group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 dark:border-cyan-500/30 bg-white dark:bg-zinc-900/80 backdrop-blur-md transition-all duration-500 hover:border-cyan-400 hover:shadow-2xl hover:shadow-cyan-500/20 hover:scale-[1.02]"
-            >
-              {/* Photo Preview Container */}
-              {item.image && (
-                <div
-                  className="relative w-full h-56 sm:h-64 overflow-hidden border-b border-slate-200 dark:border-border/40 bg-slate-100 dark:bg-zinc-950/90 cursor-pointer"
-                  onClick={() =>
-                    handleOpenPhoto({
-                      src: item.image!,
-                      alt: item.title,
-                      title: item.title,
-                      subtitle: item.category,
-                      description: item.description,
-                      metrics: item.metrics,
-                      link: item.link,
-                    })
-                  }
-                >
-                  <Image
-                    src={item.image}
-                    alt=""
-                    fill
-                    className="object-cover blur-xl scale-110 opacity-45 pointer-events-none"
-                    aria-hidden="true"
-                  />
-
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"
-                    sizes="384px"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-300 z-20" />
-
-                  <div className="absolute top-3 right-3 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 text-amber-400 text-xs font-medium backdrop-blur-md border border-amber-500/40">
-                      <IconMaximize className="h-3.5 w-3.5" />
-                      <span>Full View</span>
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between text-white">
-                    <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/90 backdrop-blur-sm text-black">
-                      {item.category}
-                    </span>
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-zinc-200 tabular-nums">
-                      {item.date}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Card Content */}
-              <div className="p-5 flex flex-col justify-between flex-1 space-y-4">
-                <div className="space-y-2">
-                  <h4 className="text-base font-bold tracking-tight text-foreground group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                    {item.description}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-border/40 flex items-center justify-between gap-2">
-                  {item.metrics ? (
-                    <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
-                      ✨ {item.metrics}
-                    </span>
-                  ) : (
-                    <span />
-                  )}
-
-                  <div className="flex items-center gap-3">
-                    {item.image && (
-                      <button
-                        onClick={() =>
-                          handleOpenPhoto({
-                            src: item.image!,
-                            alt: item.title,
-                            title: item.title,
-                            subtitle: item.category,
-                            description: item.description,
-                            metrics: item.metrics,
-                            link: item.link,
-                          })
-                        }
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
-                      >
-                        <IconMaximize className="h-3.5 w-3.5" />
-                        <span>Full View</span>
-                      </button>
-                    )}
-
-                    {item.link && (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline transition-colors"
-                      >
-                        <span>Details</span>
-                        <IconExternalLink className="h-3.5 w-3.5" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
+        {/* Bento Grid Container */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[220px] sm:auto-rows-[240px]">
+          
+          {/* Card 1: Flinders AI Hackathon (Wide Feature Bento 2 Cols x 1 Row) */}
+          <div
+            onClick={() =>
+              handleOpenPhoto({
+                src: "/achievements/flinders-ai.jpg",
+                alt: "Flinders University AI Hackathon",
+                title: "Flinders University AI Hackathon",
+                subtitle: "Hackathon Award",
+                description: "Secured 2nd Place in the prestigious International AI Hackathon hosted by Flinders University.",
+                metrics: "🥈 2nd Place | AUD 300 Cash Prize",
+              })
+            }
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300"
+          >
+            <Image
+              src="/achievements/flinders-ai.jpg"
+              alt="Flinders AI Hackathon"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
+            
+            {/* Status Indicator Dot */}
+            <div className="absolute top-4 right-4 z-10 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981] animate-pulse" />
+              <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest">ACTIVE RECORD</span>
             </div>
-          ))}
-        </Marquee>
+
+            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
+              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white group-hover:text-emerald-300 transition-colors">
+                FLINDERS AI HACKATHON
+              </h4>
+              <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+                {"// 🥈 2ND PLACE | AUD 300 CASH PRIZE"}
+              </p>
+            </div>
+          </div>
+
+          {/* Card 2: Stat Bento 1 (1 Col x 1 Row) */}
+          <div className="md:col-span-1 row-span-1 rounded-2xl border border-emerald-500/40 bg-emerald-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.25)] transition-all duration-300 select-none">
+            <div className="flex justify-between items-start">
+              <span className="text-[10px] font-mono font-extrabold text-emerald-400 uppercase tracking-widest border border-emerald-500/30 px-2 py-0.5 rounded-full bg-emerald-500/10">
+                STAT // HACKATHON
+              </span>
+              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981]" />
+            </div>
+            <div>
+              <p className="text-4xl sm:text-5xl font-black font-mono text-emerald-400 tracking-tight drop-shadow-[0_0_25px_rgba(16,185,129,0.6)]">
+                🥈 2ND
+              </p>
+              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
+                INTERNATIONAL AI HACKATHON
+              </p>
+              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
+                FLINDERS UNIVERSITY AUSTRALIA
+              </p>
+            </div>
+          </div>
+
+          {/* Card 3: Google Cloud Arcade (Tall Vertical Bento 1 Col x 2 Rows) */}
+          <div
+            onClick={() =>
+              handleOpenPhoto({
+                src: "/achievements/google-cloud-arcade.jpg",
+                alt: "Google Cloud Arcade Champion 2025",
+                title: "Google Cloud Arcade Champion 2025",
+                subtitle: "Cloud & AI Milestone",
+                description: "Achieved Champion status in Google Cloud Arcade 2025 for hands-on cloud AI, infrastructure, and DevOps milestones.",
+                metrics: "🏆 Google Cloud Arcade Champion",
+              })
+            }
+            className="md:col-span-1 md:row-span-2 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300"
+          >
+            <Image
+              src="/achievements/google-cloud-arcade.jpg"
+              alt="Google Cloud Arcade Champion"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
+            
+            {/* Status Indicator Dot */}
+            <div className="absolute top-4 right-4 z-10">
+              <span className="h-2 w-2 rounded-full bg-cyan-400 block shadow-[0_0_10px_#22d3ee] animate-pulse" />
+            </div>
+
+            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
+              <h4 className="text-xl font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
+                GOOGLE CLOUD ARCADE
+              </h4>
+              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
+                {"// 🏆 CHAMPION 2025"}
+              </p>
+            </div>
+          </div>
+
+          {/* Card 4: Stat Bento 2 (1 Col x 1 Row) */}
+          <div className="md:col-span-1 row-span-1 rounded-2xl border border-cyan-500/40 bg-cyan-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.25)] transition-all duration-300 select-none">
+            <div className="flex justify-between items-start">
+              <span className="text-[10px] font-mono font-extrabold text-cyan-400 uppercase tracking-widest border border-cyan-500/30 px-2 py-0.5 rounded-full bg-cyan-500/10">
+                STAT // ACADEMICS
+              </span>
+              <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
+            </div>
+            <div>
+              <p className="text-4xl sm:text-5xl font-black font-mono text-cyan-400 tracking-tight drop-shadow-[0_0_25px_rgba(34,211,238,0.6)]">
+                8.61 CGPA
+              </p>
+              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
+                B.E. INFORMATION TECHNOLOGY
+              </p>
+              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
+                SAL COLLEGE OF ENGINEERING
+              </p>
+            </div>
+          </div>
+
+          {/* Card 5: TIC-TECH-TOE '25 (2 Cols x 1 Row) */}
+          <div
+            onClick={() =>
+              handleOpenPhoto({
+                src: "/hackathons/tic-tech-toe-25.jpg",
+                alt: "TIC-TECH-TOE '25 Hackathon",
+                title: "TIC-TECH-TOE '25 Hackathon",
+                subtitle: "IEEE SB DAIICT & Eduget Global",
+                description: "Recognized for valuable participation and technical solution at TIC-TECH-TOE '25 organized by IEEE SB DAIICT & Eduget Global.",
+                metrics: "Certificate of Appreciation",
+              })
+            }
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300"
+          >
+            <Image
+              src="/hackathons/tic-tech-toe-25.jpg"
+              alt="TIC-TECH-TOE '25"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
+            
+            {/* Status Indicator Dot */}
+            <div className="absolute top-4 right-4 z-10">
+              <span className="h-2 w-2 rounded-full bg-cyan-400 block shadow-[0_0_10px_#22d3ee]" />
+            </div>
+
+            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
+              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
+                {"TIC-TECH-TOE '25 HACKATHON"}
+              </h4>
+              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
+                {"// IEEE SB DAIICT & EDUGET GLOBAL"}
+              </p>
+            </div>
+          </div>
+
+          {/* Card 6: AIT Hackathon 2K25 (2 Cols x 1 Row) */}
+          <div
+            onClick={() =>
+              handleOpenPhoto({
+                src: "/achievements/ait-hackathon.jpg",
+                alt: "Top 10 Finalist – AIT Hackathon 2K25",
+                title: "Top 10 Finalist – AIT Hackathon 2K25",
+                subtitle: "Hackathon Finalist",
+                description: "Ranked among the Top 10 finalists out of hundreds of competing teams in AIT Hackathon 2K25.",
+                metrics: "🏅 Top 10 Finalist",
+              })
+            }
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300"
+          >
+            <Image
+              src="/achievements/ait-hackathon.jpg"
+              alt="AIT Hackathon 2K25"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
+            
+            {/* Status Indicator Dot */}
+            <div className="absolute top-4 right-4 z-10">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 block shadow-[0_0_10px_#10b981]" />
+            </div>
+
+            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
+              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white group-hover:text-emerald-300 transition-colors">
+                AIT HACKATHON 2K25
+              </h4>
+              <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+                {"// 🏅 TOP 10 FINALIST OUT OF 500+ TEAMS"}
+              </p>
+            </div>
+          </div>
+
+          {/* Card 7: Robo Soccer (2 Cols x 1 Row) */}
+          <div
+            onClick={() =>
+              handleOpenPhoto({
+                src: "/achievements/robo-soccer.jpg",
+                alt: "Robo Soccer Competition",
+                title: "Robo Soccer Competition",
+                subtitle: "Engineering Competition",
+                description: "Won 1st Prize in the high-stakes Robo Soccer engineering & robotics competition.",
+                metrics: "🥇 1st Prize Winner",
+              })
+            }
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-amber-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-amber-400 hover:shadow-[0_0_35px_rgba(245,158,11,0.3)] transition-all duration-300"
+          >
+            <Image
+              src="/achievements/robo-soccer.jpg"
+              alt="Robo Soccer Competition"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
+            
+            {/* Status Indicator Dot */}
+            <div className="absolute top-4 right-4 z-10">
+              <span className="h-2 w-2 rounded-full bg-amber-400 block shadow-[0_0_10px_#f59e0b]" />
+            </div>
+
+            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
+              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white group-hover:text-amber-300 transition-colors">
+                ROBO SOCCER CHAMPIONSHIP
+              </h4>
+              <p className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
+                {"// 🥇 1ST PRIZE WINNER"}
+              </p>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       {/* Certifications */}
@@ -176,20 +293,19 @@ export default function Achievements() {
             <IconCertificate className="h-5 w-5 text-cyan-400" />
             Certifications & Specializations
           </h3>
-          <span className="text-xs text-muted-foreground hidden sm:inline-block">
-            Infinite Loop • Reverse Scroll • Click Card for 3D Flip
+          <span className="text-xs text-muted-foreground hidden sm:inline-block font-mono">
+            {"// Click Card for 3D Flip View"}
           </span>
         </div>
 
         <Marquee reverse pauseOnHover repeat={4} className="[--duration:30s] [--gap:1.5rem] py-2">
           {data.certificates.map((cert) => (
             <div key={cert.title} className="shrink-0">
-              <CertFlipCard cert={cert} handleOpenPhoto={handleOpenPhoto} />
+              <CertFlipCard cert={cert} />
             </div>
           ))}
         </Marquee>
       </div>
-
 
       {/* Lightbox Modal */}
       <PhotoLightbox item={selectedPhoto} onClose={() => setSelectedPhoto(null)} />
@@ -199,10 +315,8 @@ export default function Achievements() {
 
 function CertFlipCard({
   cert,
-  handleOpenPhoto,
 }: {
   cert: (typeof data.certificates)[number];
-  handleOpenPhoto: (item: PhotoLightboxItem) => void;
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -249,30 +363,32 @@ function CertFlipCard({
           </div>
 
           <div className="pt-2 border-t border-border/40 flex items-center justify-between text-xs text-indigo-400 font-semibold">
-            <span>Click / Tap to flip ↻</span>
-            <span className="text-[11px] text-muted-foreground font-normal">Interactive</span>
+            <span>Flip for Skills</span>
+            <span>→</span>
           </div>
         </div>
 
         {/* BACK SIDE */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-indigo-500/60 bg-gradient-to-br from-indigo-950/90 via-background to-zinc-950 p-5 flex flex-col justify-between overflow-hidden shadow-2xl text-foreground">
+        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-indigo-500/40 bg-zinc-950/95 backdrop-blur-xl p-5 flex flex-col justify-between text-white shadow-xl">
           <div className="space-y-3">
             <div className="flex items-center justify-between border-b border-indigo-500/30 pb-2">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-indigo-400">
-                Skills & Verification
+              <span className="text-xs font-mono font-bold text-indigo-400 uppercase tracking-wider">
+                {cert.issuer}
               </span>
-              <span className="text-xs text-muted-foreground font-mono">{cert.date}</span>
+              <span className="text-[10px] font-mono text-zinc-400">{cert.date}</span>
             </div>
 
-            <h4 className="text-sm font-bold text-foreground">{cert.title}</h4>
+            <h4 className="text-base font-bold text-white leading-snug">{cert.title}</h4>
 
-            <div className="space-y-1">
-              <p className="text-[11px] font-semibold text-indigo-300 uppercase">Core Skills</p>
-              <div className="flex flex-wrap gap-1">
+            <div className="space-y-1.5">
+              <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block">
+                Key Skills Verified:
+              </span>
+              <div className="flex flex-wrap gap-1.5">
                 {cert.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="text-[10px] font-medium px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-200 border border-indigo-500/30"
+                    className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
                   >
                     {skill}
                   </span>
@@ -281,45 +397,24 @@ function CertFlipCard({
             </div>
           </div>
 
-          <div className="space-y-2 pt-3 border-t border-indigo-500/30">
-            {cert.credentialUrl && (
-              <a
-                href={cert.credentialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  playTapSound("pop");
-                }}
-                className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-md"
-              >
-                <span>Verify Credential</span>
-                <IconExternalLink className="h-3.5 w-3.5" />
-              </a>
-            )}
-
-            <button
+          <div className="pt-3 border-t border-indigo-500/30 flex items-center justify-between">
+            <a
+              href={cert.credentialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={(e) => {
                 e.stopPropagation();
-                handleOpenPhoto({
-                  src: cert.image,
-                  alt: cert.title,
-                  title: cert.title,
-                  subtitle: cert.issuer,
-                  description: `Issued by ${cert.issuer} (${cert.date}). Skills: ${cert.skills.join(", ")}`,
-                  link: cert.credentialUrl,
-                });
+                playTapSound("pop");
               }}
-              className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-border/60 bg-background/60 hover:bg-muted text-xs font-semibold text-foreground transition-colors"
+              className="text-xs font-bold text-indigo-400 hover:text-indigo-300 hover:underline flex items-center gap-1"
             >
-              <IconMaximize className="h-3.5 w-3.5" />
-              <span>Full View</span>
-            </button>
+              <span>Verify Credential</span>
+              <span>↗</span>
+            </a>
+            <span className="text-[10px] font-mono text-zinc-400">Click to flip ↻</span>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-
