@@ -4,6 +4,8 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
+  icon?: React.ReactNode;
+  badge?: string;
   children: React.ReactNode;
   subtitle?: string;
   className?: string;
