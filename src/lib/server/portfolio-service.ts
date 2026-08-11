@@ -16,7 +16,7 @@ export interface PortfolioDataResponse {
     github: string;
     linkedin: string;
   };
-  education: typeof data.education;
+  experience: typeof data.experience;
   projects: typeof data.projects;
   skills: typeof data.skills;
   achievements: typeof data.achievements;
@@ -36,7 +36,7 @@ export class PortfolioService {
         github: "https://github.com/thatvivekhingu",
         linkedin: "https://linkedin.com/in/vivekhingu",
       },
-      education: data.education,
+      experience: data.experience,
       projects: data.projects,
       skills: data.skills,
       achievements: data.achievements,
