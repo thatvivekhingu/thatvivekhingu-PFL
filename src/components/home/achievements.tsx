@@ -256,6 +256,48 @@ export default function Achievements() {
             </div>
           </div>
 
+          {/* Card 7: Stat Bento 3 (1 Col x 1 Row) */}
+          <div className="md:col-span-1 row-span-1 rounded-2xl border border-indigo-500/40 bg-indigo-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-indigo-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.25)] transition-all duration-300 select-none">
+            <div className="flex justify-between items-start">
+              <span className="text-[10px] font-mono font-extrabold text-indigo-400 uppercase tracking-widest border border-indigo-500/30 px-2 py-0.5 rounded-full bg-indigo-500/10">
+                STAT // FINALIST
+              </span>
+              <span className="h-2 w-2 rounded-full bg-indigo-400 shadow-[0_0_10px_#6366f1]" />
+            </div>
+            <div>
+              <p className="text-4xl sm:text-5xl font-black font-mono text-indigo-400 tracking-tight drop-shadow-[0_0_25px_rgba(99,102,241,0.6)]">
+                TOP 10
+              </p>
+              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
+                AIT HACKATHON 2K25
+              </p>
+              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
+                OUT OF 500+ TEAMS
+              </p>
+            </div>
+          </div>
+
+          {/* Card 8: Stat Bento 4 (1 Col x 1 Row) */}
+          <div className="md:col-span-1 row-span-1 rounded-2xl border border-amber-500/40 bg-amber-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-amber-400 hover:shadow-[0_0_30px_rgba(245,158,11,0.25)] transition-all duration-300 select-none">
+            <div className="flex justify-between items-start">
+              <span className="text-[10px] font-mono font-extrabold text-amber-400 uppercase tracking-widest border border-amber-500/30 px-2 py-0.5 rounded-full bg-amber-500/10">
+                STAT // CHAMPION
+              </span>
+              <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_10px_#f59e0b]" />
+            </div>
+            <div>
+              <p className="text-4xl sm:text-5xl font-black font-mono text-amber-400 tracking-tight drop-shadow-[0_0_25px_rgba(245,158,11,0.6)]">
+                🥇 1ST
+              </p>
+              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
+                ROBO SOCCER WINNER
+              </p>
+              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
+                CYBORGS ROBOTICS
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
 
