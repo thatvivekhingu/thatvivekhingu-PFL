@@ -295,6 +295,9 @@ export const data = {
     "https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif",
     "https://media.giphy.com/media/LmN8OYiY4m0X4UrzUI/giphy.gif",
     "https://media.giphy.com/media/u01ioCe6G8URG/giphy.gif",
+    "https://media.giphy.com/media/QHE5gWI0QjqF2/giphy.gif",
+    "https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif",
+    "https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif",
     "https://media.giphy.com/media/eOjuCYIGqXSqfBy0MX/giphy.gif",
     "https://media.giphy.com/media/AEDD6xjlOxNMgFsUmA/giphy.gif",
     "https://media.giphy.com/media/LqgrTA39s77U8JKhJd/giphy.gif",
@@ -302,8 +305,6 @@ export const data = {
     "https://media.giphy.com/media/26n6Wywq480SmNRY4/giphy.gif",
     "https://media.giphy.com/media/l41lFw05B8JZ3xaW4/giphy.gif",
     "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif",
-    "https://media.giphy.com/media/d31w24psGYeekCXY/giphy.gif",
-    "https://media.giphy.com/media/3oKIPzc1ZJjP2Yp6n6/giphy.gif",
   ],
 
   tools: [
