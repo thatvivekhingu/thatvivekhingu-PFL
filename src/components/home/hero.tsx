@@ -52,45 +52,45 @@ export default function Hero() {
     <div className="pt-28 pb-14 sm:pt-40 sm:pb-16 relative flex items-center justify-center overflow-hidden">
       <HeroConstellation desktopDots={300} mobileDots={75} />
 
-      {/* High-Tech Angled Double Marquee Ribbons extending 100% viewport screen edge to edge */}
-      <div className="absolute top-28 sm:top-36 left-1/2 -translate-x-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-72 select-none opacity-90">
-        {/* Cyan/Teal Angled Ribbon (-3.5deg) - Thicker & Bold */}
-        <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/50">
-          <Marquee repeat={6} className="[--duration:26s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-            <span>VIVEK HINGU // AI & MACHINE LEARNING ENGINEER</span>
-            <span className="mx-3 text-cyan-950 font-black">•</span>
-            <span>AUTONOMOUS AGENTS</span>
-            <span className="mx-3 text-cyan-950 font-black">•</span>
-            <span>NEURAL ARCHITECTURES</span>
-            <span className="mx-3 text-cyan-950 font-black">•</span>
-            <span>GROK API & LLMS</span>
-            <span className="mx-3 text-cyan-950 font-black">•</span>
-            <span>DATA SCIENCE & PYTHON</span>
-            <span className="mx-3 text-cyan-950 font-black">•</span>
-          </Marquee>
-        </div>
-
-        {/* Fuchsia/Magenta Angled Ribbon (+3.5deg) - Thicker & Bold */}
-        <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-fuchsia-600 via-pink-500 to-purple-600 py-3 sm:py-4 shadow-[0_0_40px_rgba(217,70,239,0.5)] border-y-2 border-fuchsia-200/50">
-          <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-white uppercase">
-            <span>BHARATBHASHA AI</span>
-            <span className="mx-3 text-fuchsia-200 font-black">•</span>
-            <span>REAL-TIME STREAMING</span>
-            <span className="mx-3 text-fuchsia-200 font-black">•</span>
-            <span>HACKATHON WINNER</span>
-            <span className="mx-3 text-fuchsia-200 font-black">•</span>
-            <span>DISRUPT & DEPLOY</span>
-            <span className="mx-3 text-fuchsia-200 font-black">•</span>
-            <span>SYSTEM ARCHITECTURE</span>
-            <span className="mx-3 text-fuchsia-200 font-black">•</span>
-          </Marquee>
-        </div>
-      </div>
-
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative flex-col space-y-1">
             <div className="relative flex flex-col items-center justify-center">
+              {/* High-Tech Angled Double Marquee Ribbons Centered Directly Behind DP Avatar */}
+              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-72 select-none opacity-90">
+                {/* Cyan/Teal Angled Ribbon (-3.5deg) - Thicker & Bold */}
+                <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/50">
+                  <Marquee repeat={6} className="[--duration:26s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                    <span>VIVEK HINGU // AI & MACHINE LEARNING ENGINEER</span>
+                    <span className="mx-3 text-cyan-950 font-black">•</span>
+                    <span>AUTONOMOUS AGENTS</span>
+                    <span className="mx-3 text-cyan-950 font-black">•</span>
+                    <span>NEURAL ARCHITECTURES</span>
+                    <span className="mx-3 text-cyan-950 font-black">•</span>
+                    <span>GROK API & LLMS</span>
+                    <span className="mx-3 text-cyan-950 font-black">•</span>
+                    <span>DATA SCIENCE & PYTHON</span>
+                    <span className="mx-3 text-cyan-950 font-black">•</span>
+                  </Marquee>
+                </div>
+
+                {/* Fuchsia/Magenta Angled Ribbon (+3.5deg) - Thicker & Bold */}
+                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-fuchsia-600 via-pink-500 to-purple-600 py-3 sm:py-4 shadow-[0_0_40px_rgba(217,70,239,0.5)] border-y-2 border-fuchsia-200/50">
+                  <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-white uppercase">
+                    <span>BHARATBHASHA AI</span>
+                    <span className="mx-3 text-fuchsia-200 font-black">•</span>
+                    <span>REAL-TIME STREAMING</span>
+                    <span className="mx-3 text-fuchsia-200 font-black">•</span>
+                    <span>HACKATHON WINNER</span>
+                    <span className="mx-3 text-fuchsia-200 font-black">•</span>
+                    <span>DISRUPT & DEPLOY</span>
+                    <span className="mx-3 text-fuchsia-200 font-black">•</span>
+                    <span>SYSTEM ARCHITECTURE</span>
+                    <span className="mx-3 text-fuchsia-200 font-black">•</span>
+                  </Marquee>
+                </div>
+              </div>
+
               {/* Clean Profile Photo without any rings or orbit */}
               <div
                 className="group relative z-50 cursor-pointer transition-transform duration-500 hover:scale-105"
