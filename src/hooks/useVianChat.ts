@@ -63,9 +63,12 @@ export function useVianChat({
             content: m.content,
           }));
 
-        const response = await fetch("/api/vian", {
+        const response = await fetch("/api/ai-chat", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "text/plain, application/json",
+          },
           body: JSON.stringify({
             message: trimmed,
             history: historyPayload,
@@ -78,28 +81,35 @@ export function useVianChat({
           throw new Error(`Server returned status ${response.status}`);
         }
 
-        if (!response.body) {
-          throw new Error("No response body received from server");
-        }
+        const contentType = response.headers.get("content-type") || "";
 
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
         let accumulatedText = "";
 
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
+        if (contentType.includes("application/json")) {
+          const json = await response.json();
+          accumulatedText = json.response || json.reply || "No response received.";
+          setMessages((prev) =>
+            prev.map((m) => (m.id === assistantMsgId ? { ...m, content: accumulatedText } : m))
+          );
+        } else if (response.body) {
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
 
-          const chunk = decoder.decode(value, { stream: true });
-          accumulatedText += chunk;
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-          // Update streaming assistant message in state
-          setMessages((prev) => {
-            const next = prev.map((m) =>
-              m.id === assistantMsgId ? { ...m, content: accumulatedText } : m
-            );
-            return next;
-          });
+            const chunk = decoder.decode(value, { stream: true });
+            accumulatedText += chunk;
+
+            // Update streaming assistant message in state
+            setMessages((prev) => {
+              const next = prev.map((m) =>
+                m.id === assistantMsgId ? { ...m, content: accumulatedText } : m
+              );
+              return next;
+            });
+          }
         }
 
         // Finalize completed messages
