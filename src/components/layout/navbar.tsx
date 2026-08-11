@@ -101,29 +101,29 @@ export const Navbar = ({
             duration: 0.2,
           }}
           className={cn(
-            "flex sm:max-w-5xl w-full justify-self-center backdrop-blur-xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-full dark:bg-zinc-950/85 bg-white/85 border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl shadow-black/20 z-[5000] px-3 sm:px-6 py-2 sm:py-3 items-center justify-between transition-all duration-300",
+            "flex max-w-[100vw] sm:max-w-5xl w-full justify-self-center backdrop-blur-xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-full dark:bg-zinc-950/85 bg-white/85 border-b sm:border border-zinc-200/80 dark:border-zinc-800/80 shadow-xl z-[5000] px-2 sm:px-6 py-1.5 sm:py-3 items-center justify-between transition-all duration-300 overflow-x-auto no-scrollbar",
             className
           )}
         >
           {/* Logo on the left */}
-          <div className="flex items-center mr-2 sm:mr-8 flex-shrink-0">
+          <div className="flex items-center mr-1 sm:mr-8 flex-shrink-0">
             {mounted && (
               <AnimatedLogo
                 theme={resolvedTheme === "dark" ? "dark" : "light"}
-                className="w-8 h-8 sm:w-12 sm:h-12 cursor-pointer flex-shrink-0"
+                className="w-7 h-7 sm:w-12 sm:h-12 cursor-pointer flex-shrink-0"
                 onClick={handleLogoClick}
               />
             )}
           </div>
 
           {/* Links in the center */}
-          <div className="flex items-center gap-1 sm:gap-2 ml-auto mr-0 sm:mr-4">
+          <div className="flex items-center gap-0.5 sm:gap-2 ml-auto shrink-0">
             {navItems.map((navItem, idx) => (
               <button
                 key={`link=${idx}`}
                 onClick={() => handleNavClick(navItem.link)}
                 className={cn(
-                  "relative font-extrabold text-zinc-900 dark:text-zinc-50 px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer text-xs sm:text-sm"
+                  "relative font-extrabold text-zinc-900 dark:text-zinc-50 px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer text-xs sm:text-sm shrink-0"
                 )}
               >
                 <span className="block sm:hidden">{navItem.icon}</span>
@@ -132,18 +132,18 @@ export const Navbar = ({
             ))}
             <span
               aria-hidden
-              className="h-5 w-px self-center bg-zinc-300 dark:bg-zinc-700"
+              className="h-4 sm:h-5 w-px self-center bg-zinc-300 dark:bg-zinc-700 shrink-0 mx-0.5"
             />
             <a
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Star this site on GitHub`}
-              className="group inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-background/80 hover:bg-background hover:border-amber-500/50 px-2.5 py-1 text-xs font-bold text-foreground transition-all"
+              className="group inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-border/80 bg-background/80 hover:bg-background hover:border-amber-500/50 px-2 sm:px-2.5 py-1 text-[11px] sm:text-xs font-bold text-foreground transition-all shrink-0"
             >
               <IconBrandGithub className="h-3.5 w-3.5" />
               <span className="flex items-center gap-0.5 tabular-nums">
-                <IconStar className="h-3.5 w-3.5 text-amber-500 fill-amber-500/20 group-hover:fill-amber-500 transition-colors" />
+                <IconStar className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-500 fill-amber-500/20 group-hover:fill-amber-500 transition-colors" />
                 <span>{stars > 0 ? stars : 1}</span>
               </span>
             </a>
