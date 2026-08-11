@@ -61,14 +61,22 @@ export default function Achievements() {
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
 
             <div className="relative w-full flex-1 bg-zinc-950/95 p-2 overflow-hidden flex items-center justify-center">
+              {/* Blurred Ambient Photo Background */}
+              <Image
+                src="/achievements/google-cloud-arcade.jpg"
+                alt=""
+                fill
+                className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
+                aria-hidden
+              />
               <Image
                 src="/achievements/google-cloud-arcade.jpg"
                 alt="Google Cloud Arcade Champion"
                 fill
-                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
+                className="object-contain p-1 relative z-10 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-cyan-500/40 px-2.5 py-1 rounded-full">
+              <div className="absolute top-3 right-3 z-20 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-cyan-500/40 px-2.5 py-1 rounded-full">
                 <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-pulse" />
                 <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">CLOUD MILESTONE</span>
               </div>
@@ -104,14 +112,22 @@ export default function Achievements() {
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-emerald-400 z-20 pointer-events-none opacity-80" />
 
             <div className="relative w-full flex-1 bg-zinc-950/95 p-2 overflow-hidden flex items-center justify-center">
+              {/* Blurred Ambient Photo Background */}
+              <Image
+                src="/achievements/flinders-ai.jpg"
+                alt=""
+                fill
+                className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
+                aria-hidden
+              />
               <Image
                 src="/achievements/flinders-ai.jpg"
                 alt="Flinders AI Hackathon"
                 fill
-                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
+                className="object-contain p-1 relative z-10 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 25vw"
               />
-              <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
+              <div className="absolute top-3 right-3 z-20 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981] animate-pulse" />
                 <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest">{"INT'L AWARD"}</span>
               </div>
@@ -147,14 +163,22 @@ export default function Achievements() {
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-emerald-400 z-20 pointer-events-none opacity-80" />
 
             <div className="relative w-full flex-1 bg-zinc-950/95 p-2 overflow-hidden flex items-center justify-center">
+              {/* Blurred Ambient Photo Background */}
+              <Image
+                src="/achievements/ait-hackathon.jpg"
+                alt=""
+                fill
+                className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
+                aria-hidden
+              />
               <Image
                 src="/achievements/ait-hackathon.jpg"
                 alt="AIT Hackathon 2K25"
                 fill
-                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
+                className="object-contain p-1 relative z-10 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 25vw"
               />
-              <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
+              <div className="absolute top-3 right-3 z-20 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981]" />
                 <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest">FINALIST</span>
               </div>
@@ -190,14 +214,22 @@ export default function Achievements() {
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-amber-400 z-20 pointer-events-none opacity-80" />
 
             <div className="relative w-full flex-1 bg-zinc-950/95 p-2 overflow-hidden flex items-center justify-center">
+              {/* Blurred Ambient Photo Background */}
+              <Image
+                src="/achievements/robo-soccer.jpg"
+                alt=""
+                fill
+                className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
+                aria-hidden
+              />
               <Image
                 src="/achievements/robo-soccer.jpg"
                 alt="Robo Soccer Competition"
                 fill
-                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
+                className="object-contain p-1 relative z-10 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-amber-500/40 px-2.5 py-1 rounded-full">
+              <div className="absolute top-3 right-3 z-20 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-amber-500/40 px-2.5 py-1 rounded-full">
                 <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_10px_#f59e0b]" />
                 <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-widest">CHAMPION</span>
               </div>
@@ -210,90 +242,6 @@ export default function Achievements() {
               </h4>
               <p className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest mt-0.5">
                 {"// 🥇 1ST PRIZE WINNER"}
-              </p>
-            </div>
-          </div>
-
-          {/* Card 5: Stat Bento 1 (1 Col x 1 Row) */}
-          <div className="md:col-span-1 row-span-1 rounded-2xl border border-emerald-500/40 bg-emerald-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.25)] transition-all duration-300 select-none">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-mono font-extrabold text-emerald-400 uppercase tracking-widest border border-emerald-500/30 px-2 py-0.5 rounded-full bg-emerald-500/10">
-                STAT // AWARD
-              </span>
-              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981]" />
-            </div>
-            <div>
-              <p className="text-4xl sm:text-5xl font-black font-mono text-emerald-400 tracking-tight drop-shadow-[0_0_25px_rgba(16,185,129,0.6)]">
-                🥈 2ND
-              </p>
-              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
-                {"INT'L AI HACKATHON"}
-              </p>
-              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
-                FLINDERS UNIVERSITY
-              </p>
-            </div>
-          </div>
-
-          {/* Card 6: Stat Bento 2 (1 Col x 1 Row) */}
-          <div className="md:col-span-1 row-span-1 rounded-2xl border border-cyan-500/40 bg-cyan-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.25)] transition-all duration-300 select-none">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-mono font-extrabold text-cyan-400 uppercase tracking-widest border border-cyan-500/30 px-2 py-0.5 rounded-full bg-cyan-500/10">
-                STAT // ACADEMICS
-              </span>
-              <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
-            </div>
-            <div>
-              <p className="text-4xl sm:text-5xl font-black font-mono text-cyan-400 tracking-tight drop-shadow-[0_0_25px_rgba(34,211,238,0.6)]">
-                8.61
-              </p>
-              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
-                ACADEMIC CGPA
-              </p>
-              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
-                SAL COLLEGE OF ENGINEERING
-              </p>
-            </div>
-          </div>
-
-          {/* Card 7: Stat Bento 3 (1 Col x 1 Row) */}
-          <div className="md:col-span-1 row-span-1 rounded-2xl border border-indigo-500/40 bg-indigo-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-indigo-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.25)] transition-all duration-300 select-none">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-mono font-extrabold text-indigo-400 uppercase tracking-widest border border-indigo-500/30 px-2 py-0.5 rounded-full bg-indigo-500/10">
-                STAT // FINALIST
-              </span>
-              <span className="h-2 w-2 rounded-full bg-indigo-400 shadow-[0_0_10px_#6366f1]" />
-            </div>
-            <div>
-              <p className="text-4xl sm:text-5xl font-black font-mono text-indigo-400 tracking-tight drop-shadow-[0_0_25px_rgba(99,102,241,0.6)]">
-                TOP 10
-              </p>
-              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
-                AIT HACKATHON 2K25
-              </p>
-              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
-                OUT OF 500+ TEAMS
-              </p>
-            </div>
-          </div>
-
-          {/* Card 8: Stat Bento 4 (1 Col x 1 Row) */}
-          <div className="md:col-span-1 row-span-1 rounded-2xl border border-amber-500/40 bg-amber-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-amber-400 hover:shadow-[0_0_30px_rgba(245,158,11,0.25)] transition-all duration-300 select-none">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-mono font-extrabold text-amber-400 uppercase tracking-widest border border-amber-500/30 px-2 py-0.5 rounded-full bg-amber-500/10">
-                STAT // CHAMPION
-              </span>
-              <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_10px_#f59e0b]" />
-            </div>
-            <div>
-              <p className="text-4xl sm:text-5xl font-black font-mono text-amber-400 tracking-tight drop-shadow-[0_0_25px_rgba(245,158,11,0.6)]">
-                🥇 1ST
-              </p>
-              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
-                ROBO SOCCER WINNER
-              </p>
-              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
-                CYBORGS ROBOTICS
               </p>
             </div>
           </div>
