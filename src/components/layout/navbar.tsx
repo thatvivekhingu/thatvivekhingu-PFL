@@ -101,7 +101,7 @@ export const Navbar = ({
             duration: 0.2,
           }}
           className={cn(
-            "flex max-w-[100vw] sm:max-w-5xl w-full justify-self-center backdrop-blur-xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-full dark:bg-zinc-950/85 bg-white/85 border-b sm:border border-zinc-200/80 dark:border-zinc-800/80 shadow-xl z-[5000] px-2 sm:px-6 py-1.5 sm:py-3 items-center justify-between transition-all duration-300 overflow-x-auto no-scrollbar",
+            "flex max-w-[100vw] sm:max-w-5xl w-full justify-self-center backdrop-blur-xl fixed top-0 sm:top-4 inset-x-0 mx-auto md:rounded-full dark:bg-zinc-950/85 bg-white/85 border-b sm:border border-zinc-200/80 dark:border-zinc-800/80 shadow-xl z-[5000] px-2 sm:px-6 py-1.5 sm:py-3 items-center justify-between transition-all duration-300 overflow-visible",
             className
           )}
         >

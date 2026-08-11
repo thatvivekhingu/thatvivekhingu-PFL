@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
-import { IconMoonStars, IconSun, IconX, IconSparkles } from "@tabler/icons-react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
+import { IconMoonStars, IconSun, IconX } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
@@ -43,6 +43,7 @@ export function ModeToggle() {
   const [activeMeme, setActiveMeme] = useState<string | null>(null);
   const [unusedIndices, setUnusedIndices] = useState<number[]>([]);
   const [lastIndex, setLastIndex] = useState<number | null>(null);
+  const dismissTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Non-repeating randomized cycle engine across all 30 meme lines
   const getRandomMeme = useCallback(() => {
@@ -62,6 +63,7 @@ export function ModeToggle() {
     return LIGHT_MODE_MEMES[chosenIndex];
   }, [unusedIndices, lastIndex]);
 
+  // Handle Sun button click
   const handleToggleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -72,88 +74,85 @@ export function ModeToggle() {
 
     const meme = getRandomMeme();
     setActiveMeme(meme);
+
+    // Clear existing auto-dismiss timer if any
+    if (dismissTimerRef.current) {
+      clearTimeout(dismissTimerRef.current);
+    }
+
+    // Auto-dismiss after 15 seconds (15000 ms)
+    dismissTimerRef.current = setTimeout(() => {
+      setActiveMeme(null);
+    }, 15000);
   };
 
-  const handleCloseModal = () => {
+  const handleClosePopover = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (dismissTimerRef.current) {
+      clearTimeout(dismissTimerRef.current);
+    }
     playTapSound("pop");
     setActiveMeme(null);
   };
 
-  return (
-    <>
-      <div className="flex relative items-center mr-1 sm:mr-4">
-        {/* Sun Icon Button (Triggers Easter Egg Modal, No Theme Change) */}
-        <button
-          type="button"
-          onClick={handleToggleClick}
-          aria-label="Light Mode Easter Egg"
-          title="Light Mode (Click for a surprise!)"
-          className="relative inline-flex items-center justify-center p-1 cursor-pointer focus:outline-none group"
-        >
-          <IconSun
-            className={`h-5 w-5 text-amber-500 hover:text-amber-400 transition-all duration-300 hover:scale-125 ${
-              isToggling ? "animate-spin-grow" : ""
-            }`}
-          />
-          <IconMoonStars
-            className="hidden h-5 w-5 text-indigo-400"
-          />
-        </button>
-      </div>
+  useEffect(() => {
+    return () => {
+      if (dismissTimerRef.current) {
+        clearTimeout(dismissTimerRef.current);
+      }
+    };
+  }, []);
 
-      {/* Easter Egg Playful Meme Modal Popup */}
+  return (
+    <div className="relative inline-flex items-center">
+      {/* Sun Icon Button (Triggers Meme Popover, No Theme Change) */}
+      <button
+        type="button"
+        onClick={handleToggleClick}
+        aria-label="Light Mode Meme Easter Egg"
+        title="Light Mode (Click for a surprise!)"
+        className="relative inline-flex items-center justify-center p-1.5 cursor-pointer focus:outline-none group rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+      >
+        <IconSun
+          className={`h-4.5 w-4.5 text-amber-500 hover:text-amber-400 transition-all duration-300 hover:scale-125 ${
+            isToggling ? "animate-spin-grow" : ""
+          }`}
+        />
+        <IconMoonStars
+          className="hidden h-4.5 w-4.5 text-indigo-400"
+        />
+      </button>
+
+      {/* Floating Popover Meme Card right below the Sun button */}
       <AnimatePresence>
         {activeMeme && (
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={handleCloseModal}
-              className="fixed inset-0 bg-black/75 backdrop-blur-md cursor-pointer"
-            />
-
-            {/* Meme Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.85, y: 20 }}
-              transition={{ type: "spring", damping: 22, stiffness: 320 }}
-              className="relative z-10 flex flex-col items-center text-center max-w-sm w-full rounded-2xl border border-amber-500/40 bg-zinc-950/95 p-6 shadow-[0_0_50px_rgba(245,158,11,0.25)] text-zinc-100 backdrop-blur-xl select-none"
-            >
-              {/* Close 'X' Button Top Right */}
-              <button
-                type="button"
-                onClick={handleCloseModal}
-                className="absolute top-3.5 right-3.5 inline-flex h-7 w-7 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:border-zinc-700 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer"
-              >
-                <IconX className="h-4 w-4" />
-              </button>
-
-              {/* Badge Header */}
-              <div className="mb-3.5 inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-[11px] font-mono font-bold text-amber-400 tracking-wider uppercase shadow-sm">
-                <IconSparkles className="h-3.5 w-3.5 text-amber-400 animate-spin-grow" />
-                <span>EASTER EGG UNLOCKED</span>
-              </div>
-
-              {/* Meme Quote Body */}
-              <p className="text-sm sm:text-base font-semibold leading-relaxed text-zinc-100 my-2 px-1">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: -8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute top-11 right-0 z-[99999] w-72 sm:w-80 rounded-xl border border-amber-500/40 bg-zinc-950/95 p-3.5 shadow-2xl backdrop-blur-xl text-zinc-100 select-none"
+          >
+            {/* Top Row: Meme Text + Small Close 'X' Button */}
+            <div className="flex items-start justify-between gap-2.5">
+              <p className="text-xs sm:text-sm font-semibold leading-relaxed text-zinc-100">
                 {activeMeme}
               </p>
-
-              {/* Action Close Button */}
               <button
                 type="button"
-                onClick={handleCloseModal}
-                className="mt-4 w-full rounded-xl border border-amber-500/50 bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-2.5 text-xs font-bold text-zinc-950 shadow-lg shadow-amber-500/20 hover:from-amber-400 hover:to-amber-500 transition-all cursor-pointer active:scale-95"
+                onClick={handleClosePopover}
+                className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-white transition-colors cursor-pointer"
+                title="Dismiss"
               >
-                Got It 😂
+                <IconX className="h-3 w-3" />
               </button>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
