@@ -39,8 +39,8 @@ export default function Achievements() {
           </span>
         </div>
 
-        {/* Bento Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[250px] sm:auto-rows-[265px]">
+        {/* Bento Grid Container (All Horizontal Landscape Frames) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[240px] sm:auto-rows-[260px]">
           
           {/* Card 1: Flinders AI Hackathon (Landscape 2 Cols x 1 Row - Faces Centered) */}
           <div
@@ -106,49 +106,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 3: Google Cloud Arcade (Tall Vertical Swag Showcase 1 Col x 2 Rows) */}
-          <div
-            onClick={() =>
-              handleOpenPhoto({
-                src: "/achievements/google-cloud-arcade.jpg",
-                alt: "Google Cloud Arcade Champion 2025",
-                title: "Google Cloud Arcade Champion 2025",
-                subtitle: "Cloud & AI Milestone",
-                description: "Achieved Champion status in Google Cloud Arcade 2025 for hands-on cloud AI, infrastructure, and DevOps milestones.",
-                metrics: "🏆 Google Cloud Arcade Champion",
-              })
-            }
-            className="md:col-span-1 md:row-span-2 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300 flex flex-col justify-between"
-          >
-            {/* Corner Tech Brackets */}
-            <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
-            <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
-
-            <div className="relative w-full flex-1 bg-zinc-950 overflow-hidden flex items-center justify-center">
-              <Image
-                src="/achievements/google-cloud-arcade.jpg"
-                alt="Google Cloud Arcade Champion"
-                fill
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 25vw"
-              />
-              <div className="absolute top-3 right-3 z-10">
-                <span className="h-2 w-2 rounded-full bg-cyan-400 block shadow-[0_0_10px_#22d3ee] animate-pulse" />
-              </div>
-            </div>
-
-            {/* Bottom Info Bar */}
-            <div className="p-3.5 bg-zinc-950/95 border-t border-cyan-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
-              <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
-                GOOGLE CLOUD ARCADE
-              </h4>
-              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mt-0.5">
-                {"// 🏆 CHAMPION 2025"}
-              </p>
-            </div>
-          </div>
-
-          {/* Card 4: Stat Bento 2 (1 Col x 1 Row) */}
+          {/* Card 3: Stat Bento 2 (1 Col x 1 Row) */}
           <div className="md:col-span-1 row-span-1 rounded-2xl border border-cyan-500/40 bg-cyan-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.25)] transition-all duration-300 select-none">
             <div className="flex justify-between items-start">
               <span className="text-[10px] font-mono font-extrabold text-cyan-400 uppercase tracking-widest border border-cyan-500/30 px-2 py-0.5 rounded-full bg-cyan-500/10">
@@ -169,7 +127,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 5: AIT Hackathon 2K25 (Landscape 2 Cols x 1 Row) */}
+          {/* Card 4: AIT Hackathon 2K25 (Landscape 2 Cols x 1 Row) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -212,7 +170,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 6: Robo Soccer Championship (Landscape 2 Cols x 1 Row - Heads & Banner Perfectly Aligned) */}
+          {/* Card 5: Robo Soccer Championship (Landscape 2 Cols x 1 Row - Heads & Banner Perfectly Aligned) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -251,6 +209,49 @@ export default function Achievements() {
               </h4>
               <p className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest mt-0.5">
                 {"// 🥇 1ST PRIZE WINNER"}
+              </p>
+            </div>
+          </div>
+
+          {/* Card 6: Google Cloud Arcade (Wide Horizontal Landscape Frame 3 Cols x 1 Row) */}
+          <div
+            onClick={() =>
+              handleOpenPhoto({
+                src: "/achievements/google-cloud-arcade.jpg",
+                alt: "Google Cloud Arcade Champion 2025",
+                title: "Google Cloud Arcade Champion 2025",
+                subtitle: "Cloud & AI Milestone",
+                description: "Achieved Champion status in Google Cloud Arcade 2025 for hands-on cloud AI, infrastructure, and DevOps milestones.",
+                metrics: "🏆 Google Cloud Arcade Champion",
+              })
+            }
+            className="md:col-span-3 row-span-1 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300 flex flex-col justify-between"
+          >
+            {/* Corner Tech Brackets */}
+            <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
+            <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
+
+            <div className="relative w-full flex-1 bg-zinc-950 p-2 overflow-hidden flex items-center justify-center">
+              <Image
+                src="/achievements/google-cloud-arcade.jpg"
+                alt="Google Cloud Arcade Champion"
+                fill
+                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 75vw"
+              />
+              <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-cyan-500/40 px-2.5 py-1 rounded-full">
+                <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-pulse" />
+                <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">CLOUD MILESTONE</span>
+              </div>
+            </div>
+
+            {/* Bottom Info Bar */}
+            <div className="p-3.5 bg-zinc-950/95 border-t border-cyan-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
+              <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
+                GOOGLE CLOUD ARCADE 2025
+              </h4>
+              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mt-0.5">
+                {"// 🏆 GOOGLE CLOUD ARCADE CHAMPION"}
               </p>
             </div>
           </div>
