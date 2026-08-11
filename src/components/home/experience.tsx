@@ -4,8 +4,7 @@ import { TracingBeam } from "../ui/tracing-beam"
 import Image from "next/image";
 import { data } from "@/data/data"
 import { BlurFade } from "@/components/ui/blur-fade";
-import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
-import { IconSchool } from "@tabler/icons-react"
+import { SectionHeading } from "@/components/layout/section-heading";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 
 export default function Experience() {
@@ -13,7 +12,17 @@ export default function Experience() {
     <div className="flex flex-col">
       <SectionHeading
         badge="ACADEMICS & FOUNDATION // 04"
-        icon={<IconSchool className={headingIconClass} />}
+        icon={
+          <div className="relative h-6 w-6 shrink-0">
+            <Image
+              src="/experience/foundr_ai.svg"
+              alt="SAL College Logo"
+              fill
+              sizes="24px"
+              className="object-contain"
+            />
+          </div>
+        }
         subtitle="Bachelor of Engineering in Information Technology at SAL College of Engineering (CGPA 8.61 / 10) with coursework in AI, ML, Data Science & Algorithms"
       >
         Education & Engineering Background

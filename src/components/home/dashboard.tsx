@@ -2,8 +2,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconLayoutDashboard } from "@tabler/icons-react";
-import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
+import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh } from "@tabler/icons-react";
+import { SectionHeading } from "@/components/layout/section-heading";
 import { Globe } from "@/components/ui/globe";
 import styles from "./dashboard.module.css";
 import { NumberTicker } from "@/components/ui/number-ticker";
@@ -59,7 +59,11 @@ export default function Dashboard() {
       <CustomCursor />
       <SectionHeading
         badge="SYSTEM MATRIX // 01"
-        icon={<IconLayoutDashboard className={headingIconClass} />}
+        icon={
+          <svg className="h-5 w-5 sm:h-6 sm:w-6 fill-cyan-400" viewBox="0 0 76 65" aria-hidden="true">
+            <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
+          </svg>
+        }
         subtitle="Live telemetry grid, active coding velocity, hardware metrics, and tech stack stackup"
       >
         Developer Telemetry & Core Matrix

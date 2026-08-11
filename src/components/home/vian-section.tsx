@@ -2,8 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { IconSparkles, IconDeviceMobile, IconCpu, IconMessageCode } from "@tabler/icons-react";
-import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
+import { IconSparkles, IconDeviceMobile, IconMessageCode } from "@tabler/icons-react";
+import { SectionHeading } from "@/components/layout/section-heading";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 
 export default function VianSection() {
@@ -15,7 +15,17 @@ export default function VianSection() {
     <div className="flex flex-col">
       <SectionHeading
         badge="INTELLIGENT AGENT // VIAN AI"
-        icon={<IconCpu className={headingIconClass} />}
+        icon={
+          <div className="relative h-6 w-6 rounded-full overflow-hidden shrink-0">
+            <Image
+              src="/vian-avatar.jpg"
+              alt="VIAN Logo"
+              fill
+              sizes="24px"
+              className="object-cover"
+            />
+          </div>
+        }
         subtitle="Ask anything about Vivek's engineering projects, machine learning models, achievements, or technical background."
       >
         Meet VIAN — Personal AI Assistant

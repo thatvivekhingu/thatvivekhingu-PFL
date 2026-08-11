@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Badge } from "@/components/ui/badge";
-import { IconBrandGithub, IconExternalLink, IconSparkles, IconX, IconCpu, IconActivity, IconTopologyRing3 } from "@tabler/icons-react";
+import { SectionHeading } from "@/components/layout/section-heading";
+import { IconBrandGithub, IconExternalLink, IconSparkles, IconX, IconActivity, IconTopologyRing3 } from "@tabler/icons-react";
 import { data, ProjectItem } from "@/data/data";
 import { playTapSound } from "@/lib/sound";
 
@@ -35,18 +36,13 @@ export default function Projects() {
     <section id="projects" className="py-16 sm:py-24 relative">
       <div className="container px-4 mx-auto max-w-6xl">
         <BlurFade delay={0.1} inView>
-          <div className="flex flex-col items-center text-center mb-12">
-            <Badge variant="outline" className="mb-3 border-cyan-500/30 text-cyan-400 bg-cyan-950/30 px-3 py-1">
-              <IconCpu className="w-3.5 h-3.5 mr-1.5 animate-pulse" />
-              ENGINEERING SYSTEMS & BUILDS
-            </Badge>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
-              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">AI & Web Builds</span>
-            </h2>
-            <p className="mt-3 text-muted-foreground text-sm sm:text-base max-w-2xl">
-              Production-quality neural engines, intelligent RAG systems, and full-stack software architectures.
-            </p>
-          </div>
+          <SectionHeading
+            badge="ENGINEERING SYSTEMS & BUILDS"
+            icon={<IconBrandGithub className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" />}
+            subtitle="Explore Vivek's production-grade AI platforms, machine learning tools, and web applications built with Python, Grok API, Scikit-Learn, Next.js, and TypeScript."
+          >
+            Featured AI & Web Builds
+          </SectionHeading>
         </BlurFade>
 
         {/* Projects Grid */}

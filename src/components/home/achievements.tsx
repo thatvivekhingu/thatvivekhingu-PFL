@@ -9,7 +9,7 @@ import {
   IconExternalLink,
   IconMaximize,
 } from "@tabler/icons-react";
-import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
+import { SectionHeading } from "@/components/layout/section-heading";
 import { PhotoLightbox, PhotoLightboxItem } from "@/components/ui/photo-lightbox";
 import { playTapSound } from "@/lib/sound";
 import { Marquee } from "@/components/ui/marquee";
@@ -27,7 +27,11 @@ export default function Achievements() {
       {/* Section Heading */}
       <SectionHeading
         badge="RECOGNITION & HONORS // 03"
-        icon={<IconAward className={headingIconClass} />}
+        icon={
+          <svg className="h-5 w-5 sm:h-6 sm:w-6 fill-cyan-400" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l2.4 7.4h7.6l-6.2 4.5 2.4 7.4-6.2-4.5-6.2 4.5 2.4-7.4-6.2-4.5h7.6z"/>
+          </svg>
+        }
         subtitle="International AI hackathon awards, Google Cloud Arcade milestones, robotics championships, and industry certifications"
       >
         Certificates, Awards & Key Achievements
