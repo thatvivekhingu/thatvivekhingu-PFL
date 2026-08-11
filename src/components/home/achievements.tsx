@@ -31,7 +31,7 @@ export default function Achievements() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
-            <IconAward className="h-5 w-5 text-cyan-400" />
+            <IconAward className="h-5 w-5 text-amber-400" />
             Key Achievements Bento Grid
           </h3>
           <span className="text-xs text-muted-foreground hidden sm:inline-block font-mono">
@@ -39,10 +39,10 @@ export default function Achievements() {
           </span>
         </div>
 
-        {/* Asymmetric Bento Grid matching exact native photo aspect ratios */}
+        {/* Bento Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[250px] sm:auto-rows-[270px]">
           
-          {/* Card 1: Google Cloud Arcade 2025 (Wide Landscape 1024x561 Native Frame - 2 Cols x 1 Row) */}
+          {/* Card 1: Google Cloud Arcade 2025 (Wide 1024x561 Frame - Full Un-cropped Image Fit) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -60,12 +60,12 @@ export default function Achievements() {
             <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
 
-            <div className="relative w-full flex-1 overflow-hidden">
+            <div className="relative w-full flex-1 bg-zinc-950/95 p-2 overflow-hidden flex items-center justify-center">
               <Image
                 src="/achievements/google-cloud-arcade.jpg"
                 alt="Google Cloud Arcade Champion"
                 fill
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-cyan-500/40 px-2.5 py-1 rounded-full">
@@ -85,7 +85,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 2: Flinders AI Hackathon (Portrait 843x1024 Native Frame - 1 Col x 2 Rows) */}
+          {/* Card 2: Flinders AI Hackathon (Portrait 843x1024 Native Frame - Full Un-cropped Image Fit) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -103,12 +103,12 @@ export default function Achievements() {
             <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-emerald-400 z-20 pointer-events-none opacity-80" />
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-emerald-400 z-20 pointer-events-none opacity-80" />
 
-            <div className="relative w-full flex-1 overflow-hidden">
+            <div className="relative w-full flex-1 bg-zinc-950/95 p-2 overflow-hidden flex items-center justify-center">
               <Image
                 src="/achievements/flinders-ai.jpg"
                 alt="Flinders AI Hackathon"
                 fill
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 25vw"
               />
               <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
@@ -128,7 +128,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 3: AIT Hackathon 2K25 (Portrait 768x1024 Native Frame - 1 Col x 2 Rows) */}
+          {/* Card 3: AIT Hackathon 2K25 (Portrait 768x1024 Native Frame - Full Un-cropped Image Fit) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -146,12 +146,12 @@ export default function Achievements() {
             <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-emerald-400 z-20 pointer-events-none opacity-80" />
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-emerald-400 z-20 pointer-events-none opacity-80" />
 
-            <div className="relative w-full flex-1 overflow-hidden">
+            <div className="relative w-full flex-1 bg-zinc-950/95 p-2 overflow-hidden flex items-center justify-center">
               <Image
                 src="/achievements/ait-hackathon.jpg"
                 alt="AIT Hackathon 2K25"
                 fill
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 25vw"
               />
               <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
@@ -171,7 +171,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 4: Robo Soccer Championship (Landscape 1024x768 Native Frame - 2 Cols x 1 Row) */}
+          {/* Card 4: Robo Soccer Championship (Landscape 1024x768 Native Frame - Full Un-cropped Image Fit) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -189,12 +189,12 @@ export default function Achievements() {
             <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-amber-400 z-20 pointer-events-none opacity-80" />
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-amber-400 z-20 pointer-events-none opacity-80" />
 
-            <div className="relative w-full flex-1 overflow-hidden">
+            <div className="relative w-full flex-1 bg-zinc-950/95 p-2 overflow-hidden flex items-center justify-center">
               <Image
                 src="/achievements/robo-soccer.jpg"
                 alt="Robo Soccer Competition"
                 fill
-                className="object-cover object-[center_8%] transition-transform duration-700 group-hover:scale-105"
+                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-amber-500/40 px-2.5 py-1 rounded-full">
@@ -263,7 +263,7 @@ export default function Achievements() {
       <div className="space-y-6 pt-4">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
-            <IconCertificate className="h-5 w-5 text-cyan-400" />
+            <IconCertificate className="h-5 w-5 text-amber-400" />
             Certifications & Specializations
           </h3>
           <span className="text-xs text-muted-foreground hidden sm:inline-block font-mono">
