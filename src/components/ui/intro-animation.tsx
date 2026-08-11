@@ -215,7 +215,7 @@ export function IntroAnimation() {
           }
           exit={{ opacity: 0, filter: "blur(30px)" }}
           transition={{ duration: 0.85, ease: [0.4, 0, 0.2, 1] }}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#020617] text-[#F8FAFC] select-none overflow-hidden transform-gpu will-change-[opacity,filter,transform]"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black text-[#F8FAFC] select-none overflow-hidden transform-gpu will-change-[opacity,filter,transform]"
         >
           <style>{`
             @keyframes spinCoils {
@@ -237,10 +237,10 @@ export function IntroAnimation() {
           `}</style>
           {/* Cyan Anamorphic Radial Ambient Energy Glow */}
 
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.25)_0%,rgba(2,6,23,0)_68%)] pointer-events-none opacity-90" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.15)_0%,rgba(0,0,0,0)_68%)] pointer-events-none opacity-80" />
           
-          {/* High Tech Cyber Dot Matrix Grid */}
-          <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1.2px,transparent_1.2px)] [background-size:28px_28px] opacity-20 pointer-events-none" />
+          {/* High Tech Grey Dot Matrix Grid */}
+          <div className="absolute inset-0 bg-[radial-gradient(#64748b_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-35 pointer-events-none" />
 
           {/* Skip Button */}
           <button
