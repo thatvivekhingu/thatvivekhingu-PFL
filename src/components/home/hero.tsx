@@ -153,9 +153,9 @@ export default function Hero() {
                         playTapSound("chime");
                         setIsResumeOpen(true);
                       }}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/50 bg-cyan-950/40 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-bold text-cyan-300 transition-all hover:text-white hover:border-cyan-400 hover:bg-cyan-900/60 shadow-[0_0_20px_rgba(34,211,238,0.25)]"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/30 dark:border-cyan-500/50 bg-cyan-500/10 dark:bg-cyan-950/40 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-bold text-cyan-700 dark:text-cyan-300 transition-all hover:text-cyan-900 dark:hover:text-white hover:border-cyan-500 dark:hover:border-cyan-400 hover:bg-cyan-500/20 dark:hover:bg-cyan-900/60 shadow-md dark:shadow-[0_0_20px_rgba(34,211,238,0.25)]"
                     >
-                      <IconFileText className="relative h-4 w-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+                      <IconFileText className="relative h-4 w-4 text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform" />
                       <span className="relative">Resume</span>
                     </button>
                   </div>

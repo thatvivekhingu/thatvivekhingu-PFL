@@ -50,12 +50,12 @@ export default function Achievements() {
           {data.achievements.map((item) => (
             <div
               key={item.title}
-              className="w-80 sm:w-96 shrink-0 group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/30 bg-zinc-900/80 backdrop-blur-md transition-all duration-500 hover:border-cyan-400 hover:shadow-2xl hover:shadow-cyan-500/20 hover:scale-[1.02]"
+              className="w-80 sm:w-96 shrink-0 group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 dark:border-cyan-500/30 bg-white dark:bg-zinc-900/80 backdrop-blur-md transition-all duration-500 hover:border-cyan-400 hover:shadow-2xl hover:shadow-cyan-500/20 hover:scale-[1.02]"
             >
               {/* Photo Preview Container */}
               {item.image && (
                 <div
-                  className="relative w-full h-56 sm:h-64 overflow-hidden border-b border-border/40 bg-zinc-950/90 cursor-pointer"
+                  className="relative w-full h-56 sm:h-64 overflow-hidden border-b border-slate-200 dark:border-border/40 bg-slate-100 dark:bg-zinc-950/90 cursor-pointer"
                   onClick={() =>
                     handleOpenPhoto({
                       src: item.image!,
@@ -216,8 +216,8 @@ function CertFlipCard({
         }`}
       >
         {/* FRONT SIDE */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl border border-border/60 bg-background/80 backdrop-blur-md p-4 flex flex-col justify-between overflow-hidden shadow-lg group-hover:border-indigo-500/60 transition-colors">
-          <div className="relative w-full h-44 rounded-xl overflow-hidden bg-zinc-950/80 border border-border/40">
+        <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl border border-slate-200 dark:border-border/60 bg-white dark:bg-background/80 backdrop-blur-md p-4 flex flex-col justify-between overflow-hidden shadow-lg group-hover:border-indigo-500/60 transition-colors">
+          <div className="relative w-full h-44 rounded-xl overflow-hidden bg-slate-100 dark:bg-zinc-950/80 border border-slate-200 dark:border-border/40">
             <Image
               src={cert.image}
               alt={cert.title}

@@ -33,31 +33,31 @@ export default function HackathonBox() {
   return (
     <div className="w-full">
       {/* MAIN EXPANDABLE HORIZONTAL BOX */}
-      <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-cyan-500/40 bg-zinc-900/90 dark:bg-zinc-950/90 backdrop-blur-xl shadow-[0_0_30px_rgba(6,182,212,0.15)] hover:shadow-[0_0_45px_rgba(6,182,212,0.25)] transition-all duration-300">
+      <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-cyan-500/40 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl shadow-lg hover:shadow-xl dark:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all duration-300">
         {/* TOP ACCENT LINE */}
         <div className="h-1 w-full bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-600" />
 
         {/* CLICKABLE HEADER BAR (TOGGLE BOX) */}
         <div
           onClick={toggleOpen}
-          className="p-5 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer select-none bg-gradient-to-r from-cyan-950/20 via-transparent to-blue-950/20 hover:bg-cyan-500/5 transition-colors"
+          className="p-5 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer select-none bg-gradient-to-r from-cyan-50/50 via-transparent to-blue-50/50 dark:from-cyan-950/20 dark:to-blue-950/20 hover:bg-cyan-500/5 transition-colors"
         >
           <div className="flex items-center gap-3.5 sm:gap-4">
-            <div className="p-3 rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 shrink-0 group-hover:scale-110 transition-transform">
+            <div className="p-3 rounded-2xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 shrink-0 group-hover:scale-110 transition-transform">
               <IconTrophy className="h-6 w-6 sm:h-7 sm:w-7" />
             </div>
 
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/30">
+                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400 bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/30">
                   Hackathon Vault • {hackathons.length} Certificates
                 </span>
-                <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="flex h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
               </div>
-              <h3 className="text-lg sm:text-2xl font-extrabold text-white mt-1 group-hover:text-cyan-300 transition-colors">
+              <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
                 Hackathon Achievements & Certificates
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-0.5">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-0.5">
                 IEEE SB DA-IICT (TIC-TECH-TOE &apos;25) • LDCE (tarkShaastra 2k26) • HACKOUT &apos;25
               </p>
             </div>
