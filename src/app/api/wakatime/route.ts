@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import { ServerLogger } from "@/lib/server/logger";
 
 export async function GET() {
   const apiKey = process.env.WAKATIME_API_KEY;
@@ -6,10 +7,10 @@ export async function GET() {
   if (apiKey) {
     try {
       const response = await fetch(
-        'https://wakatime.com/api/v1/users/current/all_time_since_today',
+        "https://wakatime.com/api/v1/users/current/all_time_since_today",
         {
           headers: {
-            Authorization: `Basic ${Buffer.from(apiKey).toString('base64')}`,
+            Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
           },
           signal: AbortSignal.timeout(6000),
           next: { revalidate: 3600 },
@@ -18,17 +19,17 @@ export async function GET() {
 
       if (response.ok) {
         const data = await response.json();
-        const totalSeconds = data.data.total_seconds || 0;
+        const totalSeconds = data.data?.total_seconds || 0;
         const totalHours = Math.floor(totalSeconds / 3600);
 
         return NextResponse.json({
           totalHours,
           totalSeconds,
-          text: data.data.text,
+          text: data.data?.text || `${totalHours} hrs`,
         });
       }
     } catch (error) {
-      console.warn('WakaTime API fetch failed, using fallback:', error);
+      ServerLogger.warn("WakaTimeAPI", "WakaTime API fetch failed, using fallback:", error);
     }
   }
 
@@ -36,6 +37,6 @@ export async function GET() {
   return NextResponse.json({
     totalHours: 640,
     totalSeconds: 2304000,
-    text: "640 secs",
+    text: "640 hrs",
   });
 }

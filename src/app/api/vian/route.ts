@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { data } from "@/data/data";
 import { routeQueryToSpecialistAgent } from "@/lib/vian/multi-agent";
 import { executeWebSearch, executeCalculator } from "@/lib/vian/agent-tools";
+import { checkRateLimit, getClientIdentifier } from "@/lib/server/rate-limiter";
+import { ServerLogger } from "@/lib/server/logger";
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
@@ -185,14 +187,29 @@ function synthesizeDynamicAgentResponse(query: string): string {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { message, history = [] } = body;
+    const clientIp = getClientIdentifier(req);
+    const rateLimit = checkRateLimit(`vian:${clientIp}`, {
+      windowMs: 60 * 1000,
+      maxRequests: 30,
+    });
 
-    if (!message || typeof message !== "string") {
+    if (!rateLimit.allowed) {
+      ServerLogger.warn("VianAPI", `Rate limit exceeded for IP: ${clientIp}`);
+      return new NextResponse("⚠️ **VIAN Rate Limit**: Too many requests in a short period. Please wait a moment before sending another query.", {
+        status: 429,
+        headers: { "Content-Type": "text/plain; charset=utf-8" },
+      });
+    }
+
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body.message !== "string") {
       return new NextResponse("🤖 **VIAN Agent Online** | Agno Core // llama-3.1-8b-instant active. State your query.", {
         headers: { "Content-Type": "text/plain; charset=utf-8" },
       });
     }
+
+    const message = body.message as string;
+    const history = body.history || [];
 
     const specialist = routeQueryToSpecialistAgent(message);
     const agentAugmentedPrompt = `${SYSTEM_PROMPT}\n\n[Active Multi-Agent Router Directive]:\n${specialist.systemDirective}`;
