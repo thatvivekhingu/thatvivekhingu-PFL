@@ -52,9 +52,9 @@ export function VianInput({ onSend, onStop, isGenerating }: VianInputProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative flex w-full items-end gap-2 border-t border-zinc-800/80 bg-zinc-950/90 p-3 backdrop-blur-md"
+      className="relative flex w-full items-end gap-2 border-t border-slate-200 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-950/90 p-3 backdrop-blur-md"
     >
-      <div className="relative flex flex-1 items-center rounded-xl border border-zinc-800 bg-zinc-900/80 transition-within border-cyan-500/40 focus-within:ring-1 focus-within:ring-cyan-500/40">
+      <div className="relative flex flex-1 items-center rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-100 dark:bg-zinc-900/80 transition-within focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500/40">
         <textarea
           ref={textareaRef}
           rows={1}
@@ -62,7 +62,7 @@ export function VianInput({ onSend, onStop, isGenerating }: VianInputProps) {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask VIAN anything about Vivek..."
-          className="w-full resize-none bg-transparent px-3.5 py-2.5 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none max-h-30 font-sans leading-relaxed"
+          className="w-full resize-none bg-transparent px-3.5 py-2.5 text-xs text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none max-h-30 font-sans leading-relaxed"
         />
       </div>
 
@@ -72,7 +72,7 @@ export function VianInput({ onSend, onStop, isGenerating }: VianInputProps) {
           onClick={onStop}
           aria-label="Stop generating"
           title="Stop Generating"
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-rose-500/40 bg-rose-950/40 text-rose-300 hover:bg-rose-900/60 hover:text-white transition-all cursor-pointer shadow-sm active:scale-95"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-rose-500/40 bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-300 hover:bg-rose-200 dark:hover:bg-rose-900/60 hover:text-rose-900 dark:hover:text-white transition-all cursor-pointer shadow-sm active:scale-95"
         >
           <IconPlayerStop className="h-4 w-4" />
         </button>
@@ -85,7 +85,7 @@ export function VianInput({ onSend, onStop, isGenerating }: VianInputProps) {
           className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border transition-all cursor-pointer shadow-sm active:scale-95 ${
             hasText
               ? "border-cyan-500/50 bg-cyan-600 text-white hover:bg-cyan-500"
-              : "border-zinc-800 bg-zinc-900 text-zinc-600 cursor-not-allowed"
+              : "border-slate-200 dark:border-zinc-800 bg-slate-200 dark:bg-zinc-900 text-slate-400 dark:text-zinc-600 cursor-not-allowed"
           }`}
         >
           <IconSend className="h-4 w-4" />

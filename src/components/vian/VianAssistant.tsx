@@ -8,7 +8,6 @@ import { useVianChat } from "@/hooks/useVianChat";
 import { useAutoScroll } from "@/hooks/useAutoScroll";
 import { IconWifi, IconBattery4 } from "@tabler/icons-react";
 
-import { VianLauncher } from "./VianLauncher";
 import { VianHeader } from "./VianHeader";
 import { VianHistory } from "./VianHistory";
 import { VianEmptyState } from "./VianEmptyState";
@@ -128,9 +127,6 @@ export function VianAssistant() {
 
   return (
     <>
-      {/* Floating launcher button */}
-      <VianLauncher onClick={handleOpenFresh} isOpen={isOpen} />
-
       {/* iPhone 17 Pro Max Interactive Phone Modal */}
       <AnimatePresence>
         {isOpen && (
@@ -141,7 +137,7 @@ export function VianAssistant() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleClose}
-              className="fixed inset-0 bg-black/75 backdrop-blur-md cursor-pointer"
+              className="fixed inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-md cursor-pointer"
             />
 
             {/* iPhone 17 Pro Max Device Frame Container */}
@@ -151,15 +147,15 @@ export function VianAssistant() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.85, y: 30 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative z-10 flex flex-col overflow-hidden rounded-[46px] sm:rounded-[54px] border-[7px] sm:border-[9px] border-neutral-800 dark:border-neutral-700 bg-neutral-950 p-2 sm:p-2.5 shadow-[0_25px_80px_-15px_rgba(0,0,0,0.85)] dark:shadow-[0_25px_90px_-15px_rgba(0,0,0,0.95)] ring-1 ring-white/15 w-full max-w-[400px] sm:max-w-[420px] h-[85vh] max-h-[780px] min-h-[580px]"
+              className="relative z-10 flex flex-col overflow-hidden rounded-[46px] sm:rounded-[54px] border-[7px] sm:border-[9px] border-slate-300 dark:border-neutral-700 bg-slate-900 dark:bg-neutral-950 p-2 sm:p-2.5 shadow-2xl ring-1 ring-black/10 dark:ring-white/15 w-full max-w-[400px] sm:max-w-[420px] h-[85vh] max-h-[780px] min-h-[580px]"
             >
               {/* Phone Inner Screen Display */}
-              <div className="relative flex flex-col flex-1 w-full h-full overflow-hidden rounded-[36px] sm:rounded-[44px] bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 shadow-inner">
+              <div className="relative flex flex-col flex-1 w-full h-full overflow-hidden rounded-[36px] sm:rounded-[44px] bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 shadow-inner">
                 
                 {/* iPhone Status Bar & Dynamic Island */}
                 <div className="relative shrink-0 w-full pt-1.5 px-6 flex items-center justify-between text-[11px] font-semibold text-slate-800 dark:text-zinc-200 z-30 select-none">
                   {/* Left Clock */}
-                  <span className="font-mono tracking-tight">9:41</span>
+                  <span className="font-mono tracking-tight text-slate-800 dark:text-zinc-200">9:41</span>
 
                   {/* Dynamic Island Notch Center */}
                   <div className="h-5 sm:h-5.5 w-24 sm:w-26 rounded-full bg-black flex items-center justify-between px-2 mx-auto shadow-sm">
@@ -204,7 +200,7 @@ export function VianAssistant() {
                 />
 
                 {/* Main Chat Screen View */}
-                <div className="relative flex flex-1 flex-col overflow-hidden bg-slate-50/50 dark:bg-zinc-950">
+                <div className="relative flex flex-1 flex-col overflow-hidden bg-slate-50 dark:bg-zinc-950">
                   {messages.length === 0 ? (
                     <VianEmptyState onSelectPrompt={handleSendPrompt} />
                   ) : (
@@ -225,8 +221,8 @@ export function VianAssistant() {
                 />
 
                 {/* iPhone Bottom Home Indicator Bar */}
-                <div className="shrink-0 pt-1 pb-1 flex justify-center bg-white dark:bg-zinc-950">
-                  <div className="w-32 h-1 bg-neutral-300 dark:bg-neutral-700 rounded-full" />
+                <div className="shrink-0 pt-1 pb-1 flex justify-center bg-slate-50 dark:bg-zinc-950">
+                  <div className="w-32 h-1 bg-slate-400 dark:bg-neutral-700 rounded-full" />
                 </div>
               </div>
             </motion.div>

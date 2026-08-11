@@ -33,7 +33,7 @@ export function VianMessage({
     >
       {/* User Message */}
       {isUser ? (
-        <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-cyan-950/60 border border-cyan-500/30 px-3.5 py-2.5 text-xs text-cyan-100 shadow-sm leading-relaxed font-sans">
+        <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-cyan-600 dark:bg-cyan-950/70 border border-cyan-500/30 px-3.5 py-2.5 text-xs text-white dark:text-cyan-100 shadow-sm leading-relaxed font-sans font-medium">
           {message.content}
         </div>
       ) : (
@@ -52,7 +52,7 @@ export function VianMessage({
 
           <div className="flex flex-1 flex-col items-start min-w-0">
             {/* Assistant Body Container */}
-            <div className="w-full rounded-2xl rounded-tl-sm border border-zinc-800/80 bg-zinc-900/60 px-4 py-3 text-xs text-zinc-200 leading-relaxed shadow-sm">
+            <div className="w-full rounded-2xl rounded-tl-sm border border-slate-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 px-4 py-3 text-xs text-slate-900 dark:text-zinc-200 leading-relaxed shadow-sm">
               <MarkdownContent content={message.content} />
             </div>
 
