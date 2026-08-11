@@ -27,7 +27,7 @@ export default function Achievements() {
         Certificates, Awards & Key Achievements
       </SectionHeading>
 
-      {/* Redesigned Custom Bento Grid */}
+      {/* Redesigned Native Aspect Ratio Bento Grid */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
@@ -39,10 +39,53 @@ export default function Achievements() {
           </span>
         </div>
 
-        {/* Bento Grid Container (All Horizontal Landscape Frames) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[240px] sm:auto-rows-[260px]">
+        {/* Asymmetric Bento Grid matching exact native photo aspect ratios */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[250px] sm:auto-rows-[270px]">
           
-          {/* Card 1: Flinders AI Hackathon (Landscape 2 Cols x 1 Row - Faces Centered) */}
+          {/* Card 1: Google Cloud Arcade 2025 (Wide Landscape 1024x561 Native Frame - 2 Cols x 1 Row) */}
+          <div
+            onClick={() =>
+              handleOpenPhoto({
+                src: "/achievements/google-cloud-arcade.jpg",
+                alt: "Google Cloud Arcade Champion 2025",
+                title: "Google Cloud Arcade Champion 2025",
+                subtitle: "Cloud & AI Milestone",
+                description: "Achieved Champion status in Google Cloud Arcade 2025 for hands-on cloud AI, infrastructure, and DevOps milestones.",
+                metrics: "🏆 Google Cloud Arcade Champion",
+              })
+            }
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300 flex flex-col justify-between"
+          >
+            {/* Corner Tech Brackets */}
+            <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
+            <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
+
+            <div className="relative w-full flex-1 overflow-hidden">
+              <Image
+                src="/achievements/google-cloud-arcade.jpg"
+                alt="Google Cloud Arcade Champion"
+                fill
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-cyan-500/40 px-2.5 py-1 rounded-full">
+                <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-pulse" />
+                <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">CLOUD MILESTONE</span>
+              </div>
+            </div>
+
+            {/* Bottom Info Bar */}
+            <div className="p-3.5 bg-zinc-950/95 border-t border-cyan-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
+              <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
+                GOOGLE CLOUD ARCADE 2025
+              </h4>
+              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mt-0.5">
+                {"// 🏆 GOOGLE CLOUD ARCADE CHAMPION"}
+              </p>
+            </div>
+          </div>
+
+          {/* Card 2: Flinders AI Hackathon (Portrait 843x1024 Native Frame - 1 Col x 2 Rows) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -54,7 +97,7 @@ export default function Achievements() {
                 metrics: "🥈 2nd Place | AUD 300 Cash Prize",
               })
             }
-            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300 flex flex-col justify-between"
+            className="md:col-span-1 md:row-span-2 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300 flex flex-col justify-between"
           >
             {/* Corner Tech Brackets */}
             <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-emerald-400 z-20 pointer-events-none opacity-80" />
@@ -65,8 +108,8 @@ export default function Achievements() {
                 src="/achievements/flinders-ai.jpg"
                 alt="Flinders AI Hackathon"
                 fill
-                className="object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 25vw"
               />
               <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981] animate-pulse" />
@@ -85,49 +128,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 2: Stat Bento 1 (1 Col x 1 Row) */}
-          <div className="md:col-span-1 row-span-1 rounded-2xl border border-emerald-500/40 bg-emerald-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.25)] transition-all duration-300 select-none">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-mono font-extrabold text-emerald-400 uppercase tracking-widest border border-emerald-500/30 px-2 py-0.5 rounded-full bg-emerald-500/10">
-                STAT // AWARD
-              </span>
-              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981]" />
-            </div>
-            <div>
-              <p className="text-4xl sm:text-5xl font-black font-mono text-emerald-400 tracking-tight drop-shadow-[0_0_25px_rgba(16,185,129,0.6)]">
-                🥈 2ND
-              </p>
-              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
-                {"INT'L AI HACKATHON"}
-              </p>
-              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
-                FLINDERS UNIVERSITY
-              </p>
-            </div>
-          </div>
-
-          {/* Card 3: Stat Bento 2 (1 Col x 1 Row) */}
-          <div className="md:col-span-1 row-span-1 rounded-2xl border border-cyan-500/40 bg-cyan-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.25)] transition-all duration-300 select-none">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-mono font-extrabold text-cyan-400 uppercase tracking-widest border border-cyan-500/30 px-2 py-0.5 rounded-full bg-cyan-500/10">
-                STAT // ACADEMICS
-              </span>
-              <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
-            </div>
-            <div>
-              <p className="text-4xl sm:text-5xl font-black font-mono text-cyan-400 tracking-tight drop-shadow-[0_0_25px_rgba(34,211,238,0.6)]">
-                8.61
-              </p>
-              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
-                ACADEMIC CGPA
-              </p>
-              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
-                SAL COLLEGE OF ENGINEERING
-              </p>
-            </div>
-          </div>
-
-          {/* Card 4: AIT Hackathon 2K25 (Landscape 2 Cols x 1 Row) */}
+          {/* Card 3: AIT Hackathon 2K25 (Portrait 768x1024 Native Frame - 1 Col x 2 Rows) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -139,7 +140,7 @@ export default function Achievements() {
                 metrics: "🏅 Top 10 Finalist",
               })
             }
-            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300 flex flex-col justify-between"
+            className="md:col-span-1 md:row-span-2 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300 flex flex-col justify-between"
           >
             {/* Corner Tech Brackets */}
             <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-emerald-400 z-20 pointer-events-none opacity-80" />
@@ -150,8 +151,8 @@ export default function Achievements() {
                 src="/achievements/ait-hackathon.jpg"
                 alt="AIT Hackathon 2K25"
                 fill
-                className="object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 25vw"
               />
               <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981]" />
@@ -170,7 +171,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 5: Robo Soccer Championship (Landscape 2 Cols x 1 Row - Heads & Banner Perfectly Aligned) */}
+          {/* Card 4: Robo Soccer Championship (Landscape 1024x768 Native Frame - 2 Cols x 1 Row) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -213,66 +214,44 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 6: Google Cloud Arcade (Wide Horizontal Landscape Frame 3 Cols x 1 Row) */}
-          <div
-            onClick={() =>
-              handleOpenPhoto({
-                src: "/achievements/google-cloud-arcade.jpg",
-                alt: "Google Cloud Arcade Champion 2025",
-                title: "Google Cloud Arcade Champion 2025",
-                subtitle: "Cloud & AI Milestone",
-                description: "Achieved Champion status in Google Cloud Arcade 2025 for hands-on cloud AI, infrastructure, and DevOps milestones.",
-                metrics: "🏆 Google Cloud Arcade Champion",
-              })
-            }
-            className="md:col-span-3 row-span-1 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300 flex flex-col justify-between"
-          >
-            {/* Corner Tech Brackets */}
-            <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
-            <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-cyan-400 z-20 pointer-events-none opacity-80" />
-
-            <div className="relative w-full flex-1 bg-zinc-950 p-2 overflow-hidden flex items-center justify-center">
-              <Image
-                src="/achievements/google-cloud-arcade.jpg"
-                alt="Google Cloud Arcade Champion"
-                fill
-                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 75vw"
-              />
-              <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-cyan-500/40 px-2.5 py-1 rounded-full">
-                <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-pulse" />
-                <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">CLOUD MILESTONE</span>
-              </div>
+          {/* Card 5: Stat Bento 1 (1 Col x 1 Row) */}
+          <div className="md:col-span-1 row-span-1 rounded-2xl border border-emerald-500/40 bg-emerald-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.25)] transition-all duration-300 select-none">
+            <div className="flex justify-between items-start">
+              <span className="text-[10px] font-mono font-extrabold text-emerald-400 uppercase tracking-widest border border-emerald-500/30 px-2 py-0.5 rounded-full bg-emerald-500/10">
+                STAT // AWARD
+              </span>
+              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981]" />
             </div>
-
-            {/* Bottom Info Bar */}
-            <div className="p-3.5 bg-zinc-950/95 border-t border-cyan-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
-              <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
-                GOOGLE CLOUD ARCADE 2025
-              </h4>
-              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mt-0.5">
-                {"// 🏆 GOOGLE CLOUD ARCADE CHAMPION"}
+            <div>
+              <p className="text-4xl sm:text-5xl font-black font-mono text-emerald-400 tracking-tight drop-shadow-[0_0_25px_rgba(16,185,129,0.6)]">
+                🥈 2ND
+              </p>
+              <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
+                {"INT'L AI HACKATHON"}
+              </p>
+              <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
+                FLINDERS UNIVERSITY
               </p>
             </div>
           </div>
 
-          {/* Card 7: Stat Bento 3 (1 Col x 1 Row) */}
-          <div className="md:col-span-1 row-span-1 rounded-2xl border border-amber-500/40 bg-amber-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-amber-400 hover:shadow-[0_0_30px_rgba(245,158,11,0.25)] transition-all duration-300 select-none">
+          {/* Card 6: Stat Bento 2 (1 Col x 1 Row) */}
+          <div className="md:col-span-1 row-span-1 rounded-2xl border border-cyan-500/40 bg-cyan-950/20 dark:bg-zinc-950/90 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-xl hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.25)] transition-all duration-300 select-none">
             <div className="flex justify-between items-start">
-              <span className="text-[10px] font-mono font-extrabold text-amber-400 uppercase tracking-widest border border-amber-500/30 px-2 py-0.5 rounded-full bg-amber-500/10">
-                STAT // ROBOTICS
+              <span className="text-[10px] font-mono font-extrabold text-cyan-400 uppercase tracking-widest border border-cyan-500/30 px-2 py-0.5 rounded-full bg-cyan-500/10">
+                STAT // ACADEMICS
               </span>
-              <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_10px_#f59e0b]" />
+              <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
             </div>
             <div>
-              <p className="text-4xl sm:text-5xl font-black font-mono text-amber-400 tracking-tight drop-shadow-[0_0_25px_rgba(245,158,11,0.6)]">
-                🥇 1ST
+              <p className="text-4xl sm:text-5xl font-black font-mono text-cyan-400 tracking-tight drop-shadow-[0_0_25px_rgba(34,211,238,0.6)]">
+                8.61
               </p>
               <p className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest mt-1">
-                ROBO SOCCER PRIZE
+                ACADEMIC CGPA
               </p>
               <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
-                NATIONAL ROBOTICS CHAMPION
+                SAL COLLEGE OF ENGINEERING
               </p>
             </div>
           </div>
