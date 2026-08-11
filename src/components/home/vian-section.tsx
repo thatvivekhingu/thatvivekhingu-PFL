@@ -14,6 +14,7 @@ export default function VianSection() {
   return (
     <div className="flex flex-col">
       <SectionHeading
+        color="indigo"
         subtitle="NATIVE IPHONE AI EXPERIENCE"
       >
         Meet VIAN — Personal AI Assistant

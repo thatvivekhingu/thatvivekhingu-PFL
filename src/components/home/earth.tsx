@@ -68,6 +68,7 @@ export default function Earth({ photos }: { photos: SunsetPhoto[] }) {
     return (
         <div className="flex flex-col">
             <SectionHeading
+                color="orange"
                 subtitle="ATMOSPHERIC ARCHIVE"
             >
                 Visual Journeys & Explorations

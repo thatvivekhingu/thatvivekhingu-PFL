@@ -11,6 +11,7 @@ export default function Experience() {
   return (
     <div className="flex flex-col">
       <SectionHeading
+        color="emerald"
         subtitle="ACADEMIC & ENGINEERING FOUNDATION"
       >
         Education & Engineering Background

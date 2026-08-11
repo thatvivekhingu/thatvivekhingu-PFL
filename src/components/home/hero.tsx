@@ -74,8 +74,8 @@ export default function Hero() {
                   </Marquee>
                 </div>
 
-                {/* Fuchsia/Magenta Angled Ribbon (+3.5deg) - Thicker & Bold Black Text */}
-                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-fuchsia-500 via-pink-400 to-purple-500 py-3 sm:py-4 shadow-[0_0_40px_rgba(217,70,239,0.5)] border-y-2 border-fuchsia-200/60">
+                {/* Violet/Indigo Angled Ribbon (+3.5deg) - Thicker & Bold Black Text */}
+                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.5)] border-y-2 border-indigo-200/60">
                   <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                     <span>BHARATBHASHA AI</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>

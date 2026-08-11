@@ -23,7 +23,7 @@ export default function Achievements() {
   return (
     <div className="flex flex-col space-y-12">
       {/* Section Heading */}
-      <SectionHeading subtitle="AWARDS & HONORS">
+      <SectionHeading color="amber" subtitle="AWARDS & HONORS">
         Certificates, Awards & Key Achievements
       </SectionHeading>
 

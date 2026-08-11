@@ -58,6 +58,7 @@ export default function Dashboard() {
     <div className="flex flex-col w-full">
       <CustomCursor />
       <SectionHeading
+        color="cyan"
         subtitle="LIVE TELEMETRY MATRIX"
       >
         Developer Telemetry & Core Matrix

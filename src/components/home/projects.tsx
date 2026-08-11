@@ -37,6 +37,7 @@ export default function Projects() {
       <div className="container px-4 mx-auto max-w-6xl">
         <BlurFade delay={0.1} inView>
           <SectionHeading
+            color="sky"
             subtitle="FEATURED AI & WEB BUILDS"
           >
             Featured AI & Web Builds
