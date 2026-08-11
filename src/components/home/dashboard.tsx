@@ -35,19 +35,16 @@ export default function Dashboard() {
   const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
-  const [scratchGif, setScratchGif] = useState<string>("");
+  const [gifIndex, setGifIndex] = useState<number>(0);
+  const [scratchGif, setScratchGif] = useState<string>(data.scratchGifs[0]);
   const spotlightColor = useAlbumColor(track?.albumImageUrl || null);
 
   const dashboardIconClass = "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary";
 
-  useEffect(() => {
-    pickNewGif();
-  }, []);
-
   const pickNewGif = () => {
     const gifs = data.scratchGifs;
-    const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
-    setScratchGif(randomGif);
+    setScratchGif(gifs[gifIndex % gifs.length]);
+    setGifIndex((prev) => (prev + 1) % gifs.length);
   };
 
   const handleScratchComplete = () => {
