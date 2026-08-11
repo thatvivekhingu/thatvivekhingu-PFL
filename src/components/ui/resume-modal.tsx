@@ -132,12 +132,12 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/70 backdrop-blur-md">
+      <div className="fixed inset-0 z-[9000] flex items-center justify-center p-3 sm:p-6 pt-16 sm:pt-20 overflow-y-auto bg-black/85 backdrop-blur-xl">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border border-cyan-500/30 bg-background/95 backdrop-blur-2xl shadow-2xl p-4 sm:p-8 space-y-6 scrollbar-thin scrollbar-thumb-muted"
+          className="relative w-full max-w-4xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto rounded-3xl border border-cyan-500/40 bg-zinc-950/95 backdrop-blur-2xl shadow-2xl p-4 sm:p-8 space-y-6 scrollbar-thin scrollbar-thumb-muted"
         >
           {/* Modal Header */}
           <div className="flex items-center justify-between gap-4 pb-4 border-b border-border/60">

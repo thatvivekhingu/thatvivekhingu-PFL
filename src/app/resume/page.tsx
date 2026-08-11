@@ -124,7 +124,7 @@ export default function ResumePage() {
   ];
 
   return (
-    <main className="min-h-screen bg-background text-foreground pt-24 pb-16 px-4 sm:px-6">
+    <main className="min-h-screen bg-background text-foreground pt-28 sm:pt-36 pb-16 px-4 sm:px-6">
       {/* Top Floating Control Bar */}
       <div className="max-w-5xl mx-auto mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl border border-border/60 bg-background/80 backdrop-blur-xl shadow-xl">
         <Link
