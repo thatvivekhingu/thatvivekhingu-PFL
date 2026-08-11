@@ -1,6 +1,6 @@
 /**
  * Portfolio Data & Telemetry Service
- * Centralized data provider for portfolio metadata, skills, projects, and live stats aggregation
+ * Centralized data provider for portfolio metadata, projects, achievements, and stats aggregation
  */
 
 import { data } from "@/data/data";
@@ -18,7 +18,7 @@ export interface PortfolioDataResponse {
   };
   experience: typeof data.experience;
   projects: typeof data.projects;
-  skills: typeof data.skills;
+  certificates: typeof data.certificates;
   achievements: typeof data.achievements;
   hackathons: typeof data.hackathons;
 }
@@ -38,7 +38,7 @@ export class PortfolioService {
       },
       experience: data.experience,
       projects: data.projects,
-      skills: data.skills,
+      certificates: data.certificates,
       achievements: data.achievements,
       hackathons: data.hackathons,
     };
@@ -48,7 +48,7 @@ export class PortfolioService {
     return data.projects;
   }
 
-  public static getSkills() {
-    return data.skills;
+  public static getAchievements() {
+    return data.achievements;
   }
 }
