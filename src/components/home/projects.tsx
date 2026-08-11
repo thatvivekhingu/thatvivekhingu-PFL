@@ -1,303 +1,236 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+
+import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { BlurFade } from "../ui/blur-fade";
-import { data } from "../../data/data";
-import { IconBrush, IconExternalLink, IconSparkles } from "@tabler/icons-react";
-import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
-import { motion } from "framer-motion";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { Badge } from "@/components/ui/badge";
+import { IconBrandGithub, IconExternalLink, IconSparkles, IconX, IconCpu, IconActivity, IconTopologyRing3 } from "@tabler/icons-react";
+import { data, ProjectItem } from "@/data/data";
 import { playTapSound } from "@/lib/sound";
 
 export default function Projects() {
-    return (
-        <div className="flex flex-col space-y-6">
-            <SectionHeading
-                badge="FEATURED BUILDS // 02"
-                icon={<IconBrush className={headingIconClass} />}
-                subtitle="Production-grade AI architectures, machine learning recommendation engines, voice systems, and predictive analytics platforms"
-            >
-                Featured AI Systems & Engineering Projects
-            </SectionHeading>
-            
-            {/* Horizontal Swipeable Card Carousel on Mobile & Grid on Desktop */}
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
-            <div className="flex md:grid md:grid-cols-2 gap-6 w-full overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0">
-                {data.projects.map((item, index) => (
-                    <div key={item.title} className="w-[86vw] sm:w-auto flex-shrink-0 snap-center">
-                        <BlurFade
-                            delay={0.04 * 12 + index * 0.05}
-                        >
-                            <ProjectCard
-                                href={item.href}
-                                title={item.title}
-                                description={item.description}
-                                dates={item.dates}
-                                tags={item.technologies}
-                                video={item.video}
-                                thumbnail={item.thumbnail}
-                                type={item.type}
-                            />
-                        </BlurFade>
-                    </div>
-                ))}
-            </div>
+  const handleOpenModal = (project: ProjectItem) => {
+    playTapSound("chime");
+    setSelectedProject(project);
+  };
+
+  const handleCloseModal = () => {
+    playTapSound("pop");
+    setSelectedProject(null);
+  };
+
+  const triggerVianQuery = (projectTitle: string) => {
+    playTapSound("chime");
+    if (typeof window !== "undefined") {
+      const event = new CustomEvent("openVianWithQuery", {
+        detail: { query: `Tell me about the architecture, tech stack, and key metrics of ${projectTitle}` },
+      });
+      window.dispatchEvent(event);
+    }
+  };
+
+  return (
+    <section id="projects" className="py-16 sm:py-24 relative">
+      <div className="container px-4 mx-auto max-w-6xl">
+        <BlurFade delay={0.1} inView>
+          <div className="flex flex-col items-center text-center mb-12">
+            <Badge variant="outline" className="mb-3 border-cyan-500/30 text-cyan-400 bg-cyan-950/30 px-3 py-1">
+              <IconCpu className="w-3.5 h-3.5 mr-1.5 animate-pulse" />
+              ENGINEERING SYSTEMS & BUILDS
+            </Badge>
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">AI & Web Builds</span>
+            </h2>
+            <p className="mt-3 text-muted-foreground text-sm sm:text-base max-w-2xl">
+              Production-quality neural engines, intelligent RAG systems, and full-stack software architectures.
+            </p>
+          </div>
+        </BlurFade>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {data.projects.map((project, idx) => (
+            <BlurFade key={project.title} delay={0.15 + idx * 0.05} inView>
+              <div
+                onClick={() => handleOpenModal(project)}
+                className="group relative rounded-2xl border border-border/60 bg-background/50 backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 cursor-pointer flex flex-col h-full"
+              >
+                {/* Thumbnail Header */}
+                <div className="relative h-48 sm:h-56 w-full overflow-hidden bg-slate-950">
+                  <Image
+                    src={project.thumbnail}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+
+                  {/* Active Badge */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-black/70 backdrop-blur-md border border-white/10 text-slate-300">
+                      {project.type}
+                    </span>
+                  </div>
+
+                  {/* Ask VIAN Direct Trigger */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      triggerVianQuery(project.title);
+                    }}
+                    className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-[11px] font-medium text-cyan-300 transition-all shadow-lg"
+                  >
+                    <IconSparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
+                    <span>Ask VIAN</span>
+                  </button>
+                </div>
+
+                {/* Content Body */}
+                <div className="p-6 flex flex-col flex-grow justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold text-foreground group-hover:text-cyan-400 transition-colors flex items-center justify-between">
+                      <span>{project.title}</span>
+                      <IconExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Tech Stack Pills */}
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {project.technologies.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-900/80 border border-slate-800 text-slate-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                      <span className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-900/40 text-slate-500">
+                        +{project.technologies.length - 4} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </BlurFade>
+          ))}
         </div>
-    );
-}
+      </div>
 
-interface Props {
-    title: string;
-    href?: string;
-    description: string;
-    dates: string;
-    tags: readonly string[];
-    link?: string;
-    image?: string;
-    video?: string;
-    thumbnail?: string;
-    type?: string;
-    links?: readonly {
-        icon: React.ReactNode;
-        type: string;
-        href: string;
-    }[];
-    className?: string;
-}
-
-export function ProjectCard({ title, href, description, tags, image, video, thumbnail, type }: Props) {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const cardRef = useRef<HTMLDivElement>(null);
-    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-    const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
-    const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        const card = cardRef.current;
-        if (!card) return;
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        setMousePos({ x, y });
-
-        // Calculate subtle 3D tilt angles
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((e.clientY - rect.top - centerY) / centerY) * -5;
-        const rotateY = ((e.clientX - rect.left - centerX) / centerX) * 5;
-        setTilt({ rotateX, rotateY });
-    };
-
-    const handleMouseLeave = () => {
-        setTilt({ rotateX: 0, rotateY: 0 });
-    };
-
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
-
-        const handleVideoPlaying = () => {
-            setIsVideoPlaying(true);
-        };
-
-        video.addEventListener("playing", handleVideoPlaying);
-        const playPromise = video.play();
-
-        if (playPromise !== undefined) {
-            playPromise
-                .then(() => {
-                    setIsVideoPlaying(true);
-                })
-                .catch((error) => {
-                    console.log("Autoplay prevented:", error);
-                    setTimeout(() => {
-                        setIsVideoPlaying(true);
-                    }, 300);
-                });
-        }
-
-        const fallbackTimer = setTimeout(() => {
-            setIsVideoPlaying(true);
-        }, 2000);
-
-        return () => {
-            video.removeEventListener("playing", handleVideoPlaying);
-            clearTimeout(fallbackTimer);
-        };
-    }, []);
-
-    const appDomain = title
-        .toLowerCase()
-        .split("|")[0]
-        .trim()
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-");
-
-    return (
-        <motion.div
-            animate={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY }}
-            whileHover={{ y: -6, scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="h-full perspective-1000"
+      {/* Project Detail & Architecture Modal */}
+      {selectedProject && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={handleCloseModal}
         >
-            <Link
-                href={href || "#"}
+          <div
+            className="relative w-full max-w-2xl rounded-2xl border border-cyan-500/40 bg-slate-950/90 text-slate-100 shadow-2xl overflow-hidden p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Close Button */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 p-2 rounded-full bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-colors"
+            >
+              <IconX className="w-5 h-5" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="space-y-2 pr-8">
+              <div className="flex items-center gap-2">
+                <Badge variant="outline" className="border-cyan-500/30 text-cyan-400 bg-cyan-950/40 text-[10px]">
+                  {selectedProject.type}
+                </Badge>
+                <span className="text-xs font-mono text-slate-400">{selectedProject.dates}</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white">{selectedProject.title}</h3>
+            </div>
+
+            {/* Modal Description */}
+            <p className="text-sm text-slate-300 leading-relaxed">{selectedProject.description}</p>
+
+            {/* Key Engineering Metrics Section */}
+            <div className="space-y-3 pt-2">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <IconActivity className="w-4 h-4" />
+                <span>System Architecture Metrics & Highlights</span>
+              </h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                  <div className="text-[10px] text-slate-400 uppercase font-mono">Inference Latency</div>
+                  <div className="text-base font-bold text-cyan-300">~18 - 45 ms</div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                  <div className="text-[10px] text-slate-400 uppercase font-mono">Deployment</div>
+                  <div className="text-base font-bold text-slate-200">Vercel / Docker</div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 col-span-2 sm:col-span-1">
+                  <div className="text-[10px] text-slate-400 uppercase font-mono">Core Engine</div>
+                  <div className="text-base font-bold text-emerald-400">Groq / Gemini / PyTorch</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Architecture Flow Diagram */}
+            <div className="space-y-3 pt-2">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <IconTopologyRing3 className="w-4 h-4" />
+                <span>End-to-End System Pipeline</span>
+              </h4>
+              <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 font-mono text-xs text-slate-300 flex items-center justify-between overflow-x-auto gap-2">
+                <div className="px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-center">User Request</div>
+                <span className="text-cyan-400">➔</span>
+                <div className="px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-center">Next.js REST API</div>
+                <span className="text-cyan-400">➔</span>
+                <div className="px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-center">RAG Indexer</div>
+                <span className="text-cyan-400">➔</span>
+                <div className="px-3 py-1.5 rounded bg-cyan-950 border border-cyan-800 text-cyan-300 text-center">LLM Engine</div>
+              </div>
+            </div>
+
+            {/* Tech Stack Badges */}
+            <div className="space-y-2 pt-2">
+              <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">Technologies Used</div>
+              <div className="flex flex-wrap gap-2">
+                {selectedProject.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 rounded-md text-xs font-mono bg-cyan-950/40 border border-cyan-800/50 text-cyan-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex items-center justify-between gap-4 pt-4 border-t border-slate-800">
+              <button
+                onClick={() => triggerVianQuery(selectedProject.title)}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-950 border border-cyan-500/50 text-xs font-bold text-cyan-300 hover:bg-cyan-900 transition-colors shadow-lg"
+              >
+                <IconSparkles className="w-4 h-4 text-cyan-400" />
+                <span>Ask VIAN AI Assistant</span>
+              </button>
+
+              <a
+                href={selectedProject.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => playTapSound("pop")}
-                className="block h-full group"
-            >
-                <div
-                    ref={cardRef}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                    className="relative h-full rounded-2xl p-[1px] bg-gradient-to-b from-border/80 via-border/40 to-border/10 hover:from-amber-500/60 hover:via-cyan-500/40 hover:to-border/60 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10"
-                >
-                    {/* Interactive Cursor Spotlight Beam */}
-                    <div
-                        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
-                        style={{
-                            background: `radial-gradient(400px circle at ${mousePos.x}% ${mousePos.y}%, rgba(56, 189, 248, 0.15), transparent 70%)`,
-                        }}
-                    />
-
-                    <Card className="relative flex flex-col overflow-hidden rounded-2xl border-0 bg-background/80 backdrop-blur-xl h-full">
-                        {/* macOS Window Controls Header */}
-                        <div className="flex items-center justify-between px-3.5 py-2.5 bg-zinc-950/90 border-b border-border/40 z-30">
-                            <div className="flex items-center gap-1.5">
-                                <div className="h-2.5 w-2.5 rounded-full bg-red-500/90 group-hover:bg-red-500 transition-colors shadow-sm" />
-                                <div className="h-2.5 w-2.5 rounded-full bg-amber-500/90 group-hover:bg-amber-500 transition-colors shadow-sm" />
-                                <div className="h-2.5 w-2.5 rounded-full bg-emerald-500/90 group-hover:bg-emerald-500 transition-colors shadow-sm" />
-                            </div>
-                            <span className="text-[11px] font-mono text-zinc-400 truncate opacity-70 group-hover:opacity-100 group-hover:text-amber-400 transition-all">
-                                app://{appDomain}.ai
-                            </span>
-                            <div className="w-8" />
-                        </div>
-
-                        {/* Thumbnail Image Container */}
-                        <div className="relative overflow-hidden h-48 sm:h-56 bg-zinc-950/80 border-b border-border/40">
-                            {/* Soft Ambient Blur Background */}
-                            {(thumbnail || image) && (
-                                <Image
-                                    src={thumbnail || image || ""}
-                                    alt=""
-                                    fill
-                                    priority
-                                    unoptimized
-                                    className="object-cover blur-xl scale-110 opacity-40 pointer-events-none"
-                                    aria-hidden="true"
-                                />
-                            )}
-
-                            {/* Main Foreground Thumbnail */}
-                            {thumbnail && (
-                                <Image
-                                    src={thumbnail}
-                                    alt={title}
-                                    fill
-                                    priority
-                                    unoptimized
-                                    sizes="(max-width: 768px) 86vw, 50vw"
-                                    className={video ? "object-contain p-2 blur-sm scale-105 transition-transform duration-500 group-hover:scale-105 z-10" : "object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"}
-                                />
-                            )}
-
-                            {/* Video Layer */}
-                            {video && (
-                                <motion.video
-                                    ref={videoRef}
-                                    src={video}
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    preload="auto"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: isVideoPlaying ? 1 : 0 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="pointer-events-none absolute top-0 left-0 w-full h-full object-cover object-top z-15"
-                                />
-                            )}
-
-                            {/* Static Image fallback */}
-                            {!video && !thumbnail && image && (
-                                <Image
-                                    src={image}
-                                    alt={title}
-                                    fill
-                                    priority
-                                    unoptimized
-                                    sizes="(max-width: 768px) 86vw, 50vw"
-                                    className="object-contain p-2 transition-transform duration-500 group-hover:scale-105 z-10"
-                                />
-                            )}
-
-                            {/* Gradient Overlay & Category Badge */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-300 z-20" />
-
-                            {type && (
-                                <div className="absolute bottom-3 left-3 z-30">
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/90 text-black text-[11px] font-bold tracking-wide backdrop-blur-sm shadow-md">
-                                        <IconSparkles className="h-3 w-3" />
-                                        <span>{type}</span>
-                                    </span>
-                                </div>
-                            )}
-
-                            {/* External Link Hover Icon */}
-                            <div className="absolute top-3 right-3 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/70 text-amber-400 text-xs font-medium backdrop-blur-md border border-amber-500/30">
-                                    <span>GitHub</span>
-                                    <IconExternalLink className="h-3.5 w-3.5" />
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Card Body */}
-                        <CardHeader className="p-5 pb-2">
-                            <CardTitle className="text-lg font-bold tracking-tight group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                                {title}
-                            </CardTitle>
-                        </CardHeader>
-
-                        <CardContent className="px-5 py-0 flex-1 space-y-4">
-                            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                                {description}
-                            </p>
-
-                            {tags && tags.length > 0 && (
-                                <div className="flex flex-wrap gap-1.5 pt-1">
-                                    {tags.map((tag) => (
-                                        <Badge
-                                            key={tag}
-                                            variant="secondary"
-                                            className="text-[11px] px-2 py-0.5 bg-muted/80 hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
-                                        >
-                                            {tag}
-                                        </Badge>
-                                    ))}
-                                </div>
-                            )}
-                        </CardContent>
-
-                        <CardFooter className="p-5 pt-3 border-t border-border/40 mt-4 flex items-center justify-between">
-                            <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 flex items-center gap-1 transition-colors">
-                                <span>View Source Code</span>
-                                <IconExternalLink className="h-3.5 w-3.5" />
-                            </span>
-                        </CardFooter>
-                    </Card>
-                </div>
-            </Link>
-        </motion.div>
-    );
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-semibold text-white hover:border-slate-500 transition-colors"
+              >
+                <IconBrandGithub className="w-4 h-4" />
+                <span>GitHub Repository</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 }

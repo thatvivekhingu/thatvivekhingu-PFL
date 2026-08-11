@@ -67,7 +67,7 @@ export function VianAssistant() {
     if (soundEnabled) playTapSound("pop");
   }, [soundEnabled]);
 
-  // Keyboard Shortcuts (⌘K / Ctrl+K to toggle, Esc to close)
+  // Keyboard Shortcuts (⌘K / Ctrl+K to toggle, Esc to close) and Custom Event Listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -79,9 +79,22 @@ export function VianAssistant() {
       }
     };
 
+    const handleCustomQuery = (e: Event) => {
+      const customEvent = e as CustomEvent<{ query: string }>;
+      if (customEvent.detail && customEvent.detail.query) {
+        setIsOpen(true);
+        sendMessage(customEvent.detail.query);
+      }
+    };
+
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, handleClose]);
+    window.addEventListener("openVianWithQuery", handleCustomQuery);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("openVianWithQuery", handleCustomQuery);
+    };
+  }, [isOpen, handleClose, sendMessage]);
 
   const handleNewChat = () => {
     const newId = createNewSession();
