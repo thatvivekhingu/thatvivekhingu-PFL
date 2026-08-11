@@ -68,12 +68,12 @@ export function IntroAnimation() {
         timer = setTimeout(() => {
           setQuestionChars((prev) => prev + 1);
           playTapSound("hover");
-        }, 45);
+        }, 25);
       } else {
         timer = setTimeout(() => {
           setCurrentIndex(1);
           playTapSound("pop");
-        }, 600);
+        }, 350);
       }
       return () => clearTimeout(timer);
     }
@@ -235,13 +235,9 @@ export function IntroAnimation() {
               transform-origin: 200px 200px !important;
             }
           `}</style>
-          {/* Cyan Anamorphic Radial Ambient Energy Glow */}
-
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.15)_0%,rgba(0,0,0,0)_68%)] pointer-events-none opacity-80" />
+          {/* Cyan Ambient Energy Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.1)_0%,rgba(0,0,0,0)_68%)] pointer-events-none opacity-60" />
           
-          {/* High Tech Grey Dot Matrix Grid */}
-          <div className="absolute inset-0 bg-[radial-gradient(#64748b_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-35 pointer-events-none" />
-
           {/* Skip Button */}
           <button
             onClick={handleSkip}
@@ -251,7 +247,7 @@ export function IntroAnimation() {
           </button>
 
           {/* Main Stage Container */}
-          <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-center min-h-[380px] text-center">
+          <div className="relative z-10 w-full max-w-5xl px-6 flex flex-col items-center justify-center min-h-[380px] text-center">
             <AnimatePresence mode="wait">
               {/* Question Phase */}
               {currentIndex === 0 && (
@@ -260,11 +256,11 @@ export function IntroAnimation() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-center text-2xl sm:text-4xl font-mono text-[#38bdf8] font-bold tracking-wider"
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center text-4xl sm:text-6xl md:text-7xl font-mono text-[#38bdf8] font-bold tracking-wider"
                 >
                   <span>{questionText}</span>
-                  <span className="inline-block w-3 h-7 sm:h-9 ml-2.5 bg-[#38bdf8] animate-pulse shadow-[0_0_15px_rgba(56,189,248,0.9)]" />
+                  <span className="inline-block w-4 h-9 sm:h-14 ml-3 bg-[#38bdf8] animate-pulse shadow-[0_0_20px_rgba(56,189,248,0.9)]" />
                 </motion.div>
               )}
 
@@ -276,12 +272,12 @@ export function IntroAnimation() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -25, scale: 1.06 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="flex flex-col items-center space-y-3"
+                  className="flex flex-col items-center space-y-4"
                 >
-                  <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-100 drop-shadow-[0_0_30px_rgba(255,255,255,0.35)]">
+                  <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.4)]">
                     {activeCard.title ?? ""}
                   </h2>
-                  <p className="text-xs sm:text-base font-mono text-[#38bdf8]/90 tracking-widest uppercase">
+                  <p className="text-sm sm:text-lg font-mono text-[#38bdf8]/90 tracking-widest uppercase">
                     — {activeCard.sub ?? ""} —
                   </p>
                 </motion.div>
