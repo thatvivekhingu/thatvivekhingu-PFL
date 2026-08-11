@@ -52,11 +52,11 @@ export default function Hero() {
     <div className="pt-28 pb-14 sm:pt-40 sm:pb-16 relative flex items-center justify-center overflow-hidden">
       <HeroConstellation desktopDots={300} mobileDots={75} />
 
-      {/* High-Tech Angled Double Marquee Ribbons passing behind DP */}
-      <div className="absolute top-28 sm:top-36 inset-x-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden h-64 select-none opacity-85">
-        {/* Cyan/Teal Angled Ribbon (-4deg) */}
-        <div className="absolute w-[170%] -rotate-[4deg] bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 py-1.5 sm:py-2 shadow-[0_0_30px_rgba(6,182,212,0.4)] border-y border-cyan-300/40">
-          <Marquee repeat={5} className="[--duration:28s] py-0 text-xs sm:text-sm font-black font-mono tracking-widest text-zinc-950 uppercase">
+      {/* High-Tech Angled Double Marquee Ribbons extending 100% screen edge to edge */}
+      <div className="absolute top-28 sm:top-36 left-1/2 -translate-x-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-64 select-none opacity-85">
+        {/* Cyan/Teal Angled Ribbon (-3.5deg) */}
+        <div className="absolute w-[125vw] min-w-[1400px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 py-1.5 sm:py-2 shadow-[0_0_30px_rgba(6,182,212,0.4)] border-y border-cyan-300/40">
+          <Marquee repeat={6} className="[--duration:28s] py-0 text-xs sm:text-sm font-black font-mono tracking-widest text-zinc-950 uppercase">
             <span>VIVEK HINGU // AI & MACHINE LEARNING ENGINEER</span>
             <span className="mx-2 text-cyan-950 font-bold">•</span>
             <span>AUTONOMOUS AGENTS</span>
@@ -70,9 +70,9 @@ export default function Hero() {
           </Marquee>
         </div>
 
-        {/* Fuchsia/Magenta Angled Ribbon (+4deg) */}
-        <div className="absolute w-[170%] rotate-[4deg] bg-gradient-to-r from-fuchsia-600 via-pink-500 to-purple-600 py-1.5 sm:py-2 shadow-[0_0_30px_rgba(217,70,239,0.4)] border-y border-fuchsia-300/40">
-          <Marquee reverse repeat={5} className="[--duration:32s] py-0 text-xs sm:text-sm font-black font-mono tracking-widest text-white uppercase">
+        {/* Fuchsia/Magenta Angled Ribbon (+3.5deg) */}
+        <div className="absolute w-[125vw] min-w-[1400px] rotate-[3.5deg] bg-gradient-to-r from-fuchsia-600 via-pink-500 to-purple-600 py-1.5 sm:py-2 shadow-[0_0_30px_rgba(217,70,239,0.4)] border-y border-fuchsia-300/40">
+          <Marquee reverse repeat={6} className="[--duration:32s] py-0 text-xs sm:text-sm font-black font-mono tracking-widest text-white uppercase">
             <span>BHARATBHASHA AI</span>
             <span className="mx-2 text-fuchsia-200 font-bold">•</span>
             <span>REAL-TIME STREAMING</span>

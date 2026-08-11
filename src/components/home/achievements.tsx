@@ -48,7 +48,7 @@ export default function Achievements() {
         </div>
 
         {/* Bento Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[220px] sm:auto-rows-[240px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[250px] sm:auto-rows-[270px]">
           
           {/* Card 1: Flinders AI Hackathon (Wide Feature Bento 2 Cols x 1 Row) */}
           <div
@@ -62,28 +62,28 @@ export default function Achievements() {
                 metrics: "🥈 2nd Place | AUD 300 Cash Prize",
               })
             }
-            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300"
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300 flex flex-col justify-between"
           >
-            <Image
-              src="/achievements/flinders-ai.jpg"
-              alt="Flinders AI Hackathon"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-            
-            {/* Status Indicator Dot */}
-            <div className="absolute top-4 right-4 z-10 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981] animate-pulse" />
-              <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest">ACTIVE RECORD</span>
+            <div className="relative w-full flex-1 overflow-hidden">
+              <Image
+                src="/achievements/flinders-ai.jpg"
+                alt="Flinders AI Hackathon"
+                fill
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute top-3 right-3 z-10 flex items-center gap-2 bg-black/70 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981] animate-pulse" />
+                <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest">ACTIVE RECORD</span>
+              </div>
             </div>
 
-            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
-              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white group-hover:text-emerald-300 transition-colors">
+            {/* Bottom Info Bar */}
+            <div className="p-3.5 bg-zinc-950/95 border-t border-emerald-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
+              <h4 className="text-base sm:text-xl font-black uppercase tracking-wider text-white group-hover:text-emerald-300 transition-colors">
                 FLINDERS AI HACKATHON
               </h4>
-              <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+              <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest mt-0.5">
                 {"// 🥈 2ND PLACE | AUD 300 CASH PRIZE"}
               </p>
             </div>
@@ -122,27 +122,27 @@ export default function Achievements() {
                 metrics: "🏆 Google Cloud Arcade Champion",
               })
             }
-            className="md:col-span-1 md:row-span-2 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300"
+            className="md:col-span-1 md:row-span-2 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300 flex flex-col justify-between"
           >
-            <Image
-              src="/achievements/google-cloud-arcade.jpg"
-              alt="Google Cloud Arcade Champion"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 25vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-            
-            {/* Status Indicator Dot */}
-            <div className="absolute top-4 right-4 z-10">
-              <span className="h-2 w-2 rounded-full bg-cyan-400 block shadow-[0_0_10px_#22d3ee] animate-pulse" />
+            <div className="relative w-full flex-1 overflow-hidden">
+              <Image
+                src="/achievements/google-cloud-arcade.jpg"
+                alt="Google Cloud Arcade Champion"
+                fill
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 25vw"
+              />
+              <div className="absolute top-3 right-3 z-10">
+                <span className="h-2 w-2 rounded-full bg-cyan-400 block shadow-[0_0_10px_#22d3ee] animate-pulse" />
+              </div>
             </div>
 
-            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
-              <h4 className="text-xl font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
+            {/* Bottom Info Bar */}
+            <div className="p-3.5 bg-zinc-950/95 border-t border-cyan-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
+              <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
                 GOOGLE CLOUD ARCADE
               </h4>
-              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
+              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mt-0.5">
                 {"// 🏆 CHAMPION 2025"}
               </p>
             </div>
@@ -169,7 +169,7 @@ export default function Achievements() {
             </div>
           </div>
 
-          {/* Card 5: TIC-TECH-TOE '25 (2 Cols x 1 Row) */}
+          {/* Card 5: TIC-TECH-TOE '25 Certificate (2 Cols x 1 Row - Clean Landscape Fit) */}
           <div
             onClick={() =>
               handleOpenPhoto({
@@ -181,27 +181,28 @@ export default function Achievements() {
                 metrics: "Certificate of Appreciation",
               })
             }
-            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300"
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-cyan-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.3)] transition-all duration-300 flex flex-col justify-between"
           >
-            <Image
-              src="/hackathons/tic-tech-toe-25.jpg"
-              alt="TIC-TECH-TOE '25"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-            
-            {/* Status Indicator Dot */}
-            <div className="absolute top-4 right-4 z-10">
-              <span className="h-2 w-2 rounded-full bg-cyan-400 block shadow-[0_0_10px_#22d3ee]" />
+            {/* Certificate Document Container (Full View, No Clipping) */}
+            <div className="relative w-full flex-1 bg-zinc-950 p-2 overflow-hidden flex items-center justify-center">
+              <Image
+                src="/hackathons/tic-tech-toe-25.jpg"
+                alt="TIC-TECH-TOE '25 Certificate"
+                fill
+                className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute top-3 right-3 z-10">
+                <span className="h-2 w-2 rounded-full bg-cyan-400 block shadow-[0_0_10px_#22d3ee]" />
+              </div>
             </div>
 
-            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
-              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
+            {/* Bottom Info Bar */}
+            <div className="p-3.5 bg-zinc-950/95 border-t border-cyan-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
+              <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-cyan-300 transition-colors">
                 {"TIC-TECH-TOE '25 HACKATHON"}
               </h4>
-              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
+              <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mt-0.5">
                 {"// IEEE SB DAIICT & EDUGET GLOBAL"}
               </p>
             </div>
@@ -219,27 +220,27 @@ export default function Achievements() {
                 metrics: "🏅 Top 10 Finalist",
               })
             }
-            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300"
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-emerald-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_35px_rgba(16,185,129,0.3)] transition-all duration-300 flex flex-col justify-between"
           >
-            <Image
-              src="/achievements/ait-hackathon.jpg"
-              alt="AIT Hackathon 2K25"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-            
-            {/* Status Indicator Dot */}
-            <div className="absolute top-4 right-4 z-10">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 block shadow-[0_0_10px_#10b981]" />
+            <div className="relative w-full flex-1 overflow-hidden">
+              <Image
+                src="/achievements/ait-hackathon.jpg"
+                alt="AIT Hackathon 2K25"
+                fill
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute top-3 right-3 z-10">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 block shadow-[0_0_10px_#10b981]" />
+              </div>
             </div>
 
-            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
-              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white group-hover:text-emerald-300 transition-colors">
+            {/* Bottom Info Bar */}
+            <div className="p-3.5 bg-zinc-950/95 border-t border-emerald-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
+              <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-emerald-300 transition-colors">
                 AIT HACKATHON 2K25
               </h4>
-              <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+              <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest mt-0.5">
                 {"// 🏅 TOP 10 FINALIST OUT OF 500+ TEAMS"}
               </p>
             </div>
@@ -257,27 +258,27 @@ export default function Achievements() {
                 metrics: "🥇 1st Prize Winner",
               })
             }
-            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-amber-500/40 bg-zinc-950/90 overflow-hidden shadow-2xl cursor-pointer hover:border-amber-400 hover:shadow-[0_0_35px_rgba(245,158,11,0.3)] transition-all duration-300"
+            className="md:col-span-2 row-span-1 group relative rounded-2xl border border-amber-500/40 bg-zinc-950 overflow-hidden shadow-2xl cursor-pointer hover:border-amber-400 hover:shadow-[0_0_35px_rgba(245,158,11,0.3)] transition-all duration-300 flex flex-col justify-between"
           >
-            <Image
-              src="/achievements/robo-soccer.jpg"
-              alt="Robo Soccer Competition"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-            
-            {/* Status Indicator Dot */}
-            <div className="absolute top-4 right-4 z-10">
-              <span className="h-2 w-2 rounded-full bg-amber-400 block shadow-[0_0_10px_#f59e0b]" />
+            <div className="relative w-full flex-1 overflow-hidden">
+              <Image
+                src="/achievements/robo-soccer.jpg"
+                alt="Robo Soccer Competition"
+                fill
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute top-3 right-3 z-10">
+                <span className="h-2 w-2 rounded-full bg-amber-400 block shadow-[0_0_10px_#f59e0b]" />
+              </div>
             </div>
 
-            <div className="absolute bottom-5 left-5 right-5 z-10 space-y-1">
-              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white group-hover:text-amber-300 transition-colors">
+            {/* Bottom Info Bar */}
+            <div className="p-3.5 bg-zinc-950/95 border-t border-amber-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
+              <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-amber-300 transition-colors">
                 ROBO SOCCER CHAMPIONSHIP
               </h4>
-              <p className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
+              <p className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest mt-0.5">
                 {"// 🥇 1ST PRIZE WINNER"}
               </p>
             </div>
