@@ -16,7 +16,7 @@ export default function VianSection() {
       <SectionHeading
         badge="INTELLIGENT AGENT // VIAN AI"
         icon={<IconCpu className={headingIconClass} />}
-        subtitle="Powered by Agno Agent Framework & Groq's Llama 3.1 8B Instant model. Ask anything about Vivek's projects, AI/ML engineering, research, or degree."
+        subtitle="Ask anything about Vivek's engineering projects, machine learning models, achievements, or technical background."
       >
         Meet VIAN — Personal AI Assistant
       </SectionHeading>
@@ -43,23 +43,23 @@ export default function VianSection() {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                <span>Agno Agentic Neural System Online</span>
+                <span>Interactive AI System Online</span>
               </div>
 
               <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
-                Interactive iPhone AI Experience
+                Conversational AI Assistant
               </h3>
 
               <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 leading-relaxed">
-                Launch VIAN inside a native iPhone 17 Pro Max interface to query Vivek&#39;s AI/ML architecture, code samples, hackathon wins, or general technical knowledge in real-time.
+                Launch VIAN in an interactive chat modal to explore Vivek Hingu&#39;s engineering projects, technical stack, hackathon wins, or general technical queries in real-time.
               </p>
 
               <div className="pt-1 flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs text-slate-500 dark:text-zinc-400 font-mono">
                 <span className="flex items-center gap-1">
-                  <IconMessageCode className="h-3.5 w-3.5 text-cyan-500" /> Real-time Streaming
+                  <IconMessageCode className="h-3.5 w-3.5 text-cyan-500" /> Instant Intelligent Responses
                 </span>
                 <span className="flex items-center gap-1">
-                  <IconDeviceMobile className="h-3.5 w-3.5 text-cyan-500" /> iPhone 17 Pro Max Frame
+                  <IconDeviceMobile className="h-3.5 w-3.5 text-cyan-500" /> Seamless Interface
                 </span>
               </div>
             </div>
