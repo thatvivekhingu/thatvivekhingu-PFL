@@ -1,7 +1,6 @@
-"use client";
-
 import React, { useState } from "react";
-import { IconSparkles, IconCopy, IconCheck, IconRefresh } from "@tabler/icons-react";
+import Image from "next/image";
+import { IconCopy, IconCheck, IconRefresh } from "@tabler/icons-react";
 import { VianMessageItem } from "@/hooks/useVianSessions";
 
 interface VianMessageProps {
@@ -41,8 +40,14 @@ export function VianMessage({
         /* Assistant Message */
         <div className="flex w-full items-start gap-2.5">
           {/* Assistant Avatar */}
-          <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-950/50 text-cyan-400">
-            <IconSparkles className="h-3.5 w-3.5" />
+          <div className="mt-0.5 relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-cyan-500/40 shadow-sm">
+            <Image
+              src="/vian-avatar.jpg"
+              alt="VIAN Avatar"
+              fill
+              sizes="28px"
+              className="object-cover"
+            />
           </div>
 
           <div className="flex flex-1 flex-col items-start min-w-0">

@@ -1,11 +1,8 @@
-"use client";
-
-import React from "react";
+import Image from "next/image";
 import {
   IconPlus,
   IconHistory,
   IconX,
-  IconSparkles,
   IconVolume,
   IconVolumeOff,
 } from "@tabler/icons-react";
@@ -31,8 +28,14 @@ export function VianHeader({
     <header className="flex h-14 w-full shrink-0 items-center justify-between border-b border-zinc-800/80 bg-zinc-950/80 px-4 backdrop-blur-md">
       {/* Title & Avatar */}
       <div className="flex items-center gap-2.5">
-        <div className="relative flex h-7 w-7 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-950/50 text-cyan-400 shadow-sm">
-          <IconSparkles className="h-4 w-4" />
+        <div className="relative h-8 w-8 overflow-hidden rounded-full border border-cyan-500/40 shadow-sm shrink-0">
+          <Image
+            src="/vian-avatar.jpg"
+            alt="VIAN Logo"
+            fill
+            sizes="32px"
+            className="object-cover"
+          />
         </div>
         <div className="flex flex-col">
           <div className="flex items-center gap-1.5">

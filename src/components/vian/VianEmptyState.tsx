@@ -1,7 +1,6 @@
-"use client";
-
 import React from "react";
-import { IconSparkles, IconArrowUpRight } from "@tabler/icons-react";
+import Image from "next/image";
+import { IconArrowUpRight } from "@tabler/icons-react";
 
 interface VianEmptyStateProps {
   onSelectPrompt: (prompt: string) => void;
@@ -34,8 +33,14 @@ export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
       {/* Product Avatar Badge */}
-      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-950/40 text-cyan-400 shadow-md">
-        <IconSparkles className="h-6 w-6" />
+      <div className="mb-3 relative h-14 w-14 overflow-hidden rounded-full border-2 border-cyan-500/40 p-0.5 shadow-xl">
+        <Image
+          src="/vian-avatar.jpg"
+          alt="VIAN Avatar Logo"
+          fill
+          sizes="56px"
+          className="object-cover rounded-full"
+        />
       </div>
 
       <h3 className="text-base font-semibold text-zinc-100 tracking-tight">
