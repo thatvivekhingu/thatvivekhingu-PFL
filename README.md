@@ -22,7 +22,7 @@ A high-performance, ultra-modern personal portfolio website built with **Next.js
 
 ### 🖥️ Website Interface
 <div align="center">
-  <img src="./public/website_screenshot.png" alt="Vivek Hingu Portfolio Hero & Interface" width="100%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);" />
+  <img src="./public/website_hero.png" alt="Vivek Hingu Portfolio Hero & Interface" width="100%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);" />
 </div>
 
 <br />
