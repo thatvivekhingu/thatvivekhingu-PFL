@@ -48,6 +48,15 @@ export default function Hero() {
     el.style.setProperty("--my", `${e.clientY - rect.top}px`);
   };
 
+  const resumeBtnRef = useRef<HTMLButtonElement>(null);
+  const handleResumeMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const el = resumeBtnRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+  };
+
   return (
     <div className="pt-28 pb-14 sm:pt-40 sm:pb-16 relative flex items-center justify-center overflow-hidden">
       <HeroConstellation desktopDots={300} mobileDots={75} />
@@ -186,14 +195,25 @@ export default function Hero() {
                       <ShimmerBorder />
                     </a>
                     <button
+                      ref={resumeBtnRef}
+                      onMouseMove={handleResumeMove}
                       onClick={() => {
                         playTapSound("chime");
                         setIsResumeOpen(true);
                       }}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-cyan-500/30 dark:border-cyan-500/50 bg-cyan-500/10 dark:bg-cyan-950/40 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-bold text-cyan-700 dark:text-cyan-300 transition-all hover:text-cyan-900 dark:hover:text-white hover:border-cyan-500 dark:hover:border-cyan-400 hover:bg-cyan-500/20 dark:hover:bg-cyan-900/60 shadow-md dark:shadow-[0_0_20px_rgba(34,211,238,0.25)]"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
                     >
-                      <IconFileText className="relative h-4 w-4 text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform" />
-                      <span className="relative">Resume</span>
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                        style={{
+                          background:
+                            "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                        }}
+                      />
+                      <IconFileText className="relative h-4 w-4 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
+                      <span className="relative font-bold">Resume</span>
+                      <ShimmerBorder />
                     </button>
                   </div>
                 </div>

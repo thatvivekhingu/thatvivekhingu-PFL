@@ -291,19 +291,22 @@ export const data = {
   ],
 
   scratchGifs: [
+    // 5 New Cyberpunk AI & High-Tech GIFs (Displayed First)
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTYxejdxNGsxbHJzYXoxY3huc3dkaWJ1aGR6eWdyYnl5amhpYm4yMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oKIPnAiaMCws8nOsE/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYyYm9icXQzeG9uN2I3Ynd4bmFqNzlyczdsamU5N3hsbms4bmFqMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26tn33aiTi1jkl6H6/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHA0NW8yMDlhdDJsbzFhOHUwbTR5N3FtbGpmMWRzODVzMG1rbml6ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41lFw05B8JZ3xaW4/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdm9lbnNkdnlxbDR6dWJscjVteWV3bjNreXlnam4xZXlnamQzaGlqNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xYPdnwsRPZDhCxXvOi/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGJkYWt2bjRxNDJsbmdndHlwMmZmdHB6cTB5aDR0eWV5bTVidm1iZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QHE5gWI0QjqF2/giphy.gif",
+    
+    // Older GIFs
     "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2F3NmQxMTc3MWdremlyNnkwMDlhNHZ0bzV4dW54eWNvNmpnbWlhMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Hgw8T855C20M/giphy.gif",
-    "https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif",
     "https://media.giphy.com/media/LmN8OYiY4m0X4UrzUI/giphy.gif",
     "https://media.giphy.com/media/u01ioCe6G8URG/giphy.gif",
-    "https://media.giphy.com/media/QHE5gWI0QjqF2/giphy.gif",
     "https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif",
-    "https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif",
     "https://media.giphy.com/media/eOjuCYIGqXSqfBy0MX/giphy.gif",
     "https://media.giphy.com/media/AEDD6xjlOxNMgFsUmA/giphy.gif",
     "https://media.giphy.com/media/LqgrTA39s77U8JKhJd/giphy.gif",
-    "https://media.giphy.com/media/xYPdnwsRPZDhCxXvOi/giphy.gif",
     "https://media.giphy.com/media/26n6Wywq480SmNRY4/giphy.gif",
-    "https://media.giphy.com/media/l41lFw05B8JZ3xaW4/giphy.gif",
     "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif",
   ],
 
@@ -314,38 +317,28 @@ export const data = {
       themeDependent: false,
     },
     {
-      name: "LLMs",
-      icon: "llm",
+      name: "PyTorch",
+      icon: "pytorch",
       themeDependent: false,
     },
     {
-      name: "Agentic AI",
-      icon: "agentic-ai",
+      name: "TensorFlow",
+      icon: "tensorflow",
       themeDependent: false,
     },
     {
-      name: "LangChain",
-      icon: "langchain",
+      name: "OpenAI",
+      icon: "openai",
       themeDependent: false,
     },
     {
-      name: "LangGraph",
-      icon: "langgraph",
+      name: "HuggingFace",
+      icon: "huggingface",
       themeDependent: false,
     },
     {
-      name: "RAG",
-      icon: "rag",
-      themeDependent: false,
-    },
-    {
-      name: "NLP",
-      icon: "nlp",
-      themeDependent: false,
-    },
-    {
-      name: "Computer Vision",
-      icon: "cv",
+      name: "FastAPI",
+      icon: "fastapi",
       themeDependent: false,
     },
     {
@@ -364,23 +357,8 @@ export const data = {
       themeDependent: false,
     },
     {
-      name: "Flask",
-      icon: "flask",
-      themeDependent: true,
-    },
-    {
-      name: "JavaScript",
-      icon: "javascript",
-      themeDependent: false,
-    },
-    {
-      name: "NodeJS",
-      icon: "nodejs",
-      themeDependent: false,
-    },
-    {
-      name: "React",
-      icon: "react",
+      name: "TypeScript",
+      icon: "typescript",
       themeDependent: false,
     },
     {
@@ -389,13 +367,13 @@ export const data = {
       themeDependent: true,
     },
     {
-      name: "HTML",
-      icon: "html",
+      name: "React",
+      icon: "react",
       themeDependent: false,
     },
     {
-      name: "CSS",
-      icon: "css",
+      name: "Docker",
+      icon: "docker",
       themeDependent: false,
     },
     {
@@ -409,11 +387,12 @@ export const data = {
       themeDependent: true,
     },
     {
-      name: "VSCode",
+      name: "VS Code",
       icon: "vscode",
       themeDependent: false,
     },
   ],
+
   sunsets: [
     {
       src: "/sunsets/earth-01.jpg",
