@@ -30,25 +30,25 @@ export function SectionHeading({
         className
       )}
     >
-      {/* MAIN TITLE (Clean, Scaled-down Uppercase Cyan Gradient Title) */}
-      <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight uppercase">
-        <span className="bg-gradient-to-r from-cyan-200 via-sky-300 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(34,211,238,0.25)]">
+      {/* MAIN TITLE (Multi-color Vibrant Gradient per reference screenshot) */}
+      <h2 className="text-2xl sm:text-4xl font-black tracking-wider uppercase font-mono">
+        <span className="bg-gradient-to-r from-cyan-400 via-sky-300 via-pink-400 to-fuchsia-500 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(217,70,239,0.3)]">
           {children}
         </span>
       </h2>
 
-      {/* SUBTITLE WITH '// ' MONO FORMAT */}
+      {/* SHORT CONCISE SUBTITLE WITH '// ' MONO FORMAT */}
       {subtitle && (
-        <p className="mt-2.5 font-mono text-xs sm:text-sm font-semibold tracking-wider uppercase text-cyan-400/90 max-w-2xl leading-relaxed">
-          <span className="text-cyan-500 font-bold mr-1.5">{"//"}</span>
+        <p className="mt-2.5 font-mono text-xs sm:text-sm font-extrabold tracking-[0.25em] uppercase text-zinc-300 max-w-2xl leading-relaxed">
+          <span className="text-cyan-400 font-black mr-2">{"//"}</span>
           {subtitle}
         </p>
       )}
 
-      {/* GLOWING ACCENT UNDERLINE */}
+      {/* GLOWING DUAL-COLOR ACCENT UNDERLINE */}
       <div
         className={cn(
-          "mt-3 h-0.5 w-20 sm:w-24 rounded-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 shadow-[0_0_12px_rgba(34,211,238,0.7)] transition-all duration-500",
+          "mt-3.5 h-0.5 w-24 sm:w-32 rounded-full bg-gradient-to-r from-cyan-500 via-pink-500 to-fuchsia-500 opacity-80 group-hover:w-44 group-hover:opacity-100 shadow-[0_0_15px_rgba(217,70,239,0.6)] transition-all duration-500",
           !isLeft && "mx-auto"
         )}
       />

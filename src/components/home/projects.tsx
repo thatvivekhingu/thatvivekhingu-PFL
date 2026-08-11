@@ -37,9 +37,7 @@ export default function Projects() {
       <div className="container px-4 mx-auto max-w-6xl">
         <BlurFade delay={0.1} inView>
           <SectionHeading
-            badge="ENGINEERING SYSTEMS & BUILDS"
-            icon={<IconBrandGithub className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" />}
-            subtitle="Explore Vivek's production-grade AI platforms, machine learning tools, and web applications built with Python, Grok API, Scikit-Learn, Next.js, and TypeScript."
+            subtitle="FEATURED AI & WEB BUILDS"
           >
             Featured AI & Web Builds
           </SectionHeading>

@@ -11,19 +11,7 @@ export default function Experience() {
   return (
     <div className="flex flex-col">
       <SectionHeading
-        badge="ACADEMICS & FOUNDATION // 04"
-        icon={
-          <div className="relative h-6 w-6 shrink-0">
-            <Image
-              src="/experience/foundr_ai.svg"
-              alt="SAL College Logo"
-              fill
-              sizes="24px"
-              className="object-contain"
-            />
-          </div>
-        }
-        subtitle="Bachelor of Engineering in Information Technology at SAL College of Engineering (CGPA 8.61 / 10) with coursework in AI, ML, Data Science & Algorithms"
+        subtitle="ACADEMIC & ENGINEERING FOUNDATION"
       >
         Education & Engineering Background
       </SectionHeading>

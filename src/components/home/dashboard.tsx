@@ -58,13 +58,7 @@ export default function Dashboard() {
     <div className="flex flex-col w-full">
       <CustomCursor />
       <SectionHeading
-        badge="SYSTEM MATRIX // 01"
-        icon={
-          <svg className="h-5 w-5 sm:h-6 sm:w-6 fill-cyan-400" viewBox="0 0 76 65" aria-hidden="true">
-            <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
-          </svg>
-        }
-        subtitle="Live telemetry grid, active coding velocity, hardware metrics, and tech stack stackup"
+        subtitle="LIVE TELEMETRY MATRIX"
       >
         Developer Telemetry & Core Matrix
       </SectionHeading>
