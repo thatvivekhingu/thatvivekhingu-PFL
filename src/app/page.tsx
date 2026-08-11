@@ -5,6 +5,7 @@ import Dashboard from "@/components/home/dashboard";
 import Projects from "@/components/home/projects"
 import Achievements from "@/components/home/achievements"
 import HackathonBox from "@/components/home/hackathon-box"
+import VianSection from "@/components/home/vian-section";
 import Earth from "@/components/home/earth"
 import { BlurFade } from "@/components/ui/blur-fade";
 import { getSunsetPhotos } from "@/lib/sunsets";
@@ -46,12 +47,19 @@ export default async function Home() {
             <Experience />
           </section>
         </BlurFade>
+
         <BlurFade delay={BLUR_FADE_DELAY * 6} offset={0} inView>
+          <section id="vian-assistant" className="scroll-mt-24 sm:scroll-mt-28">
+            <VianSection />
+          </section>
+        </BlurFade>
+
+        <BlurFade delay={BLUR_FADE_DELAY * 7} offset={0} inView>
           <section id="skills" className="scroll-mt-24 sm:scroll-mt-28">
             <SkillsStack />
           </section>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 7} offset={0} inView>
+        <BlurFade delay={BLUR_FADE_DELAY * 8} offset={0} inView>
           <section id="earth" className="scroll-mt-24 sm:scroll-mt-28">
             <Earth photos={sunsetPhotos} />
           </section>
