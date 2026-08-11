@@ -78,7 +78,9 @@ export function useVianChat({
         });
 
         if (!response.ok) {
-          throw new Error(`Server returned status ${response.status}`);
+          const jsonErr = await response.json().catch(() => null);
+          const errMsg = jsonErr?.error || "VIAN is temporarily unavailable. Please try again in a moment.";
+          throw new Error(errMsg);
         }
 
         const contentType = response.headers.get("content-type") || "";
@@ -87,6 +89,9 @@ export function useVianChat({
 
         if (contentType.includes("application/json")) {
           const json = await response.json();
+          if (json.error) {
+            throw new Error(json.error);
+          }
           accumulatedText = json.response || json.reply || "No response received.";
           setMessages((prev) =>
             prev.map((m) => (m.id === assistantMsgId ? { ...m, content: accumulatedText } : m))
@@ -123,14 +128,14 @@ export function useVianChat({
           console.log("Generation stopped by user.");
         } else {
           console.error("Vian chat error:", err);
-          const errorMsg = "VIAN service is momentarily unreachable. Please try again in a moment.";
+          const errorMsg = (err as Error).message || "VIAN is temporarily unavailable. Please try again in a moment.";
           setErrorMessage(errorMsg);
 
           const finalWithErr = messages.concat([
             userMessage,
             {
               ...assistantPlaceholder,
-              content: errorMsg,
+              content: `⚠️ **Service Alert**: ${errorMsg}`,
               isError: true,
             },
           ]);
