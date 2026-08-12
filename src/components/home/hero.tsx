@@ -111,13 +111,13 @@ export default function Hero() {
                     alt="Vivek Hingu"
                     priority
                     fill
-                    className="object-cover transition-opacity duration-500 opacity-100 group-hover:opacity-0"
+                    className="object-cover transition-opacity duration-500 hidden sm:block opacity-100 group-hover:opacity-0"
                   />
                   <Image
                     src={profilePicHover}
                     alt="Vivek Hingu Hover"
                     fill
-                    className="object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                    className="object-cover transition-opacity duration-500 block opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
                   />
 
                   {/* AI / ML Badge */}
