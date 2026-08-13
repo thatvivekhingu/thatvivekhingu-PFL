@@ -66,7 +66,7 @@ export const PORTFOLIO_KNOWLEDGE: PortfolioChunk[] = [
     id: "hackathons",
     category: "hackathons",
     title: "Hackathon Competitions & Certificates",
-    keywords: ["hackathon", "hackathons", "certificate", "certificates", "tarkshaastra", "tic-tech-toe", "hackout", "ldce", "daiict"],
+    keywords: ["hackathon", "hackathons", "certificate", "certificates", "flinders", "tarkshaastra", "tic-tech-toe", "hackout", "ldce", "daiict"],
     content: `Vivek Hingu's Hackathon Portfolio:\n${data.hackathons
       .map(
         (h, idx) =>

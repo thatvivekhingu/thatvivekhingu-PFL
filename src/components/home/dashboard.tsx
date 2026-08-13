@@ -27,6 +27,7 @@ import { GitHubHeatmap } from "./github-heatmap";
 import { SoundWave } from "@/components/ui/sound-wave";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
+import { playTapSound } from "@/lib/sound";
 
 
 export default function Dashboard() {
@@ -35,13 +36,14 @@ export default function Dashboard() {
   const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
-  const [gifIndex, setGifIndex] = useState<number>(0);
+  const [gifIndex, setGifIndex] = useState<number>(1);
   const [scratchGif, setScratchGif] = useState<string>(data.scratchGifs[0]);
   const spotlightColor = useAlbumColor(track?.albumImageUrl || null);
 
   const dashboardIconClass = "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary";
 
   const pickNewGif = () => {
+    playTapSound("pop");
     const gifs = data.scratchGifs;
     setScratchGif(gifs[gifIndex % gifs.length]);
     setGifIndex((prev) => (prev + 1) % gifs.length);

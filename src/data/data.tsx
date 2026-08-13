@@ -152,7 +152,7 @@ export const data = {
       title: "Flinders University AI Hackathon",
       description: "Secured 2nd Place in the prestigious International AI Hackathon hosted by Flinders University.",
       category: "Hackathon Award",
-      date: "2025",
+      date: "2026",
       metrics: "🥈 2nd Place | AUD 300 Cash Prize",
       image: "/achievements/flinders-ai.jpg",
       link: "https://github.com/thatvivekhingu",
@@ -187,6 +187,19 @@ export const data = {
   ] as AchievementItem[],
 
   hackathons: [
+    {
+      id: "flinders-ai-competition-2026",
+      title: "Flinders AI Competition 2026",
+      event: "Flinders AI Competition 2026 (Ahmedabad Round)",
+      organizer: "Flinders University",
+      date: "2026",
+      location: "Ahmedabad",
+      award: "2nd Prize Winner",
+      badgeType: "Winner",
+      image: "/hackathons/flinders-ai-competition-2026.jpg",
+      tags: ["Flinders University", "AI Competition", "2nd Prize Winner", "Ahmedabad Round"],
+      description: "Awarded Second Prize Winner in the Ahmedabad Round of the Flinders University AI Competition 2026 for outstanding creativity and precision.",
+    },
     {
       id: "tic-tech-toe-25",
       title: "TIC-TECH-TOE '25",

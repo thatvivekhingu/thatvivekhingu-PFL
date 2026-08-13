@@ -22,8 +22,8 @@ const KNOWLEDGE_BASE = [
   },
   {
     id: "kb-hackathons",
-    keywords: ["hackathon", "hackathons", "achievement", "achievements", "award", "winner", "tarkshaastra", "certificate", "rank"],
-    content: "Vivek's Hackathon & Award Milestones:\n1. **tarkShaastra 2k26** — 1st Rank Champion (Winner)\n2. **TIC-TECH-TOE '25** — Official Runner-Up Certificate\n3. **HACKOUT '25** — Certificate of Excellence\n4. **Google Cloud Arcade** — AI & Machine Learning Milestones",
+    keywords: ["hackathon", "hackathons", "flinders", "achievement", "achievements", "award", "winner", "tarkshaastra", "certificate", "rank"],
+    content: "Vivek's Hackathon & Award Milestones:\n1. **Flinders AI Competition 2026** — 2nd Prize Winner (Ahmedabad Round)\n2. **TIC-TECH-TOE '25** — Certificate of Appreciation\n3. **tarkShaastra 2k26** — 24-Hour Hackathon Sprint (LDCE)\n4. **HACKOUT '25** — Certificate of Participation\n5. **Google Cloud Arcade** — AI & Machine Learning Milestones",
   },
   {
     id: "kb-skills",
