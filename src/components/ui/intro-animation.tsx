@@ -24,6 +24,289 @@ const INTRO_CARDS: IntroCardItem[] = [
 
 const INTRO_STORAGE_KEY = "hasSeenIntro_v26_who_am_i_restored";
 
+// REAL 3D TECH LOGOS (AI/ML & PROGRAMMING LANGUAGES)
+const TECH_ORBIT_ITEMS = [
+  // Inner Orbit: AI & ML Core Frameworks
+  {
+    name: "Python",
+    ring: "inner",
+    color: "#3776AB",
+    bg: "from-blue-500/20 to-yellow-500/20",
+    border: "border-blue-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
+        <path d="M11.87 2.005c-4.94 0-4.63 2.15-4.63 2.15l.004 2.22h4.72v.66H5.29s-3.2.36-3.2 5.34c0 4.98 2.78 4.81 2.78 4.81l1.66-.002v-2.35c0-2.66 2.3-2.5 2.3-2.5h4.66s2.19.05 2.19-2.12V4.83s.43-2.825-3.96-2.825zm-2.53 1.44a.85.85 0 1 1 0 1.7.85.85 0 0 1 0-1.7z" fill="#3776AB"/>
+        <path d="M12.13 21.995c4.94 0 4.63-2.15 4.63-2.15l-.004-2.22h-4.72v-.66h6.674s3.2-.36 3.2-5.34c0-4.98-2.78-4.81-2.78-4.81l-1.66.002v2.35c0 2.66-2.3 2.5-2.3 2.5h-4.66s-2.19-.05-2.19 2.12v4.67s-.43 2.825 3.96 2.825zm2.53-1.44a.85.85 0 1 1 0-1.7.85.85 0 0 1 0 1.7z" fill="#FFD43B"/>
+      </svg>
+    ),
+  },
+  {
+    name: "PyTorch",
+    ring: "inner",
+    color: "#EE4C2C",
+    bg: "from-orange-500/20 to-red-500/20",
+    border: "border-orange-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2a.75.75 0 0 1 .75.75v1.859l2.846-2.847a.75.75 0 0 1 1.06 1.06L13.81 5.67h2.94a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75V2.75A.75.75 0 0 1 12 2z" fill="#EE4C2C"/>
+        <path d="M15.5 8.5a5.5 5.5 0 1 1-7.778 7.778.75.75 0 1 1 1.06-1.06 4 4 0 1 0 5.658-5.658.75.75 0 0 1 1.06-1.06z" fill="#EE4C2C"/>
+      </svg>
+    ),
+  },
+  {
+    name: "TensorFlow",
+    ring: "inner",
+    color: "#FF6F00",
+    bg: "from-amber-500/20 to-orange-500/20",
+    border: "border-amber-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
+        <path d="M1.292 5.856L11.54 0v24l-4.148-2.417V12.97l-6.1 3.528V5.856z" fill="#FF6F00"/>
+        <path d="M22.708 5.856L12.46 0v24l4.148-2.417V8.583l6.1 3.528V5.856z" fill="#FF9200"/>
+      </svg>
+    ),
+  },
+  {
+    name: "OpenCV",
+    ring: "inner",
+    color: "#00FF00",
+    bg: "from-green-500/20 to-blue-500/20",
+    border: "border-green-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="7" r="3.5" stroke="#FF3333" strokeWidth="2.2"/>
+        <circle cx="7" cy="16" r="3.5" stroke="#33FF33" strokeWidth="2.2"/>
+        <circle cx="17" cy="16" r="3.5" stroke="#3388FF" strokeWidth="2.2"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Scikit-Learn",
+    ring: "inner",
+    color: "#F7931E",
+    bg: "from-blue-500/20 to-amber-500/20",
+    border: "border-amber-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#F7931E"/>
+        <path d="M10 7.5v9l6.5-4.5z" fill="#3499CC"/>
+      </svg>
+    ),
+  },
+  {
+    name: "C++",
+    ring: "inner",
+    color: "#00599C",
+    bg: "from-blue-600/20 to-cyan-500/20",
+    border: "border-blue-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
+        <path d="M11.5 2L2 7.5v9L11.5 22l9.5-5.5v-9L11.5 2zm-2.2 13.5c-1.8 0-3.3-1.5-3.3-3.5s1.5-3.5 3.3-3.5c1.1 0 2 .5 2.5 1.3l-1.3.8c-.3-.4-.7-.7-1.2-.7-.9 0-1.7.8-1.7 2s.8 2 1.7 2c.5 0 .9-.3 1.2-.7l1.3.8c-.5.8-1.4 1.5-2.5 1.5zm5.7-2.7h-1v1.3h-1.3v-1.3H11.4v-1.4h1.3V10h1.4v1.3H15v1.4zm3.8 0h-1v1.3h-1.3v-1.3h-1.3v-1.4h1.3V10h1.4v1.3h1.3v1.4z" fill="#00599C"/>
+      </svg>
+    ),
+  },
+  // Outer Orbit: Languages & Dev Stack
+  {
+    name: "JavaScript",
+    ring: "outer",
+    color: "#F7DF1E",
+    bg: "from-yellow-500/20 to-amber-500/20",
+    border: "border-yellow-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" fill="#F7DF1E"/>
+        <path d="M6.75 19.5l1.8-1.08c.45.81.99 1.35 2.07 1.35.9 0 1.44-.45 1.44-1.08 0-.72-.54-1.08-1.8-1.62l-.63-.27c-1.8-.72-2.97-1.62-2.97-3.6 0-2.07 1.62-3.6 4.14-3.6 1.8 0 3.06.72 3.96 2.34l-1.8 1.17c-.45-.72-.99-1.08-1.98-1.08-.9 0-1.44.45-1.44.99 0 .63.45.99 1.62 1.44l.63.27c2.16.9 3.24 1.8 3.24 3.78 0 2.43-1.89 3.78-4.5 3.78-2.34 0-3.96-.99-4.95-2.79zm9.9 0v-9.9h2.52v9.9h-2.52z" fill="#000000"/>
+      </svg>
+    ),
+  },
+  {
+    name: "TypeScript",
+    ring: "outer",
+    color: "#3178C6",
+    bg: "from-blue-600/20 to-sky-400/20",
+    border: "border-blue-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" fill="#3178C6"/>
+        <path d="M11.5 10v2.227H9.273V22H6.5V12.227H4.273V10H11.5zm7.363-.25c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-1.077-.47 4.71 4.71 0 0 0-1.305-.183c-.632 0-1.109.13-1.431.391-.322.26-.483.626-.483 1.097 0 .342.09.619.27.831.18.212.428.397.744.555l.89.444c.905.444 1.558.91 1.958 1.398.401.488.601 1.118.601 1.89 0 1.258-.456 2.228-1.368 2.91-.912.682-2.184 1.023-3.816 1.023-.746 0-1.467-.068-2.163-.204a9.77 9.77 0 0 1-1.849-.556v-2.57c.683.392 1.385.69 2.106.895.72.205 1.388.307 2.003.307.696 0 1.218-.135 1.566-.405.348-.27.522-.656.522-1.158 0-.376-.098-.673-.294-.891-.196-.219-.485-.424-.867-.615l-.946-.477c-.856-.43-1.472-.888-1.848-1.373-.376-.485-.564-1.096-.564-1.833 0-1.184.444-2.112 1.332-2.784.888-.672 2.088-1.008 3.6-1.008z" fill="#FFFFFF"/>
+      </svg>
+    ),
+  },
+  {
+    name: "React",
+    ring: "outer",
+    color: "#61DAFB",
+    bg: "from-cyan-500/20 to-blue-500/20",
+    border: "border-cyan-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" stroke="#61DAFB" strokeWidth="1.5"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" stroke="#61DAFB" strokeWidth="1.5" transform="rotate(60 12 12)"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" stroke="#61DAFB" strokeWidth="1.5" transform="rotate(120 12 12)"/>
+        <circle cx="12" cy="12" r="2" fill="#61DAFB"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Next.js",
+    ring: "outer",
+    color: "#FFFFFF",
+    bg: "from-zinc-500/20 to-white/20",
+    border: "border-zinc-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="#000000" stroke="#FFFFFF" strokeWidth="1.5"/>
+        <path d="M15.5 16.5L9.5 7.5V16.5H8V7.5H9.5L15.5 16.5Z" fill="#FFFFFF"/>
+        <rect x="15" y="7.5" width="1.5" height="9" fill="#FFFFFF"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Docker",
+    ring: "outer",
+    color: "#2496ED",
+    bg: "from-cyan-600/20 to-blue-500/20",
+    border: "border-cyan-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
+        <path d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.186v1.887c0 .102.083.185.185.185zm-2.954-5.43h2.118a.185.185 0 0 0 .186-.186V3.574a.185.185 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185zm0 2.716h2.118a.186.186 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.186.185.186zm-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.186.185.186zm-2.955 0h2.119a.186.186 0 0 0 .185-.186V6.29a.186.186 0 0 0-.185-.185H5.144a.185.185 0 0 0-.185.185v1.887c0 .102.083.186.185.186zm5.885 2.714h2.118a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.118a.185.185 0 0 0-.185.186v1.887c0 .102.082.185.185.185zm-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186H8.1a.185.185 0 0 0-.185.186v1.887c0 .102.083.185.185.185zm-2.955 0h2.119a.185.185 0 0 0 .185-.185V9.006a.185.185 0 0 0-.185-.186H5.144a.186.186 0 0 0-.185.186v1.887c0 .102.083.185.185.185zm-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.185.186v1.887c0 .102.083.185.185.185z" fill="#2496ED"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Git",
+    ring: "outer",
+    color: "#F05032",
+    bg: "from-orange-600/20 to-red-500/20",
+    border: "border-orange-400/50",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
+        <path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.216 1.38.006 1.807.57.43.565.43 1.348 0 1.913a1.536 1.536 0 0 1-1.807.57L8.683 11.23v6.494a1.538 1.538 0 0 1-.798 1.342 1.538 1.538 0 0 1-1.597 0 1.538 1.538 0 0 1-.797-1.342V10.87a1.538 1.538 0 0 1 .797-1.342 1.538 1.538 0 0 1 1.597 0c.264.148.472.37.594.636l2.67-2.67c-.266-.122-.488-.33-.636-.594a1.538 1.538 0 0 1 0-1.597c.148-.264.37-.472.636-.594L8.03.73 1.07 7.69c-.603.603-.603 1.582 0 2.188l10.479 10.48c.604.603 1.582.603 2.188 0l9.809-9.808c.603-.604.603-1.582 0-2.188z" fill="#F05032"/>
+      </svg>
+    ),
+  },
+];
+
+function TechLogoOrbit({ isTransitioning }: { isTransitioning: boolean }) {
+  const [angle, setAngle] = useState(0);
+
+  useEffect(() => {
+    let animId: number;
+    const animate = () => {
+      setAngle((prev) => (prev + 0.008) % (Math.PI * 2));
+      animId = requestAnimationFrame(animate);
+    };
+    animId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  const innerItems = TECH_ORBIT_ITEMS.filter((item) => item.ring === "inner");
+  const outerItems = TECH_ORBIT_ITEMS.filter((item) => item.ring === "outer");
+
+  return (
+    <motion.div
+      animate={
+        isTransitioning
+          ? { scale: [1, 1.35, 1.9], opacity: [1, 0.8, 0] }
+          : { scale: [0.98, 1.02, 0.98] }
+      }
+      transition={
+        isTransitioning
+          ? { duration: 0.8, ease: "easeIn" }
+          : { duration: 2.5, repeat: Infinity, ease: "easeInOut" }
+      }
+      className="relative flex items-center justify-center w-80 h-80 sm:w-[480px] sm:h-[480px] my-2 select-none"
+    >
+      {/* Outer 3D Orbit Ring Track */}
+      <div className="absolute w-[330px] h-[165px] sm:w-[460px] sm:h-[230px] rounded-[100%] border border-cyan-500/30 shadow-[0_0_40px_rgba(34,211,238,0.25)] rotate-[-12deg] pointer-events-none" />
+
+      {/* Inner 3D Orbit Ring Track */}
+      <div className="absolute w-[220px] h-[110px] sm:w-[310px] sm:h-[155px] rounded-[100%] border border-indigo-500/35 shadow-[0_0_30px_rgba(99,102,241,0.2)] rotate-[15deg] pointer-events-none" />
+
+      {/* Center 3D AI Neural Core Badge */}
+      <div className="relative z-20 flex flex-col items-center justify-center p-5 sm:p-7 rounded-full bg-black/90 border border-cyan-500/50 shadow-[0_0_50px_rgba(56,189,248,0.6)]">
+        <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-cyan-500 via-sky-400 to-indigo-500 opacity-40 blur-xl animate-pulse" />
+        <div className="relative flex flex-col items-center gap-1.5">
+          <svg className="w-10 h-10 sm:w-12 sm:h-12 text-cyan-400 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <circle cx="12" cy="12" r="9" stroke="#38bdf8" strokeWidth="1.5" />
+            <circle cx="12" cy="12" r="4" fill="#38bdf8" />
+            <path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="#e0f2fe" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+          <span className="text-[10px] sm:text-xs font-mono font-extrabold text-cyan-300 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+            AI / ML & FULL STACK
+          </span>
+        </div>
+      </div>
+
+      {/* Inner Orbiting 3D Tech Logos */}
+      {innerItems.map((tech, i) => {
+        const itemAngle = angle + (i * Math.PI * 2) / innerItems.length;
+        const rx = 138;
+        const ry = 68;
+        const x = Math.cos(itemAngle) * rx;
+        const y = Math.sin(itemAngle) * ry;
+        const z = Math.sin(itemAngle);
+
+        const zIndex = z > 0 ? 40 : 10;
+        const scale = 0.8 + (z + 1) * 0.2;
+        const opacity = 0.65 + (z + 1) * 0.175;
+
+        return (
+          <div
+            key={tech.name}
+            style={{
+              transform: `translate3d(${x}px, ${y}px, 0) scale(${scale})`,
+              zIndex,
+              opacity,
+            }}
+            className="absolute flex items-center justify-center transition-transform duration-75"
+          >
+            <div
+              className={`p-2.5 sm:p-3 rounded-full bg-black/90 backdrop-blur-xl border ${tech.border} bg-gradient-to-br ${tech.bg} shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-125`}
+              style={{ color: tech.color }}
+            >
+              {tech.icon}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Outer Orbiting 3D Tech Logos */}
+      {outerItems.map((tech, i) => {
+        const itemAngle = -angle * 0.85 + (i * Math.PI * 2) / outerItems.length;
+        const rx = 210;
+        const ry = 100;
+        const x = Math.cos(itemAngle) * rx;
+        const y = Math.sin(itemAngle) * ry;
+        const z = Math.sin(itemAngle);
+
+        const zIndex = z > 0 ? 45 : 5;
+        const scale = 0.85 + (z + 1) * 0.22;
+        const opacity = 0.6 + (z + 1) * 0.2;
+
+        return (
+          <div
+            key={tech.name}
+            style={{
+              transform: `translate3d(${x}px, ${y}px, 0) scale(${scale})`,
+              zIndex,
+              opacity,
+            }}
+            className="absolute flex items-center justify-center transition-transform duration-75"
+          >
+            <div
+              className={`p-2.5 sm:p-3 rounded-full bg-black/90 backdrop-blur-xl border ${tech.border} bg-gradient-to-br ${tech.bg} shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-125`}
+              style={{ color: tech.color }}
+            >
+              {tech.icon}
+            </div>
+          </div>
+        );
+      })}
+    </motion.div>
+  );
+}
+
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
@@ -52,10 +335,7 @@ export function IntroAnimation() {
     }
   }, []);
 
-
-
-
-  // Timeline Engine (Starts IMMEDIATELY at millisecond 0)
+  // Timeline Engine
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
@@ -87,7 +367,7 @@ export function IntroAnimation() {
       return () => clearTimeout(timer);
     }
 
-    // Index 5: REAL HARDWARE ARC REACTOR -> ACCESS GRANTED -> EXIT
+    // Index 5: 3D TECH LOGO ORBIT SYSTEM -> ACCESS GRANTED -> EXIT
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
@@ -95,7 +375,7 @@ export function IntroAnimation() {
         setTimeout(() => {
           handleComplete();
         }, 900);
-      }, 2400);
+      }, 2600);
       return () => clearTimeout(timer);
     }
   }, [shouldShow, currentIndex, questionChars, isComplete]);
@@ -109,7 +389,6 @@ export function IntroAnimation() {
     setIsComplete(true);
   };
 
-
   const handleSkip = () => {
     playTapSound("pop");
     handleComplete();
@@ -119,80 +398,6 @@ export function IntroAnimation() {
 
   const activeCard = INTRO_CARDS[currentIndex] ?? INTRO_CARDS[0];
   const questionText = (INTRO_CARDS[0]?.text ?? "> Who am I?").slice(0, questionChars);
-
-  // Generate 10 Photorealistic 3D Copper Hardware Wire Coils with Metallic Brackets & Highlights
-  const copperCoilBlocks = Array.from({ length: 10 }).map((_, i) => {
-    const angle = (360 / 10) * i;
-    return (
-      <g key={`copper-coil-${i}`} transform={`rotate(${angle} 200 200)`}>
-        {/* Metal Mount Bracket Base */}
-        <rect
-          x={176}
-          y={12}
-          width={48}
-          height={52}
-          rx={6}
-          fill="url(#metalBracketGrad)"
-          stroke="#475569"
-          strokeWidth={1.5}
-        />
-
-        {/* Outer Steel Clamp Ends */}
-        <rect x={174} y={14} width={52} height={10} rx={2} fill="url(#metalBevelGrad)" stroke="#64748b" strokeWidth={1} />
-        <rect x={174} y={52} width={52} height={10} rx={2} fill="url(#metalBevelGrad)" stroke="#64748b" strokeWidth={1} />
-
-        {/* 3D Copper Wire Winding Block */}
-        <rect x={180} y={22} width={40} height={32} rx={4} fill="url(#copperWireGrad)" stroke="#78350f" strokeWidth={1.2} />
-
-        {/* Individual Wound Copper Wire Ribs */}
-        {Array.from({ length: 9 }).map((_, w) => (
-          <line
-            key={`wire-rib-${i}-${w}`}
-            x1={183 + w * 4}
-            y1={23}
-            x2={183 + w * 4}
-            y2={53}
-            stroke="#451a03"
-            strokeWidth={1.2}
-          />
-        ))}
-
-        {/* Specular Light Reflection Streak on Copper Wire */}
-        <rect x={185} y={23} width={5} height={30} rx={1} fill="#fef08a" opacity={0.5} />
-      </g>
-    );
-  });
-
-  // Generate 20 Outer Steel Screw Rivets around Chassis
-  const screwRivets = Array.from({ length: 20 }).map((_, i) => {
-    const angle = (360 / 20) * i;
-    return (
-      <g key={`screw-${i}`} transform={`rotate(${angle} 200 200)`}>
-        <circle cx="200" cy="8" r="3.5" fill="#334155" stroke="#94a3b8" strokeWidth="0.8" />
-        <line x1="198" y1="8" x2="202" y2="8" stroke="#1e293b" strokeWidth="0.8" />
-      </g>
-    );
-  });
-
-  // Generate 30 Glowing LED Slots
-  const slotNodes = Array.from({ length: 30 }).map((_, i) => {
-    const angle = (360 / 30) * i;
-    return (
-      <rect
-        key={`slot-node-${i}`}
-        x={197}
-        y={68}
-        width={6}
-        height={10}
-        rx={2}
-        fill="#38bdf8"
-        stroke="#e0f2fe"
-        strokeWidth={0.8}
-        opacity={0.9}
-        transform={`rotate(${angle} 200 200)`}
-      />
-    );
-  });
 
   return (
     <AnimatePresence mode="wait">
@@ -217,26 +422,8 @@ export function IntroAnimation() {
           transition={{ duration: 0.85, ease: [0.4, 0, 0.2, 1] }}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black text-[#F8FAFC] select-none overflow-hidden transform-gpu will-change-[opacity,filter,transform]"
         >
-          <style>{`
-            @keyframes spinCoils {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-            }
-            @keyframes spinLedSlots {
-              0% { transform: rotate(360deg); }
-              100% { transform: rotate(0deg); }
-            }
-            .arc-spin-coils {
-              animation: spinCoils 10s linear infinite !important;
-              transform-origin: 200px 200px !important;
-            }
-            .arc-spin-slots {
-              animation: spinLedSlots 6s linear infinite !important;
-              transform-origin: 200px 200px !important;
-            }
-          `}</style>
           {/* Cyan Ambient Energy Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.1)_0%,rgba(0,0,0,0)_68%)] pointer-events-none opacity-60" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.12)_0%,rgba(0,0,0,0)_68%)] pointer-events-none opacity-70" />
           
           {/* Skip Button */}
           <button
@@ -283,138 +470,24 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* PHOTOREALISTIC HARDWARE ARC REACTOR + CLEAN ACCESS GRANTED TEXT */}
+              {/* 3D TECH LOGOS ORBIT SYSTEM + ACCESS GRANTED TEXT */}
               {currentIndex === 5 && (
                 <motion.div
-                  key="real-hardware-arc-stage"
+                  key="real-tech-orbit-stage"
                   initial={{ opacity: 0, scale: 0.7 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   className="relative flex flex-col items-center"
                 >
-                  {/* Photorealistic 3D Metallic Arc Reactor Graphic Wrapper */}
-                  <div className="relative flex items-center justify-center">
-                    {/* Pulsing Core Energy Halo Background */}
-                    <div className="absolute w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.5)_0%,rgba(14,165,233,0.2)_45%,transparent_75%)] pointer-events-none animate-pulse blur-2xl" />
+                  {/* 3D Tech Orbit Component */}
+                  <TechLogoOrbit isTransitioning={isTransitioning} />
 
-                    {/* Photorealistic 3D Arc Reactor Hardware SVG */}
-                    <motion.div
-                      animate={
-                        isTransitioning
-                          ? { scale: [1, 1.35, 1.9], opacity: [1, 0.8, 0], rotate: 360 }
-                          : { scale: [0.98, 1.02, 0.98], rotate: [0, 360] }
-                      }
-                      transition={
-                        isTransitioning
-                          ? { duration: 0.8, ease: "easeIn" }
-                          : {
-                              scale: { duration: 2.2, repeat: Infinity, ease: "easeInOut" },
-                              rotate: { duration: 12, repeat: Infinity, ease: "linear" },
-                            }
-                      }
-                      className="relative w-64 h-64 sm:w-84 sm:h-84 drop-shadow-[0_0_50px_rgba(56,189,248,0.9)] transform-gpu will-change-transform"
-                    >
-                      <svg viewBox="0 0 400 400" className="w-full h-full block overflow-visible">
-
-
-                        <defs>
-                          {/* Outer Heavy Steel Chassis Metallic Gradients */}
-                          <radialGradient id="metalBevelGrad" cx="30%" cy="30%" r="70%">
-                            <stop offset="0%" stopColor="#94a3b8" />
-                            <stop offset="35%" stopColor="#334155" />
-                            <stop offset="75%" stopColor="#0f172a" />
-                            <stop offset="100%" stopColor="#020617" />
-                          </radialGradient>
-                          <linearGradient id="metalBracketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#64748b" />
-                            <stop offset="40%" stopColor="#1e293b" />
-                            <stop offset="80%" stopColor="#0f172a" />
-                            <stop offset="100%" stopColor="#475569" />
-                          </linearGradient>
-                          {/* Photorealistic 3D Copper Wire Metallic Gradient */}
-                          <linearGradient id="copperWireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#fef08a" />
-                            <stop offset="25%" stopColor="#f59e0b" />
-                            <stop offset="65%" stopColor="#b45309" />
-                            <stop offset="100%" stopColor="#78350f" />
-                          </linearGradient>
-                          {/* Vibrant Energy Plasma Glow */}
-                          <radialGradient id="vibraniumCoreGlow" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stopColor="#ffffff" />
-                            <stop offset="25%" stopColor="#e0f2fe" />
-                            <stop offset="50%" stopColor="#38bdf8" />
-                            <stop offset="80%" stopColor="#0284c7" />
-                            <stop offset="100%" stopColor="#0369a1" stopOpacity="0" />
-                          </radialGradient>
-                          {/* 3D Metallic Honeycomb Grid */}
-                          <pattern
-                            id="vibraniumHex"
-                            width="14"
-                            height="12"
-                            patternUnits="userSpaceOnUse"
-                          >
-                            <polygon
-                              points="7,0 14,3.5 14,8.5 7,12 0,8.5 0,3.5"
-                              fill="none"
-                              stroke="#38bdf8"
-                              strokeWidth="1.1"
-                            />
-                          </pattern>
-                        </defs>
-
-                        {/* Outer Hardware Steel Chassis Ring */}
-                        <circle cx="200" cy="200" r="196" fill="url(#metalBevelGrad)" stroke="#64748b" strokeWidth="3" />
-                        <circle cx="200" cy="200" r="184" fill="#090d14" stroke="#334155" strokeWidth="2.5" />
-                        
-                        {/* Outer Chassis Screws */}
-                        <g id="screwRivetsGroup">{screwRivets}</g>
-
-                        <circle cx="200" cy="200" r="164" fill="none" stroke="#38bdf8" strokeWidth="1.5" opacity="0.65" strokeDasharray="8 5" />
-
-                        {/* 10 Photorealistic 3D Copper Wire Hardware Coils (Rotates smoothly 360 degrees) */}
-                        <g className="arc-spin-coils" id="hardwareCopperRing">
-                          {copperCoilBlocks}
-                        </g>
-
-                        {/* 30 Counter-Rotating LED Slots */}
-                        <g className="arc-spin-slots" id="hardwareLedRing">
-                          {slotNodes}
-                        </g>
-
-
-                        {/* 3D Concentric Neon Glass Lens Rings */}
-                        <circle cx="200" cy="200" r="106" fill="none" stroke="#38bdf8" strokeWidth="3.5" opacity="0.8" />
-                        <circle cx="200" cy="200" r="82" fill="none" stroke="#e0f2fe" strokeWidth="2.5" opacity="0.9" />
-                        <circle cx="200" cy="200" r="60" fill="none" stroke="#38bdf8" strokeWidth="2" opacity="0.95" />
-
-                        {/* Center Vibranium Plasma Core with Glass Reflection */}
-                        <circle cx="200" cy="200" r="54" fill="url(#vibraniumCoreGlow)" />
-                        <circle cx="200" cy="200" r="46" fill="#081014" stroke="#334155" strokeWidth="2" />
-                        <circle cx="200" cy="200" r="42" fill="url(#vibraniumHex)" />
-                        <circle cx="200" cy="200" r="42" fill="url(#vibraniumCoreGlow)" opacity="0.55" />
-
-                        {/* Specular Curved Glass Lens Highlight */}
-                        <path
-                          d="M 165 170 A 40 40 0 0 1 235 170"
-                          fill="none"
-                          stroke="#ffffff"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          opacity="0.75"
-                        />
-
-                        {/* Central Plasma Energy Orb */}
-                        <circle cx="200" cy="200" r="22" fill="#ffffff" className="animate-pulse shadow-[0_0_25px_#ffffff]" />
-                      </svg>
-                    </motion.div>
-                  </div>
-
-                  {/* CLEAN SLEEK ACCESS GRANTED TEXT (NO BULKY BOX OUTLINE) */}
+                  {/* SLEEK ACCESS GRANTED TEXT */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.25 }}
-                    className="mt-6 flex flex-col items-center text-center gap-1.5"
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="mt-2 flex flex-col items-center text-center gap-1.5"
                   >
                     <h2 className="font-mono text-3xl sm:text-5xl font-black tracking-[0.3em] bg-gradient-to-r from-cyan-300 via-white to-sky-300 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(56,189,248,0.95)] uppercase">
                       ACCESS GRANTED
