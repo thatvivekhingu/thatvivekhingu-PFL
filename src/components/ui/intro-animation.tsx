@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { playTapSound } from "@/lib/sound";
 
 interface IntroCardItem {
@@ -24,15 +25,13 @@ const INTRO_CARDS: IntroCardItem[] = [
 
 const INTRO_STORAGE_KEY = "hasSeenIntro_v26_who_am_i_restored";
 
-// REAL 3D TECH LOGOS (AI/ML & PROGRAMMING LANGUAGES)
-const TECH_ORBIT_ITEMS = [
-  // Inner Orbit: AI & ML Core Frameworks
+// REAL 3D TECH LOGOS DISTRIBUTED ACROSS 3 CONCENTRIC RINGS
+const CONCENTRIC_TECH_ITEMS = [
+  // Ring 1 (Inner Orbit - 3 items)
   {
     name: "Python",
-    ring: "inner",
+    ring: 1,
     color: "#3776AB",
-    bg: "from-blue-500/20 to-yellow-500/20",
-    border: "border-blue-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
         <path d="M11.87 2.005c-4.94 0-4.63 2.15-4.63 2.15l.004 2.22h4.72v.66H5.29s-3.2.36-3.2 5.34c0 4.98 2.78 4.81 2.78 4.81l1.66-.002v-2.35c0-2.66 2.3-2.5 2.3-2.5h4.66s2.19.05 2.19-2.12V4.83s.43-2.825-3.96-2.825zm-2.53 1.44a.85.85 0 1 1 0 1.7.85.85 0 0 1 0-1.7z" fill="#3776AB"/>
@@ -42,10 +41,8 @@ const TECH_ORBIT_ITEMS = [
   },
   {
     name: "PyTorch",
-    ring: "inner",
+    ring: 1,
     color: "#EE4C2C",
-    bg: "from-orange-500/20 to-red-500/20",
-    border: "border-orange-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
         <path d="M12 2a.75.75 0 0 1 .75.75v1.859l2.846-2.847a.75.75 0 0 1 1.06 1.06L13.81 5.67h2.94a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75V2.75A.75.75 0 0 1 12 2z" fill="#EE4C2C"/>
@@ -55,10 +52,8 @@ const TECH_ORBIT_ITEMS = [
   },
   {
     name: "TensorFlow",
-    ring: "inner",
+    ring: 1,
     color: "#FF6F00",
-    bg: "from-amber-500/20 to-orange-500/20",
-    border: "border-amber-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
         <path d="M1.292 5.856L11.54 0v24l-4.148-2.417V12.97l-6.1 3.528V5.856z" fill="#FF6F00"/>
@@ -66,12 +61,12 @@ const TECH_ORBIT_ITEMS = [
       </svg>
     ),
   },
+
+  // Ring 2 (Middle Orbit - 4 items)
   {
     name: "OpenCV",
-    ring: "inner",
+    ring: 2,
     color: "#00FF00",
-    bg: "from-green-500/20 to-blue-500/20",
-    border: "border-green-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="7" r="3.5" stroke="#FF3333" strokeWidth="2.2"/>
@@ -82,10 +77,8 @@ const TECH_ORBIT_ITEMS = [
   },
   {
     name: "Scikit-Learn",
-    ring: "inner",
+    ring: 2,
     color: "#F7931E",
-    bg: "from-blue-500/20 to-amber-500/20",
-    border: "border-amber-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#F7931E"/>
@@ -94,24 +87,9 @@ const TECH_ORBIT_ITEMS = [
     ),
   },
   {
-    name: "C++",
-    ring: "inner",
-    color: "#00599C",
-    bg: "from-blue-600/20 to-cyan-500/20",
-    border: "border-blue-400/50",
-    icon: (
-      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
-        <path d="M11.5 2L2 7.5v9L11.5 22l9.5-5.5v-9L11.5 2zm-2.2 13.5c-1.8 0-3.3-1.5-3.3-3.5s1.5-3.5 3.3-3.5c1.1 0 2 .5 2.5 1.3l-1.3.8c-.3-.4-.7-.7-1.2-.7-.9 0-1.7.8-1.7 2s.8 2 1.7 2c.5 0 .9-.3 1.2-.7l1.3.8c-.5.8-1.4 1.5-2.5 1.5zm5.7-2.7h-1v1.3h-1.3v-1.3H11.4v-1.4h1.3V10h1.4v1.3H15v1.4zm3.8 0h-1v1.3h-1.3v-1.3h-1.3v-1.4h1.3V10h1.4v1.3h1.3v1.4z" fill="#00599C"/>
-      </svg>
-    ),
-  },
-  // Outer Orbit: Languages & Dev Stack
-  {
     name: "JavaScript",
-    ring: "outer",
+    ring: 2,
     color: "#F7DF1E",
-    bg: "from-yellow-500/20 to-amber-500/20",
-    border: "border-yellow-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" fill="#F7DF1E"/>
@@ -121,10 +99,8 @@ const TECH_ORBIT_ITEMS = [
   },
   {
     name: "TypeScript",
-    ring: "outer",
+    ring: 2,
     color: "#3178C6",
-    bg: "from-blue-600/20 to-sky-400/20",
-    border: "border-blue-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" fill="#3178C6"/>
@@ -132,12 +108,22 @@ const TECH_ORBIT_ITEMS = [
       </svg>
     ),
   },
+
+  // Ring 3 (Outer Orbit - 5 items)
+  {
+    name: "C++",
+    ring: 3,
+    color: "#00599C",
+    icon: (
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
+        <path d="M11.5 2L2 7.5v9L11.5 22l9.5-5.5v-9L11.5 2zm-2.2 13.5c-1.8 0-3.3-1.5-3.3-3.5s1.5-3.5 3.3-3.5c1.1 0 2 .5 2.5 1.3l-1.3.8c-.3-.4-.7-.7-1.2-.7-.9 0-1.7.8-1.7 2s.8 2 1.7 2c.5 0 .9-.3 1.2-.7l1.3.8c-.5.8-1.4 1.5-2.5 1.5zm5.7-2.7h-1v1.3h-1.3v-1.3H11.4v-1.4h1.3V10h1.4v1.3H15v1.4zm3.8 0h-1v1.3h-1.3v-1.3h-1.3v-1.4h1.3V10h1.4v1.3h1.3v1.4z" fill="#00599C"/>
+      </svg>
+    ),
+  },
   {
     name: "React",
-    ring: "outer",
+    ring: 3,
     color: "#61DAFB",
-    bg: "from-cyan-500/20 to-blue-500/20",
-    border: "border-cyan-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
         <ellipse cx="12" cy="12" rx="10" ry="4.5" stroke="#61DAFB" strokeWidth="1.5"/>
@@ -149,10 +135,8 @@ const TECH_ORBIT_ITEMS = [
   },
   {
     name: "Next.js",
-    ring: "outer",
+    ring: 3,
     color: "#FFFFFF",
-    bg: "from-zinc-500/20 to-white/20",
-    border: "border-zinc-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="10" fill="#000000" stroke="#FFFFFF" strokeWidth="1.5"/>
@@ -163,10 +147,8 @@ const TECH_ORBIT_ITEMS = [
   },
   {
     name: "Docker",
-    ring: "outer",
+    ring: 3,
     color: "#2496ED",
-    bg: "from-cyan-600/20 to-blue-500/20",
-    border: "border-cyan-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
         <path d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.186v1.887c0 .102.083.185.185.185zm-2.954-5.43h2.118a.185.185 0 0 0 .186-.186V3.574a.185.185 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185zm0 2.716h2.118a.186.186 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.186.185.186zm-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.186.185.186zm-2.955 0h2.119a.186.186 0 0 0 .185-.186V6.29a.186.186 0 0 0-.185-.185H5.144a.185.185 0 0 0-.185.185v1.887c0 .102.083.186.185.186zm5.885 2.714h2.118a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.118a.185.185 0 0 0-.185.186v1.887c0 .102.082.185.185.185zm-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186H8.1a.185.185 0 0 0-.185.186v1.887c0 .102.083.185.185.185zm-2.955 0h2.119a.185.185 0 0 0 .185-.185V9.006a.185.185 0 0 0-.185-.186H5.144a.186.186 0 0 0-.185.186v1.887c0 .102.083.185.185.185zm-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.185.186v1.887c0 .102.083.185.185.185z" fill="#2496ED"/>
@@ -175,10 +157,8 @@ const TECH_ORBIT_ITEMS = [
   },
   {
     name: "Git",
-    ring: "outer",
+    ring: 3,
     color: "#F05032",
-    bg: "from-orange-600/20 to-red-500/20",
-    border: "border-orange-400/50",
     icon: (
       <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24">
         <path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.216 1.38.006 1.807.57.43.565.43 1.348 0 1.913a1.536 1.536 0 0 1-1.807.57L8.683 11.23v6.494a1.538 1.538 0 0 1-.798 1.342 1.538 1.538 0 0 1-1.597 0 1.538 1.538 0 0 1-.797-1.342V10.87a1.538 1.538 0 0 1 .797-1.342 1.538 1.538 0 0 1 1.597 0c.264.148.472.37.594.636l2.67-2.67c-.266-.122-.488-.33-.636-.594a1.538 1.538 0 0 1 0-1.597c.148-.264.37-.472.636-.594L8.03.73 1.07 7.69c-.603.603-.603 1.582 0 2.188l10.479 10.48c.604.603 1.582.603 2.188 0l9.809-9.808c.603-.604.603-1.582 0-2.188z" fill="#F05032"/>
@@ -187,21 +167,23 @@ const TECH_ORBIT_ITEMS = [
   },
 ];
 
-function TechLogoOrbit({ isTransitioning }: { isTransitioning: boolean }) {
+// CONCENTRIC CIRCULAR ORBIT COMPONENT (MATCHING USER REFERENCE DESIGN)
+function ConcentricTechOrbit({ isTransitioning }: { isTransitioning: boolean }) {
   const [angle, setAngle] = useState(0);
 
   useEffect(() => {
     let animId: number;
     const animate = () => {
-      setAngle((prev) => (prev + 0.008) % (Math.PI * 2));
+      setAngle((prev) => (prev + 0.005) % (Math.PI * 2));
       animId = requestAnimationFrame(animate);
     };
     animId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animId);
   }, []);
 
-  const innerItems = TECH_ORBIT_ITEMS.filter((item) => item.ring === "inner");
-  const outerItems = TECH_ORBIT_ITEMS.filter((item) => item.ring === "outer");
+  const ring1Items = CONCENTRIC_TECH_ITEMS.filter((item) => item.ring === 1);
+  const ring2Items = CONCENTRIC_TECH_ITEMS.filter((item) => item.ring === 2);
+  const ring3Items = CONCENTRIC_TECH_ITEMS.filter((item) => item.ring === 3);
 
   return (
     <motion.div
@@ -213,92 +195,107 @@ function TechLogoOrbit({ isTransitioning }: { isTransitioning: boolean }) {
       transition={
         isTransitioning
           ? { duration: 0.8, ease: "easeIn" }
-          : { duration: 2.5, repeat: Infinity, ease: "easeInOut" }
+          : { duration: 3, repeat: Infinity, ease: "easeInOut" }
       }
-      className="relative flex items-center justify-center w-80 h-80 sm:w-[480px] sm:h-[480px] my-2 select-none"
+      className="relative flex items-center justify-center w-[340px] h-[340px] sm:w-[540px] sm:h-[540px] my-2 select-none"
     >
-      {/* Outer 3D Orbit Ring Track */}
-      <div className="absolute w-[330px] h-[165px] sm:w-[460px] sm:h-[230px] rounded-[100%] border border-cyan-500/30 shadow-[0_0_40px_rgba(34,211,238,0.25)] rotate-[-12deg] pointer-events-none" />
+      {/* 3 Concentric Dashed Circular Orbit Rings */}
+      {/* Inner Ring (Ring 1) */}
+      <div className="absolute w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] rounded-full border border-dashed border-cyan-400/30 dark:border-cyan-400/25 pointer-events-none" />
 
-      {/* Inner 3D Orbit Ring Track */}
-      <div className="absolute w-[220px] h-[110px] sm:w-[310px] sm:h-[155px] rounded-[100%] border border-indigo-500/35 shadow-[0_0_30px_rgba(99,102,241,0.2)] rotate-[15deg] pointer-events-none" />
+      {/* Middle Ring (Ring 2) */}
+      <div className="absolute w-[310px] h-[310px] sm:w-[410px] sm:h-[410px] rounded-full border border-dashed border-sky-400/25 dark:border-sky-400/20 pointer-events-none" />
 
-      {/* Center 3D AI Neural Core Badge */}
-      <div className="relative z-20 flex flex-col items-center justify-center p-5 sm:p-7 rounded-full bg-black/90 border border-cyan-500/50 shadow-[0_0_50px_rgba(56,189,248,0.6)]">
-        <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-cyan-500 via-sky-400 to-indigo-500 opacity-40 blur-xl animate-pulse" />
-        <div className="relative flex flex-col items-center gap-1.5">
-          <svg className="w-10 h-10 sm:w-12 sm:h-12 text-cyan-400 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-            <circle cx="12" cy="12" r="9" stroke="#38bdf8" strokeWidth="1.5" />
-            <circle cx="12" cy="12" r="4" fill="#38bdf8" />
-            <path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="#e0f2fe" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <span className="text-[10px] sm:text-xs font-mono font-extrabold text-cyan-300 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+      {/* Outer Ring (Ring 3) */}
+      <div className="absolute w-[400px] h-[400px] sm:w-[540px] sm:h-[540px] rounded-full border border-dashed border-indigo-400/20 dark:border-indigo-400/15 pointer-events-none" />
+
+      {/* CENTER GLOWING AVATAR CONTAINER */}
+      <div className="relative z-30 flex items-center justify-center">
+        {/* Soft Radial Green/Cyan Aura Glow Halo (Matching reference image) */}
+        <div className="absolute w-[180px] h-[180px] sm:w-[240px] sm:h-[240px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.35)_0%,rgba(16,185,129,0.18)_50%,transparent_75%)] blur-2xl pointer-events-none animate-pulse" />
+
+        {/* Center Circular Profile Card */}
+        <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-tr from-cyan-400 via-emerald-400 to-sky-500 shadow-[0_15px_35px_rgba(0,0,0,0.3)]">
+          <div className="relative w-full h-full rounded-full overflow-hidden bg-zinc-950 border-2 border-white/90">
+            <Image
+              src="/profile-color.jpg"
+              alt="Vivek Hingu"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-2 inset-x-0 mx-auto w-max px-3 py-0.5 rounded-full bg-black/90 backdrop-blur-md border border-cyan-500/40 text-[9px] sm:text-[10px] font-extrabold text-cyan-300 tracking-wider uppercase shadow-lg">
             AI / ML & FULL STACK
-          </span>
+          </div>
         </div>
       </div>
 
-      {/* Inner Orbiting 3D Tech Logos */}
-      {innerItems.map((tech, i) => {
-        const itemAngle = angle + (i * Math.PI * 2) / innerItems.length;
-        const rx = 138;
-        const ry = 68;
-        const x = Math.cos(itemAngle) * rx;
-        const y = Math.sin(itemAngle) * ry;
-        const z = Math.sin(itemAngle);
-
-        const zIndex = z > 0 ? 40 : 10;
-        const scale = 0.8 + (z + 1) * 0.2;
-        const opacity = 0.65 + (z + 1) * 0.175;
+      {/* RING 1 ORBITING BADGES (Inner Ring: Clockwise) */}
+      {ring1Items.map((tech, i) => {
+        const itemAngle = angle + (i * Math.PI * 2) / ring1Items.length;
+        const r = typeof window !== "undefined" && window.innerWidth < 640 ? 110 : 140;
+        const x = Math.cos(itemAngle) * r;
+        const y = Math.sin(itemAngle) * r;
 
         return (
           <div
             key={tech.name}
             style={{
-              transform: `translate3d(${x}px, ${y}px, 0) scale(${scale})`,
-              zIndex,
-              opacity,
+              transform: `translate3d(${x}px, ${y}px, 0)`,
             }}
-            className="absolute flex items-center justify-center transition-transform duration-75"
+            className="absolute z-20 flex items-center justify-center transition-transform duration-75"
           >
-            <div
-              className={`p-2.5 sm:p-3 rounded-full bg-black/90 backdrop-blur-xl border ${tech.border} bg-gradient-to-br ${tech.bg} shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-125`}
-              style={{ color: tech.color }}
-            >
-              {tech.icon}
+            {/* White Glossy Circular Badge with Outer Soft Glow Halo */}
+            <div className="relative p-2.5 sm:p-3 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700/80 shadow-[0_10px_25px_rgba(0,0,0,0.25)] flex items-center justify-center transition-transform duration-300 hover:scale-125">
+              <div className="absolute -inset-1 rounded-full bg-white/40 dark:bg-cyan-500/20 blur-[3px] pointer-events-none" />
+              <div className="relative z-10">{tech.icon}</div>
             </div>
           </div>
         );
       })}
 
-      {/* Outer Orbiting 3D Tech Logos */}
-      {outerItems.map((tech, i) => {
-        const itemAngle = -angle * 0.85 + (i * Math.PI * 2) / outerItems.length;
-        const rx = 210;
-        const ry = 100;
-        const x = Math.cos(itemAngle) * rx;
-        const y = Math.sin(itemAngle) * ry;
-        const z = Math.sin(itemAngle);
-
-        const zIndex = z > 0 ? 45 : 5;
-        const scale = 0.85 + (z + 1) * 0.22;
-        const opacity = 0.6 + (z + 1) * 0.2;
+      {/* RING 2 ORBITING BADGES (Middle Ring: Counter-Clockwise) */}
+      {ring2Items.map((tech, i) => {
+        const itemAngle = -angle * 0.8 + (i * Math.PI * 2) / ring2Items.length;
+        const r = typeof window !== "undefined" && window.innerWidth < 640 ? 155 : 205;
+        const x = Math.cos(itemAngle) * r;
+        const y = Math.sin(itemAngle) * r;
 
         return (
           <div
             key={tech.name}
             style={{
-              transform: `translate3d(${x}px, ${y}px, 0) scale(${scale})`,
-              zIndex,
-              opacity,
+              transform: `translate3d(${x}px, ${y}px, 0)`,
             }}
-            className="absolute flex items-center justify-center transition-transform duration-75"
+            className="absolute z-20 flex items-center justify-center transition-transform duration-75"
           >
-            <div
-              className={`p-2.5 sm:p-3 rounded-full bg-black/90 backdrop-blur-xl border ${tech.border} bg-gradient-to-br ${tech.bg} shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300 hover:scale-125`}
-              style={{ color: tech.color }}
-            >
-              {tech.icon}
+            <div className="relative p-2.5 sm:p-3 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700/80 shadow-[0_10px_25px_rgba(0,0,0,0.25)] flex items-center justify-center transition-transform duration-300 hover:scale-125">
+              <div className="absolute -inset-1 rounded-full bg-white/40 dark:bg-cyan-500/20 blur-[3px] pointer-events-none" />
+              <div className="relative z-10">{tech.icon}</div>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* RING 3 ORBITING BADGES (Outer Ring: Clockwise) */}
+      {ring3Items.map((tech, i) => {
+        const itemAngle = angle * 0.65 + (i * Math.PI * 2) / ring3Items.length;
+        const r = typeof window !== "undefined" && window.innerWidth < 640 ? 200 : 270;
+        const x = Math.cos(itemAngle) * r;
+        const y = Math.sin(itemAngle) * r;
+
+        return (
+          <div
+            key={tech.name}
+            style={{
+              transform: `translate3d(${x}px, ${y}px, 0)`,
+            }}
+            className="absolute z-20 flex items-center justify-center transition-transform duration-75"
+          >
+            <div className="relative p-2.5 sm:p-3 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700/80 shadow-[0_10px_25px_rgba(0,0,0,0.25)] flex items-center justify-center transition-transform duration-300 hover:scale-125">
+              <div className="absolute -inset-1 rounded-full bg-white/40 dark:bg-cyan-500/20 blur-[3px] pointer-events-none" />
+              <div className="relative z-10">{tech.icon}</div>
             </div>
           </div>
         );
@@ -367,7 +364,7 @@ export function IntroAnimation() {
       return () => clearTimeout(timer);
     }
 
-    // Index 5: 3D TECH LOGO ORBIT SYSTEM -> ACCESS GRANTED -> EXIT
+    // Index 5: CONCENTRIC TECH LOGO ORBIT SYSTEM -> ACCESS GRANTED -> EXIT
     if (currentIndex === 5) {
       playTapSound("access_granted");
       timer = setTimeout(() => {
@@ -375,7 +372,7 @@ export function IntroAnimation() {
         setTimeout(() => {
           handleComplete();
         }, 900);
-      }, 2600);
+      }, 2800);
       return () => clearTimeout(timer);
     }
   }, [shouldShow, currentIndex, questionChars, isComplete]);
@@ -424,7 +421,7 @@ export function IntroAnimation() {
         >
           {/* Cyan Ambient Energy Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.12)_0%,rgba(0,0,0,0)_68%)] pointer-events-none opacity-70" />
-          
+
           {/* Skip Button */}
           <button
             onClick={handleSkip}
@@ -470,17 +467,17 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* 3D TECH LOGOS ORBIT SYSTEM + ACCESS GRANTED TEXT */}
+              {/* CONCENTRIC TECH LOGOS ORBIT SYSTEM + ACCESS GRANTED TEXT */}
               {currentIndex === 5 && (
                 <motion.div
-                  key="real-tech-orbit-stage"
+                  key="concentric-tech-orbit-stage"
                   initial={{ opacity: 0, scale: 0.7 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   className="relative flex flex-col items-center"
                 >
-                  {/* 3D Tech Orbit Component */}
-                  <TechLogoOrbit isTransitioning={isTransitioning} />
+                  {/* Concentric Tech Orbit Component */}
+                  <ConcentricTechOrbit isTransitioning={isTransitioning} />
 
                   {/* SLEEK ACCESS GRANTED TEXT */}
                   <motion.div
