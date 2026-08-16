@@ -304,23 +304,37 @@ export const data = {
   ],
 
   scratchGifs: [
-    // 5 New Cyberpunk AI & High-Tech GIFs (Displayed First)
-    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTYxejdxNGsxbHJzYXoxY3huc3dkaWJ1aGR6eWdyYnl5amhpYm4yMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oKIPnAiaMCws8nOsE/giphy.gif",
-    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYyYm9icXQzeG9uN2I3Ynd4bmFqNzlyczdsamU5N3hsbms4bmFqMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26tn33aiTi1jkl6H6/giphy.gif",
-    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHA0NW8yMDlhdDJsbzFhOHUwbTR5N3FtbGpmMWRzODVzMG1rbml6ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41lFw05B8JZ3xaW4/giphy.gif",
-    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdm9lbnNkdnlxbDR6dWJscjVteWV3bjNreXlnam4xZXlnamQzaGlqNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xYPdnwsRPZDhCxXvOi/giphy.gif",
-    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGJkYWt2bjRxNDJsbmdndHlwMmZmdHB6cTB5aDR0eWV5bTVidm1iZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QHE5gWI0QjqF2/giphy.gif",
-    
-    // Older GIFs
-    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2F3NmQxMTc3MWdremlyNnkwMDlhNHZ0bzV4dW54eWNvNmpnbWlhMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13Hgw8T855C20M/giphy.gif",
-    "https://media.giphy.com/media/LmN8OYiY4m0X4UrzUI/giphy.gif",
-    "https://media.giphy.com/media/u01ioCe6G8URG/giphy.gif",
-    "https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif",
-    "https://media.giphy.com/media/eOjuCYIGqXSqfBy0MX/giphy.gif",
-    "https://media.giphy.com/media/AEDD6xjlOxNMgFsUmA/giphy.gif",
-    "https://media.giphy.com/media/LqgrTA39s77U8JKhJd/giphy.gif",
-    "https://media.giphy.com/media/26n6Wywq480SmNRY4/giphy.gif",
-    "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif",
+    // 10 BRAND NEW HIGH-TECH / CYBERPUNK / MEME STICKERS FIRST
+    // 1. Cyberpunk Matrix Code Rain
+    "https://i.giphy.com/QHE5gWI0QjqF2.gif",
+    // 2. Hacker typing high speed
+    "https://i.giphy.com/26tn33aiTi1jkl6H6.gif",
+    // 3. Bouncing Neon Synthwave
+    "https://i.giphy.com/3oKIPnAiaMCws8nOsE.gif",
+    // 4. Cyberpunk Glitch Grid
+    "https://i.giphy.com/l41lFw05B8JZ3xaW4.gif",
+    // 5. Lofi Anime Girl coding
+    "https://i.giphy.com/d1E2GyfFiCTtSC40.gif",
+    // 6. Spongebob typing furious
+    "https://i.giphy.com/l1EtlhAXY8CG936vq.gif",
+    // 7. Homer Simpson mashing keyboard
+    "https://i.giphy.com/xT5LMWZxR6t32jYjXn.gif",
+    // 8. Kermit writing fast
+    "https://i.giphy.com/10FwycrnAkpshW.gif",
+    // 9. AI Robot typing
+    "https://i.giphy.com/3o7TKSjRrfIPjeiVyM.gif",
+    // 10. Retro Pixel Art Gaming
+    "https://i.giphy.com/26n6Wywq480SmNRY4.gif",
+
+    // CLASSIC STICKERS
+    // 11. Dog coding aggressively
+    "https://i.giphy.com/13Hgw8T855C20M.gif",
+    // 12. Cat Headbang Jamming
+    "https://i.giphy.com/u01ioCe6G8URG.gif",
+    // 13. Cat typing on laptop close up
+    "https://i.giphy.com/LmN8OYiY4m0X4UrzUI.gif",
+    // 14. Cat coding fast on laptop
+    "https://i.giphy.com/JIX9t2j0ZTN9S.gif"
   ],
 
   tools: [

@@ -36,8 +36,14 @@ export default function Dashboard() {
   const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
-  const [gifIndex, setGifIndex] = useState<number>(1);
-  const [scratchGif, setScratchGif] = useState<string>(data.scratchGifs[0]);
+  const [scratchGif, setScratchGif] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      const stored = sessionStorage.getItem("scratch_gif_index");
+      const idx = stored !== null ? Number(stored) % data.scratchGifs.length : 0;
+      return data.scratchGifs[idx];
+    }
+    return data.scratchGifs[0];
+  });
   const spotlightColor = useAlbumColor(track?.albumImageUrl || null);
 
   const dashboardIconClass = "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary";
@@ -45,9 +51,26 @@ export default function Dashboard() {
   const pickNewGif = () => {
     playTapSound("pop");
     const gifs = data.scratchGifs;
-    setScratchGif(gifs[gifIndex % gifs.length]);
-    setGifIndex((prev) => (prev + 1) % gifs.length);
+    if (!gifs || gifs.length === 0) return;
+
+    let nextIdx = 0;
+    if (typeof window !== "undefined") {
+      const stored = sessionStorage.getItem("scratch_gif_index");
+      nextIdx = stored !== null ? (Number(stored) + 1) % gifs.length : 1;
+      sessionStorage.setItem("scratch_gif_index", String(nextIdx));
+    }
+    setScratchGif(gifs[nextIdx]);
   };
+
+  useEffect(() => {
+    // Preload all GIF stickers into browser cache for instant lag-free switching
+    if (typeof window !== "undefined" && data.scratchGifs) {
+      data.scratchGifs.forEach((url) => {
+        const img = new window.Image();
+        img.src = url;
+      });
+    }
+  }, []);
 
   const handleScratchComplete = () => {
     pickNewGif();
