@@ -3,6 +3,7 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import profilePic from "@/images/profile-color.jpg";
+import profileHover from "@/images/profile-spiderman.jpg";
 import { HeroConstellation } from "@/components/ui/hero-constellation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -24,6 +25,7 @@ import { data } from "@/data/data";
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isSpidey, setIsSpidey] = useState(false);
 
   const { status, dotColor } = getStatus();
 
@@ -99,22 +101,42 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Clean Profile Photo without any rings or orbit */}
+              {/* Interactive Profile Photo - Crossfades to Spider-Man suit on hover / touch */}
               <div
                 className="group relative z-50 cursor-pointer transition-transform duration-500 hover:scale-105"
-                onClick={() => playTapSound("chime")}
+                onClick={() => {
+                  playTapSound("chime");
+                  setIsSpidey((prev) => !prev);
+                }}
+                onMouseEnter={() => setIsSpidey(true)}
+                onMouseLeave={() => setIsSpidey(false)}
+                onTouchStart={() => setIsSpidey(true)}
+                onTouchEnd={() => setTimeout(() => setIsSpidey(false), 2000)}
               >
-                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-48 md:w-48 overflow-hidden rounded-full shadow-2xl">
+                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-48 md:w-48 overflow-hidden rounded-full shadow-2xl border-2 border-cyan-500/30 group-hover:border-red-500/60 transition-colors duration-500">
+                  {/* Default Real Profile Photo */}
                   <Image
                     src={profilePic}
                     alt="Vivek Hingu"
                     priority
                     fill
-                    className="object-cover"
+                    className={`object-cover transition-opacity duration-500 ${
+                      isSpidey ? "opacity-0" : "opacity-100"
+                    } group-hover:opacity-0`}
+                  />
+
+                  {/* Spider-Man Suit Profile Photo on Hover / Touch */}
+                  <Image
+                    src={profileHover}
+                    alt="Vivek Hingu (Spider-Man)"
+                    fill
+                    className={`object-cover transition-opacity duration-500 ${
+                      isSpidey ? "opacity-100" : "opacity-0"
+                    } group-hover:opacity-100`}
                   />
 
                   {/* AI / ML Badge */}
-                  <div className="absolute bottom-2 inset-x-0 mx-auto w-max px-3 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-bold text-cyan-300 tracking-wider uppercase">
+                  <div className="absolute bottom-2 inset-x-0 mx-auto w-max px-3 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-bold text-cyan-300 tracking-wider uppercase z-20">
                     AI / ML
                   </div>
                 </div>
