@@ -113,7 +113,11 @@ export default function Hero() {
                 onTouchStart={() => setIsSpidey(true)}
                 onTouchEnd={() => setTimeout(() => setIsSpidey(false), 2000)}
               >
-                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-48 md:w-48 overflow-hidden rounded-full shadow-2xl border-2 border-cyan-500/30 group-hover:border-red-500/60 transition-colors duration-500">
+                <div className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full transition-all duration-500 ${
+                  isSpidey
+                    ? "border-2 border-red-500/80 shadow-[0_0_35px_rgba(239,68,68,0.5)]"
+                    : "border-2 border-cyan-500/40 shadow-2xl group-hover:border-red-500/80 group-hover:shadow-[0_0_35px_rgba(239,68,68,0.5)]"
+                }`}>
                   {/* Default Real Profile Photo */}
                   <Image
                     src={profilePic}
@@ -136,13 +140,16 @@ export default function Hero() {
                   />
 
                   {/* AI / ML -> Spidey Vian Badge on Hover / Touch */}
-                  <div className={`absolute bottom-2 inset-x-0 mx-auto w-max px-3 py-0.5 rounded-full bg-black/85 backdrop-blur-md border transition-all duration-300 text-[10px] sm:text-[11px] font-extrabold tracking-wider uppercase z-20 ${
+                  <div className={`absolute bottom-2.5 sm:bottom-3 inset-x-0 mx-auto w-max px-3.5 py-1 rounded-full bg-black/90 backdrop-blur-md border transition-all duration-300 text-[10px] sm:text-xs font-black tracking-widest uppercase z-20 flex items-center justify-center gap-1.5 ${
                     isSpidey 
-                      ? "border-red-500/70 text-red-400 shadow-[0_0_12px_rgba(239,68,68,0.6)]" 
-                      : "border-white/20 text-cyan-300 group-hover:border-red-500/70 group-hover:text-red-400 group-hover:shadow-[0_0_12px_rgba(239,68,68,0.6)]"
+                      ? "border-red-500/80 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.6)]" 
+                      : "border-cyan-400/40 text-cyan-300 group-hover:border-red-500/80 group-hover:text-red-400 group-hover:shadow-[0_0_15px_rgba(239,68,68,0.6)]"
                   }`}>
                     <span className={isSpidey ? "hidden" : "block group-hover:hidden"}>AI / ML</span>
-                    <span className={isSpidey ? "block" : "hidden group-hover:block"}>🕷️ Spidey Vian</span>
+                    <span className={isSpidey ? "inline-flex items-center gap-1" : "hidden group-hover:inline-flex items-center gap-1"}>
+                      <span>🕷️</span>
+                      <span>SPIDEY VIAN</span>
+                    </span>
                   </div>
                 </div>
               </div>
