@@ -148,7 +148,7 @@ export default function Hero() {
                     <span className={isSpidey ? "hidden" : "block group-hover:hidden"}>AI / ML</span>
                     <span className={isSpidey ? "inline-flex items-center gap-1" : "hidden group-hover:inline-flex items-center gap-1"}>
                       <span>🕷️</span>
-                      <span>SPIDEY VIAN</span>
+                      <span>VIAN</span>
                     </span>
                   </div>
                 </div>
