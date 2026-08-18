@@ -2,8 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import profilePic from "@/images/profile-bw.jpg";
-import profilePicHover from "@/images/profile-color.jpg";
+import profilePic from "@/images/profile-color.jpg";
 import { HeroConstellation } from "@/components/ui/hero-constellation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -111,13 +110,7 @@ export default function Hero() {
                     alt="Vivek Hingu"
                     priority
                     fill
-                    className="object-cover transition-opacity duration-500 hidden sm:block opacity-100 group-hover:opacity-0"
-                  />
-                  <Image
-                    src={profilePicHover}
-                    alt="Vivek Hingu Hover"
-                    fill
-                    className="object-cover transition-opacity duration-500 block opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+                    className="object-cover"
                   />
 
                   {/* AI / ML Badge */}
