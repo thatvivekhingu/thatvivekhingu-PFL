@@ -66,37 +66,37 @@ export default function Hero() {
         <BlurFade delay={0.005} inView>
           <div className="relative flex-col space-y-1">
             <div className="relative flex flex-col items-center justify-center">
-              {/* Angled Double Marquee Ribbons - Spider-Man Red & Harry Potter Magical Gold Themes */}
-              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-80 sm:h-96 select-none opacity-95">
-                {/* Spider-Man Ribbon (-3.8deg) - Thicker Vibrant Crimson Red */}
-                <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.8deg] bg-gradient-to-r from-red-600 via-rose-500 to-red-700 py-4 sm:py-5 md:py-6 shadow-[0_0_50px_rgba(225,29,72,0.6)] border-y-2 border-red-300/80">
-                  <Marquee repeat={6} className="[--duration:24s] py-0 text-base sm:text-lg md:text-xl font-black font-mono tracking-[0.2em] text-white uppercase">
-                    <span>🕷️ SPIDEY VIAN // FRIENDLY NEIGHBORHOOD AI ENGINEER</span>
-                    <span className="mx-3.5 text-yellow-300 font-black">•</span>
-                    <span>🕸️ AUTONOMOUS AGENTS</span>
-                    <span className="mx-3.5 text-yellow-300 font-black">•</span>
-                    <span>⚡ SPIDER-SENSE LLMS</span>
-                    <span className="mx-3.5 text-yellow-300 font-black">•</span>
-                    <span>🕷️ NEURAL ARCHITECTURES</span>
-                    <span className="mx-3.5 text-yellow-300 font-black">•</span>
-                    <span>🕸️ DISRUPT & DEPLOY</span>
-                    <span className="mx-3.5 text-yellow-300 font-black">•</span>
+              {/* High-Tech Angled Double Marquee Ribbons Centered Directly Behind DP Avatar */}
+              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-72 select-none opacity-90">
+                {/* Cyan/Teal Angled Ribbon (-3.5deg) - Thicker & Bold Black Text */}
+                <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/60">
+                  <Marquee repeat={6} className="[--duration:26s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                    <span>VIVEK HINGU // AI & MACHINE LEARNING ENGINEER</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>AUTONOMOUS AGENTS</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>NEURAL ARCHITECTURES</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>GROK API & LLMS</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>DATA SCIENCE & PYTHON</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
                   </Marquee>
                 </div>
 
-                {/* Harry Potter Ribbon (+3.8deg) - Thicker Magical Gryffindor Gold */}
-                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.8deg] bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 py-4 sm:py-5 md:py-6 shadow-[0_0_50px_rgba(245,158,11,0.6)] border-y-2 border-yellow-200/80">
-                  <Marquee reverse repeat={6} className="[--duration:28s] py-0 text-base sm:text-lg md:text-xl font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-                    <span>⚡ EXPECTO PATRONUM // HOGWARTS AI WIZARD</span>
-                    <span className="mx-3.5 text-red-700 font-black">•</span>
-                    <span>🪄 ALCHEMY & DATA SCIENCE</span>
-                    <span className="mx-3.5 text-red-700 font-black">•</span>
-                    <span>⚡ BHARATBHASHA MAGICAL AI</span>
-                    <span className="mx-3.5 text-red-700 font-black">•</span>
-                    <span>🔮 NEURAL SPELLS & ALGORITHMS</span>
-                    <span className="mx-3.5 text-red-700 font-black">•</span>
-                    <span>🧹 FLYING HIGH WITH CODE</span>
-                    <span className="mx-3.5 text-red-700 font-black">•</span>
+                {/* Violet/Indigo Angled Ribbon (+3.5deg) - Thicker & Bold Black Text */}
+                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.5)] border-y-2 border-indigo-200/60">
+                  <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                    <span>BHARATBHASHA AI</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>REAL-TIME STREAMING</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>HACKATHON WINNER</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>DISRUPT & DEPLOY</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>SYSTEM ARCHITECTURE</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
                   </Marquee>
                 </div>
               </div>
