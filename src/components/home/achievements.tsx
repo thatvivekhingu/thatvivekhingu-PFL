@@ -129,14 +129,14 @@ export default function Achievements() {
               />
               <div className="absolute top-3 right-3 z-20 flex items-center gap-2 bg-black/80 backdrop-blur-md border border-emerald-500/40 px-2.5 py-1 rounded-full">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981] animate-pulse" />
-                <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest">{"INT'L AWARD"}</span>
+                <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest">{"INTERNATIONAL AWARD"}</span>
               </div>
             </div>
 
             {/* Bottom Info Bar */}
             <div className="p-3.5 bg-zinc-950/95 border-t border-emerald-500/30 backdrop-blur-md z-10 flex flex-col justify-center">
               <h4 className="text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover:text-emerald-300 transition-colors">
-                {"FLINDERS INT'L AI HACKATHON"}
+                {"FLINDERS INTERNATIONAL AI HACKATHON"}
               </h4>
               <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest mt-0.5">
                 {"// 🥈 2ND PLACE | AUD 300 CASH PRIZE"}

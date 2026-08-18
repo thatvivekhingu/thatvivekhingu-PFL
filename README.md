@@ -43,9 +43,9 @@ A high-performance, ultra-modern personal portfolio website built with **Next.js
 
 ### 🏆 Key Achievements Bento Grid
 
-| **Google Cloud Arcade Champion 2025** | **Flinders Int'l AI Hackathon (2nd Place)** |
+| **Google Cloud Arcade Champion 2025** | **Flinders International AI Hackathon (2nd Place)** |
 |:---:|:---:|
-| <img src="./public/achievements/google-cloud-arcade.jpg" alt="Google Cloud Arcade Champion 2025" width="100%" style="border-radius: 8px;" /> | <img src="./public/achievements/flinders-ai.jpg" alt="Flinders Int'l AI Hackathon 2nd Place" width="100%" style="border-radius: 8px;" /> |
+| <img src="./public/achievements/google-cloud-arcade.jpg" alt="Google Cloud Arcade Champion 2025" width="100%" style="border-radius: 8px;" /> | <img src="./public/achievements/flinders-ai.jpg" alt="Flinders International AI Hackathon 2nd Place" width="100%" style="border-radius: 8px;" /> |
 | *Cloud & AI Milestones* | *AUD 300 Cash Prize Winner* |
 
 | **AIT Hackathon 2K25 (Top 10 Finalist)** | **Robo Soccer Championship (1st Prize)** |
