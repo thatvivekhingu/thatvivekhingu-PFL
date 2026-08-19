@@ -34,7 +34,7 @@ export const Navbar = ({
 
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const { data: starsData } = useGitHubStars();
+  const { data: starsData, refetch: refetchStars } = useGitHubStars();
   const repoUrl = starsData?.url ?? FALLBACK_REPO_URL;
   const stars = starsData?.stars ?? 0;
   const { scrollY } = useScroll();
@@ -138,6 +138,10 @@ export const Navbar = ({
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                playTapSound("pop");
+                setTimeout(refetchStars, 1500);
+              }}
               aria-label={`Star this site on GitHub`}
               className="group inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-border/80 bg-background/80 hover:bg-background hover:border-amber-500/50 px-2 sm:px-2.5 py-1 text-[11px] sm:text-xs font-bold text-foreground transition-all shrink-0"
             >

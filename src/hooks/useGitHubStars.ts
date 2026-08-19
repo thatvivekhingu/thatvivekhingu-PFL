@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export interface GitHubStarsData {
   stars: number;
@@ -11,6 +11,7 @@ interface UseGitHubStarsReturn {
   data: GitHubStarsData | null;
   isLoading: boolean;
   error: string | null;
+  refetch: () => Promise<void>;
 }
 
 export function useGitHubStars(): UseGitHubStarsReturn {
@@ -18,34 +19,50 @@ export function useGitHubStars(): UseGitHubStarsReturn {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchStars() {
-      try {
-        const response = await fetch('/api/github-stars');
+  const fetchStars = useCallback(async () => {
+    try {
+      const response = await fetch('/api/github-stars?t=' + Date.now(), {
+        cache: 'no-store',
+      });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch GitHub stars');
-        }
-
-        const result = await response.json();
-
-        if (result && !result.error) {
-          setData(result);
-          setError(null);
-        } else {
-          setError(result.error || 'Unknown error');
-        }
-      } catch (err) {
-        console.error('Error fetching GitHub stars:', err);
-        setError(err instanceof Error ? err.message : 'Failed to fetch GitHub stars');
-        // Keep previous data on error for graceful degradation
-      } finally {
-        setIsLoading(false);
+      if (!response.ok) {
+        throw new Error('Failed to fetch GitHub stars');
       }
-    }
 
-    fetchStars();
+      const result = await response.json();
+
+      if (result && !result.error) {
+        setData(result);
+        setError(null);
+      } else {
+        setError(result.error || 'Unknown error');
+      }
+    } catch (err) {
+      console.error('Error fetching GitHub stars:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch GitHub stars');
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
-  return { data, isLoading, error };
+  useEffect(() => {
+    fetchStars();
+
+    // Polling every 10 seconds to update star count in real time as soon as someone stars the repository
+    const interval = setInterval(fetchStars, 10000);
+
+    // Refetch immediately when tab regains focus (e.g., user starred the repo on GitHub and returns to portfolio)
+    const handleFocus = () => {
+      fetchStars();
+    };
+
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [fetchStars]);
+
+  return { data, isLoading, error, refetch: fetchStars };
 }

@@ -23,7 +23,7 @@ export const Footer = () => {
     const [mounted, setMounted] = useState(false);
     const router = useRouter();
 
-    const { data: starsData } = useGitHubStars();
+    const { data: starsData, refetch: refetchStars } = useGitHubStars();
     const repoUrl = starsData?.url ?? FALLBACK_REPO_URL;
     const stars = starsData?.stars ?? 0;
 
@@ -123,6 +123,10 @@ export const Footer = () => {
                         href={repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => {
+                          playTapSound("pop");
+                          setTimeout(refetchStars, 1500);
+                        }}
                         aria-label="Star this site's repository on GitHub"
                         className="group mt-6 inline-flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
