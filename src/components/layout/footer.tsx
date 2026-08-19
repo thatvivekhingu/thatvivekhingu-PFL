@@ -9,6 +9,7 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { AnimatedLogo } from "@/components/ui/logo-animation";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
+import { playTapSound } from "@/lib/sound";
 import { data } from "@/data/data";
 
 const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/thatvivekhingu-PFL";

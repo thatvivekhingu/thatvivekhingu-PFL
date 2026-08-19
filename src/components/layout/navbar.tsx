@@ -14,6 +14,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import { CommandPaletteButton } from "../command-palette/command-palette-button";
 import { IconBrandGithub, IconStar } from "@tabler/icons-react";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
+import { playTapSound } from "@/lib/sound";
 
 const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/thatvivekhingu-PFL";
 // import Link from "next/link";
