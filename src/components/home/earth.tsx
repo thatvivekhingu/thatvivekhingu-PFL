@@ -10,7 +10,6 @@ import {
     SunsetLightbox,
     type LightboxState,
 } from "@/components/home/sunset-lightbox";
-import TravelMap from "@/components/home/travel-map";
 import type { SunsetPhoto } from "@/lib/sunsets";
 import { cn } from "@/lib/utils";
 
@@ -68,78 +67,70 @@ export default function Earth({ photos }: { photos: SunsetPhoto[] }) {
         <div className="flex flex-col gap-6">
             <SectionHeading
                 color="orange"
-                subtitle="TRAVEL FOOTPRINTS & ARCHIVE"
+                subtitle="VISUAL JOURNAL"
             >
-                Visual Journeys & Expeditions
+                Moments & Horizons
             </SectionHeading>
 
-            {/* 3D Interactive Travel Footprints Map */}
-            <TravelMap />
-
             {photos.length > 0 && (
-                <div className="flex flex-col mt-4">
-                    <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">
-                        🌅 Atmospheric Snapshots
-                    </div>
-                    <div className="relative">
-                        <Marquee
-                            pauseOnHover
-                            paused={!!active}
-                            className="[--duration:55s] [--gap:0.75rem] px-0 py-14"
-                        >
-                            {photos.map((photo) => (
-                                <div
-                                    key={photo.src}
-                                    className="group/card relative shrink-0 cursor-pointer"
-                                    role="button"
-                                    tabIndex={0}
-                                    aria-label={`View photo: ${photo.alt}`}
-                                    onClick={(e) => open(photo, e)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter" || e.key === " ") {
-                                            e.preventDefault();
-                                            open(photo, e);
-                                        }
-                                    }}
-                                >
-                                    <Image
-                                        src={photo.src}
-                                        alt=""
-                                        aria-hidden
-                                        fill
-                                        sizes="40px"
-                                        className="pointer-events-none scale-105 rounded-xl object-cover blur-lg saturate-150 opacity-0 transition-opacity duration-700 group-hover/card:opacity-70 motion-reduce:transition-none"
-                                    />
-                                    <Lens zoomFactor={1.75} lensSize={110} ariaLabel={photo.alt}>
-                                        <div className="relative aspect-[3/4] h-48 sm:h-64 overflow-hidden rounded-xl">
-                                            {!photo.blurDataURL && !loaded.has(photo.src) && (
-                                                <div className="absolute inset-0 animate-pulse rounded-xl bg-muted" />
+                <div className="relative">
+                    <Marquee
+                        pauseOnHover
+                        paused={!!active}
+                        className="[--duration:55s] [--gap:0.75rem] px-0 py-14"
+                    >
+                        {photos.map((photo) => (
+                            <div
+                                key={photo.src}
+                                className="group/card relative shrink-0 cursor-pointer"
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`View photo: ${photo.alt}`}
+                                onClick={(e) => open(photo, e)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        open(photo, e);
+                                    }
+                                }}
+                            >
+                                <Image
+                                    src={photo.src}
+                                    alt=""
+                                    aria-hidden
+                                    fill
+                                    sizes="40px"
+                                    className="pointer-events-none scale-105 rounded-xl object-cover blur-lg saturate-150 opacity-0 transition-opacity duration-700 group-hover/card:opacity-70 motion-reduce:transition-none"
+                                />
+                                <Lens zoomFactor={1.75} lensSize={110} ariaLabel={photo.alt}>
+                                    <div className="relative aspect-[3/4] h-48 sm:h-64 overflow-hidden rounded-xl">
+                                        {!photo.blurDataURL && !loaded.has(photo.src) && (
+                                            <div className="absolute inset-0 animate-pulse rounded-xl bg-muted" />
+                                        )}
+                                        <Image
+                                            src={photo.src}
+                                            alt={photo.alt}
+                                            fill
+                                            sizes="(min-width: 640px) 336px, 252px"
+                                            placeholder={photo.blurDataURL ? "blur" : "empty"}
+                                            blurDataURL={photo.blurDataURL}
+                                            onLoad={() => markLoaded(photo.src)}
+                                            className={cn(
+                                                "object-cover",
+                                                !photo.blurDataURL &&
+                                                    "transition-opacity duration-500 motion-reduce:transition-none",
+                                                !photo.blurDataURL && !loaded.has(photo.src)
+                                                    ? "opacity-0"
+                                                    : "opacity-100",
                                             )}
-                                            <Image
-                                                src={photo.src}
-                                                alt={photo.alt}
-                                                fill
-                                                sizes="(min-width: 640px) 336px, 252px"
-                                                placeholder={photo.blurDataURL ? "blur" : "empty"}
-                                                blurDataURL={photo.blurDataURL}
-                                                onLoad={() => markLoaded(photo.src)}
-                                                className={cn(
-                                                    "object-cover",
-                                                    !photo.blurDataURL &&
-                                                        "transition-opacity duration-500 motion-reduce:transition-none",
-                                                    !photo.blurDataURL && !loaded.has(photo.src)
-                                                        ? "opacity-0"
-                                                        : "opacity-100",
-                                                )}
-                                            />
-                                        </div>
-                                    </Lens>
-                                </div>
-                            ))}
-                        </Marquee>
-                        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-background" />
-                        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-background" />
-                    </div>
+                                        />
+                                    </div>
+                                </Lens>
+                            </div>
+                        ))}
+                    </Marquee>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-background" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-background" />
                 </div>
             )}
 
