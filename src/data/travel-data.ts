@@ -2,6 +2,7 @@ export interface TravelLocation {
   id: string;
   name: string;
   state: string;
+  region: "Gujarat" | "Uttarakhand" | "Rajasthan" | "Maharashtra";
   lat: number;
   lng: number;
   category: "himalayas" | "sacred" | "heritage" | "urban";
@@ -11,29 +12,33 @@ export interface TravelLocation {
   highlight: string;
   distanceFromBase?: string; // from Ahmedabad
   icon?: string;
+  visited: boolean;
 }
 
 export const BASE_LOCATION: TravelLocation = {
   id: "ahmedabad",
   name: "Ahmedabad",
   state: "Gujarat",
+  region: "Gujarat",
   lat: 23.0225,
   lng: 72.5714,
   category: "urban",
   categoryLabel: "Base & Heritage",
-  tag: "Home Base",
+  tag: "Home & Engineering Base",
   elevation: "53m",
-  highlight: "UNESCO World Heritage City & Engineering Base",
-  distanceFromBase: "0 km",
+  highlight: "UNESCO World Heritage City, Sabarmati Riverfront & Tech Base.",
+  distanceFromBase: "0 km (Origin)",
   icon: "🏠",
+  visited: true,
 };
 
 export const TRAVEL_LOCATIONS: TravelLocation[] = [
-  // 🏔️ Himalayan Char Dham & Devbhoomi
+  // 🏔️ Himalayan Char Dham & Devbhoomi (Uttarakhand)
   {
     id: "kedarnath",
     name: "Kedarnath",
     state: "Uttarakhand",
+    region: "Uttarakhand",
     lat: 30.7346,
     lng: 79.0669,
     category: "himalayas",
@@ -43,11 +48,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Sacred Himalayan pilgrimage nestled among snow-clad peaks & Mandakini river.",
     distanceFromBase: "~1,420 km",
     icon: "🏔️",
+    visited: true,
   },
   {
     id: "badrinath",
     name: "Badrinath",
     state: "Uttarakhand",
+    region: "Uttarakhand",
     lat: 30.7433,
     lng: 79.4938,
     category: "himalayas",
@@ -57,11 +64,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Ancient holy shrine between Nar & Narayana mountain ranges on the banks of Alaknanda.",
     distanceFromBase: "~1,460 km",
     icon: "🛕",
+    visited: true,
   },
   {
     id: "gangotri",
     name: "Gangotri",
     state: "Uttarakhand",
+    region: "Uttarakhand",
     lat: 30.9947,
     lng: 78.9398,
     category: "himalayas",
@@ -71,11 +80,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Origin seat of River Ganga amidst breathtaking Bhagirathi mountain valley.",
     distanceFromBase: "~1,380 km",
     icon: "🌊",
+    visited: true,
   },
   {
     id: "yamunotri",
     name: "Yamunotri",
     state: "Uttarakhand",
+    region: "Uttarakhand",
     lat: 31.0140,
     lng: 78.4600,
     category: "himalayas",
@@ -85,11 +96,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "First stop of Char Dham yatra, holy hot thermal springs & origin of Yamuna.",
     distanceFromBase: "~1,340 km",
     icon: "💧",
+    visited: true,
   },
   {
     id: "uttarkashi",
     name: "Uttarkashi",
     state: "Uttarakhand",
+    region: "Uttarakhand",
     lat: 30.7268,
     lng: 78.4354,
     category: "himalayas",
@@ -99,11 +112,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Spiritual Himalayan foothill hub, ancient Vishwanath Temple on Bhagirathi river.",
     distanceFromBase: "~1,280 km",
     icon: "⛰️",
+    visited: true,
   },
   {
     id: "haridwar",
     name: "Haridwar",
     state: "Uttarakhand",
+    region: "Uttarakhand",
     lat: 29.9457,
     lng: 78.1642,
     category: "himalayas",
@@ -113,6 +128,7 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Grand Ganga Aarti at Har Ki Pauri and gateway to the sacred Himalayas.",
     distanceFromBase: "~1,140 km",
     icon: "🔥",
+    visited: true,
   },
 
   // 🕉️ Sacred Shrines & Jyotirlinga (Gujarat)
@@ -120,6 +136,7 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     id: "somnath",
     name: "Somnath",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 20.8880,
     lng: 70.4012,
     category: "sacred",
@@ -129,11 +146,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "The eternal holy shrine overlooking the Arabian Sea, standing tall through millennia.",
     distanceFromBase: "~410 km",
     icon: "🔱",
+    visited: true,
   },
   {
     id: "dwarka",
     name: "Dwarka",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 22.2442,
     lng: 68.9685,
     category: "sacred",
@@ -143,11 +162,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "One of the 4 Sacred Char Dhams of India on the western coastline.",
     distanceFromBase: "~440 km",
     icon: "🦚",
+    visited: true,
   },
   {
     id: "ambaji",
     name: "Ambaji",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 24.3323,
     lng: 72.8530,
     category: "sacred",
@@ -157,11 +178,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Spiritual hill sanctuary of Goddess Amba atop the Arasur hills.",
     distanceFromBase: "~180 km",
     icon: "🌸",
+    visited: true,
   },
   {
     id: "chotila",
     name: "Chotila",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 22.4219,
     lng: 71.1969,
     category: "sacred",
@@ -171,11 +194,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Sacred hill shrine with 635 stone steps overlooking Saurashtra plains.",
     distanceFromBase: "~170 km",
     icon: "🚩",
+    visited: true,
   },
   {
     id: "pavagadh",
     name: "Pavagadh",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 22.4827,
     lng: 73.5303,
     category: "sacred",
@@ -185,11 +210,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Volcanic hill peak crowned with ancient Kalika Mata temple & Champaner UNESCO ruins.",
     distanceFromBase: "~150 km",
     icon: "🪔",
+    visited: true,
   },
   {
     id: "junagadh",
     name: "Junagadh",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 21.5222,
     lng: 70.4579,
     category: "sacred",
@@ -199,13 +226,15 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Historic city beneath majestic Mount Girnar with ancient Buddhist caves & Uparkot fort.",
     distanceFromBase: "~315 km",
     icon: "🧗",
+    visited: true,
   },
 
-  // 🏰 Royal Heritage & Desert
+  // 🏰 Royal Heritage & Desert (Rajasthan & Gujarat)
   {
     id: "udaipur",
     name: "Udaipur",
     state: "Rajasthan",
+    region: "Rajasthan",
     lat: 24.5854,
     lng: 73.7125,
     category: "heritage",
@@ -215,11 +244,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Royal Mewar architecture, Lake Pichola, City Palace and sunset views.",
     distanceFromBase: "~260 km",
     icon: "🏰",
+    visited: true,
   },
   {
     id: "chittorgarh",
     name: "Chittorgarh",
     state: "Rajasthan",
+    region: "Rajasthan",
     lat: 24.8887,
     lng: 74.6269,
     category: "heritage",
@@ -229,11 +260,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Epic fortress of Rajput valor, Vijay Stambha, and monumental heritage.",
     distanceFromBase: "~370 km",
     icon: "🛡️",
+    visited: true,
   },
   {
     id: "kutch",
     name: "Rann of Kutch",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 23.7337,
     lng: 69.8597,
     category: "heritage",
@@ -243,27 +276,31 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Endless white salt desert horizon under moonlight and vibrant Kutchi culture.",
     distanceFromBase: "~390 km",
     icon: "🐪",
+    visited: true,
   },
 
-  // 🏙️ Coastal Metros, Tech & Nature Hubs
+  // 🏙️ Coastal Metros, Tech & Nature Hubs (Maharashtra & Gujarat)
   {
     id: "mumbai",
     name: "Mumbai",
     state: "Maharashtra",
+    region: "Maharashtra",
     lat: 19.0760,
     lng: 72.8777,
     category: "urban",
     categoryLabel: "Urban & Nature",
-    tag: "Maximum City",
+    tag: "Maximum City & Coast",
     elevation: "14m",
     highlight: "India's financial capital, Marine Drive sea breeze & bustling startup ecosystem.",
     distanceFromBase: "~525 km",
     icon: "🌆",
+    visited: true,
   },
   {
     id: "gift-city",
     name: "GIFT City",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 23.1610,
     lng: 72.6840,
     category: "urban",
@@ -273,11 +310,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "India's pioneer international financial services center and futuristic smart city.",
     distanceFromBase: "~25 km",
     icon: "🏙️",
+    visited: true,
   },
   {
     id: "thol",
     name: "Thol Lake",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 23.1416,
     lng: 72.4042,
     category: "urban",
@@ -287,11 +326,13 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "Peaceful freshwater wetland haven for thousands of migratory flamingos and birds.",
     distanceFromBase: "~30 km",
     icon: "🦩",
+    visited: true,
   },
   {
     id: "surat",
     name: "Surat",
     state: "Gujarat",
+    region: "Gujarat",
     lat: 21.1702,
     lng: 72.8311,
     category: "urban",
@@ -301,13 +342,16 @@ export const TRAVEL_LOCATIONS: TravelLocation[] = [
     highlight: "World's diamond polishing capital, vibrant street food & textile manufacturing center.",
     distanceFromBase: "~260 km",
     icon: "💎",
+    visited: true,
   },
 ];
 
 export const TRAVEL_STATS = {
-  totalDestinations: TRAVEL_LOCATIONS.length + 1, // Including base
+  totalDestinations: TRAVEL_LOCATIONS.length + 1, // Including base (20 total)
+  visitedCount: TRAVEL_LOCATIONS.length + 1,
   highestElevation: "3,583m (Kedarnath)",
   charDhams: "2 (Dwarka & Badrinath)",
   jyotirlingas: "2 (Somnath & Kedarnath)",
-  statesCovered: "4 (Gujarat, Uttarakhand, Rajasthan, Maharashtra)",
+  statesCovered: "4 States (Gujarat, Uttarakhand, Rajasthan, Maharashtra)",
 };
+
