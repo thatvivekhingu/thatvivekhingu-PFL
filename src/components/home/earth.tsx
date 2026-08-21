@@ -10,6 +10,7 @@ import {
     SunsetLightbox,
     type LightboxState,
 } from "@/components/home/sunset-lightbox";
+import TravelMap from "@/components/home/travel-map";
 import type { SunsetPhoto } from "@/lib/sunsets";
 import { cn } from "@/lib/utils";
 
@@ -38,8 +39,6 @@ export default function Earth({ photos }: { photos: SunsetPhoto[] }) {
     const markLoaded = (src: string) =>
         setLoaded((prev) => (prev.has(src) ? prev : new Set(prev).add(src)));
 
-    if (photos.length === 0) return null;
-
     const open = (
         photo: SunsetPhoto,
         e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
@@ -66,92 +65,85 @@ export default function Earth({ photos }: { photos: SunsetPhoto[] }) {
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-6">
             <SectionHeading
                 color="orange"
-                subtitle="ATMOSPHERIC ARCHIVE"
+                subtitle="TRAVEL FOOTPRINTS & ARCHIVE"
             >
-                Visual Journeys & Explorations
+                Visual Journeys & Expeditions
             </SectionHeading>
 
+            {/* 3D Interactive Travel Footprints Map */}
+            <TravelMap />
 
-            <div className="relative">
-                <Marquee
-                    pauseOnHover
-                    paused={!!active}
-                    className="[--duration:55s] [--gap:0.75rem] px-0 py-14"
-                >
-                    {photos.map((photo) => (
-                        <div
-                            key={photo.src}
-                            className="group/card relative shrink-0 cursor-pointer"
-                            role="button"
-                            tabIndex={0}
-                            aria-label={`View photo: ${photo.alt}`}
-                            onClick={(e) => open(photo, e)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === " ") {
-                                    e.preventDefault();
-                                    open(photo, e);
-                                }
-                            }}
+            {photos.length > 0 && (
+                <div className="flex flex-col mt-4">
+                    <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">
+                        🌅 Atmospheric Snapshots
+                    </div>
+                    <div className="relative">
+                        <Marquee
+                            pauseOnHover
+                            paused={!!active}
+                            className="[--duration:55s] [--gap:0.75rem] px-0 py-14"
                         >
-                            {/* Ambient bloom: a blurred copy of the photo bleeds its
-                                own colour outward, so each sunset appears to emit
-                                light. The blur radius is kept small enough that its
-                                soft tail fades to nothing inside the marquee's py-14
-                                padding — otherwise overflow-hidden cuts a hard edge.
-                                Served tiny (sizes="40px") since it is blurred to a
-                                smear; decorative, so hidden from assistive tech. */}
-                            <Image
-                                src={photo.src}
-                                alt=""
-                                aria-hidden
-                                fill
-                                sizes="40px"
-                                className="pointer-events-none scale-105 rounded-xl object-cover blur-lg saturate-150 opacity-0 transition-opacity duration-700 group-hover/card:opacity-70 motion-reduce:transition-none"
-                            />
-                            <Lens zoomFactor={1.75} lensSize={110} ariaLabel={photo.alt}>
-                                <div className="relative aspect-[3/4] h-48 sm:h-64 overflow-hidden rounded-xl">
-                                    {/* Fallback for the rare photo without a
-                                        generated blur: a pulsing placeholder so the
-                                        row never looks empty while it streams in.
-                                        When a blur exists, next/image renders it in
-                                        the SSR HTML (visible before hydration) and
-                                        this is skipped. */}
-                                    {!photo.blurDataURL && !loaded.has(photo.src) && (
-                                        <div className="absolute inset-0 animate-pulse rounded-xl bg-muted" />
-                                    )}
+                            {photos.map((photo) => (
+                                <div
+                                    key={photo.src}
+                                    className="group/card relative shrink-0 cursor-pointer"
+                                    role="button"
+                                    tabIndex={0}
+                                    aria-label={`View photo: ${photo.alt}`}
+                                    onClick={(e) => open(photo, e)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter" || e.key === " ") {
+                                            e.preventDefault();
+                                            open(photo, e);
+                                        }
+                                    }}
+                                >
                                     <Image
                                         src={photo.src}
-                                        alt={photo.alt}
+                                        alt=""
+                                        aria-hidden
                                         fill
-                                        sizes="(min-width: 640px) 336px, 252px"
-                                        placeholder={photo.blurDataURL ? "blur" : "empty"}
-                                        blurDataURL={photo.blurDataURL}
-                                        onLoad={() => markLoaded(photo.src)}
-                                        className={cn(
-                                            "object-cover",
-                                            // Only hand-fade when there is no native
-                                            // blur; otherwise next/image manages the
-                                            // placeholder-to-photo swap itself.
-                                            !photo.blurDataURL &&
-                                                "transition-opacity duration-500 motion-reduce:transition-none",
-                                            !photo.blurDataURL && !loaded.has(photo.src)
-                                                ? "opacity-0"
-                                                : "opacity-100",
-                                        )}
+                                        sizes="40px"
+                                        className="pointer-events-none scale-105 rounded-xl object-cover blur-lg saturate-150 opacity-0 transition-opacity duration-700 group-hover/card:opacity-70 motion-reduce:transition-none"
                                     />
+                                    <Lens zoomFactor={1.75} lensSize={110} ariaLabel={photo.alt}>
+                                        <div className="relative aspect-[3/4] h-48 sm:h-64 overflow-hidden rounded-xl">
+                                            {!photo.blurDataURL && !loaded.has(photo.src) && (
+                                                <div className="absolute inset-0 animate-pulse rounded-xl bg-muted" />
+                                            )}
+                                            <Image
+                                                src={photo.src}
+                                                alt={photo.alt}
+                                                fill
+                                                sizes="(min-width: 640px) 336px, 252px"
+                                                placeholder={photo.blurDataURL ? "blur" : "empty"}
+                                                blurDataURL={photo.blurDataURL}
+                                                onLoad={() => markLoaded(photo.src)}
+                                                className={cn(
+                                                    "object-cover",
+                                                    !photo.blurDataURL &&
+                                                        "transition-opacity duration-500 motion-reduce:transition-none",
+                                                    !photo.blurDataURL && !loaded.has(photo.src)
+                                                        ? "opacity-0"
+                                                        : "opacity-100",
+                                                )}
+                                            />
+                                        </div>
+                                    </Lens>
                                 </div>
-                            </Lens>
-                        </div>
-                    ))}
-                </Marquee>
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-background" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-background" />
-            </div>
+                            ))}
+                        </Marquee>
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-background" />
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-background" />
+                    </div>
+                </div>
+            )}
 
-            <SunsetLightbox state={active} onClose={close} />
+            {photos.length > 0 && <SunsetLightbox state={active} onClose={close} />}
         </div>
     );
 }
