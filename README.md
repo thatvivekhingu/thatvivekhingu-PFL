@@ -29,7 +29,7 @@ A high-performance, ultra-modern personal portfolio website built with **Next.js
 
 ### 🤖 Featured AI & Machine Learning Builds
 
-| **AI Startup Success Predictor** | **BharatBhasha AI 2.0** |
+| **AI Startup Success Predictor** | **BharatBhasha AI ** |
 |:---:|:---:|
 | <img src="./public/projects/startup-predictor.jpg" alt="AI Startup Success Predictor" width="100%" style="border-radius: 8px;" /> | <img src="./public/projects/bharat-bhasha.jpg" alt="BharatBhasha AI 2.0" width="100%" style="border-radius: 8px;" /> |
 | *ML Classification Engine for Startup Risk & Success* | *Multilingual NLP & Voice Communication Platform* |
