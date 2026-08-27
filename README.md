@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ Vivek Hingu — AI/ML Engineer & Full-Stack Portfolio
+# ⚡ Vivek Hingu — AI/ML Engineer 
 
 A high-performance, ultra-modern personal portfolio website built with **Next.js 15**, **React 19**, **TypeScript**, and **Tailwind CSS**. Featuring interactive AI showcase sections, live telemetry telemetry dashboard, custom Bento grids, native iPhone AI assistant experience (VIAN), and a interactive 3D resume viewer.
 
