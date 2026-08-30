@@ -128,24 +128,29 @@ export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [avatarIdx, setAvatarIdx] = useState(0);
+  const nextSuperheroRef = useRef(1);
 
   const currentAvatar = HERO_AVATARS[avatarIdx];
+
+  const handleMouseEnter = () => {
+    playTapSound("pop");
+    const nextIdx = nextSuperheroRef.current;
+    setAvatarIdx(nextIdx);
+    nextSuperheroRef.current = nextIdx >= HERO_AVATARS.length - 1 ? 1 : nextIdx + 1;
+  };
+
+  const handleMouseLeave = () => {
+    setAvatarIdx(0);
+  };
 
   const handleAvatarClick = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
       e.stopPropagation();
     }
     playTapSound("pop");
-    setAvatarIdx((prev) => (prev + 1) % HERO_AVATARS.length);
-  };
-
-  const handleMouseEnter = () => {
-    playTapSound("pop");
-    setAvatarIdx((prev) => (prev === 0 ? 1 : (prev + 1) % HERO_AVATARS.length));
-  };
-
-  const handleMouseLeave = () => {
-    setAvatarIdx(0);
+    const nextIdx = nextSuperheroRef.current;
+    setAvatarIdx(nextIdx);
+    nextSuperheroRef.current = nextIdx >= HERO_AVATARS.length - 1 ? 1 : nextIdx + 1;
   };
 
   const { status, dotColor } = getStatus();
@@ -264,13 +269,10 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Character Name Label under Avatar - Small, Clean, No Background, No Emoji */}
+              {/* Character Name Label under Avatar - Small, Clean, No Background, No Emoji, No Number */}
               <div className="mt-2 text-center text-xs font-mono font-medium tracking-wide text-zinc-400 select-none z-50">
                 <span className={currentAvatar.badgeText}>
                   {currentAvatar.name}
-                </span>
-                <span className="text-zinc-600 text-[10px] ml-1.5">
-                  ({avatarIdx + 1}/{HERO_AVATARS.length})
                 </span>
               </div>
 
