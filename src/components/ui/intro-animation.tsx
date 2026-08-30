@@ -35,7 +35,7 @@ const INTRO_LINES: IntroLine[] = [
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState(true);
   const [activeLine, setActiveLine] = useState<IntroLine>(INTRO_LINES[0]);
-  const [phase, setPhase] = useState<"en" | "hi" | "done">("en");
+  const [phase, setPhase] = useState<"en" | "hi" | "arc" | "done">("en");
   const [isComplete, setIsComplete] = useState(false);
 
   // Pick a random line on component mount
@@ -65,21 +65,30 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // 2-Step 4-Second Reading Timeline: English (2.0s) -> Hindi (2.2s) -> Open
+  // 3-Step Timeline: English (2.0s) -> Hindi (2.2s) -> Arc Reactor Core Ignite (1.2s) -> Open
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
     playTapSound("hover");
 
-    // Phase 1: Show English setup for 2.0 seconds
+    // Phase 1: Show English setup for 2.0s
     const timer1 = setTimeout(() => {
       setPhase("hi");
       playTapSound("access_granted");
 
-      // Phase 2: Show Hindi punchline for 2.2 seconds (Total > 4 seconds)
+      // Phase 2: Show Hindi punchline for 2.2s
       const timer2 = setTimeout(() => {
-        setPhase("done");
-        handleComplete();
+        setPhase("arc");
+        playTapSound("hover");
+
+        // Phase 3: Arc Reactor ignition & power surge (1.2s), then reveal site
+        const timer3 = setTimeout(() => {
+          setPhase("done");
+          playTapSound("access_granted");
+          handleComplete();
+        }, 1200);
+
+        return () => clearTimeout(timer3);
       }, 2200);
 
       return () => clearTimeout(timer2);
@@ -94,51 +103,131 @@ export function IntroAnimation() {
     <AnimatePresence>
       {!isComplete && (
         <motion.div
-          initial={{ y: 0 }}
+          initial={{ opacity: 1 }}
           exit={{
-            y: "-100%",
-            transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+            opacity: 0,
+            transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
           }}
           onClick={handleSkip}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black px-6 select-none cursor-pointer overflow-hidden"
         >
-          {/* Pure Center Content - Zero clutter above */}
-          <div className="relative z-10 max-w-4xl w-full flex flex-col items-center justify-center text-center space-y-8">
-            {/* Word Flash Screen Container */}
-            <div className="min-h-[120px] sm:min-h-[160px] flex items-center justify-center px-4">
-              <AnimatePresence mode="wait">
-                {phase === "en" && (
-                  <motion.h1
-                    key="en-line"
-                    initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -18, filter: "blur(10px)" }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-sans tracking-tight text-white leading-tight"
-                  >
+          {/* Main Stage */}
+          <div className="relative z-10 max-w-4xl w-full flex flex-col items-center justify-center text-center">
+            <AnimatePresence mode="wait">
+              {/* Step 1: English Line */}
+              {phase === "en" && (
+                <motion.div
+                  key="en-line"
+                  initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="min-h-[140px] flex items-center justify-center"
+                >
+                  <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-sans tracking-tight text-white leading-tight">
                     {activeLine.en}
-                  </motion.h1>
-                )}
+                  </h1>
+                </motion.div>
+              )}
 
-                {phase === "hi" && (
-                  <motion.h1
-                    key="hi-line"
-                    initial={{ opacity: 0, scale: 0.93, y: 16, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-sans tracking-tight text-white leading-tight drop-shadow-[0_4px_30px_rgba(255,255,255,0.3)]"
-                  >
+              {/* Step 2: Hindi Line */}
+              {phase === "hi" && (
+                <motion.div
+                  key="hi-line"
+                  initial={{ opacity: 0, scale: 0.92, y: 16, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, scale: 1.08, filter: "blur(10px)" }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="min-h-[140px] flex items-center justify-center"
+                >
+                  <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-sans tracking-tight text-white leading-tight drop-shadow-[0_4px_30px_rgba(255,255,255,0.3)]">
                     {activeLine.hi}
-                  </motion.h1>
-                )}
-              </AnimatePresence>
-            </div>
+                  </h1>
+                </motion.div>
+              )}
 
-            {/* Sub-hint */}
-            <div className="text-xs font-mono text-zinc-500/80 flex items-center gap-2">
+              {/* Step 3: Arc Reactor Animation (Mathematically Centered Where Avatar Appears) */}
+              {phase === "arc" && (
+                <motion.div
+                  key="arc-reactor-core"
+                  initial={{ opacity: 0, scale: 0.4 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+                  }}
+                  exit={{
+                    scale: 1.4,
+                    opacity: 0,
+                    transition: { duration: 0.4, ease: "easeIn" },
+                  }}
+                  className="relative flex items-center justify-center"
+                >
+                  {/* Glowing Core Explosion Flare */}
+                  <div className="absolute w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] rounded-full bg-cyan-500/25 blur-3xl animate-pulse" />
+
+                  {/* Concentric Rotating Marvel Arc Reactor */}
+                  <div className="relative w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[440px] md:h-[440px] flex items-center justify-center">
+                    <div className="relative w-full h-full animate-[spin_20s_linear_infinite]">
+                      <svg
+                        viewBox="0 0 400 400"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-full h-full text-cyan-400 drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]"
+                      >
+                        {/* Outer Tech Coordinate Rings */}
+                        <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 8" />
+                        <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="2" opacity="0.8" />
+                        <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1.5" strokeDasharray="16 6" />
+                        <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2.5" strokeDasharray="4 4" opacity="0.9" />
+                        <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1.5" strokeDasharray="8 12" />
+                        <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="2" opacity="0.7" />
+
+                        {/* Radial Arc Reactor Notches */}
+                        {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+                          <line
+                            key={deg}
+                            x1="200"
+                            y1="10"
+                            x2="200"
+                            y2="28"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            transform={`rotate(${deg} 200 200)`}
+                          />
+                        ))}
+
+                        {/* Iconic Avengers 'A' Logo Embedded at Center */}
+                        <g transform="translate(100, 100) scale(1)">
+                          <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3.5" strokeDasharray="140 30" opacity="0.9" />
+                          <path
+                            d="M30 115 L160 115 L145 95 L25 95 Z"
+                            fill="currentColor"
+                            opacity="0.9"
+                          />
+                          <polygon
+                            points="155,90 185,105 155,120"
+                            fill="currentColor"
+                          />
+                          <polygon
+                            points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145"
+                            fill="currentColor"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+
+                    {/* Center Core Blue Hotspot */}
+                    <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full border-2 border-cyan-300 bg-cyan-400/20 shadow-[0_0_50px_rgba(6,182,212,0.9)] animate-ping" />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Bottom Skip Note */}
+            <div className="absolute -bottom-24 text-xs font-mono text-zinc-600 flex items-center gap-2">
               <span>☕</span>
-              <span>Tap anywhere or press ESC to skip</span>
+              <span>Tap anywhere to skip</span>
             </div>
           </div>
         </motion.div>
