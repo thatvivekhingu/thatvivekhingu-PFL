@@ -110,17 +110,17 @@ export default function Hero() {
   };
 
   return (
-    <div className="pt-20 pb-8 sm:pt-24 sm:pb-12 relative flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen pt-24 pb-14 sm:pt-32 sm:pb-20 relative flex flex-col items-center justify-center overflow-hidden">
       <HeroConstellation desktopDots={260} mobileDots={70} />
 
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
-          <div className="relative flex-col space-y-1">
+          <div className="relative flex-col space-y-2">
             <div className="relative flex flex-col items-center justify-center">
               {/* High-Tech Angled Double Marquee Ribbons Centered Directly Behind DP Avatar */}
-              <div className="absolute top-18 sm:top-22 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-64 select-none opacity-85">
+              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-72 select-none opacity-85">
                 {/* Cyan/Teal Angled Ribbon (-3.5deg) - Thicker & Bold Black Text */}
-                <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-2.5 sm:py-3.5 shadow-[0_0_40px_rgba(6,182,212,0.4)] border-y-2 border-cyan-200/60">
+                <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.4)] border-y-2 border-cyan-200/60">
                   <Marquee repeat={6} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                     <span>VIVEK HINGU // AI & ML ENGINEER</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
@@ -136,7 +136,7 @@ export default function Hero() {
                 </div>
 
                 {/* Violet/Indigo Angled Ribbon (+3.5deg) - Thicker & Bold Black Text */}
-                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-2.5 sm:py-3.5 shadow-[0_0_40px_rgba(129,140,248,0.4)] border-y-2 border-indigo-200/60">
+                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.4)] border-y-2 border-indigo-200/60">
                   <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                     <span>BHARATBHASHA AI</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
@@ -153,9 +153,9 @@ export default function Hero() {
               </div>
 
               {/* Avatar Center Wrapper with Concentric Marvel Arc Reactor Orbit Perfectly Aligned */}
-              <div className="relative flex items-center justify-center my-1 z-30">
+              <div className="relative flex items-center justify-center my-2 z-30">
                 {/* Concentric Marvel Arc Reactor & Avengers Orbit (Mathematically Centered Behind Avatar) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] md:w-[480px] md:h-[480px] pointer-events-none -z-10 select-none flex items-center justify-center opacity-35 dark:opacity-40">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] sm:w-[540px] sm:h-[540px] md:w-[600px] md:h-[600px] pointer-events-none -z-10 select-none flex items-center justify-center opacity-35 dark:opacity-40">
                   <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
                     <svg
                       viewBox="0 0 400 400"
@@ -224,12 +224,12 @@ export default function Hero() {
                 >
                   {/* Dynamic Ambient Glowing Halo */}
                   <div
-                    className={`absolute -inset-2.5 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-lg group-hover:opacity-95 transition-all duration-500 animate-pulse`}
+                    className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-xl group-hover:opacity-95 transition-all duration-500 animate-pulse`}
                   />
 
                   {/* Avatar Border Ring with Smooth Crossfade Layers */}
                   <div
-                    className={`relative h-36 w-36 sm:h-44 sm:w-44 md:h-48 md:w-48 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
+                    className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
                   >
                     {HERO_AVATARS.map((avatar, idx) => (
                       <div

@@ -21,13 +21,13 @@ export default async function Home() {
 
       {/* Full-width Hero section so ribbons bleed 100% edge-to-edge of viewport */}
       <BlurFade delay={BLUR_FADE_DELAY} offset={0} inView>
-        <section id="hero" className="scroll-mt-24 sm:scroll-mt-28 w-full relative overflow-x-clip">
+        <section id="hero" className="scroll-mt-24 sm:scroll-mt-28 w-full relative overflow-x-clip min-h-screen flex items-center justify-center">
           <Hero />
         </section>
       </BlurFade>
 
       {/* Main Content Sections */}
-      <div className="mx-auto flex max-w-5xl flex-col space-y-12 sm:space-y-20 px-4">
+      <div className="mx-auto flex max-w-5xl flex-col space-y-12 sm:space-y-20 px-4 pt-8 sm:pt-16">
         <BlurFade delay={BLUR_FADE_DELAY * 2} offset={0} inView>
           <section id="dashboard" className="scroll-mt-24 sm:scroll-mt-28">
             <Dashboard />
