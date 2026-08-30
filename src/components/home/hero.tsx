@@ -37,20 +37,20 @@ const HERO_AVATARS: AvatarCharacter[] = [
     name: "Vivek Hingu",
     badge: "AI / ML",
     src: "/avatars/vivek.jpg",
-    borderColor: "border-cyan-400/60",
-    shadowColor: "shadow-[0_0_40px_rgba(34,211,238,0.45)]",
+    borderColor: "border-cyan-400/50",
+    shadowColor: "shadow-[0_0_20px_rgba(34,211,238,0.25)]",
     badgeText: "text-cyan-400",
-    haloGradient: "from-cyan-500 via-sky-400 to-indigo-500",
+    haloGradient: "from-cyan-500/40 via-sky-400/30 to-indigo-500/30",
   },
   {
     id: "spiderman",
     name: "દેશી કરોડિયો 🕷️",
     badge: "દેશી કરોડિયો 🕷️",
     src: "/avatars/spiderman.jpg",
-    borderColor: "border-red-500/90",
-    shadowColor: "shadow-[0_0_45px_rgba(239,68,68,0.6)]",
+    borderColor: "border-red-500/80",
+    shadowColor: "shadow-[0_0_20px_rgba(239,68,68,0.3)]",
     badgeText: "text-red-400",
-    haloGradient: "from-red-600 via-rose-500 to-blue-600",
+    haloGradient: "from-red-600/40 via-rose-500/30 to-blue-600/30",
   },
 ];
 
@@ -129,9 +129,9 @@ export default function Hero() {
               {/* Avatar Center Wrapper with Concentric Marvel Arc Reactor Orbit & Angled Ribbons Perfectly Aligned */}
               <div className="relative flex items-center justify-center my-2 sm:my-3 z-30">
                 {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer - Centered Directly Behind Avatar */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none -z-20 flex items-center justify-center select-none opacity-90">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none -z-20 flex items-center justify-center select-none opacity-80">
                   {/* Cyan/Teal Angled Ribbon (-3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/60">
+                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_15px_rgba(6,182,212,0.15)] border-y border-cyan-200/40">
                     <Marquee repeat={8} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                       <span>VIVEK HINGU // AI & ML ENGINEER</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
@@ -147,7 +147,7 @@ export default function Hero() {
                   </div>
 
                   {/* Violet/Indigo Angled Ribbon (+3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.5)] border-y-2 border-indigo-200/60">
+                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_15px_rgba(129,140,248,0.15)] border-y border-indigo-200/40">
                     <Marquee reverse repeat={8} className="[--duration:30s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                       <span>BHARATBHASHA AI</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
@@ -164,13 +164,13 @@ export default function Hero() {
                 </div>
 
                 {/* Concentric Marvel Arc Reactor & Avengers Orbit (Mathematically Centered Behind Avatar) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] sm:w-[540px] sm:h-[540px] md:w-[600px] md:h-[600px] pointer-events-none -z-10 select-none flex items-center justify-center opacity-35 dark:opacity-40">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] sm:w-[540px] sm:h-[540px] md:w-[600px] md:h-[600px] pointer-events-none -z-10 select-none flex items-center justify-center opacity-20 dark:opacity-25">
                   <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
                     <svg
                       viewBox="0 0 400 400"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-full h-full text-cyan-500/40 dark:text-cyan-400/45"
+                      className="w-full h-full text-cyan-500/30 dark:text-cyan-400/35"
                     >
                       {/* Outer Tech Coordinate Rings */}
                       <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1" strokeDasharray="6 8" />
@@ -214,7 +214,7 @@ export default function Hero() {
                     </svg>
                   </div>
                   {/* Ambient Marvel Core Glow */}
-                  <div className="absolute inset-16 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 blur-2xl" />
+                  <div className="absolute inset-16 rounded-full bg-cyan-500/5 dark:bg-cyan-500/5 blur-xl" />
                 </div>
 
                 {/* Interactive Superhero Profile Avatar - Smooth Crossfade & Auto-Reset on Mouse Leave */}
@@ -233,7 +233,7 @@ export default function Hero() {
                 >
                   {/* Dynamic Ambient Glowing Halo */}
                   <div
-                    className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-xl group-hover:opacity-95 transition-all duration-500 animate-pulse`}
+                    className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-25 blur-lg group-hover:opacity-50 transition-all duration-500 animate-pulse`}
                   />
 
                   {/* Avatar Border Ring with Smooth Crossfade Layers */}
