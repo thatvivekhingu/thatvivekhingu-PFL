@@ -149,11 +149,11 @@ export const VIAN_AGENT_TOOLS = [
               "hackathons",
               "contact",
             ],
-            description: "The target section on the portfolio.",
+            description: "The section anchor ID to scroll/navigate to.",
           },
           reason: {
             type: "string",
-            description: "Brief reason why user is navigated to this section.",
+            description: "Reason for navigating to this section.",
           },
         },
         required: ["section"],
@@ -161,6 +161,33 @@ export const VIAN_AGENT_TOOLS = [
     },
   },
 ];
+
+/**
+ * Direct Message Sender Handler
+ */
+export function executeDirectMessageSender(params: {
+  name: string;
+  email: string;
+  subject?: string;
+  message: string;
+}): AgentToolResult {
+  const { name, email, subject = "Portfolio Collaboration Inquiry", message } = params;
+
+  return {
+    toolName: "send_direct_message",
+    success: true,
+    data: `Direct message drafted from ${name} (${email}) for Vivek Hingu: "${subject}".`,
+    actionPayload: {
+      id: `act-dm-${Date.now()}`,
+      toolName: "send_direct_message",
+      actionType: "email",
+      title: `✉️ Direct Message: ${subject}`,
+      data: { name, email, subject, message },
+      link: `mailto:hinguvivek05@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Hi Vivek,\n\nFrom: ${name} (${email})\n\n${message}`)}`,
+      linkText: "Send to Vivek",
+    },
+  };
+}
 
 /**
  * 1. Web Search Execution Handler
@@ -430,6 +457,13 @@ export async function dispatchAgentToolCall(
         recipient: args.recipient ? String(args.recipient) : undefined,
         subject: String(args.subject || "No Subject"),
         body: String(args.body || ""),
+      });
+    case "send_direct_message":
+      return executeDirectMessageSender({
+        name: String(args.name || "Visitor"),
+        email: String(args.email || "visitor@example.com"),
+        subject: args.subject ? String(args.subject) : undefined,
+        message: String(args.message || ""),
       });
     case "execute_math_or_code":
       return executeMathAndCode({

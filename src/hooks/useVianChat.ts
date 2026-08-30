@@ -3,6 +3,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { VianMessageItem } from "./useVianSessions";
 import type { UserMemoryItem } from "@/lib/vian/memory-engine";
+import type { VianToolAction } from "@/lib/vian/agent-tools";
+import type { AgentTraceStep } from "@/lib/vian/multi-agent";
 
 const MEMORY_STORAGE_KEY = "vian_user_memory_v1";
 
@@ -125,7 +127,7 @@ export function useVianChat({
         const traceHeader = response.headers.get("x-vian-trace");
         const newMemoriesHeader = response.headers.get("x-vian-new-memories");
 
-        let actions = [];
+        let actions: VianToolAction[] = [];
         if (actionsHeader) {
           try {
             actions = JSON.parse(decodeURIComponent(actionsHeader));
@@ -134,7 +136,7 @@ export function useVianChat({
           }
         }
 
-        let trace = [];
+        let trace: AgentTraceStep[] = [];
         if (traceHeader) {
           try {
             trace = JSON.parse(decodeURIComponent(traceHeader));

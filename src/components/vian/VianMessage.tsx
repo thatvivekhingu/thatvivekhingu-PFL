@@ -146,16 +146,7 @@ function MarkdownContent({ content }: { content: string }) {
           const codeLang = lines[0].replace("```", "").trim() || "code";
           const codeText = lines.slice(1, lines.length - 1).join("\n");
 
-          return (
-            <div key={idx} className="my-2 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 font-mono text-[11px]">
-              <div className="flex items-center justify-between border-b border-zinc-800/80 bg-zinc-900/60 px-3 py-1 text-[10px] text-zinc-400">
-                <span>{codeLang}</span>
-              </div>
-              <pre className="overflow-x-auto p-3 text-zinc-300">
-                <code>{codeText}</code>
-              </pre>
-            </div>
-          );
+          return <VianCodeArtifact key={idx} code={codeText} language={codeLang} />;
         }
 
         // List item handling
@@ -407,5 +398,54 @@ function VianAgentWorkflowTrace({ trace }: { trace: AgentTraceStep[] }) {
     </div>
   );
 }
+
+function VianCodeArtifact({
+  code,
+  language,
+}: {
+  code: string;
+  language: string;
+}) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <div className="my-2.5 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950/90 font-mono text-[11px] shadow-xs">
+      <div className="flex items-center justify-between border-b border-zinc-800/80 bg-zinc-900/80 px-3 py-1.5 text-[10px] text-zinc-400">
+        <span className="font-semibold text-cyan-400 uppercase tracking-wider">
+          {language || "CODE"}
+        </span>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="inline-flex items-center gap-1 rounded bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-300 hover:bg-zinc-700 hover:text-white transition-colors cursor-pointer"
+        >
+          {copied ? (
+            <>
+              <IconCheck className="h-3 w-3 text-emerald-400" />
+              <span className="text-emerald-400">Copied</span>
+            </>
+          ) : (
+            <>
+              <IconCopy className="h-3 w-3" />
+              <span>Copy Code</span>
+            </>
+          )}
+        </button>
+      </div>
+      <pre className="overflow-x-auto p-3.5 text-zinc-200 leading-relaxed font-mono">
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
 
 
