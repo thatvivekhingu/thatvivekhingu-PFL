@@ -6,7 +6,6 @@ import { playTapSound } from "@/lib/sound";
 import { useVianSessions } from "@/hooks/useVianSessions";
 import { useVianChat } from "@/hooks/useVianChat";
 import { useAutoScroll } from "@/hooks/useAutoScroll";
-import { IconWifi, IconBattery4 } from "@tabler/icons-react";
 
 import { VianHeader } from "./VianHeader";
 import { VianHistory } from "./VianHistory";
@@ -189,125 +188,97 @@ export function VianAssistant() {
 
   return (
     <>
-      {/* iPhone 17 Pro Max Interactive Phone Modal */}
+      {/* Futuristic Jarvis Command Center Modal */}
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-hidden">
-            {/* Dimmed Backdrop */}
+            {/* Dimmed Glassmorphic Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleClose}
-              className="fixed inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-md cursor-pointer"
+              className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md cursor-pointer"
             />
 
-            {/* iPhone 17 Pro Max Device Frame Container */}
+            {/* Sleek Glassmorphic Floating Panel Container */}
             <motion.div
               ref={phoneContainerRef}
-              initial={{ opacity: 0, scale: 0.85, y: 30 }}
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.85, y: 30 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative z-10 flex flex-col overflow-hidden rounded-[46px] sm:rounded-[54px] border-[7px] sm:border-[9px] border-slate-300 dark:border-neutral-700 bg-slate-900 dark:bg-neutral-950 p-2 sm:p-2.5 shadow-2xl ring-1 ring-black/10 dark:ring-white/15 w-full max-w-[400px] sm:max-w-[420px] h-[85vh] max-h-[780px] min-h-[580px]"
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ type: "spring", damping: 26, stiffness: 320 }}
+              className="relative z-10 flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-cyan-500/30 dark:border-cyan-500/40 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl shadow-[0_0_60px_-15px_rgba(6,182,212,0.3)] ring-1 ring-white/10 w-full max-w-[620px] h-[82vh] max-h-[740px] min-h-[520px]"
             >
-              {/* Phone Inner Screen Display */}
-              <div className="relative flex flex-col flex-1 w-full h-full overflow-hidden rounded-[36px] sm:rounded-[44px] bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 shadow-inner">
-                
-                {/* iPhone Status Bar & Dynamic Island */}
-                <div className="relative shrink-0 w-full pt-1.5 px-6 flex items-center justify-between text-[11px] font-semibold text-slate-800 dark:text-zinc-200 z-30 select-none">
-                  {/* Left Clock */}
-                  <span className="font-mono tracking-tight text-slate-800 dark:text-zinc-200">9:41</span>
+              {/* Header Navbar */}
+              <VianHeader
+                onNewChat={handleNewChat}
+                onToggleHistory={() => {
+                  setIsHistoryOpen((prev) => !prev);
+                  setIsMemoryOpen(false);
+                }}
+                onClose={handleClose}
+                isHistoryOpen={isHistoryOpen}
+                soundEnabled={soundEnabled}
+                onToggleSound={() => setSoundEnabled((prev) => !prev)}
+                memoryCount={userMemories.length}
+                onToggleMemory={() => {
+                  setIsMemoryOpen((prev) => !prev);
+                  setIsHistoryOpen(false);
+                }}
+                isMemoryOpen={isMemoryOpen}
+              />
 
-                  {/* Dynamic Island Notch Center */}
-                  <div className="h-5 sm:h-5.5 w-24 sm:w-26 rounded-full bg-black flex items-center justify-between px-2 mx-auto shadow-sm">
-                    <span className="h-2.5 w-2.5 rounded-full bg-neutral-900 ring-1 ring-neutral-800" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/80 animate-pulse" />
-                  </div>
+              {/* History Drawer Sidebar Overlay */}
+              <VianHistory
+                isOpen={isHistoryOpen}
+                onClose={() => setIsHistoryOpen(false)}
+                activeSessionId={activeSessionId}
+                onSelectSession={(id) => {
+                  setActiveSessionId(id);
+                  setIsHistoryOpen(false);
+                }}
+                groupedSessions={groupedSessions}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                onNewChat={handleNewChat}
+                onRenameSession={renameSession}
+                onDeleteSession={deleteSession}
+                onClearAll={clearAllSessions}
+              />
 
-                  {/* Right Status Icons */}
-                  <div className="flex items-center gap-1.5 text-slate-700 dark:text-zinc-300">
-                    <span className="text-[9px] font-mono font-bold">5G</span>
-                    <IconWifi className="h-3 w-3" />
-                    <IconBattery4 className="h-3.5 w-3.5" />
-                  </div>
-                </div>
+              {/* Jarvis Memory Bank Modal */}
+              <VianMemoryModal
+                isOpen={isMemoryOpen}
+                onClose={() => setIsMemoryOpen(false)}
+                memories={userMemories}
+                onClearAll={clearUserMemories}
+                onRemoveMemory={removeUserMemory}
+              />
 
-                {/* Header Navbar */}
-                <VianHeader
-                  onNewChat={handleNewChat}
-                  onToggleHistory={() => {
-                    setIsHistoryOpen((prev) => !prev);
-                    setIsMemoryOpen(false);
-                  }}
-                  onClose={handleClose}
-                  isHistoryOpen={isHistoryOpen}
-                  soundEnabled={soundEnabled}
-                  onToggleSound={() => setSoundEnabled((prev) => !prev)}
-                  memoryCount={userMemories.length}
-                  onToggleMemory={() => {
-                    setIsMemoryOpen((prev) => !prev);
-                    setIsHistoryOpen(false);
-                  }}
-                  isMemoryOpen={isMemoryOpen}
-                />
-
-                {/* History Drawer Sidebar Overlay */}
-                <VianHistory
-                  isOpen={isHistoryOpen}
-                  onClose={() => setIsHistoryOpen(false)}
-                  activeSessionId={activeSessionId}
-                  onSelectSession={(id) => {
-                    setActiveSessionId(id);
-                    setIsHistoryOpen(false);
-                  }}
-                  groupedSessions={groupedSessions}
-                  searchQuery={searchQuery}
-                  onSearchChange={setSearchQuery}
-                  onNewChat={handleNewChat}
-                  onRenameSession={renameSession}
-                  onDeleteSession={deleteSession}
-                  onClearAll={clearAllSessions}
-                />
-
-                {/* Jarvis Memory Bank Modal */}
-                <VianMemoryModal
-                  isOpen={isMemoryOpen}
-                  onClose={() => setIsMemoryOpen(false)}
-                  memories={userMemories}
-                  onClearAll={clearUserMemories}
-                  onRemoveMemory={removeUserMemory}
-                />
-
-                {/* Main Chat Screen View */}
-                <div className="relative flex flex-1 flex-col overflow-hidden bg-slate-50 dark:bg-zinc-950">
-                  {messages.length === 0 ? (
-                    <VianEmptyState onSelectPrompt={handleSendPrompt} />
-                  ) : (
-                    <VianMessageList
-                      messages={messages}
-                      isGenerating={isGenerating}
-                      endRef={endRef}
-                      onRegenerate={regenerateLastMessage}
-                    />
-                  )}
-                </div>
-
-                {/* Input Footer */}
-                <VianInput
-                  onSend={handleSendPrompt}
-                  onStop={stopGeneration}
-                  isGenerating={isGenerating}
-                  isListening={isListening}
-                  onToggleVoice={toggleVoiceInput}
-                  isSpeaking={isSpeaking}
-                />
-
-                {/* iPhone Bottom Home Indicator Bar */}
-                <div className="shrink-0 pt-1 pb-1 flex justify-center bg-slate-50 dark:bg-zinc-950">
-                  <div className="w-32 h-1 bg-slate-400 dark:bg-neutral-700 rounded-full" />
-                </div>
+              {/* Main Chat Screen View */}
+              <div className="relative flex flex-1 flex-col overflow-hidden bg-slate-50/50 dark:bg-zinc-950/50">
+                {messages.length === 0 ? (
+                  <VianEmptyState onSelectPrompt={handleSendPrompt} />
+                ) : (
+                  <VianMessageList
+                    messages={messages}
+                    isGenerating={isGenerating}
+                    endRef={endRef}
+                    onRegenerate={regenerateLastMessage}
+                  />
+                )}
               </div>
+
+              {/* Input Footer */}
+              <VianInput
+                onSend={handleSendPrompt}
+                onStop={stopGeneration}
+                isGenerating={isGenerating}
+                isListening={isListening}
+                onToggleVoice={toggleVoiceInput}
+                isSpeaking={isSpeaking}
+              />
             </motion.div>
           </div>
         )}
