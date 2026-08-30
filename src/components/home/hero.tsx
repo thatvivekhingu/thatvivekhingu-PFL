@@ -26,11 +26,9 @@ interface AvatarCharacter {
   id: string;
   name: string;
   badge: string;
-  icon: string;
   src: string | StaticImageData;
   borderColor: string;
   shadowColor: string;
-  badgeBorder: string;
   badgeText: string;
   haloGradient: string;
 }
@@ -40,108 +38,90 @@ const HERO_AVATARS: AvatarCharacter[] = [
     id: "default",
     name: "Vivek Hingu",
     badge: "AI / ML",
-    icon: "⚡",
     src: profilePic,
     borderColor: "border-cyan-400/60",
     shadowColor: "shadow-[0_0_40px_rgba(34,211,238,0.45)]",
-    badgeBorder: "border-cyan-400/60 text-cyan-300",
-    badgeText: "text-cyan-300",
+    badgeText: "text-cyan-400",
     haloGradient: "from-cyan-500 via-sky-400 to-indigo-500",
   },
   {
     id: "ironman",
     name: "Iron Man",
-    badge: "IRON MAN",
-    icon: "🦾",
+    badge: "Iron Man",
     src: "/avatars/ironman.jpg",
     borderColor: "border-red-500/90",
     shadowColor: "shadow-[0_0_45px_rgba(239,68,68,0.6)]",
-    badgeBorder: "border-amber-400/80 text-amber-300",
-    badgeText: "text-amber-300",
+    badgeText: "text-amber-400",
     haloGradient: "from-red-500 via-amber-500 to-yellow-400",
   },
   {
     id: "spiderman",
     name: "Spider-Man",
-    badge: "SPIDER-MAN",
-    icon: "🕷️",
+    badge: "Spider-Man",
     src: "/avatars/spiderman.jpg",
     borderColor: "border-red-500/90",
     shadowColor: "shadow-[0_0_45px_rgba(239,68,68,0.6)]",
-    badgeBorder: "border-red-500/80 text-red-400",
     badgeText: "text-red-400",
     haloGradient: "from-red-600 via-rose-500 to-blue-600",
   },
   {
     id: "deadpool",
     name: "Deadpool",
-    badge: "DEADPOOL",
-    icon: "⚔️",
+    badge: "Deadpool",
     src: "/avatars/deadpool.jpg",
     borderColor: "border-red-600/90",
     shadowColor: "shadow-[0_0_45px_rgba(220,38,38,0.65)]",
-    badgeBorder: "border-red-600/90 text-red-400",
     badgeText: "text-red-400",
     haloGradient: "from-red-600 via-rose-700 to-zinc-900",
   },
   {
     id: "wolverine",
     name: "Wolverine",
-    badge: "WOLVERINE",
-    icon: "🐺",
+    badge: "Wolverine",
     src: "/avatars/wolverine.jpg",
     borderColor: "border-amber-400/90",
     shadowColor: "shadow-[0_0_45px_rgba(251,191,36,0.65)]",
-    badgeBorder: "border-amber-400/90 text-amber-300",
     badgeText: "text-amber-300",
     haloGradient: "from-amber-400 via-yellow-500 to-blue-700",
   },
   {
     id: "blackpanther",
     name: "Black Panther",
-    badge: "BLACK PANTHER",
-    icon: "🐆",
+    badge: "Black Panther",
     src: "/avatars/blackpanther.jpg",
     borderColor: "border-purple-500/90",
     shadowColor: "shadow-[0_0_45px_rgba(168,85,247,0.6)]",
-    badgeBorder: "border-purple-400/80 text-purple-300",
-    badgeText: "text-purple-300",
+    badgeText: "text-purple-400",
     haloGradient: "from-purple-600 via-indigo-500 to-slate-900",
   },
   {
     id: "thor",
     name: "Thor",
-    badge: "THOR",
-    icon: "⚡",
+    badge: "Thor",
     src: "/avatars/thor.jpg",
     borderColor: "border-sky-400/90",
     shadowColor: "shadow-[0_0_45px_rgba(56,189,248,0.6)]",
-    badgeBorder: "border-sky-400/80 text-sky-300",
-    badgeText: "text-sky-300",
+    badgeText: "text-sky-400",
     haloGradient: "from-sky-400 via-blue-500 to-red-600",
   },
   {
     id: "drstrange",
     name: "Doctor Strange",
-    badge: "DR. STRANGE",
-    icon: "🔮",
+    badge: "Doctor Strange",
     src: "/avatars/drstrange.jpg",
     borderColor: "border-amber-500/90",
     shadowColor: "shadow-[0_0_45px_rgba(245,158,11,0.6)]",
-    badgeBorder: "border-amber-400/80 text-amber-300",
-    badgeText: "text-amber-300",
+    badgeText: "text-amber-400",
     haloGradient: "from-amber-500 via-orange-600 to-red-700",
   },
   {
     id: "vision",
     name: "Vision",
-    badge: "VISION",
-    icon: "💎",
+    badge: "Vision",
     src: "/avatars/vision.jpg",
     borderColor: "border-teal-400/90",
     shadowColor: "shadow-[0_0_45px_rgba(45,212,191,0.6)]",
-    badgeBorder: "border-teal-400/80 text-teal-300",
-    badgeText: "text-teal-300",
+    badgeText: "text-teal-400",
     haloGradient: "from-teal-400 via-emerald-600 to-rose-700",
   },
 ];
@@ -232,14 +212,15 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Interactive Superhero Profile Avatar - Cycles sequentially on Click / Touch */}
+              {/* Interactive Superhero Profile Avatar - Changes on Cursor Hover or Touch */}
               <div
                 className="group relative z-50 cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 select-none"
                 onClick={handleAvatarClick}
+                onMouseEnter={handleAvatarClick}
                 onTouchStart={handleAvatarClick}
                 role="button"
                 tabIndex={0}
-                aria-label={`Current Avatar: ${currentAvatar.name}. Tap to switch avatar character.`}
+                aria-label={`Current Persona: ${currentAvatar.name}`}
               >
                 {/* Dynamic Ambient Glowing Halo */}
                 <div
@@ -268,29 +249,17 @@ export default function Hero() {
                       />
                     </motion.div>
                   </AnimatePresence>
-
-                  {/* Character Hero Badge (e.g. AI / ML, IRON MAN, SPIDER-MAN, etc.) */}
-                  <div
-                    className={`absolute bottom-2.5 sm:bottom-3 inset-x-0 mx-auto w-max px-3.5 py-1 rounded-full bg-black/90 backdrop-blur-md border transition-all duration-300 text-[10px] sm:text-xs font-black tracking-widest uppercase z-20 flex items-center justify-center gap-1.5 shadow-lg ${currentAvatar.badgeBorder}`}
-                  >
-                    <span>{currentAvatar.icon}</span>
-                    <span>{currentAvatar.badge}</span>
-                  </div>
-                </div>
-
-                {/* Interactive Tap Hint Pill */}
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none px-3 py-0.5 rounded-full bg-zinc-950/90 border border-cyan-400/40 text-[10px] font-mono font-bold text-cyan-300 shadow-xl whitespace-nowrap z-30">
-                  Tap to swap ({avatarIdx + 1}/{HERO_AVATARS.length})
                 </div>
               </div>
 
-              {/* Character Name Label under Avatar */}
-              <div className="mt-2.5 flex items-center justify-center gap-1.5 text-xs font-mono font-bold tracking-wide text-zinc-400 select-none z-50">
-                <span className="text-zinc-500">Avatar:</span>
-                <span className={`font-black ${currentAvatar.badgeText}`}>
+              {/* Character Name Label under Avatar - Small, Clean, No Background, No Emoji */}
+              <div className="mt-2 text-center text-xs font-mono font-medium tracking-wide text-zinc-400 select-none z-50">
+                <span className={currentAvatar.badgeText}>
                   {currentAvatar.name}
                 </span>
-                <span className="text-[10px] text-zinc-600">({avatarIdx + 1}/{HERO_AVATARS.length})</span>
+                <span className="text-zinc-600 text-[10px] ml-1.5">
+                  ({avatarIdx + 1}/{HERO_AVATARS.length})
+                </span>
               </div>
 
               <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-4">
