@@ -129,12 +129,16 @@ export const Footer = () => {
                           setTimeout(refetchStars, 1500);
                         }}
                         aria-label="Star this site's repository on GitHub"
-                        className="group mt-6 inline-flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
+                        className="group mt-8 relative inline-flex items-center gap-2.5 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 backdrop-blur-md text-xs sm:text-sm md:text-base font-semibold text-foreground hover:border-amber-500/60 hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                     >
-                        <IconBrandGithub className="h-4 w-4" />
-                        <span>એક કામ કર, સ્ટાર આપતો જા… બપોરની ચા મારી તરફથી ☕</span>
-                        <IconStar className="h-3.5 w-3.5 transition-colors group-hover:text-amber-400 group-hover:animate-spin-grow" />
-                        <span className="tabular-nums font-medium">{stars}</span>
+                        <IconBrandGithub className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                        <span className="tracking-tight whitespace-nowrap">
+                          એક કામ કર, સ્ટાર આપતો જા… બપોરની ચા મારી તરફથી ☕
+                        </span>
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-xs sm:text-sm font-bold text-amber-400 group-hover:bg-amber-500/25 shrink-0 ml-1">
+                          <IconStar className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-amber-400 fill-amber-400 group-hover:animate-spin-grow" />
+                          <span className="tabular-nums font-mono">{stars}</span>
+                        </span>
                     </a>
                 </div>
 
