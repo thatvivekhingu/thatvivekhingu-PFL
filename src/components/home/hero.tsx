@@ -192,18 +192,81 @@ export default function Hero() {
         <BlurFade delay={0.005} inView>
           <div className="relative flex-col space-y-1">
             <div className="relative flex flex-col items-center justify-center">
+              {/* Marvel Stark Industries & Avengers Arc Reactor Background HUD Watermark */}
+              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] sm:w-[640px] sm:h-[640px] pointer-events-none z-0 select-none flex items-center justify-center opacity-35 dark:opacity-40">
+                {/* Slow Rotating Marvel Avengers Arc Reactor HUD */}
+                <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
+                  <svg
+                    viewBox="0 0 400 400"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-full h-full text-cyan-500/40 dark:text-cyan-400/45"
+                  >
+                    {/* Outer Tech Coordinate Rings */}
+                    <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1" strokeDasharray="6 8" />
+                    <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
+                    <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1" strokeDasharray="16 6" />
+                    <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" opacity="0.8" />
+                    <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1" strokeDasharray="8 12" />
+                    <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+
+                    {/* Radial Arc Reactor Notches */}
+                    {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+                      <line
+                        key={deg}
+                        x1="200"
+                        y1="10"
+                        x2="200"
+                        y2="28"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        transform={`rotate(${deg} 200 200)`}
+                      />
+                    ))}
+
+                    {/* Iconic Avengers 'A' Logo Embedded at Center */}
+                    <g transform="translate(100, 100) scale(1)">
+                      {/* Outer Ring of the A */}
+                      <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3" strokeDasharray="140 30" opacity="0.85" />
+                      
+                      {/* Avengers Arrow / Crossbar */}
+                      <path
+                        d="M30 115 L160 115 L145 95 L25 95 Z"
+                        fill="currentColor"
+                        opacity="0.85"
+                      />
+                      <polygon
+                        points="155,90 185,105 155,120"
+                        fill="currentColor"
+                      />
+                      
+                      {/* Stylized 'A' Stems */}
+                      <polygon
+                        points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145"
+                        fill="currentColor"
+                      />
+                    </g>
+                  </svg>
+                </div>
+
+                {/* Ambient Marvel Core Glow */}
+                <div className="absolute inset-20 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 blur-3xl" />
+              </div>
+
               {/* High-Tech Angled Double Marquee Ribbons Centered Directly Behind DP Avatar */}
               <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-72 select-none opacity-90">
                 {/* Cyan/Teal Angled Ribbon (-3.5deg) - Thicker & Bold Black Text */}
                 <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/60">
                   <Marquee repeat={6} className="[--duration:26s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-                    <span>VIVEK HINGU // AI & MACHINE LEARNING ENGINEER</span>
+                    <span>VIVEK HINGU // AI & ML ENGINEER</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>JARVIS & AGENTIC AI</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>STARK TECH ARCHITECTURE</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
                     <span>AUTONOMOUS AGENTS</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
-                    <span>NEURAL ARCHITECTURES</span>
-                    <span className="mx-3 text-zinc-950 font-black">•</span>
-                    <span>GROK API & LLMS</span>
+                    <span>NEURAL NETWORKS</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
                     <span>DATA SCIENCE & PYTHON</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
@@ -215,13 +278,15 @@ export default function Hero() {
                   <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                     <span>BHARATBHASHA AI</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>AVENGERS INITIATIVE</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
                     <span>REAL-TIME STREAMING</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
                     <span>HACKATHON WINNER</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
                     <span>DISRUPT & DEPLOY</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
-                    <span>SYSTEM ARCHITECTURE</span>
+                    <span>QUANTUM ARCHITECTURE</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
                   </Marquee>
                 </div>
