@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { IconCopy, IconCheck, IconRefresh } from "@tabler/icons-react";
+import {
+  IconCopy,
+  IconCheck,
+  IconRefresh,
+  IconCalendarEvent,
+  IconMail,
+  IconWorld,
+  IconCalculator,
+  IconCompass,
+  IconExternalLink,
+} from "@tabler/icons-react";
 import { VianMessageItem } from "@/hooks/useVianSessions";
+import type { VianToolAction } from "@/lib/vian/agent-tools";
 
 interface VianMessageProps {
   message: VianMessageItem;
@@ -54,6 +65,15 @@ export function VianMessage({
             {/* Assistant Body Container */}
             <div className="w-full rounded-2xl rounded-tl-sm border border-slate-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 px-4 py-3 text-xs text-slate-900 dark:text-zinc-200 leading-relaxed shadow-sm">
               <MarkdownContent content={message.content} />
+
+              {/* Render Tool Action Cards if any */}
+              {message.actions && message.actions.length > 0 && (
+                <div className="mt-3 space-y-2 border-t border-slate-100 dark:border-zinc-800/60 pt-2.5">
+                  {message.actions.map((act) => (
+                    <VianActionCard key={act.id} action={act} />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Assistant Action Buttons */}
@@ -188,3 +208,154 @@ function formatInlineMarkdown(text: string): React.ReactNode {
     return part;
   });
 }
+
+function VianActionCard({ action }: { action: VianToolAction }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (text: string) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleNavigate = (section: string) => {
+    const el = document.getElementById(section);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  switch (action.actionType) {
+    case "calendar": {
+      const data = action.data as {
+        title?: string;
+        startDate?: string;
+        startTime?: string;
+        duration?: string;
+        location?: string;
+      };
+      return (
+        <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 dark:bg-amber-950/20 p-3 text-xs space-y-2">
+          <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-semibold">
+            <IconCalendarEvent className="h-4 w-4 shrink-0" />
+            <span>{action.title}</span>
+          </div>
+          <div className="text-[11px] text-zinc-600 dark:text-zinc-300 space-y-0.5 pl-6">
+            {data.startDate && (
+              <div>
+                📅 Date: {data.startDate} at {data.startTime} ({data.duration})
+              </div>
+            )}
+            {data.location && <div>📍 Location: {data.location}</div>}
+          </div>
+          {action.link && (
+            <div className="pt-1 pl-6">
+              <a
+                href={action.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white dark:text-black font-medium px-3 py-1.5 text-[11px] transition-colors shadow-sm"
+              >
+                <span>{action.linkText || "Add to Google Calendar"}</span>
+                <IconExternalLink className="h-3 w-3" />
+              </a>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    case "email": {
+      const data = action.data as {
+        recipient?: string;
+        subject?: string;
+        body?: string;
+      };
+      return (
+        <div className="rounded-xl border border-indigo-500/30 bg-indigo-500/5 dark:bg-indigo-950/20 p-3 text-xs space-y-2">
+          <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold">
+            <IconMail className="h-4 w-4 shrink-0" />
+            <span>{action.title}</span>
+          </div>
+          <div className="text-[11px] text-zinc-600 dark:text-zinc-300 space-y-1 pl-6">
+            <div>
+              <span className="text-zinc-500">To:</span> {data.recipient}
+            </div>
+            <div>
+              <span className="text-zinc-500">Subject:</span> {data.subject}
+            </div>
+          </div>
+          <div className="flex items-center gap-2 pt-1 pl-6">
+            {action.link && (
+              <a
+                href={action.link}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-3 py-1.5 text-[11px] transition-colors shadow-sm"
+              >
+                <span>{action.linkText || "Open in Mail Client"}</span>
+                <IconExternalLink className="h-3 w-3" />
+              </a>
+            )}
+            {data.body && (
+              <button
+                type="button"
+                onClick={() => handleCopy(data.body || "")}
+                className="inline-flex items-center gap-1 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2.5 py-1.5 text-[11px] text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
+              >
+                {copied ? (
+                  <IconCheck className="h-3 w-3 text-emerald-400" />
+                ) : (
+                  <IconCopy className="h-3 w-3" />
+                )}
+                <span>{copied ? "Copied Draft" : "Copy Body"}</span>
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    case "navigation": {
+      const data = action.data as { section?: string; label?: string };
+      return (
+        <div className="flex items-center justify-between rounded-xl border border-cyan-500/30 bg-cyan-500/5 dark:bg-cyan-950/20 p-2.5 text-xs">
+          <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-medium">
+            <IconCompass className="h-4 w-4 shrink-0" />
+            <span>{action.title}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => handleNavigate(data.section || "projects")}
+            className="inline-flex items-center gap-1 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white font-medium px-2.5 py-1 text-[11px] transition-colors cursor-pointer shadow-sm"
+          >
+            <span>{action.linkText || "Jump to Section"}</span>
+            <span>↓</span>
+          </button>
+        </div>
+      );
+    }
+
+    case "calculator": {
+      return (
+        <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-950/20 px-3 py-2 text-[11px] text-emerald-600 dark:text-emerald-400 font-mono">
+          <IconCalculator className="h-4 w-4 shrink-0" />
+          <span>{action.title}</span>
+        </div>
+      );
+    }
+
+    case "web_search": {
+      return (
+        <div className="flex items-center gap-2 rounded-lg border border-sky-500/30 bg-sky-500/5 dark:bg-sky-950/20 px-3 py-1.5 text-[11px] text-sky-600 dark:text-sky-400">
+          <IconWorld className="h-3.5 w-3.5 shrink-0" />
+          <span>{action.title}</span>
+        </div>
+      );
+    }
+
+    default:
+      return null;
+  }
+}
+

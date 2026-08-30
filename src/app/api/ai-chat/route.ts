@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { routeQueryToSpecialistAgent } from "@/lib/vian/multi-agent";
-import { executeWebSearch } from "@/lib/vian/agent-tools";
+import {
+  executeWebSearch,
+  dispatchAgentToolCall,
+  VIAN_AGENT_TOOLS,
+  type VianToolAction,
+} from "@/lib/vian/agent-tools";
 import { checkRateLimit, getClientIdentifier } from "@/lib/server/rate-limiter";
 import { ServerLogger } from "@/lib/server/logger";
 import { retrieveRelevantKnowledge } from "@/data/vian-knowledge";
@@ -135,17 +140,19 @@ export async function POST(req: Request) {
 
     const finalSystemInstruction = agentAugmentedPrompt + searchContext;
 
-    // 1. Primary LLM Engine: Groq API (qwen/qwen3.8-27b)
+    // 1. Primary LLM Engine: Groq API with Native Tool Calling (qwen/qwen3.8-27b)
+    const executedActions: VianToolAction[] = [];
+
     if (GROQ_API_KEY) {
       try {
-        ServerLogger.info("AiChatAPI", "[VIAN] Calling Groq API (qwen/qwen3.8-27b)...");
+        ServerLogger.info("AiChatAPI", "[VIAN] Calling Groq API with Agentic Tools (qwen/qwen3.8-27b)...");
 
         const formattedHistory = (history as Array<{ role?: string; sender?: string; content?: string; text?: string }>).map((h) => ({
           role: (h.role || h.sender) === "user" ? "user" : "assistant",
           content: h.content || h.text || "",
         }));
 
-        const messages = [
+        const messages: Array<Record<string, unknown>> = [
           { role: "system", content: finalSystemInstruction },
           ...formattedHistory,
           { role: "user", content: message },
@@ -160,18 +167,76 @@ export async function POST(req: Request) {
           body: JSON.stringify({
             model: "qwen/qwen3.8-27b",
             messages,
+            tools: VIAN_AGENT_TOOLS,
+            tool_choice: "auto",
             temperature: 0.3,
-            max_tokens: 1000,
+            max_tokens: 1200,
           }),
-          signal: AbortSignal.timeout(10000),
+          signal: AbortSignal.timeout(12000),
         });
 
         if (groqRes.ok) {
           const json = await groqRes.json();
-          const candidateText = json.choices?.[0]?.message?.content;
-          if (candidateText) {
-            fullResponse = candidateText;
-            ServerLogger.info("AiChatAPI", "[VIAN] Groq response received successfully.");
+          const choice = json.choices?.[0];
+          const choiceMessage = choice?.message;
+
+          // Check if LLM requested tool execution
+          if (choiceMessage?.tool_calls && Array.isArray(choiceMessage.tool_calls) && choiceMessage.tool_calls.length > 0) {
+            ServerLogger.info("AiChatAPI", `[VIAN] LLM triggered ${choiceMessage.tool_calls.length} tool calls.`);
+
+            // Add the assistant's tool-call request to messages chain
+            messages.push(choiceMessage);
+
+            for (const toolCall of choiceMessage.tool_calls) {
+              const toolName = toolCall.function?.name;
+              let parsedArgs = {};
+              try {
+                parsedArgs = JSON.parse(toolCall.function?.arguments || "{}");
+              } catch (e) {
+                ServerLogger.warn("AiChatAPI", `Failed to parse tool args for ${toolName}:`, e);
+              }
+
+              ServerLogger.info("AiChatAPI", `[VIAN] Executing tool: ${toolName}`, parsedArgs);
+              const toolResult = await dispatchAgentToolCall(toolName, parsedArgs);
+
+              if (toolResult.actionPayload) {
+                executedActions.push(toolResult.actionPayload);
+              }
+
+              messages.push({
+                role: "tool",
+                tool_call_id: toolCall.id,
+                content: toolResult.data,
+              });
+            }
+
+            // Follow-up request to synthesize final response with tool outputs
+            const followUpRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${GROQ_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "qwen/qwen3.8-27b",
+                messages,
+                temperature: 0.3,
+                max_tokens: 1200,
+              }),
+              signal: AbortSignal.timeout(12000),
+            });
+
+            if (followUpRes.ok) {
+              const followUpJson = await followUpRes.json();
+              const finalFollowUpText = followUpJson.choices?.[0]?.message?.content;
+              if (finalFollowUpText) {
+                fullResponse = finalFollowUpText;
+                ServerLogger.info("AiChatAPI", "[VIAN] Tool-augmented response synthesized successfully.");
+              }
+            }
+          } else if (choiceMessage?.content) {
+            fullResponse = choiceMessage.content;
+            ServerLogger.info("AiChatAPI", "[VIAN] Direct response received successfully.");
           }
         } else {
           const errText = await groqRes.text().catch(() => "");
@@ -271,12 +336,14 @@ export async function POST(req: Request) {
         headers: {
           "Content-Type": "text/plain; charset=utf-8",
           "Cache-Control": "no-cache",
+          "x-vian-actions": encodeURIComponent(JSON.stringify(executedActions)),
         },
       });
     }
 
     return NextResponse.json({
       response: fullResponse,
+      actions: executedActions,
     });
   } catch (error) {
     ServerLogger.error("AiChatAPI", "Unhandled exception in /api/ai-chat:", error);

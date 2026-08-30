@@ -84,6 +84,16 @@ export function useVianChat({
         }
 
         const contentType = response.headers.get("content-type") || "";
+        const actionsHeader = response.headers.get("x-vian-actions");
+
+        let actions = [];
+        if (actionsHeader) {
+          try {
+            actions = JSON.parse(decodeURIComponent(actionsHeader));
+          } catch (e) {
+            console.warn("Failed to parse x-vian-actions header:", e);
+          }
+        }
 
         let accumulatedText = "";
 
@@ -93,8 +103,15 @@ export function useVianChat({
             throw new Error(json.error);
           }
           accumulatedText = json.response || json.reply || "No response received.";
+          if (json.actions && Array.isArray(json.actions)) {
+            actions = json.actions;
+          }
           setMessages((prev) =>
-            prev.map((m) => (m.id === assistantMsgId ? { ...m, content: accumulatedText } : m))
+            prev.map((m) =>
+              m.id === assistantMsgId
+                ? { ...m, content: accumulatedText, actions: actions.length > 0 ? actions : undefined }
+                : m
+            )
           );
         } else if (response.body) {
           const reader = response.body.getReader();
@@ -110,7 +127,9 @@ export function useVianChat({
             // Update streaming assistant message in state
             setMessages((prev) => {
               const next = prev.map((m) =>
-                m.id === assistantMsgId ? { ...m, content: accumulatedText } : m
+                m.id === assistantMsgId
+                  ? { ...m, content: accumulatedText, actions: actions.length > 0 ? actions : undefined }
+                  : m
               );
               return next;
             });
@@ -120,7 +139,11 @@ export function useVianChat({
         // Finalize completed messages
         const finalMessages = messages.concat([
           userMessage,
-          { ...assistantPlaceholder, content: accumulatedText || "No response received." },
+          {
+            ...assistantPlaceholder,
+            content: accumulatedText || "No response received.",
+            actions: actions.length > 0 ? actions : undefined,
+          },
         ]);
         onMessagesChange(sessionId, finalMessages);
       } catch (err: unknown) {

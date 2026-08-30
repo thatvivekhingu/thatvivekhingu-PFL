@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import type { VianToolAction } from "@/lib/vian/agent-tools";
 
 export interface VianMessageItem {
   id: string;
@@ -8,6 +9,7 @@ export interface VianMessageItem {
   content: string;
   timestamp: number;
   isError?: boolean;
+  actions?: VianToolAction[];
 }
 
 export interface VianSession {
