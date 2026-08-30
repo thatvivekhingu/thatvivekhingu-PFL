@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -20,7 +20,7 @@ interface DayroVideo {
   id: string;
   artist: string;
   title: string;
-  category: "all" | "kirtidan" | "rajbha" | "jugalbandhi";
+  category: "comedy" | "music" | "sahitya" | "jugalbandhi";
   categoryLabel: string;
   tag: string;
   youtubeId: string;
@@ -29,6 +29,75 @@ interface DayroVideo {
 }
 
 const DAYRO_VIDEOS: DayroVideo[] = [
+  // 1. Comedy Videos (New)
+  {
+    id: "mayabhai-badhdati",
+    artist: "માયાભાઈ આહીર (Mayabhai Ahir)",
+    title: "હાસ્ય ની બધડાટી (હસવાની ૧૦૦% ગેરેંટી)",
+    category: "comedy",
+    categoryLabel: "હાસ્ય ડાયરો",
+    tag: "New Jokes",
+    youtubeId: "aE3_WjWz9tc",
+    thumbnail: "https://img.youtube.com/vi/aE3_WjWz9tc/hqdefault.jpg",
+    description: "માયાભાઈ આહીરના અસલ દેશી અંદાજમાં નોન-સ્ટોપ પેટ પકડીને હસાવતા જોક્સ.",
+  },
+  {
+    id: "sairam-hasya-varsad",
+    artist: "સાંઈરામ દવે (Sairam Dave)",
+    title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (સાંઈરામ નો હાસ્ય દરબાર)",
+    category: "comedy",
+    categoryLabel: "હાસ્ય દરબાર",
+    tag: "Full Comedy",
+    youtubeId: "9N4--Ldqhuc",
+    thumbnail: "https://img.youtube.com/vi/9N4--Ldqhuc/hqdefault.jpg",
+    description: "સાંઈરામ દવેનો જાણીતો હાસ્ય દરબાર — આધુનિક જીવન અને સમાજ પર મજેદાર કટાક્ષ.",
+  },
+  {
+    id: "hitesh-antala-jokes",
+    artist: "હિતેશ અંટાળા (Hitesh Antala)",
+    title: "સાવ નવા જથ્થાબંધ જોક્સ & હાસ્ય મહેફિલ",
+    category: "comedy",
+    categoryLabel: "હાસ્ય ડાયરો",
+    tag: "Non-Stop Jokes",
+    youtubeId: "f2vHjuiIpqQ",
+    thumbnail: "https://img.youtube.com/vi/f2vHjuiIpqQ/hqdefault.jpg",
+    description: "હિતેશ અંટાળાના અંદાજમાં કાઠિયાવાડની દેશી રમૂજ અને જથ્થાબંધ જોક્સ.",
+  },
+  {
+    id: "dhirubhai-vandripanu",
+    artist: "ધીરૂભાઈ સરવૈયા (Dhirubhai Sarvaiya)",
+    title: "વાંદરીપાનું — સુપરહિટ દેશી જોક્સ",
+    category: "comedy",
+    categoryLabel: "દેશી રમૂજ",
+    tag: "Superhit Comedy",
+    youtubeId: "FEZPU-4lMo8",
+    thumbnail: "https://img.youtube.com/vi/FEZPU-4lMo8/hqdefault.jpg",
+    description: "ધીરૂભાઈ સરવૈયાનું લોકપ્રિય 'વાંદરીપાનું' સ્પેશિયલ હાસ્ય પર્ફોર્મન્સ.",
+  },
+  {
+    id: "dhirubhai-lagan-hapta",
+    artist: "ધીરૂભાઈ સરવૈયા (Dhirubhai Sarvaiya)",
+    title: "લગન કરો હપ્તા ભરો (Lagan Karo Hapta Bharo)",
+    category: "comedy",
+    categoryLabel: "દેશી રમૂજ",
+    tag: "Family Comedy",
+    youtubeId: "p7pA36rZJiw",
+    thumbnail: "https://img.youtube.com/vi/p7pA36rZJiw/hqdefault.jpg",
+    description: "લગ્ન જીવન અને સંસારની વાતો પર ધીરૂભાઈ સરવૈયાના સદાબહાર હાસ્યના ફુવારા.",
+  },
+  {
+    id: "jitubhai-doshi-jeans",
+    artist: "જીતુભાઈ દ્વારકાવાળા (Jitubhai Dwarkawada)",
+    title: "ડોશીનું જીન્સ (Doshi Nu Jeans Comedy)",
+    category: "comedy",
+    categoryLabel: "હાસ્ય ડાયરો",
+    tag: "Viral Jokes",
+    youtubeId: "6LWx0N_MCZU",
+    thumbnail: "https://img.youtube.com/vi/6LWx0N_MCZU/hqdefault.jpg",
+    description: "જીતુભાઈ દ્વારકાવાળાની વાર્તાશૈલી અને હસાવીને લોટપોટ કરી દેતો ડાયરો.",
+  },
+
+  // 2. Dayro & Folk Videos
   {
     id: "kirtidan-rajbha-jugalbandhi",
     artist: "કીર્તિદાન ગઢવી & રાજભા ગઢવી",
@@ -44,7 +113,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     id: "rajbha-kashtriya",
     artist: "રાજભા ગઢવી (Rajbha Gadhvi)",
     title: "ક્ષત્રિયની વાત & રૂંવાડા ઊભા કરતો વીર રસ",
-    category: "rajbha",
+    category: "sahitya",
     categoryLabel: "વીર રસ & સાહિત્ય",
     tag: "Veer Ras Dayro",
     youtubeId: "LlsYNC4l0GA",
@@ -55,7 +124,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     id: "rajdan-vadodara",
     artist: "રાજદાન ગઢવી (Rajdan Gadhvi)",
     title: "સુપર હિટ લોકડાયરો (વડોદરા લાઈવ ડાયરો)",
-    category: "rajbha",
+    category: "sahitya",
     categoryLabel: "લોક સાહિત્ય & ડાયરો",
     tag: "Vadodara Live",
     youtubeId: "qW1ss5bq90A",
@@ -66,7 +135,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     id: "kirtidan-kanudo",
     artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
     title: "દેશી તાલે કાનુડાના ગીતો & રાસ",
-    category: "kirtidan",
+    category: "music",
     categoryLabel: "કાનુડાના ગીતો",
     tag: "Krishna Songs",
     youtubeId: "KpFUjNxGCbo",
@@ -77,7 +146,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     id: "kirtidan-rasiyo",
     artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
     title: "રસિયો રૂપાળો રંગરેલીયો (વેજાગામ લાઈવ)",
-    category: "kirtidan",
+    category: "music",
     categoryLabel: "લોક સંગીત & ગરબા",
     tag: "Superhit Folk",
     youtubeId: "_IMnebRMPcY",
@@ -88,7 +157,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     id: "kirtidan-dakor",
     artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
     title: "ડાકોરના ઠાકોર (અમરેલી લાઈવ પોલીસ ડાયરો)",
-    category: "kirtidan",
+    category: "music",
     categoryLabel: "ભક્તિ & ડાયરો",
     tag: "Dakor Na Thakor",
     youtubeId: "w3O3aikm4xM",
@@ -158,7 +227,7 @@ const GUJJU_RULES = [
   {
     num: "૪",
     title: "જલસાનો નિયમ",
-    desc: "કામ ગમે તેટલું હોય, પણ ડાયરો, ગરબા, મિત્રો અને પરિવાર સાથે મોજ કાયમ રહેવી જોઈએ!",
+    desc: "કામ ગમે તેટલું હોય, પણ ડાયરો, હાસ્ય, મિત્રો અને પરિવાર સાથે મોજ કાયમ રહેવી જોઈએ!",
     icon: "🎉",
   },
 ];
@@ -275,7 +344,7 @@ export default function GujjuversePage() {
           <div className="text-center space-y-6 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-widest uppercase">
               <IconSparkles className="w-4 h-4 animate-bounce" />
-              <span>અસલ ગુજરાતી સાહિત્ય & લોકડાયરો</span>
+              <span>ગુજરાતી હાસ્ય દરબાર & લોકડાયરો</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight font-sans">
@@ -286,12 +355,12 @@ export default function GujjuversePage() {
             </h1>
 
             <p className="text-base sm:text-xl text-zinc-400 font-medium leading-relaxed">
-              કોડિંગ સાથે સાચો ગુજરાતી લોકડાયરો, હાસ્ય દરબાર અને અસલ સૌરાષ્ટ્રની રંગત!
+              કોડિંગ સાથે અસલ ગુજરાતી હાસ્ય ડાયરો, દેશી જોક્સ અને લોકસંગીતની મોજ!
             </p>
           </div>
         </BlurFade>
 
-        {/* SECTION 1: લોકડાયરો & સંગીત (YouTube Dayro Lounge) */}
+        {/* SECTION 1: હાસ્ય ડાયરો & લોકસંગીત (YouTube Lounge) */}
         <BlurFade delay={0.15} inView>
           <div className="space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-900 pb-4">
@@ -299,10 +368,10 @@ export default function GujjuversePage() {
                 <IconBrandYoutube className="w-6 h-6 text-red-500" />
                 <div>
                   <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
-                    ગુજરાતી લોકડાયરો & સંગીત મહેફિલ
+                    ગુજરાતી હાસ્ય & લોકડાયરો મહેફિલ
                   </h2>
                   <p className="text-xs text-zinc-400">
-                    કીર્તિદાન ગઢવી અને રાજભા ગઢવીના લાઈવ ડાયરા
+                    માયાભાઈ, સાંઈરામ, ધીરૂભાઈ, કીર્તિદાન અને રાજભાના લાઈવ વિડીયો
                   </p>
                 </div>
               </div>
@@ -310,10 +379,11 @@ export default function GujjuversePage() {
               {/* Filter Tabs */}
               <div className="flex flex-wrap gap-2">
                 {[
-                  { id: "all", label: "બધા ડાયરા" },
+                  { id: "all", label: "બધા વિડીયો (૧૨)" },
+                  { id: "comedy", label: "હાસ્ય & જોક્સ 😂" },
+                  { id: "music", label: "લોક સંગીત 🎶" },
+                  { id: "sahitya", label: "વીર રસ ⚔️" },
                   { id: "jugalbandhi", label: "મહા જુગલબંધી 🔥" },
-                  { id: "kirtidan", label: "કીર્તિદાન ગઢવી 🎶" },
-                  { id: "rajbha", label: "રાજભા & રાજદાન ⚔️" },
                 ].map((tab) => (
                   <button
                     key={tab.id}
@@ -475,7 +545,7 @@ export default function GujjuversePage() {
               જલસા કરો બાપ, મોજમાં રહેવું! 🔥
             </h3>
             <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
-              ગુજરાતી લોકસાહિત્ય અને આર્ટિફિશિયલ ઇન્ટેલિજન્સનું અનોખું સંગમ.
+              ગુજરાતી લોકસાહિત્ય, હાસ્ય દરબાર અને આર્ટિફિશિયલ ઇન્ટેલિજન્સનું અનોખું સંગમ.
             </p>
             <div className="pt-2">
               <Link
