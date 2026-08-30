@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,6 +12,8 @@ import {
   IconX,
   IconBook,
   IconQuote,
+  IconChevronLeft,
+  IconChevronRight,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -25,76 +27,69 @@ interface DayroVideo {
   tag: string;
   youtubeId: string;
   thumbnail: string;
-  description: string;
 }
 
 const DAYRO_VIDEOS: DayroVideo[] = [
   // 1. Comedy Videos
   {
     id: "mayabhai-badhdati",
-    artist: "માયાભાઈ આહીર (Mayabhai Ahir)",
+    artist: "માયાભાઈ આહીર",
     title: "હાસ્ય ની બધડાટી (હસવાની ૧૦૦% ગેરેંટી)",
     category: "comedy",
     categoryLabel: "Comedy Dayro",
     tag: "New Jokes",
     youtubeId: "aE3_WjWz9tc",
     thumbnail: "https://img.youtube.com/vi/aE3_WjWz9tc/hqdefault.jpg",
-    description: "માયાભાઈ આહીરના અસલ દેશી અંદાજમાં નોન-સ્ટોપ પેટ પકડીને હસાવતા જોક્સ.",
   },
   {
     id: "sairam-hasya-varsad",
-    artist: "સાંઈરામ દવે (Sairam Dave)",
-    title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (સાંઈરામ નો હાસ્ય દરબાર)",
+    artist: "સાંઈરામ દવે",
+    title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (હાસ્ય દરબાર)",
     category: "comedy",
     categoryLabel: "Hasya Darbar",
     tag: "Full Comedy",
     youtubeId: "9N4--Ldqhuc",
     thumbnail: "https://img.youtube.com/vi/9N4--Ldqhuc/hqdefault.jpg",
-    description: "સાંઈરામ દવેનો જાણીતો હાસ્ય દરબાર — આધુનિક જીવન અને સમાજ પર મજેદાર કટાક્ષ.",
   },
   {
     id: "hitesh-antala-jokes",
-    artist: "હિતેશ અંટાળા (Hitesh Antala)",
+    artist: "હિતેશ અંટાળા",
     title: "સાવ નવા જથ્થાબંધ જોક્સ & હાસ્ય મહેફિલ",
     category: "comedy",
     categoryLabel: "Comedy Dayro",
     tag: "Non-Stop Jokes",
     youtubeId: "f2vHjuiIpqQ",
     thumbnail: "https://img.youtube.com/vi/f2vHjuiIpqQ/hqdefault.jpg",
-    description: "હિતેશ અંટાળાના અંદાજમાં કાઠિયાવાડની દેશી રમૂજ અને જથ્થાબંધ જોક્સ.",
   },
   {
     id: "dhirubhai-vandripanu",
-    artist: "ધીરૂભાઈ સરવૈયા (Dhirubhai Sarvaiya)",
+    artist: "ધીરૂભાઈ સરવૈયા",
     title: "વાંદરીપાનું — સુપરહિટ દેશી જોક્સ",
     category: "comedy",
     categoryLabel: "Classic Comedy",
     tag: "Superhit Comedy",
     youtubeId: "FEZPU-4lMo8",
     thumbnail: "https://img.youtube.com/vi/FEZPU-4lMo8/hqdefault.jpg",
-    description: "ધીરૂભાઈ સરવૈયાનું લોકપ્રિય 'વાંદરીપાનું' સ્પેશિયલ હાસ્ય પર્ફોર્મન્સ.",
   },
   {
     id: "dhirubhai-lagan-hapta",
-    artist: "ધીરૂભાઈ સરવૈયા (Dhirubhai Sarvaiya)",
+    artist: "ધીરૂભાઈ સરવૈયા",
     title: "લગન કરો હપ્તા ભરો (Lagan Karo Hapta Bharo)",
     category: "comedy",
     categoryLabel: "Classic Comedy",
     tag: "Family Comedy",
     youtubeId: "p7pA36rZJiw",
     thumbnail: "https://img.youtube.com/vi/p7pA36rZJiw/hqdefault.jpg",
-    description: "લગ્ન જીવન અને સંસારની વાતો પર ધીરૂભાઈ સરવૈયાના સદાબહાર હાસ્યના ફુવારા.",
   },
   {
     id: "jitubhai-doshi-jeans",
-    artist: "જીતુભાઈ દ્વારકાવાળા (Jitubhai Dwarkawada)",
+    artist: "જીતુભાઈ દ્વારકાવાળા",
     title: "ડોશીનું જીન્સ (Doshi Nu Jeans Comedy)",
     category: "comedy",
     categoryLabel: "Comedy Dayro",
     tag: "Viral Jokes",
     youtubeId: "6LWx0N_MCZU",
     thumbnail: "https://img.youtube.com/vi/6LWx0N_MCZU/hqdefault.jpg",
-    description: "જીતુભાઈ દ્વારકાવાળાની વાર્તાશૈલી અને હસાવીને લોટપોટ કરી દેતો ડાયરો.",
   },
 
   // 2. Dayro & Folk Music
@@ -107,62 +102,56 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     tag: "Historic Jugalbandhi",
     youtubeId: "i8POjs66f9g",
     thumbnail: "https://img.youtube.com/vi/i8POjs66f9g/hqdefault.jpg",
-    description: "કીર્તિદાન ગઢવી અને રાજભા ગઢવીની ઐતિહાસિક જુગલબંધી — રાપર કચ્છ લાઈવ પ્રોગ્રામ.",
   },
   {
     id: "rajbha-kashtriya",
-    artist: "રાજભા ગઢવી (Rajbha Gadhvi)",
+    artist: "રાજભા ગઢવી",
     title: "ક્ષત્રિયની વાત & રૂંવાડા ઊભા કરતો વીર રસ",
     category: "sahitya",
     categoryLabel: "Veer Ras Dayro",
     tag: "Veer Ras Dayro",
     youtubeId: "LlsYNC4l0GA",
     thumbnail: "https://img.youtube.com/vi/LlsYNC4l0GA/hqdefault.jpg",
-    description: "ક્ષત્રિય ધર્મ, બલિદાન અને શૌર્યની વાતો કરતાં રૂંવાડા ઊભા કરી દેતો રાજભા ગઢવીનો ડાયરો.",
   },
   {
     id: "rajdan-vadodara",
-    artist: "રાજદાન ગઢવી (Rajdan Gadhvi)",
+    artist: "રાજદાન ગઢવી",
     title: "સુપર હિટ લોકડાયરો (વડોદરા લાઈવ ડાયરો)",
     category: "sahitya",
     categoryLabel: "Lok Sahitya",
     tag: "Vadodara Live",
     youtubeId: "qW1ss5bq90A",
     thumbnail: "https://img.youtube.com/vi/qW1ss5bq90A/hqdefault.jpg",
-    description: "રાજદાન ગઢવીનો વડોદરા લાઈવ કાર્યક્રમ — અસલ ચારણી સાહિત્ય અને ભવ્ય લોકડાયરો.",
   },
   {
     id: "kirtidan-kanudo",
-    artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
+    artist: "કીર્તિદાન ગઢવી",
     title: "દેશી તાલે કાનુડાના ગીતો & રાસ",
     category: "music",
     categoryLabel: "Krishna Raas",
     tag: "Krishna Songs",
     youtubeId: "KpFUjNxGCbo",
     thumbnail: "https://img.youtube.com/vi/KpFUjNxGCbo/hqdefault.jpg",
-    description: "કીર્તિદાન ગઢવીના સૂર અને દેશી ઢોલના તાલે કાનુડાના અલ્ટીમેટ ગીતોની રમઝટ.",
   },
   {
     id: "kirtidan-rasiyo",
-    artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
+    artist: "કીર્તિદાન ગઢવી",
     title: "રસિયો રૂપાળો રંગરેલીયો (વેજાગામ લાઈવ)",
     category: "music",
     categoryLabel: "Folk Music",
     tag: "Superhit Folk",
     youtubeId: "_IMnebRMPcY",
     thumbnail: "https://img.youtube.com/vi/_IMnebRMPcY/hqdefault.jpg",
-    description: "વેજાગામ લાઈવ પ્રોગ્રામમાં કીર્તિદાન ગઢવીનું સુપરહિટ લોકગીત 'રસિયો રૂપાળો રંગરેલીયો'.",
   },
   {
     id: "kirtidan-dakor",
-    artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
+    artist: "કીર્તિદાન ગઢવી",
     title: "ડાકોરના ઠાકોર (અમરેલી લાઈવ પોલીસ ડાયરો)",
     category: "music",
     categoryLabel: "Folk & Bhajan",
     tag: "Dakor Na Thakor",
     youtubeId: "w3O3aikm4xM",
     thumbnail: "https://img.youtube.com/vi/w3O3aikm4xM/hqdefault.jpg",
-    description: "અમરેલી લાઈવ પોલીસ ડાયરામાં કીર્તિદાન ગઢવીના કંઠે ગવાયેલું પ્રખ્યાત ભજન 'ડાકોરના ઠાકોર'.",
   },
 ];
 
@@ -237,17 +226,23 @@ const GUJJU_RULES = [
 ];
 
 export default function GujjuversePage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("comedy");
   const [activeVideo, setActiveVideo] = useState<DayroVideo | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const filteredVideos =
-    selectedCategory === "all"
-      ? DAYRO_VIDEOS
-      : DAYRO_VIDEOS.filter((v) => v.category === selectedCategory);
+  const filteredVideos = DAYRO_VIDEOS.filter((v) => v.category === selectedCategory);
 
   const handlePlayVideo = (video: DayroVideo) => {
     playTapSound("pop");
     setActiveVideo(video);
+  };
+
+  const handleScroll = (direction: "left" | "right") => {
+    playTapSound("hover");
+    if (scrollContainerRef.current) {
+      const scrollAmount = direction === "left" ? -340 : 340;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
   };
 
   return (
@@ -303,10 +298,7 @@ export default function GujjuversePage() {
                 />
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
-                <p className="text-xs sm:text-sm text-zinc-400">
-                  {activeVideo.description}
-                </p>
+              <div className="flex items-center justify-end pt-1">
                 <a
                   href={`https://www.youtube.com/watch?v=${activeVideo.youtubeId}`}
                   target="_blank"
@@ -368,9 +360,9 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 1: હાસ્ય ડાયરો & લોકસંગીત (YouTube Lounge) */}
+        {/* SECTION 1: હાસ્ય ડાયરો & લોકસંગીત (Single-Line Horizontal Carousel) */}
         <BlurFade delay={0.15} inView>
-          <div className="space-y-8">
+          <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-900 pb-4">
               <div className="flex items-center gap-3">
                 <IconBrandYoutube className="w-6 h-6 text-red-500" />
@@ -379,46 +371,68 @@ export default function GujjuversePage() {
                     Lok Dayro & Comedy Lounge 📺
                   </h2>
                   <p className="text-xs text-zinc-400">
-                    ગુજરાતી હાસ્ય & લોકડાયરો મહેફિલ — Mayabhai, Sairam Dave, Kirtidan & Rajbha
+                    Scroll horizontally & click any video to play live
                   </p>
                 </div>
               </div>
 
-              {/* Filter Tabs */}
-              <div className="flex flex-wrap gap-2">
-                {[
-                  { id: "all", label: "All Videos (12)" },
-                  { id: "comedy", label: "Comedy & Jokes 😂" },
-                  { id: "music", label: "Folk & Music 🎶" },
-                  { id: "sahitya", label: "Veer Ras ⚔️" },
-                  { id: "jugalbandhi", label: "Grand Jugalbandhi 🔥" },
-                ].map((tab) => (
+              {/* Filter Tabs + Left/Right Arrows */}
+              <div className="flex items-center gap-3">
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: "comedy", label: "Comedy & Jokes 😂" },
+                    { id: "music", label: "Folk & Music 🎶" },
+                    { id: "sahitya", label: "Veer Ras ⚔️" },
+                    { id: "jugalbandhi", label: "Grand Jugalbandhi 🔥" },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => {
+                        playTapSound("hover");
+                        setSelectedCategory(tab.id);
+                      }}
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
+                        selectedCategory === tab.id
+                          ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]"
+                          : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="hidden sm:flex items-center gap-1.5 border-l border-zinc-800 pl-3">
                   <button
-                    key={tab.id}
-                    onClick={() => {
-                      playTapSound("hover");
-                      setSelectedCategory(tab.id);
-                    }}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
-                      selectedCategory === tab.id
-                        ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]"
-                        : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
-                    }`}
+                    onClick={() => handleScroll("left")}
+                    aria-label="Scroll Left"
+                    className="p-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
                   >
-                    {tab.label}
+                    <IconChevronLeft className="w-4 h-4" />
                   </button>
-                ))}
+                  <button
+                    onClick={() => handleScroll("right")}
+                    aria-label="Scroll Right"
+                    className="p-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <IconChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Video Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Single-Row Horizontal Scrolling Carousel */}
+            <div
+              ref={scrollContainerRef}
+              className="flex overflow-x-auto gap-4 sm:gap-6 pb-4 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
               {filteredVideos.map((video) => (
                 <motion.div
                   key={video.id}
                   whileHover={{ y: -4 }}
                   onClick={() => handlePlayVideo(video)}
-                  className="group relative rounded-3xl bg-zinc-950 border border-zinc-800/80 hover:border-amber-500/60 overflow-hidden cursor-pointer flex flex-col justify-between transition-all shadow-xl"
+                  className="w-[280px] sm:w-[320px] shrink-0 snap-start rounded-3xl bg-zinc-950 border border-zinc-800/80 hover:border-amber-500/60 overflow-hidden cursor-pointer flex flex-col justify-between transition-all shadow-xl group"
                 >
                   {/* Thumbnail / Header */}
                   <div className="relative aspect-video w-full overflow-hidden bg-zinc-900">
@@ -426,39 +440,31 @@ export default function GujjuversePage() {
                       src={video.thumbnail}
                       alt={video.title}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100"
+                      sizes="320px"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent" />
 
                     {/* Play Badge */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-amber-500 text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <IconPlayerPlay className="w-6 h-6 fill-black translate-x-0.5" />
+                      <div className="w-11 h-11 rounded-full bg-amber-500 text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <IconPlayerPlay className="w-5 h-5 fill-black translate-x-0.5" />
                       </div>
                     </div>
 
-                    <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-zinc-700 text-[11px] font-mono text-amber-400 font-bold">
+                    <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-zinc-700 text-[10px] font-mono text-amber-400 font-bold">
                       {video.tag}
                     </div>
                   </div>
 
-                  {/* Body Content */}
-                  <div className="p-5 space-y-3">
-                    <span className="text-xs font-mono text-amber-400 font-semibold block">
+                  {/* Clean Minimalist Body Content */}
+                  <div className="p-4 space-y-1.5">
+                    <span className="text-xs font-mono text-amber-400 font-semibold block truncate">
                       {video.artist}
                     </span>
-                    <h3 className="text-base font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-snug">
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-snug line-clamp-2">
                       {video.title}
                     </h3>
-                    <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
-                      {video.description}
-                    </p>
-                  </div>
-
-                  <div className="p-4 border-t border-zinc-900 flex items-center justify-between text-[11px] font-mono text-zinc-500 group-hover:text-amber-400 transition-colors">
-                    <span>Click to Play / જુઓ</span>
-                    <span className="text-amber-400">Play Video ▶</span>
                   </div>
                 </motion.div>
               ))}
