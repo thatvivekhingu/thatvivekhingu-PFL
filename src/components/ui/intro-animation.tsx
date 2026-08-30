@@ -4,42 +4,48 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
-const HINDI_LINES: string[] = [
-  "अब तो दिखाना पड़ेगा भाई.",
-  "चलो, अब देख ही लो.",
-  "अब फँस गए भाई.",
-  "अब वापस मत जाना.",
-  "अब इज़्ज़त का सवाल है.",
-  "चल भाई, शुरू करते हैं.",
-  "अब क्या ही छुपाना.",
-  "अब थोड़ा देख भी लो.",
-  "चलो, अब देखते हैं क्या होता है.",
-  "अब मेहनत दिखानी पड़ेगी.",
-  "चल भाई, अंदर चलते हैं.",
-  "अब भुगतो.",
-  "अब judge मत करना भाई.",
-  "चलो, शुरू करते हैं.",
-  "देखते हैं क्या मिलता है.",
-  "अब उम्मीदें कम रखना.",
-  "भाई, respect.",
-  "अब मेरी बारी है.",
-  "अब दो मिनट दे दे.",
-  "अब अपना ही समझो.",
+interface IntroPair {
+  en: string;
+  hi: string;
+}
+
+const INTRO_PAIRS: IntroPair[] = [
+  { en: "You actually came...", hi: "अब तो दिखाना पड़ेगा भाई." },
+  { en: "So you're here...", hi: "चलो, अब देख ही लो." },
+  { en: "You clicked the link...", hi: "अब फँस गए भाई." },
+  { en: "You made it here...", hi: "अब वापस मत जाना." },
+  { en: "You actually opened it...", hi: "अब इज़्ज़त का सवाल है." },
+  { en: "So you found me...", hi: "चल भाई, शुरू करते हैं." },
+  { en: "You're here already...", hi: "अब क्या ही छुपाना." },
+  { en: "You came this far...", hi: "अब थोड़ा देख भी लो." },
+  { en: "You clicked it...", hi: "चलो, अब देखते हैं क्या होता है." },
+  { en: "You're finally here...", hi: "अब मेहनत दिखानी पड़ेगी." },
+  { en: "You made it...", hi: "चल भाई, अंदर चलते हैं." },
+  { en: "You really wanted to see it...", hi: "अब भुगतो." },
+  { en: "You opened my portfolio...", hi: "अब judge मत करना भाई." },
+  { en: "So this is happening...", hi: "चलो, शुरू करते हैं." },
+  { en: "You came looking for something...", hi: "देखते हैं क्या मिलता है." },
+  { en: "You found the portfolio...", hi: "अब उम्मीदें कम रखना." },
+  { en: "You're still here...", hi: "भाई, respect." },
+  { en: "You clicked the button...", hi: "अब मेरी बारी है." },
+  { en: "You made it this far...", hi: "अब दो मिनट दे दे." },
+  { en: "Alright, you're here...", hi: "अब अपना ही समझो." },
 ];
 
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState(true);
-  const [selectedLine, setSelectedLine] = useState(HINDI_LINES[0]);
+  const [activePair, setActivePair] = useState<IntroPair>(INTRO_PAIRS[0]);
   const [displayedText, setDisplayedText] = useState("");
+  const [currentStep, setCurrentStep] = useState<"en" | "hi">("en");
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const [phase, setPhase] = useState<"typing" | "holding" | "revealing" | "done">("typing");
+  const [isRevealing, setIsRevealing] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const soundPlayedRef = useRef(false);
 
-  // Pick a random line on mount
+  // Pick a random pair on mount
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * HINDI_LINES.length);
-    setSelectedLine(HINDI_LINES[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * INTRO_PAIRS.length);
+    setActivePair(INTRO_PAIRS[randomIndex]);
   }, []);
 
   const handleComplete = useCallback(() => {
@@ -63,35 +69,59 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // Typing Engine for Hindi Text
+  // Sequential Typing Engine: English -> Pause -> Hindi -> Pause (1s) -> Red line curtain reveal
   useEffect(() => {
-    if (!shouldShow || isComplete || !selectedLine) return;
+    if (!shouldShow || isComplete || !activePair) return;
 
-    let index = 0;
-    const typingInterval = setInterval(() => {
-      index++;
-      setDisplayedText(selectedLine.slice(0, index));
+    if (currentStep === "en") {
+      let index = 0;
+      const target = activePair.en;
+      const enInterval = setInterval(() => {
+        index++;
+        setDisplayedText(target.slice(0, index));
 
-      if (!soundPlayedRef.current) {
-        soundPlayedRef.current = true;
-        playTapSound("hover");
-      }
+        if (!soundPlayedRef.current) {
+          soundPlayedRef.current = true;
+          playTapSound("hover");
+        }
 
-      if (index >= selectedLine.length) {
-        clearInterval(typingInterval);
-        setIsTypingDone(true);
-        setPhase("holding");
+        if (index >= target.length) {
+          clearInterval(enInterval);
+          setIsTypingDone(true);
 
-        // Wait for exactly 1 second (1000ms) after typing finishes
-        setTimeout(() => {
-          setPhase("revealing");
-          playTapSound("access_granted");
-        }, 1000);
-      }
-    }, 48); // Smooth character-by-character typing pace
+          // Hold English for 1.1s, then transition to Hindi
+          setTimeout(() => {
+            setIsTypingDone(false);
+            setDisplayedText("");
+            setCurrentStep("hi");
+            playTapSound("hover");
+          }, 1100);
+        }
+      }, 42);
 
-    return () => clearInterval(typingInterval);
-  }, [shouldShow, isComplete, selectedLine]);
+      return () => clearInterval(enInterval);
+    } else if (currentStep === "hi") {
+      let index = 0;
+      const target = activePair.hi;
+      const hiInterval = setInterval(() => {
+        index++;
+        setDisplayedText(target.slice(0, index));
+
+        if (index >= target.length) {
+          clearInterval(hiInterval);
+          setIsTypingDone(true);
+
+          // After Hindi finishes, wait for EXACTLY 1 second (1000ms)
+          setTimeout(() => {
+            setIsRevealing(true);
+            playTapSound("access_granted");
+          }, 1000);
+        }
+      }, 48);
+
+      return () => clearInterval(hiInterval);
+    }
+  }, [shouldShow, isComplete, activePair, currentStep]);
 
   if (!shouldShow || isComplete) return null;
 
@@ -101,7 +131,7 @@ export function IntroAnimation() {
         <motion.div
           initial={{ y: "0%" }}
           animate={
-            phase === "revealing"
+            isRevealing
               ? {
                   y: "-100%",
                   transition: {
@@ -112,7 +142,7 @@ export function IntroAnimation() {
               : { y: "0%" }
           }
           onAnimationComplete={() => {
-            if (phase === "revealing") {
+            if (isRevealing) {
               handleComplete();
             }
           }}
@@ -124,7 +154,7 @@ export function IntroAnimation() {
             <motion.div
               initial={{ height: "0%" }}
               animate={
-                phase === "revealing"
+                isRevealing
                   ? {
                       height: "100%",
                       transition: {
@@ -138,7 +168,7 @@ export function IntroAnimation() {
             />
           </div>
 
-          {/* Hindi Text positioned in Upper / Center Area */}
+          {/* Text Container positioned in Upper / Center Area */}
           <div className="w-full flex-1 flex items-center justify-center pt-20 sm:pt-28 pb-12 px-8 sm:px-16">
             <div className="max-w-4xl text-center">
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium font-sans tracking-tight text-white leading-tight">
