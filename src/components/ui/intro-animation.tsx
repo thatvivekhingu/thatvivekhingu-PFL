@@ -1,37 +1,21 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
-const INTRO_STORAGE_KEY = "hasSeenIntro_v40_works_on_my_machine";
 const TYPE_TEXT = "It works on my machine... आशा है आपके यहाँ भी चलेगा!";
 
 export function IntroAnimation() {
-  const [shouldShow, setShouldShow] = useState(false);
+  const [shouldShow, setShouldShow] = useState(true);
   const [displayedText, setDisplayedText] = useState("");
   const [isTypingDone, setIsTypingDone] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const soundPlayedRef = useRef(false);
 
-  useEffect(() => {
-    try {
-      const hasSeen = sessionStorage.getItem(INTRO_STORAGE_KEY);
-      if (hasSeen !== "true") {
-        setShouldShow(true);
-      }
-    } catch {
-      setShouldShow(false);
-    }
-  }, []);
-
   const handleComplete = useCallback(() => {
-    try {
-      sessionStorage.setItem(INTRO_STORAGE_KEY, "true");
-    } catch {
-      // Ignore storage errors
-    }
     setIsComplete(true);
+    setShouldShow(false);
   }, []);
 
   const handleSkip = useCallback(() => {
@@ -50,7 +34,7 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // Typewriter Engine
+  // Typewriter Engine with comfortable reading pace
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
@@ -70,12 +54,12 @@ export function IntroAnimation() {
         setIsTypingDone(true);
         playTapSound("access_granted");
 
-        // Pause for 350ms, then slide up reveal curtain
+        // Comfortable reading hold time (1.8 seconds) so user can read the joke!
         setTimeout(() => {
           handleComplete();
-        }, 400);
+        }, 1800);
       }
-    }, 24); // Types full line in ~1.2s
+    }, 38); // Smooth rhythmic typing pace
 
     return () => clearInterval(interval);
   }, [shouldShow, isComplete, handleComplete]);
@@ -89,7 +73,7 @@ export function IntroAnimation() {
           initial={{ y: 0 }}
           exit={{
             y: "-100%",
-            transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
           }}
           onClick={handleSkip}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-zinc-950 px-6 select-none cursor-pointer overflow-hidden"
@@ -98,28 +82,26 @@ export function IntroAnimation() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
           {/* Center Typewriter Terminal Card */}
-          <div className="relative z-10 max-w-2xl w-full flex flex-col items-center text-center space-y-4">
+          <div className="relative z-10 max-w-2xl w-full flex flex-col items-center text-center space-y-5">
             {/* Top Micro Terminal Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-zinc-800 text-[11px] font-mono text-zinc-400">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-300 shadow-xl">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>TERMINAL // VIVEK_HINGU</span>
             </div>
 
             {/* Typewriter Line */}
-            <div className="min-h-[64px] sm:min-h-[80px] flex items-center justify-center">
-              <h1 className="text-xl sm:text-3xl md:text-4xl font-bold font-mono tracking-tight text-white flex items-center justify-center flex-wrap gap-1 leading-snug">
-                <span className="text-cyan-400 mr-2 font-black">&gt;</span>
+            <div className="min-h-[70px] sm:min-h-[90px] flex items-center justify-center">
+              <h1 className="text-xl sm:text-3xl md:text-4xl font-bold font-mono tracking-tight text-white flex items-center justify-center flex-wrap gap-1.5 leading-snug">
+                <span className="text-cyan-400 font-black mr-1">&gt;</span>
                 <span className="text-zinc-100">{displayedText}</span>
                 <span
-                  className={`inline-block w-2.5 sm:w-3.5 h-6 sm:h-8 bg-cyan-400 ml-1 rounded-xs transition-opacity duration-100 ${
-                    isTypingDone ? "animate-pulse" : "opacity-100"
-                  }`}
+                  className="inline-block w-2.5 sm:w-3.5 h-6 sm:h-8 bg-cyan-400 ml-1 rounded-xs animate-pulse"
                 />
               </h1>
             </div>
 
             {/* Sub-hint */}
-            <div className="pt-2 text-xs font-mono text-zinc-600 flex items-center gap-2">
+            <div className="pt-2 text-xs font-mono text-zinc-500 flex items-center gap-2">
               <span>☕</span>
               <span>Tap anywhere or press ESC to skip</span>
             </div>
