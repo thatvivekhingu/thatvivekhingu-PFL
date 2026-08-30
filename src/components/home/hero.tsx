@@ -119,52 +119,52 @@ export default function Hero() {
   };
 
   return (
-    <div className="min-h-screen w-full pt-24 pb-14 sm:pt-32 sm:pb-20 relative flex flex-col items-center justify-center overflow-hidden">
+    <div className="min-h-[calc(100dvh-4.5rem)] sm:min-h-screen w-full pt-16 pb-10 sm:pt-28 sm:pb-16 relative flex flex-col items-center justify-center overflow-hidden">
       <HeroConstellation desktopDots={260} mobileDots={70} />
-
-      {/* Full-Bleed 100vw Edge-to-Edge Angled Double Marquee Ribbons Layer */}
-      <div className="absolute top-[28%] sm:top-[32%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full pointer-events-none z-0 flex items-center justify-center select-none opacity-90">
-        {/* Cyan/Teal Angled Ribbon (-3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-        <div className="absolute w-[220vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/60">
-          <Marquee repeat={8} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-            <span>VIVEK HINGU // AI & ML ENGINEER</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-            <span>JARVIS & AGENTIC AI</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-            <span>AUTONOMOUS AGENTS</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-            <span>NEURAL NETWORKS</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-            <span>DATA SCIENCE & PYTHON</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-          </Marquee>
-        </div>
-
-        {/* Violet/Indigo Angled Ribbon (+3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-        <div className="absolute w-[220vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.5)] border-y-2 border-indigo-200/60">
-          <Marquee reverse repeat={8} className="[--duration:30s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-            <span>BHARATBHASHA AI</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-            <span>REAL-TIME STREAMING</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-            <span>HACKATHON WINNER</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-            <span>DISRUPT & DEPLOY</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-            <span>QUANTUM ARCHITECTURE</span>
-            <span className="mx-3 text-zinc-950 font-black">•</span>
-          </Marquee>
-        </div>
-      </div>
 
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
-          <div className="relative flex-col space-y-2">
+          <div className="relative flex-col space-y-3 sm:space-y-4">
             <div className="relative flex flex-col items-center justify-center">
-              {/* Avatar Center Wrapper with Concentric Marvel Arc Reactor Orbit Perfectly Aligned */}
-              <div className="relative flex items-center justify-center my-2 z-30">
+              {/* Avatar Center Wrapper with Concentric Marvel Arc Reactor Orbit & Angled Ribbons Perfectly Aligned */}
+              <div className="relative flex items-center justify-center my-2 sm:my-3 z-30">
+                {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer - Centered Directly Behind Avatar */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none -z-20 flex items-center justify-center select-none opacity-90">
+                  {/* Cyan/Teal Angled Ribbon (-3.5deg) - 100% Screen Edge-to-Edge Bleed */}
+                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/60">
+                    <Marquee repeat={8} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                      <span>VIVEK HINGU // AI & ML ENGINEER</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>JARVIS & AGENTIC AI</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>AUTONOMOUS AGENTS</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>NEURAL NETWORKS</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>DATA SCIENCE & PYTHON</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                    </Marquee>
+                  </div>
+
+                  {/* Violet/Indigo Angled Ribbon (+3.5deg) - 100% Screen Edge-to-Edge Bleed */}
+                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.5)] border-y-2 border-indigo-200/60">
+                    <Marquee reverse repeat={8} className="[--duration:30s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                      <span>BHARATBHASHA AI</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>REAL-TIME STREAMING</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>HACKATHON WINNER</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>DISRUPT & DEPLOY</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>QUANTUM ARCHITECTURE</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                    </Marquee>
+                  </div>
+                </div>
+
                 {/* Concentric Marvel Arc Reactor & Avengers Orbit (Mathematically Centered Behind Avatar) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] sm:w-[540px] sm:h-[540px] md:w-[600px] md:h-[600px] pointer-events-none -z-10 select-none flex items-center justify-center opacity-35 dark:opacity-40">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] sm:w-[540px] sm:h-[540px] md:w-[600px] md:h-[600px] pointer-events-none -z-10 select-none flex items-center justify-center opacity-35 dark:opacity-40">
                   <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
                     <svg
                       viewBox="0 0 400 400"
@@ -238,7 +238,7 @@ export default function Hero() {
 
                   {/* Avatar Border Ring with Smooth Crossfade Layers */}
                   <div
-                    className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
+                    className={`relative h-48 w-48 sm:h-56 sm:w-56 md:h-60 md:w-60 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
                   >
                     {HERO_AVATARS.map((avatar, idx) => (
                       <div
@@ -293,15 +293,15 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className="w-full space-y-4 pt-1">
+            <div className="w-full space-y-3 sm:space-y-4 pt-1 sm:pt-2">
               <div className="z-50 text-center px-2">
-                <h1 className="text-2xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight break-words sm:whitespace-nowrap select-none">
+                <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight break-words sm:whitespace-nowrap select-none">
                   <span className="text-foreground">Hi, I&#39;m </span>
                   <AnimatedName className="inline-block" />
                 </h1>
               </div>
 
-              <p className="mt-1.5 text-xs sm:text-xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
+              <p className="mt-1 text-sm sm:text-xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
                 AI & ML Engineer building{" "}
                 <span className="text-cyan-400 font-semibold underline decoration-cyan-500/40 underline-offset-4">
                   intelligent software
@@ -310,7 +310,7 @@ export default function Hero() {
               </p>
 
               <BlurFade delay={0.005 * 2} direction="down" inView>
-                <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-1">
+                <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-1 sm:pt-2">
                   <div
                     ref={contactRef}
                     onMouseMove={handleContactMove}
