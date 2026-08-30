@@ -107,10 +107,10 @@ export async function POST(req: Request) {
 
     const finalSystemInstruction = agentAugmentedPrompt + searchContext;
 
-    // 1. Primary LLM Engine: Groq API (llama-3.1-8b-instant)
+    // 1. Primary LLM Engine: Groq API (qwen/qwen3.8-27b)
     if (GROQ_API_KEY) {
       try {
-        ServerLogger.info("AiChatAPI", "[VIAN] Calling Groq API (llama-3.1-8b-instant)...");
+        ServerLogger.info("AiChatAPI", "[VIAN] Calling Groq API (qwen/qwen3.8-27b)...");
 
         const formattedHistory = (history as Array<{ role?: string; sender?: string; content?: string; text?: string }>).map((h) => ({
           role: (h.role || h.sender) === "user" ? "user" : "assistant",
@@ -130,7 +130,7 @@ export async function POST(req: Request) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "llama-3.1-8b-instant",
+            model: "qwen/qwen3.8-27b",
             messages,
             temperature: 0.3,
             max_tokens: 1000,
@@ -154,10 +154,10 @@ export async function POST(req: Request) {
       }
     }
 
-    // 2. Secondary LLM Engine: Gemini 1.5 Flash Fallback
+    // 2. Secondary LLM Engine: Gemini 3.5 Flash Lite Fallback
     if (!fullResponse && GEMINI_API_KEY) {
       try {
-        ServerLogger.info("AiChatAPI", "[VIAN] Calling Gemini 1.5 Flash fallback...");
+        ServerLogger.info("AiChatAPI", "[VIAN] Calling Gemini 3.5 Flash Lite fallback...");
 
         const formattedHistory = (history as Array<{ role?: string; sender?: string; content?: string; text?: string }>).map((h) => ({
           role: (h.role || h.sender) === "user" ? "user" : "model",
@@ -171,7 +171,7 @@ export async function POST(req: Request) {
         ];
 
         const geminiRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
