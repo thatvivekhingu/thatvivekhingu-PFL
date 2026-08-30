@@ -146,79 +146,44 @@ export function IntroAnimation() {
                 </motion.div>
               )}
 
-              {/* Step 3: Arc Reactor Animation (Mathematically Centered Where Avatar Appears) */}
+              {/* Step 3: Hypnotic Spinning Circular Rings Vortex (Gol Gol Ghume Animation Centered on Avatar) */}
               {phase === "arc" && (
                 <motion.div
-                  key="arc-reactor-core"
-                  initial={{ opacity: 0, scale: 0.4 }}
+                  key="spinning-vortex-core"
+                  initial={{ opacity: 0, scale: 0.3 }}
                   animate={{
                     opacity: 1,
                     scale: 1,
-                    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+                    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
                   }}
                   exit={{
-                    scale: 1.4,
+                    scale: 1.35,
                     opacity: 0,
-                    transition: { duration: 0.4, ease: "easeIn" },
+                    transition: { duration: 0.35, ease: "easeIn" },
                   }}
-                  className="relative flex items-center justify-center"
+                  className="relative flex items-center justify-center w-64 h-64 sm:w-80 sm:h-80"
                 >
-                  {/* Glowing Core Explosion Flare */}
-                  <div className="absolute w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] rounded-full bg-cyan-500/25 blur-3xl animate-pulse" />
+                  {/* Ambient Cyan / White Backlight Glow */}
+                  <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-3xl animate-pulse" />
 
-                  {/* Concentric Rotating Marvel Arc Reactor */}
-                  <div className="relative w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[440px] md:h-[440px] flex items-center justify-center">
-                    <div className="relative w-full h-full animate-[spin_20s_linear_infinite]">
-                      <svg
-                        viewBox="0 0 400 400"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-full h-full text-cyan-400 drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]"
-                      >
-                        {/* Outer Tech Coordinate Rings */}
-                        <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 8" />
-                        <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="2" opacity="0.8" />
-                        <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1.5" strokeDasharray="16 6" />
-                        <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2.5" strokeDasharray="4 4" opacity="0.9" />
-                        <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1.5" strokeDasharray="8 12" />
-                        <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="2" opacity="0.7" />
+                  {/* Outer Orbiting Dashed Ring (Clockwise Fast Spin) */}
+                  <div className="absolute inset-2 sm:inset-4 rounded-full border-2 border-dashed border-cyan-400/60 animate-[spin_4s_linear_infinite]" />
 
-                        {/* Radial Arc Reactor Notches */}
-                        {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
-                          <line
-                            key={deg}
-                            x1="200"
-                            y1="10"
-                            x2="200"
-                            y2="28"
-                            stroke="currentColor"
-                            strokeWidth="2.5"
-                            transform={`rotate(${deg} 200 200)`}
-                          />
-                        ))}
+                  {/* Second Glowing Gradient Ring (Counter-Clockwise Spin) */}
+                  <div className="absolute inset-6 sm:inset-10 rounded-full border-2 border-t-cyan-300 border-r-transparent border-b-sky-400 border-l-transparent shadow-[0_0_25px_rgba(6,182,212,0.6)] animate-[spin_2.5s_linear_infinite_reverse]" />
 
-                        {/* Iconic Avengers 'A' Logo Embedded at Center */}
-                        <g transform="translate(100, 100) scale(1)">
-                          <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3.5" strokeDasharray="140 30" opacity="0.9" />
-                          <path
-                            d="M30 115 L160 115 L145 95 L25 95 Z"
-                            fill="currentColor"
-                            opacity="0.9"
-                          />
-                          <polygon
-                            points="155,90 185,105 155,120"
-                            fill="currentColor"
-                          />
-                          <polygon
-                            points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145"
-                            fill="currentColor"
-                          />
-                        </g>
-                      </svg>
-                    </div>
+                  {/* Third High-Speed Inner Ring with Glowing Satellite Dots */}
+                  <div className="absolute inset-12 sm:inset-16 rounded-full border border-white/40 animate-[spin_1.8s_linear_infinite]">
+                    <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-cyan-300 shadow-[0_0_15px_#22d3ee]" />
+                    <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-sky-400 shadow-[0_0_15px_#38bdf8]" />
+                  </div>
 
-                    {/* Center Core Blue Hotspot */}
-                    <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full border-2 border-cyan-300 bg-cyan-400/20 shadow-[0_0_50px_rgba(6,182,212,0.9)] animate-ping" />
+                  {/* Fourth Concentric Precision Dot Ring (Counter-Clockwise) */}
+                  <div className="absolute inset-20 sm:inset-24 rounded-full border border-dotted border-cyan-200/80 animate-[spin_3s_linear_infinite_reverse]" />
+
+                  {/* Center Glowing White Core Pulse */}
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-cyan-400 via-sky-200 to-white shadow-[0_0_40px_rgba(255,255,255,0.9)] animate-pulse flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-white shadow-[0_0_20px_#ffffff]" />
                   </div>
                 </motion.div>
               )}
