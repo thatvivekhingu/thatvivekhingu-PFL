@@ -13,6 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { VianMessageItem } from "@/hooks/useVianSessions";
 import type { VianToolAction } from "@/lib/vian/agent-tools";
+import type { AgentTraceStep } from "@/lib/vian/multi-agent";
 
 interface VianMessageProps {
   message: VianMessageItem;
@@ -64,6 +65,11 @@ export function VianMessage({
           <div className="flex flex-1 flex-col items-start min-w-0">
             {/* Assistant Body Container */}
             <div className="w-full rounded-2xl rounded-tl-sm border border-slate-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 px-4 py-3 text-xs text-slate-900 dark:text-zinc-200 leading-relaxed shadow-sm">
+              {/* Render Agentic Workflow Trace if present */}
+              {message.trace && message.trace.length > 1 && (
+                <VianAgentWorkflowTrace trace={message.trace} />
+              )}
+
               <MarkdownContent content={message.content} />
 
               {/* Render Tool Action Cards if any */}
@@ -358,4 +364,48 @@ function VianActionCard({ action }: { action: VianToolAction }) {
       return null;
   }
 }
+
+function VianAgentWorkflowTrace({ trace }: { trace: AgentTraceStep[] }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  if (!trace || trace.length <= 1) return null;
+
+  return (
+    <div className="mb-2.5 rounded-lg border border-purple-500/20 bg-purple-500/5 dark:bg-purple-950/20 text-[11px]">
+      <button
+        type="button"
+        onClick={() => setIsExpanded((prev) => !prev)}
+        className="flex w-full items-center justify-between px-2.5 py-1.5 font-mono text-[10px] text-purple-600 dark:text-purple-400 hover:opacity-90 cursor-pointer"
+      >
+        <span className="flex items-center gap-1.5 font-semibold">
+          <span>⚡</span>
+          <span>Agentic Workflow Trace ({trace.length} steps)</span>
+        </span>
+        <span className="text-zinc-400">{isExpanded ? "▲" : "▼"}</span>
+      </button>
+
+      {isExpanded && (
+        <div className="border-t border-purple-500/10 px-2.5 py-2 space-y-1.5 font-sans">
+          {trace.map((step) => (
+            <div
+              key={step.stepNumber}
+              className="flex items-start gap-1.5 text-[10px] leading-tight"
+            >
+              <span className="font-mono text-purple-500 font-bold">
+                #{step.stepNumber}
+              </span>
+              <span className="font-semibold text-zinc-700 dark:text-zinc-300">
+                {step.agentName}:
+              </span>
+              <span className="text-zinc-500 dark:text-zinc-400">
+                {step.actionSummary}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 

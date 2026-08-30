@@ -85,6 +85,7 @@ export function useVianChat({
 
         const contentType = response.headers.get("content-type") || "";
         const actionsHeader = response.headers.get("x-vian-actions");
+        const traceHeader = response.headers.get("x-vian-trace");
 
         let actions = [];
         if (actionsHeader) {
@@ -92,6 +93,15 @@ export function useVianChat({
             actions = JSON.parse(decodeURIComponent(actionsHeader));
           } catch (e) {
             console.warn("Failed to parse x-vian-actions header:", e);
+          }
+        }
+
+        let trace = [];
+        if (traceHeader) {
+          try {
+            trace = JSON.parse(decodeURIComponent(traceHeader));
+          } catch (e) {
+            console.warn("Failed to parse x-vian-trace header:", e);
           }
         }
 
@@ -106,10 +116,18 @@ export function useVianChat({
           if (json.actions && Array.isArray(json.actions)) {
             actions = json.actions;
           }
+          if (json.trace && Array.isArray(json.trace)) {
+            trace = json.trace;
+          }
           setMessages((prev) =>
             prev.map((m) =>
               m.id === assistantMsgId
-                ? { ...m, content: accumulatedText, actions: actions.length > 0 ? actions : undefined }
+                ? {
+                    ...m,
+                    content: accumulatedText,
+                    actions: actions.length > 0 ? actions : undefined,
+                    trace: trace.length > 0 ? trace : undefined,
+                  }
                 : m
             )
           );
@@ -128,7 +146,12 @@ export function useVianChat({
             setMessages((prev) => {
               const next = prev.map((m) =>
                 m.id === assistantMsgId
-                  ? { ...m, content: accumulatedText, actions: actions.length > 0 ? actions : undefined }
+                  ? {
+                      ...m,
+                      content: accumulatedText,
+                      actions: actions.length > 0 ? actions : undefined,
+                      trace: trace.length > 0 ? trace : undefined,
+                    }
                   : m
               );
               return next;
@@ -143,6 +166,7 @@ export function useVianChat({
             ...assistantPlaceholder,
             content: accumulatedText || "No response received.",
             actions: actions.length > 0 ? actions : undefined,
+            trace: trace.length > 0 ? trace : undefined,
           },
         ]);
         onMessagesChange(sessionId, finalMessages);

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import type { VianToolAction } from "@/lib/vian/agent-tools";
+import type { AgentTraceStep } from "@/lib/vian/multi-agent";
 
 export interface VianMessageItem {
   id: string;
@@ -10,6 +11,7 @@ export interface VianMessageItem {
   timestamp: number;
   isError?: boolean;
   actions?: VianToolAction[];
+  trace?: AgentTraceStep[];
 }
 
 export interface VianSession {

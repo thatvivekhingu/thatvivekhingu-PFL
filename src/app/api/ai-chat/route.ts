@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { routeQueryToSpecialistAgent } from "@/lib/vian/multi-agent";
+import {
+  planTaskExecution,
+  getAgentDirective,
+  type AgentTraceStep,
+} from "@/lib/vian/multi-agent";
 import {
   executeWebSearch,
   dispatchAgentToolCall,
@@ -125,9 +129,32 @@ export async function POST(req: Request) {
     ServerLogger.info("AiChatAPI", `[VIAN] Groq configured: ${Boolean(GROQ_API_KEY)}`);
     ServerLogger.info("AiChatAPI", `[VIAN] Gemini fallback configured: ${Boolean(GEMINI_API_KEY)}`);
 
-    const specialist = routeQueryToSpecialistAgent(message);
+    const plan = planTaskExecution(message, history);
+    const trace: AgentTraceStep[] = [
+      {
+        stepNumber: 1,
+        agentRole: "supervisor",
+        agentName: "Supervisor Orchestrator",
+        actionSummary: plan.rationale,
+        timestamp: Date.now(),
+      },
+    ];
+
+    const specialistDirectives = plan.plannedSteps
+      .map((s, idx) => {
+        trace.push({
+          stepNumber: idx + 2,
+          agentRole: s.role,
+          agentName: `${s.role.toUpperCase()} Agent`,
+          actionSummary: s.instruction,
+          timestamp: Date.now(),
+        });
+        return getAgentDirective(s.role);
+      })
+      .join("\n\n");
+
     const systemPrompt = getSystemPrompt();
-    const agentAugmentedPrompt = `${systemPrompt}\n\n[Active Specialist Directive]:\n${specialist.systemDirective}`;
+    const agentAugmentedPrompt = `${systemPrompt}\n\n[Active Multi-Agent Workflow Directives]:\n${specialistDirectives}`;
 
     let fullResponse = "";
 
@@ -235,8 +262,60 @@ export async function POST(req: Request) {
               }
             }
           } else if (choiceMessage?.content) {
-            fullResponse = choiceMessage.content;
-            ServerLogger.info("AiChatAPI", "[VIAN] Direct response received successfully.");
+            // Check for raw inline tool call from LLM text output
+            if (choiceMessage.content.includes("<tool_call>")) {
+              const match = choiceMessage.content.match(/<function=([^>]+)>[\s\S]*?<parameter=([^>]+)>([\s\S]*?)<\/parameter>/i);
+              if (match) {
+                const toolName = match[1].trim();
+                const paramKey = match[2].trim();
+                const paramVal = match[3].trim();
+                const parsedArgs: Record<string, unknown> = {};
+                parsedArgs[paramKey] = paramVal;
+
+                ServerLogger.info("AiChatAPI", `[VIAN] Parsed inline text tool call: ${toolName}`, parsedArgs);
+                const toolResult = await dispatchAgentToolCall(toolName, parsedArgs);
+                if (toolResult.actionPayload) {
+                  executedActions.push(toolResult.actionPayload);
+                }
+
+                messages.push({
+                  role: "assistant",
+                  content: choiceMessage.content,
+                });
+                messages.push({
+                  role: "user",
+                  content: `Tool Execution Output:\n${toolResult.data}\n\nPlease synthesize the final comprehensive answer for the user without outputting raw tool tags.`,
+                });
+
+                const followUpRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                  method: "POST",
+                  headers: {
+                    Authorization: `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    model: "qwen/qwen3.8-27b",
+                    messages,
+                    temperature: 0.3,
+                    max_tokens: 1200,
+                  }),
+                  signal: AbortSignal.timeout(12000),
+                });
+
+                if (followUpRes.ok) {
+                  const followUpJson = await followUpRes.json();
+                  const finalTxt = followUpJson.choices?.[0]?.message?.content;
+                  if (finalTxt) {
+                    fullResponse = finalTxt.replace(/<tool_call>[\s\S]*?<\/tool_call>/gi, "").trim();
+                  }
+                }
+              }
+            }
+
+            if (!fullResponse) {
+              fullResponse = choiceMessage.content.replace(/<tool_call>[\s\S]*?<\/tool_call>/gi, "").trim();
+            }
+            ServerLogger.info("AiChatAPI", "[VIAN] Response received successfully.");
           }
         } else {
           const errText = await groqRes.text().catch(() => "");
@@ -337,6 +416,7 @@ export async function POST(req: Request) {
           "Content-Type": "text/plain; charset=utf-8",
           "Cache-Control": "no-cache",
           "x-vian-actions": encodeURIComponent(JSON.stringify(executedActions)),
+          "x-vian-trace": encodeURIComponent(JSON.stringify(trace)),
         },
       });
     }
@@ -344,6 +424,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       response: fullResponse,
       actions: executedActions,
+      trace,
     });
   } catch (error) {
     ServerLogger.error("AiChatAPI", "Unhandled exception in /api/ai-chat:", error);
