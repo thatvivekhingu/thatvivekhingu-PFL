@@ -65,7 +65,7 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // 2-Step Generous Reading Timeline: English (2.0s) -> Hindi (2.2s) -> Open
+  // 2-Step 4-Second Reading Timeline: English (2.0s) -> Hindi (2.2s) -> Open
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
@@ -76,7 +76,7 @@ export function IntroAnimation() {
       setPhase("hi");
       playTapSound("access_granted");
 
-      // Phase 2: Show Hindi punchline for 2.2 seconds, then smoothly open
+      // Phase 2: Show Hindi punchline for 2.2 seconds (Total > 4 seconds)
       const timer2 = setTimeout(() => {
         setPhase("done");
         handleComplete();
@@ -97,24 +97,24 @@ export function IntroAnimation() {
           initial={{ y: 0 }}
           exit={{
             y: "-100%",
-            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+            transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
           }}
           onClick={handleSkip}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black px-6 select-none cursor-pointer overflow-hidden"
         >
-          {/* Center Card */}
-          <div className="relative z-10 max-w-3xl w-full flex flex-col items-center text-center space-y-8">
+          {/* Pure Center Content - Zero clutter above */}
+          <div className="relative z-10 max-w-4xl w-full flex flex-col items-center justify-center text-center space-y-8">
             {/* Word Flash Screen Container */}
-            <div className="min-h-[100px] sm:min-h-[140px] flex items-center justify-center">
+            <div className="min-h-[120px] sm:min-h-[160px] flex items-center justify-center px-4">
               <AnimatePresence mode="wait">
                 {phase === "en" && (
                   <motion.h1
                     key="en-line"
-                    initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+                    initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -16, filter: "blur(8px)" }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-3xl sm:text-5xl md:text-6xl font-bold font-sans tracking-tight text-white leading-tight"
+                    exit={{ opacity: 0, y: -18, filter: "blur(10px)" }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-sans tracking-tight text-white leading-tight"
                   >
                     {activeLine.en}
                   </motion.h1>
@@ -123,11 +123,11 @@ export function IntroAnimation() {
                 {phase === "hi" && (
                   <motion.h1
                     key="hi-line"
-                    initial={{ opacity: 0, scale: 0.94, y: 14, filter: "blur(8px)" }}
+                    initial={{ opacity: 0, scale: 0.93, y: 16, filter: "blur(10px)" }}
                     animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-3xl sm:text-5xl md:text-6xl font-extrabold font-sans tracking-tight text-white leading-tight drop-shadow-[0_4px_25px_rgba(255,255,255,0.25)]"
+                    exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-sans tracking-tight text-white leading-tight drop-shadow-[0_4px_30px_rgba(255,255,255,0.3)]"
                   >
                     {activeLine.hi}
                   </motion.h1>
@@ -136,7 +136,7 @@ export function IntroAnimation() {
             </div>
 
             {/* Sub-hint */}
-            <div className="text-xs font-mono text-zinc-500 flex items-center gap-2">
+            <div className="text-xs font-mono text-zinc-500/80 flex items-center gap-2">
               <span>☕</span>
               <span>Tap anywhere or press ESC to skip</span>
             </div>
