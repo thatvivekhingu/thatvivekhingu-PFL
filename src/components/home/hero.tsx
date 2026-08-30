@@ -43,16 +43,6 @@ const HERO_AVATARS: AvatarCharacter[] = [
     haloGradient: "from-cyan-500 via-sky-400 to-indigo-500",
   },
   {
-    id: "ironman",
-    name: "Iron Man",
-    badge: "Iron Man",
-    src: "/avatars/ironman.jpg",
-    borderColor: "border-red-500/90",
-    shadowColor: "shadow-[0_0_45px_rgba(239,68,68,0.6)]",
-    badgeText: "text-amber-400",
-    haloGradient: "from-red-500 via-amber-500 to-yellow-400",
-  },
-  {
     id: "spiderman",
     name: "Spider-Man",
     badge: "Spider-Man",
@@ -62,81 +52,18 @@ const HERO_AVATARS: AvatarCharacter[] = [
     badgeText: "text-red-400",
     haloGradient: "from-red-600 via-rose-500 to-blue-600",
   },
-  {
-    id: "deadpool",
-    name: "Deadpool",
-    badge: "Deadpool",
-    src: "/avatars/deadpool.jpg",
-    borderColor: "border-red-600/90",
-    shadowColor: "shadow-[0_0_45px_rgba(220,38,38,0.65)]",
-    badgeText: "text-red-400",
-    haloGradient: "from-red-600 via-rose-700 to-zinc-900",
-  },
-  {
-    id: "wolverine",
-    name: "Wolverine",
-    badge: "Wolverine",
-    src: "/avatars/wolverine.jpg",
-    borderColor: "border-amber-400/90",
-    shadowColor: "shadow-[0_0_45px_rgba(251,191,36,0.65)]",
-    badgeText: "text-amber-300",
-    haloGradient: "from-amber-400 via-yellow-500 to-blue-700",
-  },
-  {
-    id: "blackpanther",
-    name: "Black Panther",
-    badge: "Black Panther",
-    src: "/avatars/blackpanther.jpg",
-    borderColor: "border-purple-500/90",
-    shadowColor: "shadow-[0_0_45px_rgba(168,85,247,0.6)]",
-    badgeText: "text-purple-400",
-    haloGradient: "from-purple-600 via-indigo-500 to-slate-900",
-  },
-  {
-    id: "thor",
-    name: "Thor",
-    badge: "Thor",
-    src: "/avatars/thor.jpg",
-    borderColor: "border-sky-400/90",
-    shadowColor: "shadow-[0_0_45px_rgba(56,189,248,0.6)]",
-    badgeText: "text-sky-400",
-    haloGradient: "from-sky-400 via-blue-500 to-red-600",
-  },
-  {
-    id: "drstrange",
-    name: "Doctor Strange",
-    badge: "Doctor Strange",
-    src: "/avatars/drstrange.jpg",
-    borderColor: "border-amber-500/90",
-    shadowColor: "shadow-[0_0_45px_rgba(245,158,11,0.6)]",
-    badgeText: "text-amber-400",
-    haloGradient: "from-amber-500 via-orange-600 to-red-700",
-  },
-  {
-    id: "vision",
-    name: "Vision",
-    badge: "Vision",
-    src: "/avatars/vision.jpg",
-    borderColor: "border-teal-400/90",
-    shadowColor: "shadow-[0_0_45px_rgba(45,212,191,0.6)]",
-    badgeText: "text-teal-400",
-    haloGradient: "from-teal-400 via-emerald-600 to-rose-700",
-  },
 ];
 
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [avatarIdx, setAvatarIdx] = useState(0);
-  const nextSuperheroRef = useRef(1);
 
   const currentAvatar = HERO_AVATARS[avatarIdx];
 
   const handleMouseEnter = () => {
     playTapSound("pop");
-    const nextIdx = nextSuperheroRef.current;
-    setAvatarIdx(nextIdx);
-    nextSuperheroRef.current = nextIdx >= HERO_AVATARS.length - 1 ? 1 : nextIdx + 1;
+    setAvatarIdx(1);
   };
 
   const handleMouseLeave = () => {
@@ -148,9 +75,7 @@ export default function Hero() {
       e.stopPropagation();
     }
     playTapSound("pop");
-    const nextIdx = nextSuperheroRef.current;
-    setAvatarIdx(nextIdx);
-    nextSuperheroRef.current = nextIdx >= HERO_AVATARS.length - 1 ? 1 : nextIdx + 1;
+    setAvatarIdx((prev) => (prev === 0 ? 1 : 0));
   };
 
   const { status, dotColor } = getStatus();
@@ -185,84 +110,21 @@ export default function Hero() {
   };
 
   return (
-    <div className="pt-28 pb-14 sm:pt-40 sm:pb-16 relative flex items-center justify-center overflow-hidden">
-      <HeroConstellation desktopDots={300} mobileDots={75} />
+    <div className="pt-20 pb-8 sm:pt-24 sm:pb-12 relative flex items-center justify-center overflow-hidden">
+      <HeroConstellation desktopDots={260} mobileDots={70} />
 
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative flex-col space-y-1">
             <div className="relative flex flex-col items-center justify-center">
-              {/* Marvel Stark Industries & Avengers Arc Reactor Background HUD Watermark */}
-              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] sm:w-[640px] sm:h-[640px] pointer-events-none z-0 select-none flex items-center justify-center opacity-35 dark:opacity-40">
-                {/* Slow Rotating Marvel Avengers Arc Reactor HUD */}
-                <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
-                  <svg
-                    viewBox="0 0 400 400"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-full text-cyan-500/40 dark:text-cyan-400/45"
-                  >
-                    {/* Outer Tech Coordinate Rings */}
-                    <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1" strokeDasharray="6 8" />
-                    <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
-                    <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1" strokeDasharray="16 6" />
-                    <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" opacity="0.8" />
-                    <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1" strokeDasharray="8 12" />
-                    <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
-
-                    {/* Radial Arc Reactor Notches */}
-                    {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
-                      <line
-                        key={deg}
-                        x1="200"
-                        y1="10"
-                        x2="200"
-                        y2="28"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        transform={`rotate(${deg} 200 200)`}
-                      />
-                    ))}
-
-                    {/* Iconic Avengers 'A' Logo Embedded at Center */}
-                    <g transform="translate(100, 100) scale(1)">
-                      {/* Outer Ring of the A */}
-                      <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3" strokeDasharray="140 30" opacity="0.85" />
-                      
-                      {/* Avengers Arrow / Crossbar */}
-                      <path
-                        d="M30 115 L160 115 L145 95 L25 95 Z"
-                        fill="currentColor"
-                        opacity="0.85"
-                      />
-                      <polygon
-                        points="155,90 185,105 155,120"
-                        fill="currentColor"
-                      />
-                      
-                      {/* Stylized 'A' Stems */}
-                      <polygon
-                        points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145"
-                        fill="currentColor"
-                      />
-                    </g>
-                  </svg>
-                </div>
-
-                {/* Ambient Marvel Core Glow */}
-                <div className="absolute inset-20 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 blur-3xl" />
-              </div>
-
               {/* High-Tech Angled Double Marquee Ribbons Centered Directly Behind DP Avatar */}
-              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-72 select-none opacity-90">
+              <div className="absolute top-18 sm:top-22 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-64 select-none opacity-85">
                 {/* Cyan/Teal Angled Ribbon (-3.5deg) - Thicker & Bold Black Text */}
-                <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/60">
-                  <Marquee repeat={6} className="[--duration:26s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-2.5 sm:py-3.5 shadow-[0_0_40px_rgba(6,182,212,0.4)] border-y-2 border-cyan-200/60">
+                  <Marquee repeat={6} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                     <span>VIVEK HINGU // AI & ML ENGINEER</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
                     <span>JARVIS & AGENTIC AI</span>
-                    <span className="mx-3 text-zinc-950 font-black">•</span>
-                    <span>STARK TECH ARCHITECTURE</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
                     <span>AUTONOMOUS AGENTS</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
@@ -274,11 +136,9 @@ export default function Hero() {
                 </div>
 
                 {/* Violet/Indigo Angled Ribbon (+3.5deg) - Thicker & Bold Black Text */}
-                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.5)] border-y-2 border-indigo-200/60">
-                  <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-2.5 sm:py-3.5 shadow-[0_0_40px_rgba(129,140,248,0.4)] border-y-2 border-indigo-200/60">
+                  <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                     <span>BHARATBHASHA AI</span>
-                    <span className="mx-3 text-zinc-950 font-black">•</span>
-                    <span>AVENGERS INITIATIVE</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
                     <span>REAL-TIME STREAMING</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
@@ -292,40 +152,60 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Avatar and Marvel HUD Container with Left/Right Cards */}
-              <div className="relative w-full max-w-4xl mx-auto flex items-center justify-center py-2">
-                {/* Left Marvel Floating Stark Telemetry HUD (Desktop / Tablet) */}
-                <div className="hidden md:flex flex-col gap-1.5 absolute left-0 lg:left-4 xl:left-8 top-1/2 -translate-y-1/2 z-30 pointer-events-none select-none p-3 sm:p-3.5 rounded-xl bg-zinc-950/85 backdrop-blur-md border border-cyan-500/40 shadow-[0_0_30px_rgba(6,182,212,0.22)] text-left font-mono w-[185px] lg:w-[205px]">
-                  <div className="flex items-center justify-between border-b border-cyan-500/30 pb-1.5 text-[10px] sm:text-xs font-bold text-cyan-400">
-                    <span className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-                      STARK AI // MK-85
-                    </span>
-                    <span className="text-zinc-500 text-[9px]">HUD.01</span>
+              {/* Avatar Center Wrapper with Concentric Marvel Arc Reactor Orbit Perfectly Aligned */}
+              <div className="relative flex items-center justify-center my-1 z-30">
+                {/* Concentric Marvel Arc Reactor & Avengers Orbit (Mathematically Centered Behind Avatar) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] md:w-[480px] md:h-[480px] pointer-events-none -z-10 select-none flex items-center justify-center opacity-35 dark:opacity-40">
+                  <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
+                    <svg
+                      viewBox="0 0 400 400"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-full h-full text-cyan-500/40 dark:text-cyan-400/45"
+                    >
+                      {/* Outer Tech Coordinate Rings */}
+                      <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1" strokeDasharray="6 8" />
+                      <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
+                      <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1" strokeDasharray="16 6" />
+                      <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" opacity="0.8" />
+                      <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1" strokeDasharray="8 12" />
+                      <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+
+                      {/* Radial Arc Reactor Notches */}
+                      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+                        <line
+                          key={deg}
+                          x1="200"
+                          y1="10"
+                          x2="200"
+                          y2="28"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          transform={`rotate(${deg} 200 200)`}
+                        />
+                      ))}
+
+                      {/* Iconic Avengers 'A' Logo Embedded at Center */}
+                      <g transform="translate(100, 100) scale(1)">
+                        <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3" strokeDasharray="140 30" opacity="0.85" />
+                        <path
+                          d="M30 115 L160 115 L145 95 L25 95 Z"
+                          fill="currentColor"
+                          opacity="0.85"
+                        />
+                        <polygon
+                          points="155,90 185,105 155,120"
+                          fill="currentColor"
+                        />
+                        <polygon
+                          points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145"
+                          fill="currentColor"
+                        />
+                      </g>
+                    </svg>
                   </div>
-                  <div className="space-y-1 text-[10px] sm:text-[11px] text-zinc-300">
-                    <div className="flex justify-between">
-                      <span className="text-zinc-500">JARVIS CORE:</span>
-                      <span className="text-cyan-300 font-bold">ONLINE</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-zinc-500">ARC REACTOR:</span>
-                      <span className="text-emerald-400 font-bold">3.5 GW</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-zinc-500">INTEGRITY:</span>
-                      <span className="text-cyan-400 font-bold">100%</span>
-                    </div>
-                  </div>
-                  {/* Mini Audio Equalizer Waveform */}
-                  <div className="flex items-center gap-1 pt-1 border-t border-cyan-500/20">
-                    <div className="h-2 w-1 bg-cyan-400/80 rounded-full animate-bounce" />
-                    <div className="h-3 w-1 bg-cyan-300 rounded-full animate-bounce [animation-delay:0.15s]" />
-                    <div className="h-4 w-1 bg-cyan-500 rounded-full animate-bounce [animation-delay:0.3s]" />
-                    <div className="h-2 w-1 bg-cyan-300 rounded-full animate-bounce [animation-delay:0.2s]" />
-                    <div className="h-3.5 w-1 bg-cyan-400 rounded-full animate-bounce [animation-delay:0.1s]" />
-                    <span className="text-[9px] text-cyan-400 ml-auto font-bold">AUDIO SYNC</span>
-                  </div>
+                  {/* Ambient Marvel Core Glow */}
+                  <div className="absolute inset-16 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 blur-2xl" />
                 </div>
 
                 {/* Interactive Superhero Profile Avatar - Smooth Crossfade & Auto-Reset on Mouse Leave */}
@@ -344,12 +224,12 @@ export default function Hero() {
                 >
                   {/* Dynamic Ambient Glowing Halo */}
                   <div
-                    className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-xl group-hover:opacity-95 transition-all duration-500 animate-pulse`}
+                    className={`absolute -inset-2.5 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-lg group-hover:opacity-95 transition-all duration-500 animate-pulse`}
                   />
 
                   {/* Avatar Border Ring with Smooth Crossfade Layers */}
                   <div
-                    className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
+                    className={`relative h-36 w-36 sm:h-44 sm:w-44 md:h-48 md:w-48 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
                   >
                     {HERO_AVATARS.map((avatar, idx) => (
                       <div
@@ -369,58 +249,16 @@ export default function Hero() {
                     ))}
                   </div>
                 </div>
-
-                {/* Right Marvel Floating Avengers Telemetry HUD (Desktop / Tablet) */}
-                <div className="hidden md:flex flex-col gap-1.5 absolute right-0 lg:right-4 xl:right-8 top-1/2 -translate-y-1/2 z-30 pointer-events-none select-none p-3 sm:p-3.5 rounded-xl bg-zinc-950/85 backdrop-blur-md border border-amber-500/40 shadow-[0_0_30px_rgba(245,158,11,0.22)] text-left font-mono w-[185px] lg:w-[205px]">
-                  <div className="flex items-center justify-between border-b border-amber-500/30 pb-1.5 text-[10px] sm:text-xs font-bold text-amber-400">
-                    <span className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-amber-400 animate-ping" />
-                      AVENGERS // E-616
-                    </span>
-                    <span className="text-zinc-500 text-[9px]">TAC.02</span>
-                  </div>
-                  <div className="space-y-1 text-[10px] sm:text-[11px] text-zinc-300">
-                    <div className="flex justify-between">
-                      <span className="text-zinc-500">VIBRANIUM:</span>
-                      <span className="text-amber-300 font-bold">STABLE</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-zinc-500">QUANTUM:</span>
-                      <span className="text-purple-400 font-bold">LOCKED</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-zinc-500">MULTIVERSE:</span>
-                      <span className="text-amber-400 font-bold">ACTIVE</span>
-                    </div>
-                  </div>
-                  {/* Mini Target Crosshair & Sector */}
-                  <div className="flex items-center justify-between pt-1 border-t border-amber-500/20 text-[9px] text-amber-400/90 font-mono">
-                    <span>SEC: 23°N 72°E</span>
-                    <span className="text-[10px] font-bold text-amber-300">⚡ LOCKED</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Mobile Marvel HUD Mini Badges */}
-              <div className="md:hidden flex items-center justify-center gap-2 mt-1.5 font-mono text-[10px] z-50">
-                <span className="px-2.5 py-1 rounded-full bg-zinc-950/90 border border-cyan-500/40 text-cyan-300 flex items-center gap-1.5 shadow-md">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
-                  STARK AI: ONLINE
-                </span>
-                <span className="px-2.5 py-1 rounded-full bg-zinc-950/90 border border-amber-500/40 text-amber-300 flex items-center gap-1.5 shadow-md">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-ping" />
-                  AVENGERS: E-616
-                </span>
               </div>
 
               {/* Character Name Label under Avatar - Small, Clean, No Background, No Emoji, No Number */}
-              <div className="mt-2 text-center text-xs font-mono font-medium tracking-wide text-zinc-400 select-none z-50">
+              <div className="mt-1.5 text-center text-xs font-mono font-medium tracking-wide text-zinc-400 select-none z-50">
                 <span className={currentAvatar.badgeText}>
                   {currentAvatar.name}
                 </span>
               </div>
 
-              <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-4">
+              <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-2.5">
                 <div className="z-50 relative flex items-center justify-center">
                   <div
                     className={`absolute h-1.5 w-1.5 rounded-full border-1 ${
@@ -437,43 +275,44 @@ export default function Hero() {
                     } mr-2`}
                   ></div>
                 </div>
-                <span className="whitespace-pre-wrap text-center font-semibold leading-none text-muted-foreground text-xs sm:text-base py-[0.5]">
+                <span className="whitespace-pre-wrap text-center font-semibold leading-none text-muted-foreground text-xs sm:text-sm py-[0.5]">
                   {status}
                 </span>
               </ShimmerButton>
-              <div className="mt-3 flex justify-center">
+              <div className="mt-2 flex justify-center">
                 <VisitorBadge />
               </div>
             </div>
 
-            <div className="w-full space-y-6 pt-2">
+            <div className="w-full space-y-4 pt-1">
               <div className="z-50 text-center px-2">
-                <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight break-words sm:whitespace-nowrap select-none">
+                <h1 className="text-2xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight break-words sm:whitespace-nowrap select-none">
                   <span className="text-foreground">Hi, I&#39;m </span>
                   <AnimatedName className="inline-block" />
                 </h1>
               </div>
 
-                <p className="mt-3 text-sm sm:text-2xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
-                  AI & ML Engineer building{" "}
-                  <span className="text-cyan-400 font-semibold underline decoration-cyan-500/40 underline-offset-4">
-                    intelligent software
-                  </span>
-                  .
-                </p>
+              <p className="mt-1.5 text-xs sm:text-xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
+                AI & ML Engineer building{" "}
+                <span className="text-cyan-400 font-semibold underline decoration-cyan-500/40 underline-offset-4">
+                  intelligent software
+                </span>
+                .
+              </p>
+
               <BlurFade delay={0.005 * 2} direction="down" inView>
-                <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
-                  <div className="px-4 py-2 rounded-full border border-border/60 bg-background/50 backdrop-blur-md shadow-lg">
+                <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-1">
+                  <div className="px-3.5 py-1.5 rounded-full border border-border/60 bg-background/50 backdrop-blur-md shadow-lg">
                     <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
                   </div>
-                  <span className="hidden sm:inline-block h-5 w-px bg-border/60" aria-hidden />
+                  <span className="hidden sm:inline-block h-4 w-px bg-border/60" aria-hidden />
                   <div className="flex items-center gap-2.5 sm:gap-3">
                     <a
                       ref={ctaRef}
                       onMouseMove={handleCtaMove}
                       onClick={() => playTapSound("pop")}
                       href="#projects"
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
                     >
                       <span
                         aria-hidden
@@ -484,7 +323,7 @@ export default function Hero() {
                         }}
                       />
                       <span className="relative">View my work</span>
-                      <IconArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      <IconArrowRight className="relative h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                       <ShimmerBorder />
                     </a>
                     <button
@@ -494,7 +333,7 @@ export default function Hero() {
                         playTapSound("chime");
                         setIsResumeOpen(true);
                       }}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
                     >
                       <span
                         aria-hidden
@@ -504,7 +343,7 @@ export default function Hero() {
                             "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
                         }}
                       />
-                      <IconFileText className="relative h-4 w-4 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
+                      <IconFileText className="relative h-3.5 w-3.5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
                       <span className="relative font-bold">Resume</span>
                       <ShimmerBorder />
                     </button>
