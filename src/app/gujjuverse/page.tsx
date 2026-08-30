@@ -4,206 +4,253 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  IconCoffee,
+  IconSparkles,
   IconArrowLeft,
-  IconVolume,
-  IconCheck,
-  IconCalculator,
-  IconLanguage,
-  IconRefresh,
+  IconBrandYoutube,
+  IconPlayerPlay,
+  IconX,
+  IconBook,
+  IconQuote,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
 
-// 1. Slang Translator Presets
-const TRANSLATION_PRESETS = [
+interface DayroVideo {
+  id: string;
+  artist: string;
+  title: string;
+  category: "comedy" | "sahitya" | "music";
+  categoryLabel: string;
+  tag: string;
+  youtubeId: string;
+  thumbnail: string;
+  description: string;
+}
+
+const DAYRO_VIDEOS: DayroVideo[] = [
   {
-    id: 1,
-    corporate: "We need to align our deliverables for the next sprint.",
-    gujju: "ભાઈ, પહેલા નક્કી કરી લો કોને શું કરવાનું છે, છેલ્લે ગોટા ના વળવા જોઈએ!",
-    context: "Sprint Planning",
+    id: "mayabhai-1",
+    artist: "માયાભાઈ આહીર (Mayabhai Ahir)",
+    title: "અસલ કાઠિયાવાડી હાસ્ય ડાયરો & જોક્સ",
+    category: "comedy",
+    categoryLabel: "હાસ્ય ડાયરો",
+    tag: "Non-Stop Comedy",
+    youtubeId: "d_jG-G12fR4",
+    thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80",
+    description: "માયાભાઈના દેશી અંદાજ અને ગામડાની વાતો સાથે પેટ પકડીને હસાવતો લોકડાયરો.",
   },
   {
-    id: 2,
-    corporate: "There is a critical bug in production.",
-    gujju: "લોચા પડી ગયા ભાઈ, સર્વર બેસી ગયું છે, ફટાફટ જુઓ!",
-    context: "Production Alert",
+    id: "sairam-1",
+    artist: "સાંઈરામ દવે (Sairam Dave)",
+    title: "ગ્લોબલ ગુજરાતી & હાસ્ય દરબાર",
+    category: "comedy",
+    categoryLabel: "હાસ્ય ડાયરો",
+    tag: "Social Satire",
+    youtubeId: "7GzZl73RzXk",
+    thumbnail: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80",
+    description: "આધુનિક જીવનશૈલી, મોબાઈલ અને સમાજ પર સાંઈરામ દવેના તીખા અને મીઠા કટાક્ષ.",
   },
   {
-    id: 3,
-    corporate: "We have successfully closed our seed funding round.",
-    gujju: "પાર્ટી બાકી છે હોં, પૈસા આવી ગયા છે, હવે જલસા કરો!",
-    context: "Funding News",
+    id: "kirtidan-1",
+    artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
+    title: "મોગલ છેડતા કાળો નાગ & તહૂકાર ડાયરો",
+    category: "music",
+    categoryLabel: "લોક સંગીત & ભજન",
+    tag: "Live Mehfil",
+    youtubeId: "K2yqP5FqK2I",
+    thumbnail: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=800&auto=format&fit=crop&q=80",
+    description: "કીર્તિદાન ગઢવીના દમદાર અવાજમાં મોગલ મા ની સ્તુતિ અને ભવ્ય લોકડાયરો.",
   },
   {
-    id: 4,
-    corporate: "Can you please put in some extra hours over the weekend?",
-    gujju: "શનિ-રવિ તો ફાફડા અને મેચનો ટાઈમ છે, સોમવારે સવારે વાત કરીએ!",
-    context: "Weekend Overtime",
+    id: "rajbha-1",
+    artist: "રાજભા ગઢવી (Rajbha Gadhvi)",
+    title: "ગીરની વાતો, સિંહ અને સૌરાષ્ટ્રની રસધાર",
+    category: "sahitya",
+    categoryLabel: "લોક સાહિત્ય & વીર રસ",
+    tag: "Gir Culture",
+    youtubeId: "t2fV6j6W8nI",
+    thumbnail: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80",
+    description: "ગીરના માલધારીઓ, ડાલામથ્થા સિંહ અને ક્ષત્રિય વીરતાની અસલ ચારણી સાહિત્યિક વાતો.",
   },
   {
-    id: 5,
-    corporate: "The project timeline is extremely aggressive.",
-    gujju: "ગાડી છૂટવાની તૈયારીમાં છે, ફટાફટ દેશી જુગાડ લગાવો!",
-    context: "Tight Deadline",
+    id: "dhirubhai-1",
+    artist: "ધીરૂભાઈ સરવૈયા (Dhirubhai Sarvaiya)",
+    title: "કાઠિયાવાડની દેશી રમૂજ & નોન-સ્ટોપ જોક્સ",
+    category: "comedy",
+    categoryLabel: "હાસ્ય ડાયરો",
+    tag: "Classic Humor",
+    youtubeId: "LzE7s9wJ3mA",
+    thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80",
+    description: "ધીરૂભાઈ સરવૈયાના સહજ અને દેશી અંદાજના સદાબહાર હાસ્યના ફુવારા.",
   },
   {
-    id: 6,
-    corporate: "Let us take this offline and circle back later.",
-    gujju: "હવે ચા પીવા ગલ્લે ચાલો, ત્યાં જઈને આરામથી ફોડ પાડીએ!",
-    context: "Meeting Exit",
+    id: "osman-1",
+    artist: "ઓસમાન મીર (Osman Mir)",
+    title: "સૂફી, ગઝલ અને લોકડાયરાની રંગત",
+    category: "music",
+    categoryLabel: "લોક સંગીત & ભજન",
+    tag: "Sufi & Folk",
+    youtubeId: "fE_nF2bL_J4",
+    thumbnail: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
+    description: "રૂહાનિયત અને સુરીલા અવાજ સાથે ગુજરાતી-સૂફી સંગીતની અલૌકિક મહેફિલ.",
   },
 ];
 
-// 2. Soundboard Lines
-const SOUNDBOARD_ITEMS = [
-  { id: 1, text: "જલસા કરો બાપ!", sub: "Pure Kathiyawadi Vibe", sound: "chime" as const },
-  { id: 2, text: "હવે તું શાંતિ રાખ, આપણે જોઈ લઈશું.", sub: "Debugging Confidence", sound: "pop" as const },
-  { id: 3, text: "ચા પીવી છે? ચાલો ગલ્લે!", sub: "4 PM Ritual", sound: "hover" as const },
-  { id: 4, text: "આમાં કંઈ નવું નથી, આપણો દેશી જુગાડ છે.", sub: "Tech Innovation", sound: "access_granted" as const },
-  { id: 5, text: "વાહ ભાઈ વાહ, મોજ પડી ગઈ!", sub: "Code Works on First Run", sound: "chime" as const },
-  { id: 6, text: "જય શ્રી કૃષ્ણ, હવે પ્રોડક્શનમાં પુશ કરો!", sub: "Deploy Prayer", sound: "pop" as const },
+const GUJJU_DICTIONARY = [
+  {
+    term: "Bug (બગ)",
+    gujju: "લોચો",
+    desc: "કોડે કરેલી એવી ભૂલ જે આખી રાત ઊંઘ ના આવવા દે!",
+    emoji: "🐛",
+  },
+  {
+    term: "Debugging (ડીબગિંગ)",
+    gujju: "ફોડ પાડવો",
+    desc: "કોડમાં ક્યાં લોચો થયો છે એ ખોળી કાઢીને ફિક્સ કરવું.",
+    emoji: "🔍",
+  },
+  {
+    term: "Merge Conflict",
+    gujju: "ગોટો વળવો",
+    desc: "બે જણાએ એક જ ફાઈલમાં હાથ નાખ્યો ને પંચાયત થઈ!",
+    emoji: "⚡",
+  },
+  {
+    term: "Client Meeting",
+    gujju: "ચોરે પંચાત",
+    desc: "જે વાત ૫ મિનિટમાં પતી જતી હોય એને ૨ કલાક ખેંચવી.",
+    emoji: "💼",
+  },
+  {
+    term: "Production Deploy",
+    gujju: "શ્રી ગણેશ / ભગવાન ભરોસે",
+    desc: "ચાલ્યું તો મોજ અને ના ચાલ્યું તો 'આપણે જોઈ લઈશું'!",
+    emoji: "🚀",
+  },
+  {
+    term: "Stack Overflow",
+    gujju: "સંજય દ્રષ્ટિ",
+    desc: "જ્યાં દુનિયાના તમામ કોડિંગ લોચાના દેશી ઉપાય મળી જાય.",
+    emoji: "💡",
+  },
 ];
 
-// 3. Desi Karodiyo Chronicles
-const KARODIYO_STORIES = [
+const GUJJU_RULES = [
   {
-    id: 1,
-    title: "Atal Bridge Web Swing",
-    gujarati: "અટલ બ્રિજ પર જાળું ફેંક્યું પણ સાબરમતીની હવા એટલી મસ્ત હતી કે કરોડિયો રિવરફ્રન્ટે ચા પીવા બેસી ગયો!",
-    emoji: "🌉",
+    num: "૧",
+    title: "સવારનો નિયમ",
+    desc: "કડક કટિંગ ચા અને ગાંઠિયા વગર મગજનું CPU સ્ટાર્ટ નથી થતું.",
+    icon: "☕",
   },
   {
-    id: 2,
-    title: "Manek Chowk Midnight Mission",
-    gujarati: "રાતે ૨ વાગ્યે માણેક ચોકમાં ચોકલેટ સેન્ડવિચ ખાતા ખાતા કરોડિયો બગ ફિક્સ કરતો ઝડપાયો!",
-    emoji: "🥪",
+    num: "૨",
+    title: "વેપારનો નિયમ",
+    desc: "ક્લાયન્ટને હંમેશા સમય પહેલા ડિલિવરી આપવી — આ ગુજરાતીનો પાકો વેપાર છે.",
+    icon: "🤝",
   },
   {
-    id: 3,
-    title: "Navratri Special Suit",
-    gujarati: "નવરાત્રીમાં કરોડિયો કેડિયા વાળો સ્પાઈડર સૂટ પહેરીને દોઢિયાના સ્ટેપમાં જાળાં ફેંકે છે!",
-    emoji: "💃",
+    num: "૩",
+    title: "કોડિંગનો નિયમ",
+    desc: "કોડ ભલે ગમે તેટલો મોટો હોય, લોજિક એકદમ સીધું અને પાણી જેવું ચોખ્ખું હોવું જોઈએ.",
+    icon: "💻",
   },
   {
-    id: 4,
-    title: "The Ultimate Rule",
-    gujarati: "જ્યાં સુધી ગલ્લાની કડક કટિંગ ચા ના મળે, ત્યાં સુધી દેશી કરોડિયો એક પણ જાળું ના બનાવે!",
-    emoji: "☕",
+    num: "૪",
+    title: "જલસાનો નિયમ",
+    desc: "કામ ગમે તેટલું હોય, પણ ગરબા, મિત્રો અને પરિવાર સાથે મોજ કાયમ રહેવી જોઈએ!",
+    icon: "🎉",
   },
-];
-
-// 4. Kitli Menu Items
-const KITLI_MENU = [
-  { id: "cutting", name: "કટિંગ ચા", price: 10, emoji: "☕" },
-  { id: "maskabun", name: "મસ્કાબન", price: 30, emoji: "🍞" },
-  { id: "fafda", name: "ફાફડા-જલેબી", price: 60, emoji: "🥟" },
-  { id: "kadak", name: "સ્પેશિયલ કડક ચા", price: 20, emoji: "🔥" },
 ];
 
 export default function GujjuversePage() {
-  // Tapri Simulator state
-  const [tapriBill, setTapriBill] = useState<{ [key: string]: number }>({ cutting: 1 });
-  const [tapriTotal, setTapriTotal] = useState(10);
-  const [tapriDialogue, setTapriDialogue] = useState("કાકા, ચા જરા કડક અને મીઠી ઓછી રાખજો!");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [activeVideo, setActiveVideo] = useState<DayroVideo | null>(null);
 
-  // Slang Translator state
-  const [selectedPreset, setSelectedPreset] = useState(TRANSLATION_PRESETS[0]);
-  const [customText, setCustomText] = useState("");
-  const [customTranslation, setCustomTranslation] = useState<string | null>(null);
+  const filteredVideos =
+    selectedCategory === "all"
+      ? DAYRO_VIDEOS
+      : DAYRO_VIDEOS.filter((v) => v.category === selectedCategory);
 
-  // ROI Calculator state
-  const [codingHours, setCodingHours] = useState(6);
-
-  // General Toast & Copy
-  const [copiedText, setCopiedText] = useState<string | null>(null);
-  const [activeVoice, setActiveVoice] = useState<number | null>(null);
-
-  const handleOrderTapriItem = (itemId: string, price: number, name: string) => {
+  const handlePlayVideo = (video: DayroVideo) => {
     playTapSound("pop");
-    setTapriBill((prev) => {
-      const nextCount = (prev[itemId] || 0) + 1;
-      return { ...prev, [itemId]: nextCount };
-    });
-    setTapriTotal((prev) => prev + price);
-
-    const dialogues = [
-      "એક " + name + " નો ઓર્ડર આવી ગયો ભાઈ!",
-      "કાકા, ચા જરા કડક અને મીઠી ઓછી રાખજો!",
-      "સવારે ૭ થી રાતે ૨ વાગ્યા સુધી કિટલી ઓપન છે!",
-      "ચા સાથે મસ્કાબન બોળવાની મજા જ અલગ છે!",
-      "લોજિક મીઠું અને ચા કડક — આ જ આપણો સિક્રેટ કોડ!",
-    ];
-    setTapriDialogue(dialogues[Math.floor(Math.random() * dialogues.length)]);
-  };
-
-  const handleResetTapri = () => {
-    playTapSound("hover");
-    setTapriBill({ cutting: 1 });
-    setTapriTotal(10);
-    setTapriDialogue("ટેબલ સાફ થઈ ગયું! નવો ઓર્ડર આપો!");
-  };
-
-  const handleSpeak = (text: string, id: number, soundType: "pop" | "chime" | "hover" | "access_granted") => {
-    playTapSound(soundType);
-    setActiveVoice(id);
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.95;
-      utterance.pitch = 1.05;
-      utterance.lang = "gu-IN";
-      utterance.onend = () => setActiveVoice(null);
-      utterance.onerror = () => setActiveVoice(null);
-      window.speechSynthesis.speak(utterance);
-    } else {
-      setTimeout(() => setActiveVoice(null), 1200);
-    }
-  };
-
-  const handleCopy = (text: string) => {
-    playTapSound("chime");
-    navigator.clipboard.writeText(text);
-    setCopiedText(text);
-    setTimeout(() => setCopiedText(null), 2000);
-  };
-
-  const handleCustomTranslate = () => {
-    if (!customText.trim()) return;
-    playTapSound("access_granted");
-    const gujjuSuffixes = [
-      "ભાઈ, આમાં કંઈ ટેન્શન લેવા જેવું નથી, આપણે જોઈ લઈશું!",
-      "આ કામ તો ૧૦ મિનિટમાં પતી જશે, પહેલા ચા પીવા ગલ્લે ચાલો!",
-      "આપણા દેશી જુગાડ આગળ દુનિયાની કોઈ AI ના ટકી શકે!",
-      "વાહ ભાઈ વાહ, આમાં તો મોજ પડી જશે!",
-    ];
-    const randomOutput = gujjuSuffixes[Math.floor(Math.random() * gujjuSuffixes.length)];
-    setCustomTranslation(randomOutput);
+    setActiveVideo(video);
   };
 
   return (
     <div className="relative min-h-screen w-full bg-black text-white px-4 py-16 sm:py-24 overflow-x-hidden selection:bg-amber-500 selection:text-black">
-      {/* Background Decorative Lighting */}
+      {/* Ambient Lighting */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-amber-500/5 blur-[140px] pointer-events-none -z-10" />
       <div className="absolute bottom-40 right-10 w-[500px] h-[500px] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none -z-10" />
 
-      {/* Floating Notification */}
+      {/* Video Modal Player */}
       <AnimatePresence>
-        {copiedText && (
+        {activeVideo && (
           <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.9 }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] px-5 py-2.5 rounded-full bg-zinc-900 border border-amber-500/50 text-amber-300 text-xs sm:text-sm font-medium shadow-2xl backdrop-blur-xl flex items-center gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8"
           >
-            <IconCheck className="w-4 h-4 text-emerald-400" />
-            <span>Copied to Clipboard!</span>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="relative w-full max-w-4xl bg-zinc-950 border border-amber-500/40 rounded-3xl overflow-hidden shadow-2xl space-y-4 p-4 sm:p-6"
+            >
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+                <div className="space-y-0.5">
+                  <span className="text-xs font-mono text-amber-400 font-bold uppercase">
+                    {activeVideo.artist}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-zinc-100">
+                    {activeVideo.title}
+                  </h3>
+                </div>
+
+                <button
+                  onClick={() => {
+                    playTapSound("hover");
+                    setActiveVideo(null);
+                  }}
+                  className="p-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-400 hover:text-white transition-colors"
+                >
+                  <IconX className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Responsive YouTube Embed */}
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1`}
+                  title={activeVideo.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full border-0"
+                />
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                <p className="text-xs sm:text-sm text-zinc-400">
+                  {activeVideo.description}
+                </p>
+                <a
+                  href={`https://www.youtube.com/watch?v=${activeVideo.youtubeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => playTapSound("pop")}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/20 hover:bg-red-600/30 border border-red-500/40 text-red-400 text-xs font-mono font-bold shrink-0 transition-colors"
+                >
+                  <IconBrandYoutube className="w-4 h-4 text-red-500" />
+                  <span>YouTube પર જુઓ</span>
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
       <div className="max-w-5xl mx-auto space-y-16 sm:space-y-24">
-        {/* Top Bar Navigation */}
+        {/* Top Navigation */}
         <BlurFade delay={0.05} inView>
           <div className="flex items-center justify-between">
             <Link
@@ -212,12 +259,12 @@ export default function GujjuversePage() {
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-zinc-400 hover:text-white transition-colors group"
             >
               <IconArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>Back to Portfolio</span>
+              <span>મુખ્ય પોર્ટફોલિયો પર પાછા જાઓ</span>
             </Link>
 
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-amber-400">
               <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-              <span>દેશી કરોડિયો APPROVED 🕷️</span>
+              <span>દેશી કરોડિયો સ્પેસ 🕷️</span>
             </div>
           </div>
         </BlurFade>
@@ -226,328 +273,191 @@ export default function GujjuversePage() {
         <BlurFade delay={0.1} inView>
           <div className="text-center space-y-6 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-widest uppercase">
-              <IconCoffee className="w-4 h-4 animate-bounce" />
-              <span>AHMEDABAD TECH & TAPRI UNIVERSE</span>
+              <IconSparkles className="w-4 h-4 animate-bounce" />
+              <span>અસલ ગુજરાતી સાહિત્ય & લોકડાયરો</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight font-sans">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-300 to-yellow-200">
-                GUJJU VERSE
+                ગુજ્જુ વર્સ
               </span>{" "}
-              <span>☕</span>
+              <span>🎭</span>
             </h1>
 
             <p className="text-base sm:text-xl text-zinc-400 font-medium leading-relaxed">
-              ગલ્લાની કટિંગ ચા, મસ્કાબન અને આર્ટિફિશિયલ ઇન્ટેલિજન્સ. Where pure Gujarati humor meets deep AI engineering!
+              કોડિંગ સાથે સાચો ગુજરાતી લોકડાયરો, હાસ્ય દરબાર અને અસલ સૌરાષ્ટ્રની રંગત!
             </p>
           </div>
         </BlurFade>
 
-        {/* FEATURE 1: અમદાવાદી કિટલી / ચા નો ગલ્લો (Virtual Tapri Simulator) */}
+        {/* SECTION 1: લોકડાયરો & સંગીત (YouTube Dayro Lounge) */}
         <BlurFade delay={0.15} inView>
-          <div className="relative p-6 sm:p-10 rounded-3xl bg-zinc-950/90 border border-amber-500/30 space-y-8 shadow-2xl overflow-hidden">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-5">
-              <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 text-amber-400 text-xs font-mono font-bold uppercase tracking-wider">
-                  <IconCoffee className="w-4 h-4" />
-                  <span>Interactive Simulator</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-100">
-                  અમદાવાદી કિટલી / ચા નો ગલ્લો ☕
-                </h2>
-                <p className="text-xs sm:text-sm text-zinc-400">
-                  Click to order your favorite kitli refreshments & see the live bill!
-                </p>
-              </div>
-
+          <div className="space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-900 pb-4">
               <div className="flex items-center gap-3">
-                <div className="px-4 py-2 rounded-2xl bg-zinc-900 border border-amber-500/40 text-amber-300 font-mono font-bold text-sm">
-                  કુલ બિલ: ₹{tapriTotal}
-                </div>
-                <button
-                  onClick={handleResetTapri}
-                  title="Clear Table"
-                  className="p-2.5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors"
-                >
-                  <IconRefresh className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Menu Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-              {KITLI_MENU.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleOrderTapriItem(item.id, item.price, item.name)}
-                  className="p-4 sm:p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-amber-500/60 hover:bg-zinc-900 transition-all text-left flex flex-col justify-between space-y-3 group cursor-pointer active:scale-95 select-none"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-3xl group-hover:scale-110 transition-transform">
-                      {item.emoji}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-zinc-950 text-[11px] font-mono text-amber-400 font-bold">
-                      {tapriBill[item.id] || 0} ordered
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm sm:text-base text-zinc-100 group-hover:text-amber-300 transition-colors">
-                      {item.name}
-                    </h3>
-                    <p className="text-xs font-mono text-zinc-500">₹{item.price} / item</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            {/* Tapri Master Dialogue Banner */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-950/40 via-zinc-900/80 to-zinc-950 border border-amber-500/30 flex items-center gap-3">
-              <span className="text-2xl">👨‍🍳</span>
-              <p className="text-xs sm:text-sm font-medium text-amber-200">
-                <span className="font-bold font-mono text-amber-400">કિટલી વાળા ભાઈ: </span>
-                {tapriDialogue}
-              </p>
-            </div>
-          </div>
-        </BlurFade>
-
-        {/* FEATURE 2: Gujju Slang & Corporate Translator */}
-        <BlurFade delay={0.2} inView>
-          <div className="p-6 sm:p-10 rounded-3xl bg-zinc-950/90 border border-cyan-500/30 space-y-8 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-zinc-800/80 pb-5">
-              <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider">
-                  <IconLanguage className="w-4 h-4" />
-                  <span>AI Slang Engine</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-100">
-                  કોર્પોરેટ ➔ ગુજ્જુ સ્લેંગ કન્વર્ટર ⚡
-                </h2>
-                <p className="text-xs sm:text-sm text-zinc-400">
-                  Translate boring corporate buzzwords into authentic Amdavad slang!
-                </p>
-              </div>
-            </div>
-
-            {/* Preset Selector Buttons */}
-            <div className="flex flex-wrap gap-2">
-              {TRANSLATION_PRESETS.map((preset) => (
-                <button
-                  key={preset.id}
-                  onClick={() => {
-                    playTapSound("hover");
-                    setSelectedPreset(preset);
-                  }}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all ${
-                    selectedPreset.id === preset.id
-                      ? "bg-cyan-500 text-black font-bold shadow-[0_0_15px_rgba(6,182,212,0.4)]"
-                      : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
-                  }`}
-                >
-                  {preset.context}
-                </button>
-              ))}
-            </div>
-
-            {/* Active Translation Comparison Card */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-2">
-                <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-                  💼 Corporate English
-                </span>
-                <p className="text-sm sm:text-base text-zinc-300 font-medium leading-relaxed">
-                  &ldquo;{selectedPreset.corporate}&rdquo;
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/40 space-y-2 flex flex-col justify-between">
+                <IconBrandYoutube className="w-6 h-6 text-red-500" />
                 <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-cyan-400 uppercase tracking-wider font-bold">
-                      🔥 Pure Gujju Translation
-                    </span>
-                    <button
-                      onClick={() => handleCopy(selectedPreset.gujju)}
-                      className="text-xs font-mono text-zinc-400 hover:text-cyan-300 transition-colors"
-                    >
-                      Copy
-                    </button>
-                  </div>
-                  <p className="text-base sm:text-lg text-cyan-200 font-bold leading-relaxed pt-1">
-                    &ldquo;{selectedPreset.gujju}&rdquo;
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
+                    ગુજરાતી લોકડાયરો & હાસ્ય મહેફિલ
+                  </h2>
+                  <p className="text-xs text-zinc-400">
+                    ક્લિક કરીને લાઈવ ડાયરો સાંભળો અને મોજ કરો
                   </p>
                 </div>
               </div>
+
+              {/* Filter Tabs */}
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: "all", label: "બધા ડાયરા" },
+                  { id: "comedy", label: "હાસ્ય ડાયરો 😂" },
+                  { id: "sahitya", label: "લોક સાહિત્ય ⚔️" },
+                  { id: "music", label: "લોક સંગીત 🎶" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => {
+                      playTapSound("hover");
+                      setSelectedCategory(tab.id);
+                    }}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
+                      selectedCategory === tab.id
+                        ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]"
+                        : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* Custom Input Translator */}
-            <div className="pt-2 space-y-3">
-              <span className="text-xs font-mono text-zinc-400">
-                અથવા તમારો પોતાનો કોર્પોરેટ મેસેજ લખો:
-              </span>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="text"
-                  value={customText}
-                  onChange={(e) => setCustomText(e.target.value)}
-                  placeholder="e.g. Please approve my PR before EOD..."
-                  className="flex-1 px-4 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:border-cyan-500/60 font-sans"
-                />
-                <button
-                  onClick={handleCustomTranslate}
-                  className="px-6 py-3 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-xs sm:text-sm transition-all shrink-0"
+            {/* Video Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredVideos.map((video) => (
+                <motion.div
+                  key={video.id}
+                  whileHover={{ y: -4 }}
+                  onClick={() => handlePlayVideo(video)}
+                  className="group relative rounded-3xl bg-zinc-950 border border-zinc-800/80 hover:border-amber-500/60 overflow-hidden cursor-pointer flex flex-col justify-between transition-all shadow-xl"
                 >
-                  Convert to Gujju 🔥
-                </button>
-              </div>
+                  {/* Thumbnail / Header */}
+                  <div className="relative aspect-video w-full overflow-hidden bg-zinc-900">
+                    <img
+                      src={video.thumbnail}
+                      alt={video.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
 
-              {customTranslation && (
-                <div className="p-4 rounded-2xl bg-zinc-900 border border-cyan-500/40 text-cyan-300 text-sm sm:text-base font-bold animate-fadeIn">
-                  &ldquo;{customTranslation}&rdquo;
-                </div>
-              )}
+                    {/* Play Badge */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-amber-500 text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <IconPlayerPlay className="w-6 h-6 fill-black translate-x-0.5" />
+                      </div>
+                    </div>
+
+                    <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-zinc-700 text-[11px] font-mono text-amber-400 font-bold">
+                      {video.tag}
+                    </div>
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="p-5 space-y-3">
+                    <span className="text-xs font-mono text-amber-400 font-semibold block">
+                      {video.artist}
+                    </span>
+                    <h3 className="text-base font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-snug">
+                      {video.title}
+                    </h3>
+                    <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                      {video.description}
+                    </p>
+                  </div>
+
+                  <div className="p-4 border-t border-zinc-900 flex items-center justify-between text-[11px] font-mono text-zinc-500 group-hover:text-amber-400 transition-colors">
+                    <span>ક્લિક કરીને જુઓ</span>
+                    <span className="text-amber-400">Play Video ▶</span>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </BlurFade>
 
-        {/* FEATURE 3: Gujju Audio Soundboard */}
-        <BlurFade delay={0.25} inView>
-          <div className="p-6 sm:p-10 rounded-3xl bg-zinc-950/90 border border-amber-500/30 space-y-8 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-zinc-800/80 pb-5">
-              <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 text-amber-400 text-xs font-mono font-bold uppercase tracking-wider">
-                  <IconVolume className="w-4 h-4" />
-                  <span>Audio Punchlines</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-100">
-                  Gujju Audio Soundboard 🎙️
+        {/* SECTION 2: ગુજ્જુ ટેક શબ્દકોશ (The Gujju Tech Dictionary) */}
+        <BlurFade delay={0.2} inView>
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
+              <IconBook className="w-6 h-6 text-cyan-400" />
+              <div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
+                  ગુજ્જુ ટેક શબ્દકોશ 📖
                 </h2>
-                <p className="text-xs sm:text-sm text-zinc-400">
-                  Click any punchline to play sound & hear it spoken live!
+                <p className="text-xs text-zinc-400">
+                  કોડિંગ અને એન્જિનિયરિંગ શબ્દોની અસલ ગુજરાતી વ્યાખ્યા
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {SOUNDBOARD_ITEMS.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleSpeak(item.text, item.id, item.sound)}
-                  className={`p-5 rounded-2xl border text-left flex flex-col justify-between space-y-3 transition-all cursor-pointer select-none group active:scale-95 ${
-                    activeVoice === item.id
-                      ? "bg-amber-500/20 border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.4)]"
-                      : "bg-zinc-900/80 border-zinc-800 hover:border-amber-500/50 hover:bg-zinc-900"
-                  }`}
+              {GUJJU_DICTIONARY.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="p-5 rounded-2xl bg-zinc-950/90 border border-zinc-800 hover:border-cyan-500/40 transition-all space-y-2 group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-zinc-500 group-hover:text-amber-400 transition-colors">
-                      {item.sub}
+                    <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider">
+                      {item.term}
                     </span>
-                    <IconVolume
-                      className={`w-4 h-4 ${
-                        activeVoice === item.id ? "text-amber-400 animate-pulse" : "text-zinc-600 group-hover:text-amber-400"
-                      }`}
-                    />
+                    <span className="text-xl">{item.emoji}</span>
                   </div>
-                  <p className="text-base font-bold text-zinc-100 group-hover:text-amber-200 transition-colors leading-snug">
-                    &ldquo;{item.text}&rdquo;
+                  <h3 className="text-base font-extrabold text-cyan-300 group-hover:text-cyan-200 transition-colors">
+                    {item.gujju}
+                  </h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed pt-1">
+                    {item.desc}
                   </p>
-                </button>
+                </div>
               ))}
             </div>
           </div>
         </BlurFade>
 
-        {/* FEATURE 4: ધંધો & ફાફડા Energy ROI Calculator */}
-        <BlurFade delay={0.3} inView>
-          <div className="p-6 sm:p-10 rounded-3xl bg-zinc-950/90 border border-emerald-500/30 space-y-8 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-zinc-800/80 pb-5">
-              <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider">
-                  <IconCalculator className="w-4 h-4" />
-                  <span>Gujju Dev Mindset</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-100">
-                  ધંધો & ફાફડા ROI કેલ્ક્યુલેટર 📊
+        {/* SECTION 3: અમદાવાદી ડેવલપરના નિયમો (The Gujju Dev Rules) */}
+        <BlurFade delay={0.25} inView>
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
+              <IconQuote className="w-6 h-6 text-amber-400" />
+              <div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
+                  અમદાવાદી ડેવલપરના નિયમો 📜
                 </h2>
-                <p className="text-xs sm:text-sm text-zinc-400">
-                  Track how much Gujarati fuel power you burn during engineering!
+                <p className="text-xs text-zinc-400">
+                  કોડિંગ, વેપાર અને જિંદગી જીવવાની સોનેરી કળા
                 </p>
               </div>
             </div>
 
-            {/* Slider */}
-            <div className="space-y-4 max-w-xl">
-              <div className="flex items-center justify-between text-sm font-mono">
-                <span className="text-zinc-400">આજે કેટલા કલાક કોડિંગ કર્યું?</span>
-                <span className="text-emerald-400 font-bold text-lg">{codingHours} કલાક</span>
-              </div>
-              <input
-                type="range"
-                min="1"
-                max="16"
-                value={codingHours}
-                onChange={(e) => {
-                  playTapSound("hover");
-                  setCodingHours(parseInt(e.target.value, 10));
-                }}
-                className="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-              />
-            </div>
-
-            {/* Metrics Output Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-1 text-center">
-                <span className="text-2xl">☕</span>
-                <div className="text-xl font-bold font-mono text-amber-400">{codingHours * 2} કપ</div>
-                <p className="text-xs text-zinc-400">કટિંગ ચા ની ઉર્જા</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-1 text-center">
-                <span className="text-2xl">🥟</span>
-                <div className="text-xl font-bold font-mono text-yellow-400">{codingHours * 50}g</div>
-                <p className="text-xs text-zinc-400">ફાફડા-જલેબી ફ્યુઅલ</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-1 text-center">
-                <span className="text-2xl">⚡</span>
-                <div className="text-xl font-bold font-mono text-cyan-400">{codingHours * 4}</div>
-                <p className="text-xs text-zinc-400">બગ્સ સોલ્વ કર્યા</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 space-y-1 text-center">
-                <span className="text-2xl">📈</span>
-                <div className="text-xl font-bold font-mono text-emerald-400">100% નફો</div>
-                <p className="text-xs text-zinc-400">ધંધો સફળ!</p>
-              </div>
-            </div>
-          </div>
-        </BlurFade>
-
-        {/* FEATURE 5: દેશી કરોડિયો Chronicles 🕷️ */}
-        <BlurFade delay={0.35} inView>
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
-              <span className="text-2xl">🕷️</span>
-              <h2 className="text-lg sm:text-xl font-bold tracking-tight text-zinc-200 uppercase font-mono">
-                દેશી કરોડિયો (Desi Karodiyo) Chronicles
-              </h2>
-            </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {KARODIYO_STORIES.map((story) => (
+              {GUJJU_RULES.map((rule, idx) => (
                 <div
-                  key={story.id}
-                  className="p-5 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 hover:border-red-500/40 transition-all space-y-2 group"
+                  key={idx}
+                  className="p-6 rounded-3xl bg-zinc-950/80 border border-zinc-800 hover:border-amber-500/40 transition-all space-y-3 group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{story.emoji}</span>
-                    <h3 className="font-bold text-sm sm:text-base text-zinc-100 group-hover:text-red-400 transition-colors">
-                      {story.title}
-                    </h3>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono font-bold flex items-center justify-center text-sm">
+                        {rule.num}
+                      </span>
+                      <h3 className="font-bold text-base text-zinc-100 group-hover:text-amber-300 transition-colors">
+                        {rule.title}
+                      </h3>
+                    </div>
+                    <span className="text-2xl">{rule.icon}</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed pl-9">
-                    {story.gujarati}
+                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed pl-11">
+                    {rule.desc}
                   </p>
                 </div>
               ))}
@@ -555,32 +465,24 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* Footer Callout */}
-        <BlurFade delay={0.4} inView>
-          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-zinc-950 to-black border border-amber-500/20 text-center space-y-6">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-zinc-100">
-              હવે જાવ અને GitHub પર એક સ્ટાર આપી દો! ☕⭐
+        {/* Bottom Back Button */}
+        <BlurFade delay={0.3} inView>
+          <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-b from-zinc-950 to-black border border-amber-500/20 text-center space-y-4">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
+              જલસા કરો બાપ, મોજમાં રહેવું! 🔥
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto font-mono">
-              Because every star fuels more cutting chai, machine learning models, and pure Gujarati jalsa.
+            <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
+              ગુજરાતી લોકસાહિત્ય અને આર્ટિફિશિયલ ઇન્ટેલિજન્સનું અનોખું સંગમ.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <div className="pt-2">
               <Link
                 href="/"
                 onClick={() => playTapSound("pop")}
-                className="px-6 py-2.5 rounded-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-xs sm:text-sm font-semibold text-zinc-200 hover:text-white transition-all"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black text-xs sm:text-sm font-bold transition-all cursor-pointer"
               >
-                Back to Portfolio
+                <IconArrowLeft className="w-4 h-4" />
+                <span>મુખ્ય પોર્ટફોલિયો પર પાછા જાઓ</span>
               </Link>
-              <a
-                href="https://github.com/thatvivekhingu/thatvivekhingu-PFL"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => playTapSound("chime")}
-                className="px-6 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black text-xs sm:text-sm font-bold transition-all"
-              >
-                Star on GitHub (21 ⭐)
-              </a>
             </div>
           </div>
         </BlurFade>
