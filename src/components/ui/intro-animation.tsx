@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -100,15 +100,12 @@ export function IntroAnimation() {
             transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
           }}
           onClick={handleSkip}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-zinc-950 px-6 select-none cursor-pointer overflow-hidden"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black px-6 select-none cursor-pointer overflow-hidden"
         >
-          {/* Subtle Ambient Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
           {/* Center Card */}
           <div className="relative z-10 max-w-2xl w-full flex flex-col items-center text-center space-y-6">
             {/* Micro Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-400 shadow-xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-400 shadow-2xl">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>VIAN // VIVEK_HINGU</span>
             </div>
