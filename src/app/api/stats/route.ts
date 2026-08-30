@@ -29,8 +29,8 @@ export async function GET(request: Request) {
       },
       spotify: spotifyData || {
         isPlaying: false,
-        title: "Yalgaar",
-        artist: "CarryMinati",
+        title: "Tabaahi (From \"Toxic\")",
+        artist: "Vishal Mishra, Raj Shekhar",
       },
       telemetry: visitorData || {
         totalVisits: 1250,

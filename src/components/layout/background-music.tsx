@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { IconMusic, IconVolume, IconVolumeOff } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 
-// Official audio track: Yalgaar by CarryMinati & Wily Frenzy
+// Official audio track: Tabaahi - From "Toxic" by Vishal Mishra & Raj Shekhar
 const MUSIC_URL = "https://p.scdn.co/mp3-preview/190f1bd8cb7a7b7cacb1041ea1a95913e2034d40";
 
 export function BackgroundMusic() {
@@ -89,7 +89,7 @@ export function BackgroundMusic() {
       <div className="group relative flex items-center gap-2 px-3.5 py-2 rounded-full border border-amber-500/40 bg-zinc-950/90 backdrop-blur-md shadow-xl transition-all duration-300 hover:border-amber-400 hover:bg-black hover:scale-105 active:scale-95">
         <button
           onClick={togglePlay}
-          aria-label={isPlaying ? "Pause Yalgaar music" : "Play Yalgaar music"}
+          aria-label={isPlaying ? "Pause Tabaahi music" : "Play Tabaahi music"}
           className="flex items-center gap-2 text-left"
         >
           <div className="relative flex items-center justify-center">
@@ -105,7 +105,7 @@ export function BackgroundMusic() {
           </div>
 
           <span className="text-xs font-bold text-slate-100 group-hover:text-amber-400 transition-colors inline-block">
-            {isPlaying ? "Yalgaar Playing 🔥" : "Play Yalgaar 🔥"}
+            {isPlaying ? "Tabaahi Playing 🔥" : "Play Tabaahi 🔥"}
           </span>
         </button>
 

@@ -91,13 +91,13 @@ export async function GET() {
     }
   }
 
-  // Graceful fallback track for Vivek Hingu's portfolio (Yalgaar by CarryMinati & Wily Frenzy)
+  // Graceful fallback track for Vivek Hingu's portfolio (Tabaahi - From "Toxic" by Vishal Mishra & Raj Shekhar)
   return NextResponse.json({
     isPlaying: false,
-    title: "Yalgaar",
-    artist: "Ajey Nagar (CarryMinati), Wily Frenzy",
-    album: "Yalgaar (Original)",
-    albumImageUrl: "https://i.scdn.co/image/ab67616d0000b273ce729233cd521c983f779d51",
-    songUrl: "https://open.spotify.com/track/0RGp4KA9wvndxqPIWoKwnD",
+    title: "Tabaahi (From \"Toxic\")",
+    artist: "Vishal Mishra, Raj Shekhar",
+    album: "Toxic",
+    albumImageUrl: "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02fc0d5dd23a87c71d3274dae7",
+    songUrl: "https://open.spotify.com/track/0bRRLtD0Tmfg8ZaP9Qf1Sq",
   });
 }
