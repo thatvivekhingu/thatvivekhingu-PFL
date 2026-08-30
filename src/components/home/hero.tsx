@@ -3,7 +3,6 @@
 import React, { useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import profilePic from "@/images/profile-color.jpg";
 import { HeroConstellation } from "@/components/ui/hero-constellation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -38,7 +37,7 @@ const HERO_AVATARS: AvatarCharacter[] = [
     id: "default",
     name: "Vivek Hingu",
     badge: "AI / ML",
-    src: profilePic,
+    src: "/avatars/vivek.jpg",
     borderColor: "border-cyan-400/60",
     shadowColor: "shadow-[0_0_40px_rgba(34,211,238,0.45)]",
     badgeText: "text-cyan-400",
