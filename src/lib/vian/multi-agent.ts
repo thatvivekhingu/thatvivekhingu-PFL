@@ -49,46 +49,57 @@ export interface AgentState {
  */
 export function planTaskExecution(
   query: string,
-  history: Array<{ role: string; content: string }> = []
+  _history: Array<{ role: string; content: string }> = []
 ): AgentExecutionPlan {
   const qLower = query.toLowerCase();
-  const pastContext = history.map((h) => h.content).join(" ").toLowerCase();
-  const fullText = `${qLower} ${pastContext}`;
+  void _history;
+
+  // Introduction / Memory note check
+  const isIntro =
+    qLower.includes("my name is") ||
+    qLower.includes("i am ") ||
+    qLower.includes("i'm ") ||
+    qLower.includes("call me ") ||
+    qLower.includes("remember that");
+
+  const explicitlyWantsCode =
+    qLower.includes("write code") ||
+    qLower.includes("generate") ||
+    qLower.includes("create function") ||
+    qLower.includes("implement") ||
+    qLower.includes("debug") ||
+    qLower.includes("write a script") ||
+    qLower.includes("build");
 
   const needsResearch =
-    fullText.includes("search") ||
-    fullText.includes("latest") ||
-    fullText.includes("news") ||
-    fullText.includes("trend") ||
-    fullText.includes("current") ||
-    fullText.includes("festivals") ||
-    fullText.includes("kab hai") ||
-    fullText.includes("who won");
+    qLower.includes("search ") ||
+    qLower.includes("latest news") ||
+    qLower.includes("current trends") ||
+    qLower.includes("festivals in") ||
+    qLower.includes("kab hai") ||
+    qLower.includes("who won");
 
   const needsCoding =
-    qLower.includes("code") ||
-    qLower.includes("function") ||
-    qLower.includes("algorithm") ||
-    qLower.includes("bug") ||
-    qLower.includes("debug") ||
-    qLower.includes("python") ||
-    qLower.includes("react") ||
-    qLower.includes("typescript") ||
-    qLower.includes("script");
+    explicitlyWantsCode ||
+    (!isIntro &&
+      (qLower.includes("function") ||
+        qLower.includes("algorithm") ||
+        qLower.includes("bug") ||
+        qLower.includes("syntax")));
 
   const needsScheduling =
-    qLower.includes("schedule") ||
-    qLower.includes("meeting") ||
-    qLower.includes("reminder") ||
-    qLower.includes("calendar") ||
-    qLower.includes("event");
+    qLower.includes("schedule ") ||
+    qLower.includes("book meeting") ||
+    qLower.includes("set reminder") ||
+    qLower.includes("calendar event");
 
   const needsEmail =
-    qLower.includes("email") ||
-    qLower.includes("mail") ||
-    qLower.includes("draft") ||
-    qLower.includes("write to") ||
-    qLower.includes("send message");
+    qLower.includes("draft an email") ||
+    qLower.includes("draft email") ||
+    qLower.includes("write an email") ||
+    qLower.includes("write email") ||
+    qLower.includes("compose email") ||
+    qLower.includes("send message to vivek");
 
   const isPortfolioQuery =
     qLower.includes("vivek") ||
@@ -109,7 +120,7 @@ export function planTaskExecution(
     });
   }
 
-  if (isPortfolioQuery) {
+  if (isPortfolioQuery && !isIntro) {
     steps.push({
       role: "portfolio_rag",
       instruction: "Retrieve verified facts on Vivek Hingu's AI engineering work.",
