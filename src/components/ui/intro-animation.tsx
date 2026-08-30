@@ -1,17 +1,48 @@
-"use client";
+﻿"use client";
 
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { playTapSound } from "@/lib/sound";
 
-const TYPE_TEXT = "It works on my machine... आशा है आपके यहाँ भी चलेगा!";
+interface IntroLine {
+  en: string;
+  hi: string;
+}
+
+const INTRO_LINES: IntroLine[] = [
+  { en: "You actually came...", hi: "अब तो दिखाना पड़ेगा भाई." },
+  { en: "So you're here...", hi: "चलो, अब देख ही लो." },
+  { en: "You clicked the link...", hi: "अब फँस गए भाई." },
+  { en: "You made it here...", hi: "अब वापस मत जाना." },
+  { en: "You actually opened it...", hi: "अब इज़्ज़त का सवाल है." },
+  { en: "So you found me...", hi: "चल भाई, शुरू करते हैं." },
+  { en: "You're here already...", hi: "अब क्या ही छुपाना." },
+  { en: "You came this far...", hi: "अब थोड़ा देख भी लो." },
+  { en: "You clicked it...", hi: "चलो, अब देखते हैं क्या होता है." },
+  { en: "You're finally here...", hi: "अब मेहनत दिखानी पड़ेगी." },
+  { en: "You made it...", hi: "चल भाई, अंदर चलते हैं." },
+  { en: "You really wanted to see it...", hi: "अब भुगतो." },
+  { en: "You opened my portfolio...", hi: "अब judge मत करना भाई." },
+  { en: "So this is happening...", hi: "चलो, शुरू करते हैं." },
+  { en: "You came looking for something...", hi: "देखते हैं क्या मिलता है." },
+  { en: "You found the portfolio...", hi: "अब उम्मीदें कम रखना." },
+  { en: "You're still here...", hi: "भाई, respect." },
+  { en: "You clicked the button...", hi: "अब मेरी बारी है." },
+  { en: "You made it this far...", hi: "अब दो मिनट दे दे." },
+  { en: "Alright, you're here...", hi: "अब अपना ही समझो." },
+];
 
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState(true);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isTypingDone, setIsTypingDone] = useState(false);
+  const [activeLine, setActiveLine] = useState<IntroLine>(INTRO_LINES[0]);
+  const [phase, setPhase] = useState<"en" | "hi" | "done">("en");
   const [isComplete, setIsComplete] = useState(false);
-  const soundPlayedRef = useRef(false);
+
+  // Pick a random line on component mount
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * INTRO_LINES.length);
+    setActiveLine(INTRO_LINES[randomIndex]);
+  }, []);
 
   const handleComplete = useCallback(() => {
     setIsComplete(true);
@@ -23,7 +54,7 @@ export function IntroAnimation() {
     handleComplete();
   }, [handleComplete]);
 
-  // Keyboard shortcut (ESC to skip) & Click anywhere to skip
+  // Keyboard shortcut (ESC or Space to skip) & Click anywhere to skip
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === " ") {
@@ -34,34 +65,27 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // 100% Constant & Equal Typewriter Engine (55ms flat per character)
+  // 2-Step Seamless Flash Timeline: English (750ms) -> Hindi (900ms) -> Open
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
-    let index = 0;
-    const interval = setInterval(() => {
-      index++;
-      setDisplayedText(TYPE_TEXT.slice(0, index));
+    playTapSound("hover");
 
-      // Play soft tap sound once at start
-      if (!soundPlayedRef.current) {
-        soundPlayedRef.current = true;
-        playTapSound("hover");
-      }
+    // Phase 1: Show English setup for 750ms
+    const timer1 = setTimeout(() => {
+      setPhase("hi");
+      playTapSound("access_granted");
 
-      if (index >= TYPE_TEXT.length) {
-        clearInterval(interval);
-        setIsTypingDone(true);
-        playTapSound("access_granted");
+      // Phase 2: Show Hindi punchline for 900ms, then slide open curtain
+      const timer2 = setTimeout(() => {
+        setPhase("done");
+        handleComplete();
+      }, 950);
 
-        // Comfortable reading hold time (2 seconds) after typing completes
-        setTimeout(() => {
-          handleComplete();
-        }, 2000);
-      }
-    }, 55); // 100% equal, constant tempo for every character
+      return () => clearTimeout(timer2);
+    }, 800);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer1);
   }, [shouldShow, isComplete, handleComplete]);
 
   if (!shouldShow || isComplete) return null;
@@ -73,7 +97,7 @@ export function IntroAnimation() {
           initial={{ y: 0 }}
           exit={{
             y: "-100%",
-            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+            transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
           }}
           onClick={handleSkip}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-zinc-950 px-6 select-none cursor-pointer overflow-hidden"
@@ -81,25 +105,43 @@ export function IntroAnimation() {
           {/* Subtle Ambient Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Center Typewriter Terminal Card */}
-          <div className="relative z-10 max-w-2xl w-full flex flex-col items-center text-center space-y-5">
-            {/* Top Micro Terminal Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-300 shadow-xl">
+          {/* Center Card */}
+          <div className="relative z-10 max-w-2xl w-full flex flex-col items-center text-center space-y-6">
+            {/* Micro Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-400 shadow-xl">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>TERMINAL // VIVEK_HINGU</span>
+              <span>VIAN // VIVEK_HINGU</span>
             </div>
 
-            {/* Typewriter Line */}
-            <div className="min-h-[70px] sm:min-h-[90px] flex items-center justify-center">
-              <h1 className="text-xl sm:text-3xl md:text-4xl font-bold font-mono tracking-tight text-white flex items-center justify-center flex-wrap gap-1.5 leading-snug">
-                <span className="text-cyan-400 font-black mr-1">&gt;</span>
-                <span className="text-zinc-100">{displayedText}</span>
-                <span
-                  className={`inline-block w-2.5 sm:w-3.5 h-6 sm:h-8 bg-cyan-400 ml-1 rounded-xs ${
-                    isTypingDone ? "animate-pulse" : "opacity-100"
-                  }`}
-                />
-              </h1>
+            {/* Word Flash Screen Container */}
+            <div className="min-h-[80px] sm:min-h-[100px] flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                {phase === "en" && (
+                  <motion.h1
+                    key="en-line"
+                    initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -14, filter: "blur(6px)" }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-2xl sm:text-4xl md:text-5xl font-bold font-sans tracking-tight text-zinc-300"
+                  >
+                    {activeLine.en}
+                  </motion.h1>
+                )}
+
+                {phase === "hi" && (
+                  <motion.h1
+                    key="hi-line"
+                    initial={{ opacity: 0, scale: 0.94, y: 12, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 1.04, filter: "blur(6px)" }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-sans tracking-tight text-cyan-400 drop-shadow-[0_0_30px_rgba(6,182,212,0.4)]"
+                  >
+                    {activeLine.hi}
+                  </motion.h1>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Sub-hint */}
