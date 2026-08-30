@@ -73,6 +73,30 @@ const HERO_AVATARS: AvatarCharacter[] = [
     haloGradient: "from-red-600 via-rose-500 to-blue-600",
   },
   {
+    id: "deadpool",
+    name: "Deadpool",
+    badge: "DEADPOOL",
+    icon: "⚔️",
+    src: "/avatars/deadpool.jpg",
+    borderColor: "border-red-600/90",
+    shadowColor: "shadow-[0_0_45px_rgba(220,38,38,0.65)]",
+    badgeBorder: "border-red-600/90 text-red-400",
+    badgeText: "text-red-400",
+    haloGradient: "from-red-600 via-rose-700 to-zinc-900",
+  },
+  {
+    id: "wolverine",
+    name: "Wolverine",
+    badge: "WOLVERINE",
+    icon: "🐺",
+    src: "/avatars/wolverine.jpg",
+    borderColor: "border-amber-400/90",
+    shadowColor: "shadow-[0_0_45px_rgba(251,191,36,0.65)]",
+    badgeBorder: "border-amber-400/90 text-amber-300",
+    badgeText: "text-amber-300",
+    haloGradient: "from-amber-400 via-yellow-500 to-blue-700",
+  },
+  {
     id: "blackpanther",
     name: "Black Panther",
     badge: "BLACK PANTHER",
@@ -107,6 +131,18 @@ const HERO_AVATARS: AvatarCharacter[] = [
     badgeBorder: "border-amber-400/80 text-amber-300",
     badgeText: "text-amber-300",
     haloGradient: "from-amber-500 via-orange-600 to-red-700",
+  },
+  {
+    id: "vision",
+    name: "Vision",
+    badge: "VISION",
+    icon: "💎",
+    src: "/avatars/vision.jpg",
+    borderColor: "border-teal-400/90",
+    shadowColor: "shadow-[0_0_45px_rgba(45,212,191,0.6)]",
+    badgeBorder: "border-teal-400/80 text-teal-300",
+    badgeText: "text-teal-300",
+    haloGradient: "from-teal-400 via-emerald-600 to-rose-700",
   },
 ];
 
@@ -248,7 +284,16 @@ export default function Hero() {
                 </div>
               </div>
 
-              <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-5">
+              {/* Character Name Label under Avatar */}
+              <div className="mt-2.5 flex items-center justify-center gap-1.5 text-xs font-mono font-bold tracking-wide text-zinc-400 select-none z-50">
+                <span className="text-zinc-500">Avatar:</span>
+                <span className={`font-black ${currentAvatar.badgeText}`}>
+                  {currentAvatar.name}
+                </span>
+                <span className="text-[10px] text-zinc-600">({avatarIdx + 1}/{HERO_AVATARS.length})</span>
+              </div>
+
+              <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-4">
                 <div className="z-50 relative flex items-center justify-center">
                   <div
                     className={`absolute h-1.5 w-1.5 rounded-full border-1 ${
