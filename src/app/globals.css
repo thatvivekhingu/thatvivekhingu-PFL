@@ -362,3 +362,16 @@ html.dark code[data-theme] span {
   text-align: right;
   color: var(--muted-foreground);
 }
+
+/* Professional Gujarati Typography */
+.font-gujarati {
+  font-family: var(--font-gujarati), var(--font-anek-gujarati), system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.015em;
+  line-height: 1.65;
+}
+
+.font-gujarati-heading {
+  font-family: var(--font-anek-gujarati), var(--font-gujarati), system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+  font-feature-settings: "kern" 1, "liga" 1;
+}

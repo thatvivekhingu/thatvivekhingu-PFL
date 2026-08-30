@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Geist, Geist_Mono, Pacifico } from "next/font/google";
+import { Geist, Geist_Mono, Pacifico, Noto_Sans_Gujarati, Anek_Gujarati } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -26,6 +26,20 @@ const pacifico = Pacifico({
   variable: "--font-script",
   subsets: ["latin"],
   weight: "400",
+});
+
+const notoSansGujarati = Noto_Sans_Gujarati({
+  variable: "--font-gujarati",
+  subsets: ["gujarati"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const anekGujarati = Anek_Gujarati({
+  variable: "--font-anek-gujarati",
+  subsets: ["gujarati"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -75,7 +89,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" className="dark" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased relative`}
+          className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} ${notoSansGujarati.variable} ${anekGujarati.variable} antialiased relative`}
         >
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <Navbar navItems={data.nav} />
