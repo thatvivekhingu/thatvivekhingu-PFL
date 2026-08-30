@@ -91,6 +91,15 @@ export default function Hero() {
     handleIconClick("email");
   };
 
+  const contactRef = useRef<HTMLDivElement>(null);
+  const handleContactMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = contactRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+  };
+
   const ctaRef = useRef<HTMLAnchorElement>(null);
   const handleCtaMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const el = ctaRef.current;
@@ -302,8 +311,23 @@ export default function Hero() {
 
               <BlurFade delay={0.005 * 2} direction="down" inView>
                 <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-1">
-                  <div className="px-3.5 py-1.5 rounded-full border border-border/60 bg-background/50 backdrop-blur-md shadow-lg">
-                    <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
+                  <div
+                    ref={contactRef}
+                    onMouseMove={handleContactMove}
+                    className="group relative inline-flex items-center overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-3.5 py-1.5 transition-all hover:border-border hover:shadow-lg"
+                  >
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                      style={{
+                        background:
+                          "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                      }}
+                    />
+                    <div className="relative z-10">
+                      <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
+                    </div>
+                    <ShimmerBorder />
                   </div>
                   <span className="hidden sm:inline-block h-4 w-px bg-border/60" aria-hidden />
                   <div className="flex items-center gap-2.5 sm:gap-3">
