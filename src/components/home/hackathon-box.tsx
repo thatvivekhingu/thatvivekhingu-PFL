@@ -9,9 +9,6 @@ import {
   IconChevronUp,
   IconExternalLink,
   IconMaximize,
-  IconAward,
-  IconUsers,
-  IconCalendar,
   IconX,
   IconShieldCheck,
 } from "@tabler/icons-react";
@@ -98,15 +95,15 @@ export default function HackathonBox() {
                 </div>
 
                 {/* CERTIFICATE CARDS GRID */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                   {hackathons.map((cert) => (
                     <motion.div
                       key={cert.id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="group/card relative bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-cyan-500/50 rounded-2xl p-4 transition-all duration-300 shadow-md hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] flex flex-col justify-between"
+                      className="group/card relative bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-cyan-500/50 rounded-2xl p-3.5 transition-all duration-300 shadow-md hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] flex flex-col justify-between"
                     >
-                      <div className="space-y-3">
+                      <div className="space-y-2.5">
                         {/* Certificate Image Box */}
                         <div
                           onClick={() => {
@@ -124,12 +121,6 @@ export default function HackathonBox() {
                             loading="eager"
                             className="object-cover object-center group-hover/card:scale-105 transition-transform duration-500"
                           />
-                          {/* Hover Overlay */}
-                          <div className="absolute inset-0 bg-zinc-950/70 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-1.5">
-                            <span className="bg-cyan-500 text-zinc-950 px-3 py-1.5 rounded-full text-xs font-bold font-mono flex items-center gap-1.5 shadow-lg">
-                              <IconMaximize className="h-3.5 w-3.5" /> Zoom View
-                            </span>
-                          </div>
                         </div>
 
                         {/* Metadata */}
@@ -138,39 +129,32 @@ export default function HackathonBox() {
                             <span
                               className={cn(
                                 "px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase border",
-                                cert.badgeType === "Appreciation"
+                                cert.badgeType === "Winner"
+                                  ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
+                                  : cert.badgeType === "Appreciation"
                                   ? "bg-cyan-500/10 text-cyan-300 border-cyan-500/30"
                                   : "bg-purple-500/10 text-purple-300 border-purple-500/30"
                               )}
                             >
                               {cert.award}
                             </span>
-                            <span className="text-[11px] font-mono text-zinc-400 flex items-center gap-1">
-                              <IconCalendar className="h-3 w-3 text-cyan-400" />
+                            <span className="text-[11px] font-mono text-zinc-400">
                               {cert.date}
                             </span>
                           </div>
 
-                          <h4 className="text-base font-bold text-white group-hover/card:text-cyan-300 transition-colors">
+                          <h4 className="text-sm font-bold text-white group-hover/card:text-cyan-300 transition-colors line-clamp-1">
                             {cert.title}
                           </h4>
 
-                          <p className="text-xs text-zinc-400 mt-1 flex items-center gap-1">
-                            <IconAward className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
-                            <span>{cert.organizer}</span>
+                          <p className="text-xs text-zinc-400 mt-0.5 line-clamp-1">
+                            {cert.organizer}
                           </p>
-
-                          {cert.team && (
-                            <p className="text-xs text-amber-400 mt-1 font-mono flex items-center gap-1">
-                              <IconUsers className="h-3.5 w-3.5 text-amber-400 shrink-0" />
-                              <span>Team: <strong>{cert.team}</strong></span>
-                            </p>
-                          )}
                         </div>
                       </div>
 
-                      {/* Footer Actions */}
-                      <div className="pt-3 mt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono">
+                      {/* Footer Action */}
+                      <div className="pt-2.5 mt-2.5 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono">
                         <button
                           onClick={() => {
                             playTapSound("pop");
@@ -179,10 +163,10 @@ export default function HackathonBox() {
                           className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 cursor-pointer"
                         >
                           <IconMaximize className="h-3.5 w-3.5" />
-                          <span>Full View</span>
+                          <span>View</span>
                         </button>
 
-                        {cert.verificationUrl ? (
+                        {cert.verificationUrl && (
                           <a
                             href={cert.verificationUrl}
                             target="_blank"
@@ -190,10 +174,8 @@ export default function HackathonBox() {
                             className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-bold"
                           >
                             <span>Verify</span>
-                            <IconExternalLink className="h-3.5 w-3.5" />
+                            <IconExternalLink className="h-3 w-3" />
                           </a>
-                        ) : (
-                          <span className="text-zinc-500">Official Award</span>
                         )}
                       </div>
                     </motion.div>
