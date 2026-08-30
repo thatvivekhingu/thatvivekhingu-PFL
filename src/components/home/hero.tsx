@@ -292,110 +292,125 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Left Marvel Floating Stark Telemetry HUD (Desktop / Tablet) */}
-              <div className="hidden lg:flex flex-col gap-1.5 absolute -left-8 xl:left-4 top-10 z-30 pointer-events-none select-none p-3.5 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-cyan-500/35 shadow-[0_0_30px_rgba(6,182,212,0.18)] text-left font-mono max-w-[210px]">
-                <div className="flex items-center justify-between border-b border-cyan-500/20 pb-1.5 text-[10px] font-bold text-cyan-400">
-                  <span className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    STARK AI // MK-85
-                  </span>
-                  <span className="text-zinc-500 text-[9px]">HUD.01</span>
-                </div>
-                <div className="space-y-1 text-[10px] text-zinc-300">
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">JARVIS CORE:</span>
-                    <span className="text-cyan-300 font-bold">ONLINE</span>
+              {/* Avatar and Marvel HUD Container with Left/Right Cards */}
+              <div className="relative w-full max-w-4xl mx-auto flex items-center justify-center py-2">
+                {/* Left Marvel Floating Stark Telemetry HUD (Desktop / Tablet) */}
+                <div className="hidden md:flex flex-col gap-1.5 absolute left-0 lg:left-4 xl:left-8 top-1/2 -translate-y-1/2 z-30 pointer-events-none select-none p-3 sm:p-3.5 rounded-xl bg-zinc-950/85 backdrop-blur-md border border-cyan-500/40 shadow-[0_0_30px_rgba(6,182,212,0.22)] text-left font-mono w-[185px] lg:w-[205px]">
+                  <div className="flex items-center justify-between border-b border-cyan-500/30 pb-1.5 text-[10px] sm:text-xs font-bold text-cyan-400">
+                    <span className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+                      STARK AI // MK-85
+                    </span>
+                    <span className="text-zinc-500 text-[9px]">HUD.01</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">ARC REACTOR:</span>
-                    <span className="text-emerald-400 font-bold">3.5 GW</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">INTEGRITY:</span>
-                    <span className="text-cyan-400 font-bold">100%</span>
-                  </div>
-                </div>
-                {/* Mini Audio Equalizer Waveform */}
-                <div className="flex items-center gap-1 pt-1">
-                  <div className="h-2 w-1 bg-cyan-400/80 rounded-full animate-bounce" />
-                  <div className="h-3 w-1 bg-cyan-300 rounded-full animate-bounce [animation-delay:0.15s]" />
-                  <div className="h-4 w-1 bg-cyan-500 rounded-full animate-bounce [animation-delay:0.3s]" />
-                  <div className="h-2 w-1 bg-cyan-300 rounded-full animate-bounce [animation-delay:0.2s]" />
-                  <div className="h-3.5 w-1 bg-cyan-400 rounded-full animate-bounce [animation-delay:0.1s]" />
-                  <span className="text-[9px] text-cyan-500/70 ml-1">AUDIO SYNC</span>
-                </div>
-              </div>
-
-              {/* Right Marvel Floating Avengers Telemetry HUD (Desktop / Tablet) */}
-              <div className="hidden lg:flex flex-col gap-1.5 absolute -right-8 xl:right-4 top-10 z-30 pointer-events-none select-none p-3.5 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-amber-500/35 shadow-[0_0_30px_rgba(245,158,11,0.18)] text-left font-mono max-w-[210px]">
-                <div className="flex items-center justify-between border-b border-amber-500/20 pb-1.5 text-[10px] font-bold text-amber-400">
-                  <span className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-ping" />
-                    AVENGERS // E-616
-                  </span>
-                  <span className="text-zinc-500 text-[9px]">TAC.02</span>
-                </div>
-                <div className="space-y-1 text-[10px] text-zinc-300">
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">VIBRANIUM:</span>
-                    <span className="text-amber-300 font-bold">STABLE</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">QUANTUM:</span>
-                    <span className="text-purple-400 font-bold">LOCKED</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">MULTIVERSE:</span>
-                    <span className="text-amber-400 font-bold">ACTIVE</span>
-                  </div>
-                </div>
-                {/* Mini Target Crosshair & Sector */}
-                <div className="flex items-center justify-between pt-1 text-[9px] text-amber-400/80">
-                  <span>SEC: 23°N 72°E</span>
-                  <span className="text-[10px]">⚡ LOCKED</span>
-                </div>
-              </div>
-
-              {/* Interactive Superhero Profile Avatar - Smooth Crossfade & Auto-Reset on Mouse Leave */}
-              <div
-                className="group relative z-50 cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 select-none"
-                onClick={handleAvatarClick}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onTouchStart={(e) => {
-                  e.preventDefault();
-                  handleAvatarClick();
-                }}
-                role="button"
-                tabIndex={0}
-                aria-label={`Current Persona: ${currentAvatar.name}`}
-              >
-                {/* Dynamic Ambient Glowing Halo */}
-                <div
-                  className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-xl group-hover:opacity-95 transition-all duration-500 animate-pulse`}
-                />
-
-                {/* Avatar Border Ring with Smooth Crossfade Layers */}
-                <div
-                  className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
-                >
-                  {HERO_AVATARS.map((avatar, idx) => (
-                    <div
-                      key={avatar.id}
-                      className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                        idx === avatarIdx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                      }`}
-                    >
-                      <Image
-                        src={avatar.src}
-                        alt={`Vivek Hingu (${avatar.name})`}
-                        priority={idx === 0}
-                        fill
-                        className="object-cover"
-                      />
+                  <div className="space-y-1 text-[10px] sm:text-[11px] text-zinc-300">
+                    <div className="flex justify-between">
+                      <span className="text-zinc-500">JARVIS CORE:</span>
+                      <span className="text-cyan-300 font-bold">ONLINE</span>
                     </div>
-                  ))}
+                    <div className="flex justify-between">
+                      <span className="text-zinc-500">ARC REACTOR:</span>
+                      <span className="text-emerald-400 font-bold">3.5 GW</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-zinc-500">INTEGRITY:</span>
+                      <span className="text-cyan-400 font-bold">100%</span>
+                    </div>
+                  </div>
+                  {/* Mini Audio Equalizer Waveform */}
+                  <div className="flex items-center gap-1 pt-1 border-t border-cyan-500/20">
+                    <div className="h-2 w-1 bg-cyan-400/80 rounded-full animate-bounce" />
+                    <div className="h-3 w-1 bg-cyan-300 rounded-full animate-bounce [animation-delay:0.15s]" />
+                    <div className="h-4 w-1 bg-cyan-500 rounded-full animate-bounce [animation-delay:0.3s]" />
+                    <div className="h-2 w-1 bg-cyan-300 rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <div className="h-3.5 w-1 bg-cyan-400 rounded-full animate-bounce [animation-delay:0.1s]" />
+                    <span className="text-[9px] text-cyan-400 ml-auto font-bold">AUDIO SYNC</span>
+                  </div>
                 </div>
+
+                {/* Interactive Superhero Profile Avatar - Smooth Crossfade & Auto-Reset on Mouse Leave */}
+                <div
+                  className="group relative z-50 cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 select-none"
+                  onClick={handleAvatarClick}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    handleAvatarClick();
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Current Persona: ${currentAvatar.name}`}
+                >
+                  {/* Dynamic Ambient Glowing Halo */}
+                  <div
+                    className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-xl group-hover:opacity-95 transition-all duration-500 animate-pulse`}
+                  />
+
+                  {/* Avatar Border Ring with Smooth Crossfade Layers */}
+                  <div
+                    className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
+                  >
+                    {HERO_AVATARS.map((avatar, idx) => (
+                      <div
+                        key={avatar.id}
+                        className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                          idx === avatarIdx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                        }`}
+                      >
+                        <Image
+                          src={avatar.src}
+                          alt={`Vivek Hingu (${avatar.name})`}
+                          priority={idx === 0}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right Marvel Floating Avengers Telemetry HUD (Desktop / Tablet) */}
+                <div className="hidden md:flex flex-col gap-1.5 absolute right-0 lg:right-4 xl:right-8 top-1/2 -translate-y-1/2 z-30 pointer-events-none select-none p-3 sm:p-3.5 rounded-xl bg-zinc-950/85 backdrop-blur-md border border-amber-500/40 shadow-[0_0_30px_rgba(245,158,11,0.22)] text-left font-mono w-[185px] lg:w-[205px]">
+                  <div className="flex items-center justify-between border-b border-amber-500/30 pb-1.5 text-[10px] sm:text-xs font-bold text-amber-400">
+                    <span className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-amber-400 animate-ping" />
+                      AVENGERS // E-616
+                    </span>
+                    <span className="text-zinc-500 text-[9px]">TAC.02</span>
+                  </div>
+                  <div className="space-y-1 text-[10px] sm:text-[11px] text-zinc-300">
+                    <div className="flex justify-between">
+                      <span className="text-zinc-500">VIBRANIUM:</span>
+                      <span className="text-amber-300 font-bold">STABLE</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-zinc-500">QUANTUM:</span>
+                      <span className="text-purple-400 font-bold">LOCKED</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-zinc-500">MULTIVERSE:</span>
+                      <span className="text-amber-400 font-bold">ACTIVE</span>
+                    </div>
+                  </div>
+                  {/* Mini Target Crosshair & Sector */}
+                  <div className="flex items-center justify-between pt-1 border-t border-amber-500/20 text-[9px] text-amber-400/90 font-mono">
+                    <span>SEC: 23°N 72°E</span>
+                    <span className="text-[10px] font-bold text-amber-300">⚡ LOCKED</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Marvel HUD Mini Badges */}
+              <div className="md:hidden flex items-center justify-center gap-2 mt-1.5 font-mono text-[10px] z-50">
+                <span className="px-2.5 py-1 rounded-full bg-zinc-950/90 border border-cyan-500/40 text-cyan-300 flex items-center gap-1.5 shadow-md">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  STARK AI: ONLINE
+                </span>
+                <span className="px-2.5 py-1 rounded-full bg-zinc-950/90 border border-amber-500/40 text-amber-300 flex items-center gap-1.5 shadow-md">
+                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-ping" />
+                  AVENGERS: E-616
+                </span>
               </div>
 
               {/* Character Name Label under Avatar - Small, Clean, No Background, No Emoji, No Number */}
