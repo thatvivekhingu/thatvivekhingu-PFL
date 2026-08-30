@@ -34,12 +34,14 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // Typewriter Engine with comfortable reading pace
+  // Realistic, human-readable Typewriter Engine with comic timing pause
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
     let index = 0;
-    const interval = setInterval(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    const typeNextChar = () => {
       index++;
       setDisplayedText(TYPE_TEXT.slice(0, index));
 
@@ -50,18 +52,30 @@ export function IntroAnimation() {
       }
 
       if (index >= TYPE_TEXT.length) {
-        clearInterval(interval);
         setIsTypingDone(true);
         playTapSound("access_granted");
 
-        // Comfortable reading hold time (1.8 seconds) so user can read the joke!
-        setTimeout(() => {
+        // Comfortable reading hold time (2.2 seconds) so visitor can comfortably read and enjoy
+        timeoutId = setTimeout(() => {
           handleComplete();
-        }, 1800);
+        }, 2200);
+        return;
       }
-    }, 38); // Smooth rhythmic typing pace
 
-    return () => clearInterval(interval);
+      // Natural pause at "..." for dramatic comic timing
+      let delay = 72; // Comfortable, clearly readable typing speed (72ms per char)
+      if (TYPE_TEXT.slice(0, index).endsWith("...")) {
+        delay = 450; // Dramatic pause after "machine..."
+      } else if (TYPE_TEXT[index - 1] === " ") {
+        delay = 90; // Natural word gap
+      }
+
+      timeoutId = setTimeout(typeNextChar, delay);
+    };
+
+    timeoutId = setTimeout(typeNextChar, 300); // Initial 300ms breather before typing starts
+
+    return () => clearTimeout(timeoutId);
   }, [shouldShow, isComplete, handleComplete]);
 
   if (!shouldShow || isComplete) return null;
