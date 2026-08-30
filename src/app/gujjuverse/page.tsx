@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -113,7 +113,7 @@ export default function GujjuversePage() {
 
   const handleCopy = (meme: GujjuMeme) => {
     playTapSound("chime");
-    navigator.clipboard.writeText(${meme.gujarati}\n— );
+    navigator.clipboard.writeText(`${meme.gujarati}\n— ${meme.englishMeaning}`);
     setCopiedId(meme.id);
     showToast("Copied to clipboard!");
     setTimeout(() => setCopiedId(null), 2000);
@@ -123,7 +123,7 @@ export default function GujjuversePage() {
     playTapSound("pop");
     setChaiCount((prev) => prev + 1);
     if (chaiCount % 5 === 0) {
-      showToast(☕  Chai પી લીધી! હવે કોડિંગમાં આગ લગાવી દેશું!);
+      showToast(`☕ ${chaiCount + 1} Chai પી લીધી! હવે કોડિંગમાં આગ લગાવી દેશું!`);
     }
   };
 
