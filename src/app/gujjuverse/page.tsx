@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -20,7 +20,7 @@ interface DayroVideo {
   id: string;
   artist: string;
   title: string;
-  category: "comedy" | "sahitya" | "music";
+  category: "all" | "kirtidan" | "rajbha" | "jugalbandhi";
   categoryLabel: string;
   tag: string;
   youtubeId: string;
@@ -30,70 +30,70 @@ interface DayroVideo {
 
 const DAYRO_VIDEOS: DayroVideo[] = [
   {
-    id: "mayabhai-1",
-    artist: "માયાભાઈ આહીર (Mayabhai Ahir)",
-    title: "અસલ કાઠિયાવાડી હાસ્ય ડાયરો & જોક્સ",
-    category: "comedy",
-    categoryLabel: "હાસ્ય ડાયરો",
-    tag: "Non-Stop Comedy",
-    youtubeId: "d_jG-G12fR4",
-    thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80",
-    description: "માયાભાઈના દેશી અંદાજ અને ગામડાની વાતો સાથે પેટ પકડીને હસાવતો લોકડાયરો.",
+    id: "kirtidan-rajbha-jugalbandhi",
+    artist: "કીર્તિદાન ગઢવી & રાજભા ગઢવી",
+    title: "બેસ્ટ જુગલબંધી લોકડાયરો (રાપર કચ્છ લાઈવ)",
+    category: "jugalbandhi",
+    categoryLabel: "મહા જુગલબંધી",
+    tag: "Historic Jugalbandhi",
+    youtubeId: "i8POjs66f9g",
+    thumbnail: "https://img.youtube.com/vi/i8POjs66f9g/hqdefault.jpg",
+    description: "કીર્તિદાન ગઢવી અને રાજભા ગઢવીની ઐતિહાસિક જુગલબંધી — રાપર કચ્છ લાઈવ પ્રોગ્રામ.",
   },
   {
-    id: "sairam-1",
-    artist: "સાંઈરામ દવે (Sairam Dave)",
-    title: "ગ્લોબલ ગુજરાતી & હાસ્ય દરબાર",
-    category: "comedy",
-    categoryLabel: "હાસ્ય ડાયરો",
-    tag: "Social Satire",
-    youtubeId: "7GzZl73RzXk",
-    thumbnail: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80",
-    description: "આધુનિક જીવનશૈલી, મોબાઈલ અને સમાજ પર સાંઈરામ દવેના તીખા અને મીઠા કટાક્ષ.",
-  },
-  {
-    id: "kirtidan-1",
-    artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
-    title: "મોગલ છેડતા કાળો નાગ & તહૂકાર ડાયરો",
-    category: "music",
-    categoryLabel: "લોક સંગીત & ભજન",
-    tag: "Live Mehfil",
-    youtubeId: "K2yqP5FqK2I",
-    thumbnail: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=800&auto=format&fit=crop&q=80",
-    description: "કીર્તિદાન ગઢવીના દમદાર અવાજમાં મોગલ મા ની સ્તુતિ અને ભવ્ય લોકડાયરો.",
-  },
-  {
-    id: "rajbha-1",
+    id: "rajbha-kashtriya",
     artist: "રાજભા ગઢવી (Rajbha Gadhvi)",
-    title: "ગીરની વાતો, સિંહ અને સૌરાષ્ટ્રની રસધાર",
-    category: "sahitya",
-    categoryLabel: "લોક સાહિત્ય & વીર રસ",
-    tag: "Gir Culture",
-    youtubeId: "t2fV6j6W8nI",
-    thumbnail: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80",
-    description: "ગીરના માલધારીઓ, ડાલામથ્થા સિંહ અને ક્ષત્રિય વીરતાની અસલ ચારણી સાહિત્યિક વાતો.",
+    title: "ક્ષત્રિયની વાત & રૂંવાડા ઊભા કરતો વીર રસ",
+    category: "rajbha",
+    categoryLabel: "વીર રસ & સાહિત્ય",
+    tag: "Veer Ras Dayro",
+    youtubeId: "LlsYNC4l0GA",
+    thumbnail: "https://img.youtube.com/vi/LlsYNC4l0GA/hqdefault.jpg",
+    description: "ક્ષત્રિય ધર્મ, બલિદાન અને શૌર્યની વાતો કરતાં રૂંવાડા ઊભા કરી દેતો રાજભા ગઢવીનો ડાયરો.",
   },
   {
-    id: "dhirubhai-1",
-    artist: "ધીરૂભાઈ સરવૈયા (Dhirubhai Sarvaiya)",
-    title: "કાઠિયાવાડની દેશી રમૂજ & નોન-સ્ટોપ જોક્સ",
-    category: "comedy",
-    categoryLabel: "હાસ્ય ડાયરો",
-    tag: "Classic Humor",
-    youtubeId: "LzE7s9wJ3mA",
-    thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80",
-    description: "ધીરૂભાઈ સરવૈયાના સહજ અને દેશી અંદાજના સદાબહાર હાસ્યના ફુવારા.",
+    id: "rajdan-vadodara",
+    artist: "રાજદાન ગઢવી (Rajdan Gadhvi)",
+    title: "સુપર હિટ લોકડાયરો (વડોદરા લાઈવ ડાયરો)",
+    category: "rajbha",
+    categoryLabel: "લોક સાહિત્ય & ડાયરો",
+    tag: "Vadodara Live",
+    youtubeId: "qW1ss5bq90A",
+    thumbnail: "https://img.youtube.com/vi/qW1ss5bq90A/hqdefault.jpg",
+    description: "રાજદાન ગઢવીનો વડોદરા લાઈવ કાર્યક્રમ — અસલ ચારણી સાહિત્ય અને ભવ્ય લોકડાયરો.",
   },
   {
-    id: "osman-1",
-    artist: "ઓસમાન મીર (Osman Mir)",
-    title: "સૂફી, ગઝલ અને લોકડાયરાની રંગત",
-    category: "music",
-    categoryLabel: "લોક સંગીત & ભજન",
-    tag: "Sufi & Folk",
-    youtubeId: "fE_nF2bL_J4",
-    thumbnail: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
-    description: "રૂહાનિયત અને સુરીલા અવાજ સાથે ગુજરાતી-સૂફી સંગીતની અલૌકિક મહેફિલ.",
+    id: "kirtidan-kanudo",
+    artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
+    title: "દેશી તાલે કાનુડાના ગીતો & રાસ",
+    category: "kirtidan",
+    categoryLabel: "કાનુડાના ગીતો",
+    tag: "Krishna Songs",
+    youtubeId: "KpFUjNxGCbo",
+    thumbnail: "https://img.youtube.com/vi/KpFUjNxGCbo/hqdefault.jpg",
+    description: "કીર્તિદાન ગઢવીના સૂર અને દેશી ઢોલના તાલે કાનુડાના અલ્ટીમેટ ગીતોની રમઝટ.",
+  },
+  {
+    id: "kirtidan-rasiyo",
+    artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
+    title: "રસિયો રૂપાળો રંગરેલીયો (વેજાગામ લાઈવ)",
+    category: "kirtidan",
+    categoryLabel: "લોક સંગીત & ગરબા",
+    tag: "Superhit Folk",
+    youtubeId: "_IMnebRMPcY",
+    thumbnail: "https://img.youtube.com/vi/_IMnebRMPcY/hqdefault.jpg",
+    description: "વેજાગામ લાઈવ પ્રોગ્રામમાં કીર્તિદાન ગઢવીનું સુપરહિટ લોકગીત 'રસિયો રૂપાળો રંગરેલીયો'.",
+  },
+  {
+    id: "kirtidan-dakor",
+    artist: "કીર્તિદાન ગઢવી (Kirtidan Gadhvi)",
+    title: "ડાકોરના ઠાકોર (અમરેલી લાઈવ પોલીસ ડાયરો)",
+    category: "kirtidan",
+    categoryLabel: "ભક્તિ & ડાયરો",
+    tag: "Dakor Na Thakor",
+    youtubeId: "w3O3aikm4xM",
+    thumbnail: "https://img.youtube.com/vi/w3O3aikm4xM/hqdefault.jpg",
+    description: "અમરેલી લાઈવ પોલીસ ડાયરામાં કીર્તિદાન ગઢવીના કંઠે ગવાયેલું પ્રખ્યાત ભજન 'ડાકોરના ઠાકોર'.",
   },
 ];
 
@@ -158,7 +158,7 @@ const GUJJU_RULES = [
   {
     num: "૪",
     title: "જલસાનો નિયમ",
-    desc: "કામ ગમે તેટલું હોય, પણ ગરબા, મિત્રો અને પરિવાર સાથે મોજ કાયમ રહેવી જોઈએ!",
+    desc: "કામ ગમે તેટલું હોય, પણ ડાયરો, ગરબા, મિત્રો અને પરિવાર સાથે મોજ કાયમ રહેવી જોઈએ!",
     icon: "🎉",
   },
 ];
@@ -299,10 +299,10 @@ export default function GujjuversePage() {
                 <IconBrandYoutube className="w-6 h-6 text-red-500" />
                 <div>
                   <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
-                    ગુજરાતી લોકડાયરો & હાસ્ય મહેફિલ
+                    ગુજરાતી લોકડાયરો & સંગીત મહેફિલ
                   </h2>
                   <p className="text-xs text-zinc-400">
-                    ક્લિક કરીને લાઈવ ડાયરો સાંભળો અને મોજ કરો
+                    કીર્તિદાન ગઢવી અને રાજભા ગઢવીના લાઈવ ડાયરા
                   </p>
                 </div>
               </div>
@@ -311,9 +311,9 @@ export default function GujjuversePage() {
               <div className="flex flex-wrap gap-2">
                 {[
                   { id: "all", label: "બધા ડાયરા" },
-                  { id: "comedy", label: "હાસ્ય ડાયરો 😂" },
-                  { id: "sahitya", label: "લોક સાહિત્ય ⚔️" },
-                  { id: "music", label: "લોક સંગીત 🎶" },
+                  { id: "jugalbandhi", label: "મહા જુગલબંધી 🔥" },
+                  { id: "kirtidan", label: "કીર્તિદાન ગઢવી 🎶" },
+                  { id: "rajbha", label: "રાજભા & રાજદાન ⚔️" },
                 ].map((tab) => (
                   <button
                     key={tab.id}
