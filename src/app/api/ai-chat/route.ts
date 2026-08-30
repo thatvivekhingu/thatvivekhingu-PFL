@@ -5,6 +5,9 @@ import { checkRateLimit, getClientIdentifier } from "@/lib/server/rate-limiter";
 import { ServerLogger } from "@/lib/server/logger";
 import { retrieveRelevantKnowledge } from "@/data/vian-knowledge";
 
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 function getSystemPrompt() {
   const now = new Date();
   const istDate = now.toLocaleDateString("en-IN", {
