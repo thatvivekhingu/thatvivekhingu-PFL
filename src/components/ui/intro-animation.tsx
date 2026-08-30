@@ -69,7 +69,7 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // Fast, Snappy Typing Engine: English (1.0s total) -> Hindi (1.1s total) -> Red line curtain (0.7s)
+  // Cinematic Relaxed Typing Engine: English -> Hold (1.4s) -> Hindi -> Hold (1.5s) -> Red line curtain (1.4s)
   useEffect(() => {
     if (!shouldShow || isComplete || !activePair) return;
 
@@ -89,15 +89,15 @@ export function IntroAnimation() {
           clearInterval(enInterval);
           setIsTypingDone(true);
 
-          // Hold English for 650ms, then transition to Hindi
+          // Hold English for 1.4 seconds so user can read comfortably
           setTimeout(() => {
             setIsTypingDone(false);
             setDisplayedText("");
             setCurrentStep("hi");
             playTapSound("hover");
-          }, 650);
+          }, 1400);
         }
-      }, 22);
+      }, 55);
 
       return () => clearInterval(enInterval);
     } else if (currentStep === "hi") {
@@ -111,13 +111,13 @@ export function IntroAnimation() {
           clearInterval(hiInterval);
           setIsTypingDone(true);
 
-          // After Hindi finishes, hold for 750ms and slide open curtain
+          // After Hindi finishes, hold for 1.5 seconds so punchline lands
           setTimeout(() => {
             setIsRevealing(true);
             playTapSound("access_granted");
-          }, 750);
+          }, 1500);
         }
-      }, 25);
+      }, 60);
 
       return () => clearInterval(hiInterval);
     }
@@ -135,7 +135,7 @@ export function IntroAnimation() {
               ? {
                   y: "-100%",
                   transition: {
-                    duration: 0.85,
+                    duration: 1.4,
                     ease: [0.22, 1, 0.36, 1], // Cinematic smooth curtain easing
                   },
                 }
@@ -158,7 +158,7 @@ export function IntroAnimation() {
                   ? {
                       height: "100%",
                       transition: {
-                        duration: 0.8,
+                        duration: 1.35,
                         ease: [0.22, 1, 0.36, 1], // Stretches gradually downward
                       },
                     }
