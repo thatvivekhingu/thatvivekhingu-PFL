@@ -19,6 +19,8 @@ import {
     IconRss,
     IconSearch,
     IconSun,
+    IconCoffee,
+    IconFileText,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
@@ -187,6 +189,18 @@ export function CommandPalette({ posts }: CommandPaletteProps) {
                                 icon={<IconBriefcase2 className="h-4 w-4" />}
                                 label="Experience"
                                 onSelect={() => run(() => goToSection("experience"))}
+                            />
+                            <Item
+                                icon={<IconFileText className="h-4 w-4" />}
+                                label="Resume"
+                                onSelect={() => run(() => router.push("/resume"))}
+                            />
+                            <Item
+                                icon={<IconCoffee className="h-4 w-4 text-amber-400" />}
+                                label="GujjuVerse ☕"
+                                sublabel="Gujarati Dev & Meme Culture"
+                                keywords={["gujju", "gujjuverse", "gujarati", "chai", "fafda", "meme", "jokes"]}
+                                onSelect={() => run(() => router.push("/gujjuverse"))}
                             />
                             <Item
                                 icon={<IconPencil className="h-4 w-4" />}
