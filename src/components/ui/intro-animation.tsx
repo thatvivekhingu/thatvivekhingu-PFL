@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -95,7 +95,9 @@ export function IntroAnimation() {
                 <span className="text-cyan-400 font-black mr-1">&gt;</span>
                 <span className="text-zinc-100">{displayedText}</span>
                 <span
-                  className="inline-block w-2.5 sm:w-3.5 h-6 sm:h-8 bg-cyan-400 ml-1 rounded-xs animate-pulse"
+                  className={`inline-block w-2.5 sm:w-3.5 h-6 sm:h-8 bg-cyan-400 ml-1 rounded-xs ${
+                    isTypingDone ? "animate-pulse" : "opacity-100"
+                  }`}
                 />
               </h1>
             </div>
