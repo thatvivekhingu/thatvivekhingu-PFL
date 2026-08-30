@@ -1,4 +1,4 @@
-import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconMail, IconAward, IconFileText, IconCoffee } from "@tabler/icons-react"
+import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconMail, IconAward, IconFileText, IconSparkles } from "@tabler/icons-react"
 
 export interface ProjectItem {
   title: string;
@@ -296,7 +296,7 @@ export const data = {
     {
       name: "GujjuVerse",
       link: "/gujjuverse",
-      icon: <IconCoffee className="subpixel-antialiased h-5 w-5 text-amber-500 hover:text-amber-400 dark:text-amber-400 hover:dark:text-amber-300 hover:animate-wiggle animate-wiggle transition-colors duration-100" />,
+      icon: <IconSparkles className="subpixel-antialiased h-5 w-5 text-amber-500 hover:text-amber-400 dark:text-amber-400 hover:dark:text-amber-300 hover:animate-wiggle animate-wiggle transition-colors duration-100" />,
     },
   ],
 

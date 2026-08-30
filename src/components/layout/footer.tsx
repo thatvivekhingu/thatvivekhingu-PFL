@@ -6,7 +6,7 @@ import { IconRss, IconSend, IconBrandGithub, IconStar } from "@tabler/icons-reac
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { AnimatedLogo } from "@/components/ui/logo-animation";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
 import { playTapSound } from "@/lib/sound";
@@ -15,6 +15,7 @@ import { data } from "@/data/data";
 const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/thatvivekhingu-PFL";
 
 export const Footer = () => {
+    const pathname = usePathname();
     const [sent, setSent] = useState(false);
     const waveRef = useRef<HTMLSpanElement>(null);
     const waveInView = useInView(waveRef, { amount: 0.5 });
@@ -59,6 +60,10 @@ export const Footer = () => {
     };
 
     const handleLogoClick = () => router.push("/");
+
+    if (pathname === "/gujjuverse") {
+        return null;
+    }
 
     return (
         <footer className="relative w-full bg-background text-secondary-foreground overflow-hidden">

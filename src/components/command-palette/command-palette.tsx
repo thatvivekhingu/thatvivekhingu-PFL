@@ -19,7 +19,7 @@ import {
     IconRss,
     IconSearch,
     IconSun,
-    IconCoffee,
+    IconSparkles,
     IconFileText,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
@@ -196,7 +196,7 @@ export function CommandPalette({ posts }: CommandPaletteProps) {
                                 onSelect={() => run(() => router.push("/resume"))}
                             />
                             <Item
-                                icon={<IconCoffee className="h-4 w-4 text-amber-400" />}
+                                icon={<IconSparkles className="h-4 w-4 text-amber-400" />}
                                 label="GujjuVerse"
                                 sublabel="Gujarati Dev & Meme Culture"
                                 keywords={["gujju", "gujjuverse", "gujarati", "chai", "fafda", "meme", "jokes"]}
