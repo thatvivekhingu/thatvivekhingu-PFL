@@ -118,9 +118,9 @@ export default function Hero() {
           <div className="relative flex-col space-y-2">
             <div className="relative flex flex-col items-center justify-center">
               {/* High-Tech Angled Double Marquee Ribbons Centered Directly Behind DP Avatar */}
-              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center overflow-hidden h-72 select-none opacity-85">
-                {/* Cyan/Teal Angled Ribbon (-3.5deg) - Thicker & Bold Black Text */}
-                <div className="absolute w-[145vw] min-w-[1600px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.4)] border-y-2 border-cyan-200/60">
+              <div className="absolute top-18 sm:top-24 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-0 flex items-center justify-center select-none opacity-90">
+                {/* Cyan/Teal Angled Ribbon (-3.5deg) - Full Bleed Edge-to-Edge */}
+                <div className="absolute w-[160vw] min-w-[1800px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(6,182,212,0.5)] border-y-2 border-cyan-200/60">
                   <Marquee repeat={6} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                     <span>VIVEK HINGU // AI & ML ENGINEER</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
@@ -135,8 +135,8 @@ export default function Hero() {
                   </Marquee>
                 </div>
 
-                {/* Violet/Indigo Angled Ribbon (+3.5deg) - Thicker & Bold Black Text */}
-                <div className="absolute w-[145vw] min-w-[1600px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.4)] border-y-2 border-indigo-200/60">
+                {/* Violet/Indigo Angled Ribbon (+3.5deg) - Full Bleed Edge-to-Edge */}
+                <div className="absolute w-[160vw] min-w-[1800px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_40px_rgba(129,140,248,0.5)] border-y-2 border-indigo-200/60">
                   <Marquee reverse repeat={6} className="[--duration:30s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
                     <span>BHARATBHASHA AI</span>
                     <span className="mx-3 text-zinc-950 font-black">•</span>
