@@ -132,7 +132,7 @@ export const Footer = () => {
                         className="group mt-6 inline-flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                         <IconBrandGithub className="h-4 w-4" />
-                        <span>This site is open source: star it on GitHub</span>
+                        <span>એક કામ કર, સ્ટાર આપતો જા… બપોરની ચા મારી તરફથી ☕</span>
                         <IconStar className="h-3.5 w-3.5 transition-colors group-hover:text-amber-400 group-hover:animate-spin-grow" />
                         <span className="tabular-nums font-medium">{stars}</span>
                     </a>
