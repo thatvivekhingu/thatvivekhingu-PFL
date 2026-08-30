@@ -44,8 +44,8 @@ const HERO_AVATARS: AvatarCharacter[] = [
   },
   {
     id: "spiderman",
-    name: "Spider-Man",
-    badge: "Spider-Man",
+    name: "દેશી કરોડિયો 🕷️",
+    badge: "દેશી કરોડિયો 🕷️",
     src: "/avatars/spiderman.jpg",
     borderColor: "border-red-500/90",
     shadowColor: "shadow-[0_0_45px_rgba(239,68,68,0.6)]",
