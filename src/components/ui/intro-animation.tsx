@@ -65,25 +65,25 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // 2-Step Seamless Flash Timeline: English (750ms) -> Hindi (900ms) -> Open
+  // 2-Step Comfortable Reading Timeline: English (1.4s) -> Hindi (1.8s) -> Open
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
     playTapSound("hover");
 
-    // Phase 1: Show English setup for 750ms
+    // Phase 1: Show English setup for 1.4 seconds
     const timer1 = setTimeout(() => {
       setPhase("hi");
       playTapSound("access_granted");
 
-      // Phase 2: Show Hindi punchline for 900ms, then slide open curtain
+      // Phase 2: Show Hindi punchline for 1.8 seconds, then smoothly open
       const timer2 = setTimeout(() => {
         setPhase("done");
         handleComplete();
-      }, 950);
+      }, 1800);
 
       return () => clearTimeout(timer2);
-    }, 800);
+    }, 1400);
 
     return () => clearTimeout(timer1);
   }, [shouldShow, isComplete, handleComplete]);
@@ -97,13 +97,13 @@ export function IntroAnimation() {
           initial={{ y: 0 }}
           exit={{
             y: "-100%",
-            transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
           }}
           onClick={handleSkip}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black px-6 select-none cursor-pointer overflow-hidden"
         >
           {/* Center Card */}
-          <div className="relative z-10 max-w-2xl w-full flex flex-col items-center text-center space-y-6">
+          <div className="relative z-10 max-w-3xl w-full flex flex-col items-center text-center space-y-6">
             {/* Micro Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-400 shadow-2xl">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -111,15 +111,15 @@ export function IntroAnimation() {
             </div>
 
             {/* Word Flash Screen Container */}
-            <div className="min-h-[80px] sm:min-h-[100px] flex items-center justify-center">
+            <div className="min-h-[90px] sm:min-h-[120px] flex items-center justify-center">
               <AnimatePresence mode="wait">
                 {phase === "en" && (
                   <motion.h1
                     key="en-line"
-                    initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+                    initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -14, filter: "blur(6px)" }}
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    exit={{ opacity: 0, y: -16, filter: "blur(8px)" }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     className="text-2xl sm:text-4xl md:text-5xl font-bold font-sans tracking-tight text-zinc-300"
                   >
                     {activeLine.en}
@@ -129,11 +129,11 @@ export function IntroAnimation() {
                 {phase === "hi" && (
                   <motion.h1
                     key="hi-line"
-                    initial={{ opacity: 0, scale: 0.94, y: 12, filter: "blur(6px)" }}
+                    initial={{ opacity: 0, scale: 0.94, y: 14, filter: "blur(8px)" }}
                     animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 1.04, filter: "blur(6px)" }}
+                    exit={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-sans tracking-tight text-cyan-400 drop-shadow-[0_0_30px_rgba(6,182,212,0.4)]"
+                    className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-sans tracking-tight text-cyan-400 drop-shadow-[0_0_35px_rgba(6,182,212,0.45)]"
                   >
                     {activeLine.hi}
                   </motion.h1>
