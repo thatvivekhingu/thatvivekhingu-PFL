@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import React from "react";
-import { IconBrain, IconTrash, IconX, IconCheck } from "@tabler/icons-react";
+import { IconBrain, IconTrash, IconX } from "@tabler/icons-react";
 import type { UserMemoryItem } from "@/lib/vian/memory-engine";
 
 interface VianMemoryModalProps {

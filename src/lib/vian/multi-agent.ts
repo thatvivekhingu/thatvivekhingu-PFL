@@ -3,10 +3,7 @@
  * Provides Supervisor Planning, Specialist Sub-Agents, Blackboard Memory, and Execution Tracing
  */
 
-import {
-  dispatchAgentToolCall,
-  type VianToolAction,
-} from "./agent-tools";
+import type { VianToolAction } from "./agent-tools";
 
 export type AgentRole =
   | "supervisor"
@@ -52,7 +49,7 @@ export interface AgentState {
  */
 export function planTaskExecution(
   query: string,
-  history: Array<{ role: string; content: string }> = []
+  _history: Array<{ role: string; content: string }> = []
 ): AgentExecutionPlan {
   const qLower = query.toLowerCase();
 
@@ -200,8 +197,8 @@ export function getAgentDirective(role: AgentRole): string {
 export async function runVianStateGraph(
   userQuery: string,
   history: Array<{ role: string; content: string }> = [],
-  apiKey: string,
-  systemPromptBase: string
+  _apiKey?: string,
+  _systemPromptBase?: string
 ): Promise<{
   response: string;
   actions: VianToolAction[];
