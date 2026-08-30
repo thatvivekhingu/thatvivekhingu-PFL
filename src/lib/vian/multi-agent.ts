@@ -49,19 +49,21 @@ export interface AgentState {
  */
 export function planTaskExecution(
   query: string,
-  _history: Array<{ role: string; content: string }> = []
+  history: Array<{ role: string; content: string }> = []
 ): AgentExecutionPlan {
   const qLower = query.toLowerCase();
+  const pastContext = history.map((h) => h.content).join(" ").toLowerCase();
+  const fullText = `${qLower} ${pastContext}`;
 
   const needsResearch =
-    qLower.includes("search") ||
-    qLower.includes("latest") ||
-    qLower.includes("news") ||
-    qLower.includes("trend") ||
-    qLower.includes("current") ||
-    qLower.includes("festivals") ||
-    qLower.includes("kab hai") ||
-    qLower.includes("who won");
+    fullText.includes("search") ||
+    fullText.includes("latest") ||
+    fullText.includes("news") ||
+    fullText.includes("trend") ||
+    fullText.includes("current") ||
+    fullText.includes("festivals") ||
+    fullText.includes("kab hai") ||
+    fullText.includes("who won");
 
   const needsCoding =
     qLower.includes("code") ||
@@ -196,9 +198,7 @@ export function getAgentDirective(role: AgentRole): string {
  */
 export async function runVianStateGraph(
   userQuery: string,
-  history: Array<{ role: string; content: string }> = [],
-  _apiKey?: string,
-  _systemPromptBase?: string
+  history: Array<{ role: string; content: string }> = []
 ): Promise<{
   response: string;
   actions: VianToolAction[];
