@@ -156,7 +156,7 @@ export const Footer = () => {
                             Vivek Hingu
                         </p>
                         <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
-                            AI/ML Engineer & Full-Stack Developer, building intelligent products, predictive models, and voice AI systems.
+                            AI/ML Engineer, building intelligent products, predictive models, and voice AI systems.
                         </p>
                     </div>
 

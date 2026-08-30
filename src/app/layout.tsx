@@ -30,8 +30,8 @@ const pacifico = Pacifico({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thatvivekhingu.github.io/portfolio-website"),
-  title: "Vivek Hingu - AI/ML Engineer & Full-Stack Developer",
-  description: "Personal portfolio of Vivek Hingu, AI/ML Engineer and Full-Stack Developer specializing in machine learning, voice systems, and modern web applications.",
+  title: "Vivek Hingu - AI/ML Engineer",
+  description: "Personal portfolio of Vivek Hingu, AI/ML Engineer specializing in machine learning, voice systems, and modern AI applications.",
   icons: {
     icon: [
       { url: "/logo/personal-logo.jpg", type: "image/jpeg" },       
@@ -43,14 +43,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://thatvivekhingu.github.io/portfolio-website",
-    title: "Vivek Hingu — AI/ML Engineer & Full-Stack Developer",
-    description: "AI/ML Engineer & Full-Stack Developer building intelligent systems and scalable apps.",
+    title: "Vivek Hingu — AI/ML Engineer",
+    description: "AI/ML Engineer building intelligent systems and autonomous agents.",
     siteName: "Vivek Hingu",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vivek Hingu — AI/ML Engineer & Full-Stack Developer",
-    description: "AI/ML Engineer & Full-Stack Developer building intelligent systems and scalable apps.",
+    title: "Vivek Hingu — AI/ML Engineer",
+    description: "AI/ML Engineer building intelligent systems and autonomous agents.",
   },
   alternates: {
     types: {

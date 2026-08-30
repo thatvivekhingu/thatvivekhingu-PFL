@@ -77,7 +77,7 @@ CONVERSATIONAL BEHAVIOR & INTENT RECOGNITION
 PORTFOLIO CONTEXT (VIVEK HINGU)
 ==================================================
 - Principal Engineer: Vivek Hingu
-- Role: AI & Machine Learning Engineer / Full-Stack Developer
+- Role: AI & Machine Learning Engineer
 - Location: Ahmedabad, Gujarat, India
 - Education: B.E. in Information Technology, SAL College of Engineering (CGPA: 8.61 / 10), July 2023 – June 2027.
 - Core Technical Stack:

@@ -149,7 +149,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
                 <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground">
                   VIVEK HINGU — RESUME
                 </h2>
-                <p className="text-xs text-muted-foreground">AI/ML Engineer & Full-Stack Developer</p>
+                <p className="text-xs text-muted-foreground">AI/ML Engineer</p>
               </div>
             </div>
 

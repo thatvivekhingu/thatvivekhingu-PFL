@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Vivek Hingu — AI/ML Engineer & Full-Stack Developer";
+export const alt = "Vivek Hingu — AI/ML Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -64,7 +64,7 @@ export default async function OGImage() {
                             letterSpacing: "-0.02em",
                         }}
                     >
-                        AI/ML Engineer & Full-Stack Developer.
+                        AI/ML Engineer & Systems Architect.
                     </div>
                 </div>
 

@@ -118,7 +118,7 @@ export default async function OGImage({ params }: Props) {
                         Vivek Hingu
                     </span>
                     <span>·</span>
-                    <span>AI/ML Engineer & Full-Stack Developer</span>
+                    <span>AI/ML Engineer</span>
                 </div>
             </div>
         ),

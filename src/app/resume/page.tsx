@@ -196,7 +196,7 @@ export default function ResumePage() {
                 <div className="space-y-3">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold tracking-wider uppercase">
                     <IconCpu className="h-3.5 w-3.5" />
-                    AI / ML Engineer & Full-Stack Developer
+                    AI / ML Engineer
                   </div>
                   <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
                     VIVEK HINGU

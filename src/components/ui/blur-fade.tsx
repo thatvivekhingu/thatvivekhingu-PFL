@@ -1,6 +1,9 @@
-import React from "react";
+"use client";
 
-interface BlurFadeProps extends React.HTMLAttributes<HTMLDivElement> {
+import React from "react";
+import { motion } from "framer-motion";
+
+interface BlurFadeProps {
   children: React.ReactNode;
   className?: string;
   variant?: unknown;
@@ -11,16 +14,34 @@ interface BlurFadeProps extends React.HTMLAttributes<HTMLDivElement> {
   inView?: boolean;
   inViewMargin?: unknown;
   blur?: string;
+  id?: string;
 }
 
 export function BlurFade({
   children,
   className,
-  ...props
+  duration = 0.4,
+  delay = 0,
+  offset = 6,
+  direction = "down",
+  blur = "6px",
 }: BlurFadeProps) {
+  const yOffset = direction === "down" ? -offset : direction === "up" ? offset : 0;
+  const xOffset = direction === "right" ? -offset : direction === "left" ? offset : 0;
+
   return (
-    <div className={className} {...props}>
+    <motion.div
+      initial={{ opacity: 0, y: yOffset, x: xOffset, filter: `blur(${blur})` }}
+      animate={{ opacity: 1, y: 0, x: 0, filter: "blur(0px)" }}
+      transition={{
+        duration,
+        delay,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className={className}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
+

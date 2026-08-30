@@ -15,7 +15,7 @@ export const PORTFOLIO_KNOWLEDGE: PortfolioChunk[] = [
     category: "profile",
     title: "Vivek Hingu Profile & Bio",
     keywords: ["who", "name", "vian", "vivek", "bio", "about", "role", "profile", "summary", "overview"],
-    content: `Vivek Hingu is an aspiring AI & Machine Learning Engineer based in Ahmedabad, Gujarat, India. He builds AI-powered applications, machine learning systems, data science solutions, and modern full-stack web applications. Summary: "${data.summary}"`,
+    content: `Vivek Hingu is an aspiring AI & Machine Learning Engineer based in Ahmedabad, Gujarat, India. He builds AI-powered applications, machine learning systems, data science solutions, and intelligent agentic workflows. Summary: "${data.summary}"`,
     links: [
       { label: "GitHub", url: "https://github.com/thatvivekhingu" },
       { label: "LinkedIn", url: "https://linkedin.com/in/vivekhingu" },

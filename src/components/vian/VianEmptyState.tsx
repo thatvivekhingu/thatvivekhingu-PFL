@@ -21,7 +21,7 @@ const PROMPT_SUGGESTIONS = [
   },
   {
     title: "Explore AI Projects",
-    query: "What are Vivek's top AI & Full-Stack projects like BharatBhasha and Recipe Engine?",
+    query: "What are Vivek's top AI projects like BharatBhasha and Recipe Engine?",
     category: "Portfolio",
   },
   {

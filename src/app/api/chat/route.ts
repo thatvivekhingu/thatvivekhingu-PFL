@@ -8,7 +8,7 @@ const KNOWLEDGE_BASE = [
   {
     id: "kb-profile",
     keywords: ["who", "name", "vian", "vivek", "bio", "about", "role", "profile"],
-    content: "Vivek Hingu is an AI/ML Engineer and Full-Stack Developer based in Ahmedabad, Gujarat, India. He builds autonomous AI agents, computer vision systems, and modern web applications.",
+    content: "Vivek Hingu is an AI/ML Engineer based in Ahmedabad, Gujarat, India. He builds autonomous AI agents, computer vision systems, and modern AI applications.",
   },
   {
     id: "kb-education",
