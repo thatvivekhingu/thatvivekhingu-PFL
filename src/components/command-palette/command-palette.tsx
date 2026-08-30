@@ -197,7 +197,7 @@ export function CommandPalette({ posts }: CommandPaletteProps) {
                             />
                             <Item
                                 icon={<IconCoffee className="h-4 w-4 text-amber-400" />}
-                                label="GujjuVerse ☕"
+                                label="GujjuVerse"
                                 sublabel="Gujarati Dev & Meme Culture"
                                 keywords={["gujju", "gujjuverse", "gujarati", "chai", "fafda", "meme", "jokes"]}
                                 onSelect={() => run(() => router.push("/gujjuverse"))}
