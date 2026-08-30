@@ -119,7 +119,7 @@ export default function Hero() {
   };
 
   return (
-    <div className="min-h-[calc(100dvh-4.5rem)] sm:min-h-screen w-full pt-16 pb-10 sm:pt-28 sm:pb-16 relative flex flex-col items-center justify-center overflow-hidden">
+    <div className="w-full pt-12 pb-6 sm:min-h-screen sm:pt-28 sm:pb-16 relative flex flex-col items-center justify-center overflow-hidden">
       <HeroConstellation desktopDots={260} mobileDots={70} />
 
       <TooltipProvider>
