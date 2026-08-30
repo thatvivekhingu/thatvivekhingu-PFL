@@ -7,12 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   IconArrowLeft,
   IconBrandYoutube,
-  IconPlayerPlay,
   IconX,
   IconBook,
   IconQuote,
   IconChevronLeft,
   IconChevronRight,
+  IconCircleCheckFilled,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -23,7 +23,6 @@ interface DayroVideo {
   title: string;
   category: "comedy" | "music" | "sahitya" | "jugalbandhi";
   categoryLabel: string;
-  tag: string;
   youtubeId: string;
   thumbnail: string;
 }
@@ -36,17 +35,15 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "હાસ્ય ની બધડાટી (હસવાની ૧૦૦% ગેરેંટી)",
     category: "comedy",
     categoryLabel: "હાસ્ય ડાયરો",
-    tag: "New Jokes",
     youtubeId: "aE3_WjWz9tc",
     thumbnail: "https://img.youtube.com/vi/aE3_WjWz9tc/hqdefault.jpg",
   },
   {
     id: "sairam-hasya-varsad",
     artist: "સાંઈરામ દવે",
-    title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (હાસ્ય દરબાર)",
+    title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (સાંઈરામ નો હાસ્ય દરબાર)",
     category: "comedy",
     categoryLabel: "હાસ્ય દરબાર",
-    tag: "Full Comedy",
     youtubeId: "9N4--Ldqhuc",
     thumbnail: "https://img.youtube.com/vi/9N4--Ldqhuc/hqdefault.jpg",
   },
@@ -56,7 +53,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "સાવ નવા જથ્થાબંધ જોક્સ & હાસ્ય મહેફિલ",
     category: "comedy",
     categoryLabel: "હાસ્ય ડાયરો",
-    tag: "Non-Stop Jokes",
     youtubeId: "f2vHjuiIpqQ",
     thumbnail: "https://img.youtube.com/vi/f2vHjuiIpqQ/hqdefault.jpg",
   },
@@ -66,7 +62,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "વાંદરીપાનું — સુપરહિટ દેશી જોક્સ",
     category: "comedy",
     categoryLabel: "દેશી રમૂજ",
-    tag: "Superhit Comedy",
     youtubeId: "FEZPU-4lMo8",
     thumbnail: "https://img.youtube.com/vi/FEZPU-4lMo8/hqdefault.jpg",
   },
@@ -76,7 +71,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "લગન કરો હપ્તા ભરો (Lagan Karo Hapta Bharo)",
     category: "comedy",
     categoryLabel: "દેશી રમૂજ",
-    tag: "Family Comedy",
     youtubeId: "p7pA36rZJiw",
     thumbnail: "https://img.youtube.com/vi/p7pA36rZJiw/hqdefault.jpg",
   },
@@ -86,7 +80,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "ડોશીનું જીન્સ (Doshi Nu Jeans Comedy)",
     category: "comedy",
     categoryLabel: "હાસ્ય ડાયરો",
-    tag: "Viral Jokes",
     youtubeId: "6LWx0N_MCZU",
     thumbnail: "https://img.youtube.com/vi/6LWx0N_MCZU/hqdefault.jpg",
   },
@@ -98,7 +91,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "બેસ્ટ જુગલબંધી લોકડાયરો (રાપર કચ્છ લાઈવ)",
     category: "jugalbandhi",
     categoryLabel: "મહા જુગલબંધી",
-    tag: "Historic Jugalbandhi",
     youtubeId: "i8POjs66f9g",
     thumbnail: "https://img.youtube.com/vi/i8POjs66f9g/hqdefault.jpg",
   },
@@ -108,7 +100,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "ક્ષત્રિયની વાત & રૂંવાડા ઊભા કરતો વીર રસ",
     category: "sahitya",
     categoryLabel: "વીર રસ",
-    tag: "Veer Ras Dayro",
     youtubeId: "LlsYNC4l0GA",
     thumbnail: "https://img.youtube.com/vi/LlsYNC4l0GA/hqdefault.jpg",
   },
@@ -118,7 +109,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "સુપર હિટ લોકડાયરો (વડોદરા લાઈવ ડાયરો)",
     category: "sahitya",
     categoryLabel: "લોક સાહિત્ય",
-    tag: "Vadodara Live",
     youtubeId: "qW1ss5bq90A",
     thumbnail: "https://img.youtube.com/vi/qW1ss5bq90A/hqdefault.jpg",
   },
@@ -128,7 +118,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "દેશી તાલે કાનુડાના ગીતો & રાસ",
     category: "music",
     categoryLabel: "કાનુડાના ગીતો",
-    tag: "Krishna Songs",
     youtubeId: "KpFUjNxGCbo",
     thumbnail: "https://img.youtube.com/vi/KpFUjNxGCbo/hqdefault.jpg",
   },
@@ -138,7 +127,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "રસિયો રૂપાળો રંગરેલીયો (વેજાગામ લાઈવ)",
     category: "music",
     categoryLabel: "લોક સંગીત",
-    tag: "Superhit Folk",
     youtubeId: "_IMnebRMPcY",
     thumbnail: "https://img.youtube.com/vi/_IMnebRMPcY/hqdefault.jpg",
   },
@@ -148,7 +136,6 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     title: "ડાકોરના ઠાકોર (અમરેલી લાઈવ પોલીસ ડાયરો)",
     category: "music",
     categoryLabel: "ભક્તિ ડાયરો",
-    tag: "Dakor Na Thakor",
     youtubeId: "w3O3aikm4xM",
     thumbnail: "https://img.youtube.com/vi/w3O3aikm4xM/hqdefault.jpg",
   },
@@ -363,7 +350,7 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 1: હાસ્ય ડાયરો & લોકસંગીત (Structured Header & Carousel) */}
+        {/* SECTION 1: હાસ્ય ડાયરો & લોકસંગીત (YouTube Card Carousel) */}
         <BlurFade delay={0.15} inView>
           <div className="space-y-6">
             {/* Header Row 1: Title + Scroll Buttons */}
@@ -424,7 +411,7 @@ export default function GujjuversePage() {
               ))}
             </div>
 
-            {/* Single-Row Horizontal Scrolling Carousel */}
+            {/* Single-Row Horizontal Scrolling Carousel (Pure YouTube Vibe) */}
             <div
               ref={scrollContainerRef}
               onScroll={handleScrollEvent}
@@ -436,39 +423,34 @@ export default function GujjuversePage() {
                   key={video.id}
                   whileHover={{ y: -4 }}
                   onClick={() => handlePlayVideo(video)}
-                  className="w-[280px] sm:w-[320px] shrink-0 snap-start rounded-3xl bg-zinc-950 border border-zinc-800/80 hover:border-amber-500/60 overflow-hidden cursor-pointer flex flex-col justify-between transition-all shadow-xl group"
+                  className="w-[280px] sm:w-[320px] shrink-0 snap-start rounded-2xl bg-zinc-950/80 border border-zinc-800/80 hover:border-red-500/50 overflow-hidden cursor-pointer flex flex-col gap-3 transition-all shadow-xl group p-2.5"
                 >
-                  {/* Thumbnail / Header */}
-                  <div className="relative aspect-video w-full overflow-hidden bg-zinc-900">
+                  {/* YouTube Clean Thumbnail */}
+                  <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-zinc-900">
                     <Image
                       src={video.thumbnail}
                       alt={video.title}
                       fill
                       sizes="320px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent" />
 
-                    {/* Play Badge */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-11 h-11 rounded-full bg-amber-500 text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <IconPlayerPlay className="w-5 h-5 fill-black translate-x-0.5" />
-                      </div>
-                    </div>
-
-                    <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-zinc-700 text-[10px] font-mono text-amber-400 font-bold">
-                      {video.tag}
+                    {/* YouTube Corner Logo Badge */}
+                    <div className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/85 backdrop-blur-sm text-[10px] font-mono text-zinc-300 font-medium flex items-center gap-1">
+                      <IconBrandYoutube className="w-3.5 h-3.5 text-red-500" />
+                      <span>HD</span>
                     </div>
                   </div>
 
-                  {/* Clean Minimalist Body Content */}
-                  <div className="p-4 space-y-1.5">
-                    <span className="text-xs font-mono text-amber-400 font-semibold block truncate">
-                      {video.artist}
-                    </span>
-                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-snug line-clamp-2">
+                  {/* YouTube Video Details */}
+                  <div className="px-1 space-y-1.5">
+                    <h3 className="text-sm font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-snug line-clamp-2">
                       {video.title}
                     </h3>
+                    <div className="flex items-center gap-1.5 text-xs text-zinc-400">
+                      <span className="truncate">{video.artist}</span>
+                      <IconCircleCheckFilled className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                    </div>
                   </div>
                 </motion.div>
               ))}
