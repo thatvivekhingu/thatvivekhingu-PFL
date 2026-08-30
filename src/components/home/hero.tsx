@@ -292,6 +292,70 @@ export default function Hero() {
                 </div>
               </div>
 
+              {/* Left Marvel Floating Stark Telemetry HUD (Desktop / Tablet) */}
+              <div className="hidden lg:flex flex-col gap-1.5 absolute -left-8 xl:left-4 top-10 z-30 pointer-events-none select-none p-3.5 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-cyan-500/35 shadow-[0_0_30px_rgba(6,182,212,0.18)] text-left font-mono max-w-[210px]">
+                <div className="flex items-center justify-between border-b border-cyan-500/20 pb-1.5 text-[10px] font-bold text-cyan-400">
+                  <span className="flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                    STARK AI // MK-85
+                  </span>
+                  <span className="text-zinc-500 text-[9px]">HUD.01</span>
+                </div>
+                <div className="space-y-1 text-[10px] text-zinc-300">
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">JARVIS CORE:</span>
+                    <span className="text-cyan-300 font-bold">ONLINE</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">ARC REACTOR:</span>
+                    <span className="text-emerald-400 font-bold">3.5 GW</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">INTEGRITY:</span>
+                    <span className="text-cyan-400 font-bold">100%</span>
+                  </div>
+                </div>
+                {/* Mini Audio Equalizer Waveform */}
+                <div className="flex items-center gap-1 pt-1">
+                  <div className="h-2 w-1 bg-cyan-400/80 rounded-full animate-bounce" />
+                  <div className="h-3 w-1 bg-cyan-300 rounded-full animate-bounce [animation-delay:0.15s]" />
+                  <div className="h-4 w-1 bg-cyan-500 rounded-full animate-bounce [animation-delay:0.3s]" />
+                  <div className="h-2 w-1 bg-cyan-300 rounded-full animate-bounce [animation-delay:0.2s]" />
+                  <div className="h-3.5 w-1 bg-cyan-400 rounded-full animate-bounce [animation-delay:0.1s]" />
+                  <span className="text-[9px] text-cyan-500/70 ml-1">AUDIO SYNC</span>
+                </div>
+              </div>
+
+              {/* Right Marvel Floating Avengers Telemetry HUD (Desktop / Tablet) */}
+              <div className="hidden lg:flex flex-col gap-1.5 absolute -right-8 xl:right-4 top-10 z-30 pointer-events-none select-none p-3.5 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-amber-500/35 shadow-[0_0_30px_rgba(245,158,11,0.18)] text-left font-mono max-w-[210px]">
+                <div className="flex items-center justify-between border-b border-amber-500/20 pb-1.5 text-[10px] font-bold text-amber-400">
+                  <span className="flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-ping" />
+                    AVENGERS // E-616
+                  </span>
+                  <span className="text-zinc-500 text-[9px]">TAC.02</span>
+                </div>
+                <div className="space-y-1 text-[10px] text-zinc-300">
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">VIBRANIUM:</span>
+                    <span className="text-amber-300 font-bold">STABLE</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">QUANTUM:</span>
+                    <span className="text-purple-400 font-bold">LOCKED</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">MULTIVERSE:</span>
+                    <span className="text-amber-400 font-bold">ACTIVE</span>
+                  </div>
+                </div>
+                {/* Mini Target Crosshair & Sector */}
+                <div className="flex items-center justify-between pt-1 text-[9px] text-amber-400/80">
+                  <span>SEC: 23°N 72°E</span>
+                  <span className="text-[10px]">⚡ LOCKED</span>
+                </div>
+              </div>
+
               {/* Interactive Superhero Profile Avatar - Smooth Crossfade & Auto-Reset on Mouse Leave */}
               <div
                 className="group relative z-50 cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 select-none"
