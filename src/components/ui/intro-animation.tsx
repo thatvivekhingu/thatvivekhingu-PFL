@@ -65,25 +65,25 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // 2-Step Comfortable Reading Timeline: English (1.4s) -> Hindi (1.8s) -> Open
+  // 2-Step Generous Reading Timeline: English (2.0s) -> Hindi (2.2s) -> Open
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
     playTapSound("hover");
 
-    // Phase 1: Show English setup for 1.4 seconds
+    // Phase 1: Show English setup for 2.0 seconds
     const timer1 = setTimeout(() => {
       setPhase("hi");
       playTapSound("access_granted");
 
-      // Phase 2: Show Hindi punchline for 1.8 seconds, then smoothly open
+      // Phase 2: Show Hindi punchline for 2.2 seconds, then smoothly open
       const timer2 = setTimeout(() => {
         setPhase("done");
         handleComplete();
-      }, 1800);
+      }, 2200);
 
       return () => clearTimeout(timer2);
-    }, 1400);
+    }, 2000);
 
     return () => clearTimeout(timer1);
   }, [shouldShow, isComplete, handleComplete]);
@@ -103,15 +103,9 @@ export function IntroAnimation() {
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black px-6 select-none cursor-pointer overflow-hidden"
         >
           {/* Center Card */}
-          <div className="relative z-10 max-w-3xl w-full flex flex-col items-center text-center space-y-6">
-            {/* Micro Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-400 shadow-2xl">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>VIAN // VIVEK_HINGU</span>
-            </div>
-
+          <div className="relative z-10 max-w-3xl w-full flex flex-col items-center text-center space-y-8">
             {/* Word Flash Screen Container */}
-            <div className="min-h-[90px] sm:min-h-[120px] flex items-center justify-center">
+            <div className="min-h-[100px] sm:min-h-[140px] flex items-center justify-center">
               <AnimatePresence mode="wait">
                 {phase === "en" && (
                   <motion.h1
@@ -120,7 +114,7 @@ export function IntroAnimation() {
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, y: -16, filter: "blur(8px)" }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-2xl sm:text-4xl md:text-5xl font-bold font-sans tracking-tight text-zinc-300"
+                    className="text-3xl sm:text-5xl md:text-6xl font-bold font-sans tracking-tight text-white leading-tight"
                   >
                     {activeLine.en}
                   </motion.h1>
@@ -133,7 +127,7 @@ export function IntroAnimation() {
                     animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-sans tracking-tight text-cyan-400 drop-shadow-[0_0_35px_rgba(6,182,212,0.45)]"
+                    className="text-3xl sm:text-5xl md:text-6xl font-extrabold font-sans tracking-tight text-white leading-tight drop-shadow-[0_4px_25px_rgba(255,255,255,0.25)]"
                   >
                     {activeLine.hi}
                   </motion.h1>
@@ -142,7 +136,7 @@ export function IntroAnimation() {
             </div>
 
             {/* Sub-hint */}
-            <div className="pt-2 text-xs font-mono text-zinc-500 flex items-center gap-2">
+            <div className="text-xs font-mono text-zinc-500 flex items-center gap-2">
               <span>☕</span>
               <span>Tap anywhere or press ESC to skip</span>
             </div>
