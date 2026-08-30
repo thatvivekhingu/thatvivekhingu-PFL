@@ -1,11 +1,10 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  IconSparkles,
   IconArrowLeft,
   IconBrandYoutube,
   IconPlayerPlay,
@@ -325,36 +324,27 @@ export default function GujjuversePage() {
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-zinc-400 hover:text-white transition-colors group"
             >
               <IconArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>Back to Portfolio / પોર્ટફોલિયો</span>
+              <span>Back to Portfolio</span>
             </Link>
 
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-amber-400">
               <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-              <span>🕷️ DESI KARODIYO SPACE</span>
+              <span>🕷️ દેશી કરોડિયો</span>
             </div>
           </div>
         </BlurFade>
 
         {/* Hero Header */}
         <BlurFade delay={0.1} inView>
-          <div className="text-center space-y-6 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-widest uppercase font-mono">
-              <IconSparkles className="w-4 h-4 animate-bounce" />
-              <span>GUJJU VERSE // 🎭 GUJARATI CULTURE & HUMOR CORNER</span>
-            </div>
-
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight font-sans">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-300 to-yellow-200">
                 GUJJU VERSE
               </span>{" "}
-              <span className="text-zinc-400 text-3xl sm:text-5xl font-light">|</span>{" "}
-              <span className="text-zinc-100">ગુજ્જુ વર્સ</span>
+              <span>🎭</span>
             </h1>
 
-            <p className="text-base sm:text-xl text-zinc-300 font-medium leading-relaxed">
-              Where Modern AI Engineering meets Saurashtra’s Authentic Lok Dayro, Comedy & Pure Jalsa!
-            </p>
-            <p className="text-xs sm:text-sm text-zinc-500 font-sans">
+            <p className="text-sm sm:text-base text-zinc-400 font-medium leading-relaxed">
               કોડિંગ સાથે અસલ ગુજરાતી હાસ્ય ડાયરો, દેશી જોક્સ અને લોકસંગીતની મોજ.
             </p>
           </div>
