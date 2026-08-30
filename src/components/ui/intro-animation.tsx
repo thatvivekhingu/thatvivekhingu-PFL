@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -69,7 +69,7 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // Sequential Typing Engine: English -> Pause -> Hindi -> Pause (1s) -> Red line curtain reveal
+  // Fast, Snappy Typing Engine: English (1.0s total) -> Hindi (1.1s total) -> Red line curtain (0.7s)
   useEffect(() => {
     if (!shouldShow || isComplete || !activePair) return;
 
@@ -89,15 +89,15 @@ export function IntroAnimation() {
           clearInterval(enInterval);
           setIsTypingDone(true);
 
-          // Hold English for 1.1s, then transition to Hindi
+          // Hold English for 650ms, then transition to Hindi
           setTimeout(() => {
             setIsTypingDone(false);
             setDisplayedText("");
             setCurrentStep("hi");
             playTapSound("hover");
-          }, 1100);
+          }, 650);
         }
-      }, 42);
+      }, 22);
 
       return () => clearInterval(enInterval);
     } else if (currentStep === "hi") {
@@ -111,13 +111,13 @@ export function IntroAnimation() {
           clearInterval(hiInterval);
           setIsTypingDone(true);
 
-          // After Hindi finishes, wait for EXACTLY 1 second (1000ms)
+          // After Hindi finishes, hold for 750ms and slide open curtain
           setTimeout(() => {
             setIsRevealing(true);
             playTapSound("access_granted");
-          }, 1000);
+          }, 750);
         }
-      }, 48);
+      }, 25);
 
       return () => clearInterval(hiInterval);
     }
@@ -135,7 +135,7 @@ export function IntroAnimation() {
               ? {
                   y: "-100%",
                   transition: {
-                    duration: 1.3,
+                    duration: 0.85,
                     ease: [0.22, 1, 0.36, 1], // Cinematic smooth curtain easing
                   },
                 }
@@ -158,7 +158,7 @@ export function IntroAnimation() {
                   ? {
                       height: "100%",
                       transition: {
-                        duration: 1.25,
+                        duration: 0.8,
                         ease: [0.22, 1, 0.36, 1], // Stretches gradually downward
                       },
                     }
