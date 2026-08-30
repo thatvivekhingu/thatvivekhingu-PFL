@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: '**.spotifycdn.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image-cdn-fa.spotifycdn.com',
+      },
+      {
+        protocol: 'https',
         hostname: 'www.animatedimages.org',
         pathname: '/data/media/**',
       },

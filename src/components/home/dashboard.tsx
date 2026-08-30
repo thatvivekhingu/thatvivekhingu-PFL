@@ -423,17 +423,17 @@ const LastPlayed = ({ track }: LastPlayedProps) => {
 
   // Fallback to hardcoded data if no track
   const displayTrack = track || {
-    title: "U.N.I",
-    artist: "NAV",
-    album: "OMW2 REXDALE",
-    albumImageUrl: "/album-cover.jpeg",
-    songUrl: "#",
+    title: "Tabaahi (From \"Toxic\")",
+    artist: "Vishal Mishra, Raj Shekhar",
+    album: "Toxic",
+    albumImageUrl: "/music/tabaahi.jpg",
+    songUrl: "https://open.spotify.com/track/0bRRLtD0Tmfg8ZaP9Qf1Sq",
   };
 
   // A real track can still arrive without cover art (the API returns an
   // optional images[0]?.url), so guard the image source independently of the
   // whole-track fallback above — next/image throws on an undefined src.
-  const albumImageUrl = displayTrack.albumImageUrl || "/album-cover.jpeg";
+  const albumImageUrl = displayTrack.albumImageUrl || "/music/tabaahi.jpg";
 
   useEffect(() => {
     // Delay showing marquee to prevent flash on initial load

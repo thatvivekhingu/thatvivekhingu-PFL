@@ -97,7 +97,7 @@ export async function GET() {
     title: "Tabaahi (From \"Toxic\")",
     artist: "Vishal Mishra, Raj Shekhar",
     album: "Toxic",
-    albumImageUrl: "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02fc0d5dd23a87c71d3274dae7",
+    albumImageUrl: "/music/tabaahi.jpg",
     songUrl: "https://open.spotify.com/track/0bRRLtD0Tmfg8ZaP9Qf1Sq",
   });
 }
