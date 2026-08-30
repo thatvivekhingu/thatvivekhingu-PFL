@@ -10,6 +10,7 @@ import { IconWifi, IconBattery4 } from "@tabler/icons-react";
 
 import { VianHeader } from "./VianHeader";
 import { VianHistory } from "./VianHistory";
+import { VianMemoryModal } from "./VianMemoryModal";
 import { VianEmptyState } from "./VianEmptyState";
 import { VianMessageList } from "./VianMessageList";
 import { VianInput } from "./VianInput";
@@ -17,6 +18,7 @@ import { VianInput } from "./VianInput";
 export function VianAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isMemoryOpen, setIsMemoryOpen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const phoneContainerRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,9 @@ export function VianAssistant() {
     sendMessage,
     stopGeneration,
     regenerateLastMessage,
+    userMemories,
+    clearUserMemories,
+    removeUserMemory,
   } = useVianChat({
     sessionId: activeSessionId,
     initialMessages: activeSession?.messages || [],
@@ -174,11 +179,20 @@ export function VianAssistant() {
                 {/* Header Navbar */}
                 <VianHeader
                   onNewChat={handleNewChat}
-                  onToggleHistory={() => setIsHistoryOpen((prev) => !prev)}
+                  onToggleHistory={() => {
+                    setIsHistoryOpen((prev) => !prev);
+                    setIsMemoryOpen(false);
+                  }}
                   onClose={handleClose}
                   isHistoryOpen={isHistoryOpen}
                   soundEnabled={soundEnabled}
                   onToggleSound={() => setSoundEnabled((prev) => !prev)}
+                  memoryCount={userMemories.length}
+                  onToggleMemory={() => {
+                    setIsMemoryOpen((prev) => !prev);
+                    setIsHistoryOpen(false);
+                  }}
+                  isMemoryOpen={isMemoryOpen}
                 />
 
                 {/* History Drawer Sidebar Overlay */}
@@ -197,6 +211,15 @@ export function VianAssistant() {
                   onRenameSession={renameSession}
                   onDeleteSession={deleteSession}
                   onClearAll={clearAllSessions}
+                />
+
+                {/* Jarvis Memory Bank Modal */}
+                <VianMemoryModal
+                  isOpen={isMemoryOpen}
+                  onClose={() => setIsMemoryOpen(false)}
+                  memories={userMemories}
+                  onClearAll={clearUserMemories}
+                  onRemoveMemory={removeUserMemory}
                 />
 
                 {/* Main Chat Screen View */}

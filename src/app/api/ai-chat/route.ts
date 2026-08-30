@@ -13,6 +13,12 @@ import {
 import { checkRateLimit, getClientIdentifier } from "@/lib/server/rate-limiter";
 import { ServerLogger } from "@/lib/server/logger";
 import { retrieveRelevantKnowledge } from "@/data/vian-knowledge";
+import {
+  retrieveRelevantMemories,
+  extractMemoriesFromMessage,
+  formatMemoriesForPrompt,
+  type UserMemoryItem,
+} from "@/lib/vian/memory-engine";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -120,6 +126,7 @@ export async function POST(req: Request) {
 
     const message = (body.message as string).trim();
     const history = body.history || [];
+    const userMemories: UserMemoryItem[] = Array.isArray(body.userMemories) ? body.userMemories : [];
 
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
@@ -128,6 +135,16 @@ export async function POST(req: Request) {
     ServerLogger.info("AiChatAPI", `[VIAN] Request received: "${message.slice(0, 40)}..."`);
     ServerLogger.info("AiChatAPI", `[VIAN] Groq configured: ${Boolean(GROQ_API_KEY)}`);
     ServerLogger.info("AiChatAPI", `[VIAN] Gemini fallback configured: ${Boolean(GEMINI_API_KEY)}`);
+    ServerLogger.info("AiChatAPI", `[VIAN] Long-Term Memory active: ${userMemories.length} facts in bank`);
+
+    // 1. Long-Term Memory (LTM) Retrieval & Extraction
+    const relevantMemories = retrieveRelevantMemories(message, userMemories, 5);
+    const memoryPromptContext = formatMemoriesForPrompt(relevantMemories);
+    const newlyLearnedMemories = extractMemoriesFromMessage(message, userMemories);
+
+    if (newlyLearnedMemories.length > 0) {
+      ServerLogger.info("AiChatAPI", `[VIAN] Extracted ${newlyLearnedMemories.length} new user facts for Memory Bank.`);
+    }
 
     const plan = planTaskExecution(message, history);
     const trace: AgentTraceStep[] = [
@@ -154,7 +171,7 @@ export async function POST(req: Request) {
       .join("\n\n");
 
     const systemPrompt = getSystemPrompt();
-    const agentAugmentedPrompt = `${systemPrompt}\n\n[Active Multi-Agent Workflow Directives]:\n${specialistDirectives}`;
+    const agentAugmentedPrompt = `${systemPrompt}\n\n[Active Multi-Agent Workflow Directives]:\n${specialistDirectives}${memoryPromptContext}`;
 
     let fullResponse = "";
 
@@ -417,6 +434,7 @@ export async function POST(req: Request) {
           "Cache-Control": "no-cache",
           "x-vian-actions": encodeURIComponent(JSON.stringify(executedActions)),
           "x-vian-trace": encodeURIComponent(JSON.stringify(trace)),
+          "x-vian-new-memories": encodeURIComponent(JSON.stringify(newlyLearnedMemories)),
         },
       });
     }
@@ -425,6 +443,7 @@ export async function POST(req: Request) {
       response: fullResponse,
       actions: executedActions,
       trace,
+      newMemories: newlyLearnedMemories,
     });
   } catch (error) {
     ServerLogger.error("AiChatAPI", "Unhandled exception in /api/ai-chat:", error);

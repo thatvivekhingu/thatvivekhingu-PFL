@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { VianMessageItem } from "./useVianSessions";
+import type { UserMemoryItem } from "@/lib/vian/memory-engine";
+
+const MEMORY_STORAGE_KEY = "vian_user_memory_v1";
 
 interface UseVianChatProps {
   sessionId: string;
@@ -17,8 +20,41 @@ export function useVianChat({
   const [messages, setMessages] = useState<VianMessageItem[]>(initialMessages);
   const [isGenerating, setIsGenerating] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [userMemories, setUserMemories] = useState<UserMemoryItem[]>([]);
 
   const abortControllerRef = useRef<AbortController | null>(null);
+
+  // Load memories from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(MEMORY_STORAGE_KEY);
+      if (stored) {
+        setUserMemories(JSON.parse(stored));
+      }
+    } catch (e) {
+      console.warn("Failed to load user memories from localStorage:", e);
+    }
+  }, []);
+
+  const saveMemories = useCallback((updated: UserMemoryItem[]) => {
+    setUserMemories(updated);
+    try {
+      localStorage.setItem(MEMORY_STORAGE_KEY, JSON.stringify(updated));
+    } catch (e) {
+      console.warn("Failed to save memories to localStorage:", e);
+    }
+  }, []);
+
+  const clearUserMemories = useCallback(() => {
+    saveMemories([]);
+  }, [saveMemories]);
+
+  const removeUserMemory = useCallback(
+    (id: string) => {
+      saveMemories(userMemories.filter((m) => m.id !== id));
+    },
+    [userMemories, saveMemories]
+  );
 
   // Sync internal state when active session changes
   const setSessionMessages = useCallback((newMsgs: VianMessageItem[]) => {
@@ -73,6 +109,7 @@ export function useVianChat({
             message: trimmed,
             history: historyPayload,
             sessionId,
+            userMemories,
           }),
           signal: abortControllerRef.current.signal,
         });
@@ -86,6 +123,7 @@ export function useVianChat({
         const contentType = response.headers.get("content-type") || "";
         const actionsHeader = response.headers.get("x-vian-actions");
         const traceHeader = response.headers.get("x-vian-trace");
+        const newMemoriesHeader = response.headers.get("x-vian-new-memories");
 
         let actions = [];
         if (actionsHeader) {
@@ -105,6 +143,15 @@ export function useVianChat({
           }
         }
 
+        let newMemories: UserMemoryItem[] = [];
+        if (newMemoriesHeader) {
+          try {
+            newMemories = JSON.parse(decodeURIComponent(newMemoriesHeader));
+          } catch (e) {
+            console.warn("Failed to parse x-vian-new-memories header:", e);
+          }
+        }
+
         let accumulatedText = "";
 
         if (contentType.includes("application/json")) {
@@ -118,6 +165,9 @@ export function useVianChat({
           }
           if (json.trace && Array.isArray(json.trace)) {
             trace = json.trace;
+          }
+          if (json.newMemories && Array.isArray(json.newMemories)) {
+            newMemories = json.newMemories;
           }
           setMessages((prev) =>
             prev.map((m) =>
@@ -159,6 +209,21 @@ export function useVianChat({
           }
         }
 
+        // Merge newly discovered facts into User Memory Bank
+        if (newMemories && newMemories.length > 0) {
+          setUserMemories((prev) => {
+            const existingIds = new Set(prev.map((m) => m.id));
+            const toAdd = newMemories.filter((m) => !existingIds.has(m.id));
+            const merged = [...prev, ...toAdd];
+            try {
+              localStorage.setItem(MEMORY_STORAGE_KEY, JSON.stringify(merged));
+            } catch (e) {
+              console.warn("Failed to persist new memories:", e);
+            }
+            return merged;
+          });
+        }
+
         // Finalize completed messages
         const finalMessages = messages.concat([
           userMessage,
@@ -194,7 +259,7 @@ export function useVianChat({
         abortControllerRef.current = null;
       }
     },
-    [messages, isGenerating, sessionId, onMessagesChange]
+    [messages, isGenerating, sessionId, userMemories, onMessagesChange]
   );
 
   const stopGeneration = useCallback(() => {
@@ -229,5 +294,8 @@ export function useVianChat({
     sendMessage,
     stopGeneration,
     regenerateLastMessage,
+    userMemories,
+    clearUserMemories,
+    removeUserMemory,
   };
 }

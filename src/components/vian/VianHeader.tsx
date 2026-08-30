@@ -5,6 +5,7 @@ import {
   IconX,
   IconVolume,
   IconVolumeOff,
+  IconBrain,
 } from "@tabler/icons-react";
 
 interface VianHeaderProps {
@@ -14,6 +15,9 @@ interface VianHeaderProps {
   isHistoryOpen: boolean;
   soundEnabled: boolean;
   onToggleSound: () => void;
+  memoryCount?: number;
+  onToggleMemory?: () => void;
+  isMemoryOpen?: boolean;
 }
 
 export function VianHeader({
@@ -23,6 +27,9 @@ export function VianHeader({
   isHistoryOpen,
   soundEnabled,
   onToggleSound,
+  memoryCount = 0,
+  onToggleMemory,
+  isMemoryOpen = false,
 }: VianHeaderProps) {
   return (
     <header className="flex h-14 w-full shrink-0 items-center justify-between border-b border-slate-200 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-950/80 px-4 backdrop-blur-md">
@@ -73,6 +80,28 @@ export function VianHeader({
         >
           <IconHistory className="h-4 w-4" />
         </button>
+
+        {/* Toggle Memory Bank */}
+        {onToggleMemory && (
+          <button
+            type="button"
+            onClick={onToggleMemory}
+            aria-label="Jarvis Memory Bank"
+            title={`Jarvis Memory Bank (${memoryCount} remembered facts)`}
+            className={`relative inline-flex h-8 w-8 items-center justify-center rounded-md border transition-all cursor-pointer ${
+              isMemoryOpen
+                ? "border-purple-500/40 bg-purple-500/10 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300"
+                : "border-slate-200 dark:border-transparent text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100"
+            }`}
+          >
+            <IconBrain className="h-4 w-4" />
+            {memoryCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-purple-500 text-[9px] font-bold text-white shadow-xs">
+                {memoryCount > 9 ? "9+" : memoryCount}
+              </span>
+            )}
+          </button>
+        )}
 
         {/* Toggle Sound */}
         <button
