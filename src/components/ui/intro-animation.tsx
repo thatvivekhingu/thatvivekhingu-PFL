@@ -34,14 +34,12 @@ export function IntroAnimation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSkip]);
 
-  // Realistic, human-readable Typewriter Engine with comic timing pause
+  // 100% Constant & Equal Typewriter Engine (55ms flat per character)
   useEffect(() => {
     if (!shouldShow || isComplete) return;
 
     let index = 0;
-    let timeoutId: NodeJS.Timeout;
-
-    const typeNextChar = () => {
+    const interval = setInterval(() => {
       index++;
       setDisplayedText(TYPE_TEXT.slice(0, index));
 
@@ -52,30 +50,18 @@ export function IntroAnimation() {
       }
 
       if (index >= TYPE_TEXT.length) {
+        clearInterval(interval);
         setIsTypingDone(true);
         playTapSound("access_granted");
 
-        // Comfortable reading hold time (2.2 seconds) so visitor can comfortably read and enjoy
-        timeoutId = setTimeout(() => {
+        // Comfortable reading hold time (2 seconds) after typing completes
+        setTimeout(() => {
           handleComplete();
-        }, 2200);
-        return;
+        }, 2000);
       }
+    }, 55); // 100% equal, constant tempo for every character
 
-      // Natural pause at "..." for dramatic comic timing
-      let delay = 72; // Comfortable, clearly readable typing speed (72ms per char)
-      if (TYPE_TEXT.slice(0, index).endsWith("...")) {
-        delay = 450; // Dramatic pause after "machine..."
-      } else if (TYPE_TEXT[index - 1] === " ") {
-        delay = 90; // Natural word gap
-      }
-
-      timeoutId = setTimeout(typeNextChar, delay);
-    };
-
-    timeoutId = setTimeout(typeNextChar, 300); // Initial 300ms breather before typing starts
-
-    return () => clearTimeout(timeoutId);
+    return () => clearInterval(interval);
   }, [shouldShow, isComplete, handleComplete]);
 
   if (!shouldShow || isComplete) return null;
