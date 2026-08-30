@@ -5,8 +5,31 @@ import { checkRateLimit, getClientIdentifier } from "@/lib/server/rate-limiter";
 import { ServerLogger } from "@/lib/server/logger";
 import { retrieveRelevantKnowledge } from "@/data/vian-knowledge";
 
-const SYSTEM_PROMPT = `
+function getSystemPrompt() {
+  const now = new Date();
+  const istDate = now.toLocaleDateString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const istTime = now.toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  return `
 You are VIAN — Vivek Hingu's personal AI assistant.
+
+==================================================
+REAL-TIME CLOCK & TEMPORAL CONTEXT (LIVE SYSTEM)
+==================================================
+- Current Date & Day (IST): ${istDate}
+- Current Time (IST): ${istTime}
+- Current Year: ${now.getFullYear()}
+- Note: Always use this real-time temporal context when users ask about today's date, current day, current year, upcoming events, holidays, or festivals (e.g. Janmashtami, Diwali, Holi, etc.).
 
 ==================================================
 GENERAL-PURPOSE AI ASSISTANT DIRECTIVES
@@ -18,7 +41,7 @@ GENERAL-PURPOSE AI ASSISTANT DIRECTIVES
    - Education, Career guidance, Professional writing, Email drafting
    - General knowledge, History, Philosophy, Reasoning
    - Casual conversation, Jokes, Creative writing
-   - Current events and live information
+   - Current events, live dates, days, and festivals
    - Vivek Hingu's personal portfolio, skills, background, and projects.
 3. DO NOT restrict yourself to Vivek's portfolio. Never pretend every question is about Vivek.
 4. Generate a fresh, dynamic response based on the user's actual question.
@@ -56,6 +79,7 @@ PORTFOLIO CONTEXT (VIVEK HINGU)
   - GitHub: https://github.com/thatvivekhingu
   - LinkedIn: https://linkedin.com/in/vivekhingu
 `;
+}
 
 export async function POST(req: Request) {
   try {
@@ -94,7 +118,8 @@ export async function POST(req: Request) {
     ServerLogger.info("AiChatAPI", `[VIAN] Gemini fallback configured: ${Boolean(GEMINI_API_KEY)}`);
 
     const specialist = routeQueryToSpecialistAgent(message);
-    const agentAugmentedPrompt = `${SYSTEM_PROMPT}\n\n[Active Specialist Directive]:\n${specialist.systemDirective}`;
+    const systemPrompt = getSystemPrompt();
+    const agentAugmentedPrompt = `${systemPrompt}\n\n[Active Specialist Directive]:\n${specialist.systemDirective}`;
 
     let fullResponse = "";
 
