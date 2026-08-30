@@ -14,13 +14,25 @@ import { VianMemoryModal } from "./VianMemoryModal";
 import { VianEmptyState } from "./VianEmptyState";
 import { VianMessageList } from "./VianMessageList";
 import { VianInput } from "./VianInput";
+import { VianVoiceEngine } from "@/lib/vian/voice-engine";
 
 export function VianAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isMemoryOpen, setIsMemoryOpen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
   const phoneContainerRef = useRef<HTMLDivElement>(null);
+  const voiceEngineRef = useRef<VianVoiceEngine | null>(null);
+
+  useEffect(() => {
+    voiceEngineRef.current = new VianVoiceEngine();
+    return () => {
+      voiceEngineRef.current?.stop();
+    };
+  }, []);
 
   const {
     activeSession,
@@ -62,18 +74,63 @@ export function VianAssistant() {
   // Auto-scroll hook
   const { endRef } = useAutoScroll<HTMLDivElement>([messages, isGenerating]);
 
+  // Voice Interaction Handlers (Speech-to-Text & Speech Synthesis)
+  const toggleVoiceInput = useCallback(() => {
+    if (!voiceEngineRef.current) return;
+
+    if (isListening) {
+      voiceEngineRef.current.stopListening();
+      setIsListening(false);
+    } else {
+      setIsListening(true);
+      if (soundEnabled) playTapSound("pop");
+
+      voiceEngineRef.current.startListening(
+        (transcript, isFinal) => {
+          if (isFinal && transcript.trim()) {
+            setIsListening(false);
+            sendMessage(transcript.trim());
+          }
+        },
+        () => setIsListening(false),
+        (err) => {
+          console.warn("Speech capture warning:", err);
+          setIsListening(false);
+        }
+      );
+    }
+  }, [isListening, soundEnabled, sendMessage]);
+
+  // Auto-speak responses when sound is enabled
+  useEffect(() => {
+    if (!soundEnabled || isGenerating || messages.length === 0) return;
+
+    const lastMsg = messages[messages.length - 1];
+    if (lastMsg && lastMsg.role === "assistant" && lastMsg.content && !lastMsg.isError) {
+      setIsSpeaking(true);
+      voiceEngineRef.current?.speak(lastMsg.content, () => {
+        setIsSpeaking(false);
+      });
+    }
+  }, [messages, isGenerating, soundEnabled]);
+
   // Open with a fresh conversation session every time
   const handleOpenFresh = useCallback(() => {
     const newId = createNewSession();
     setActiveSessionId(newId);
     setIsHistoryOpen(false);
+    setIsMemoryOpen(false);
     setIsOpen(true);
     if (soundEnabled) playTapSound("chime");
   }, [createNewSession, setActiveSessionId, soundEnabled]);
 
   const handleClose = useCallback(() => {
+    voiceEngineRef.current?.stop();
+    setIsListening(false);
+    setIsSpeaking(false);
     setIsOpen(false);
     setIsHistoryOpen(false);
+    setIsMemoryOpen(false);
     if (soundEnabled) playTapSound("pop");
   }, [soundEnabled]);
 
@@ -241,6 +298,9 @@ export function VianAssistant() {
                   onSend={handleSendPrompt}
                   onStop={stopGeneration}
                   isGenerating={isGenerating}
+                  isListening={isListening}
+                  onToggleVoice={toggleVoiceInput}
+                  isSpeaking={isSpeaking}
                 />
 
                 {/* iPhone Bottom Home Indicator Bar */}

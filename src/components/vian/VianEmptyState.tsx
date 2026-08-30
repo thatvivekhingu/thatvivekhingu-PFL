@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useMemo } from "react";
 import Image from "next/image";
-import { IconArrowUpRight } from "@tabler/icons-react";
+import { IconArrowUpRight, IconSparkles } from "@tabler/icons-react";
 
 interface VianEmptyStateProps {
   onSelectPrompt: (prompt: string) => void;
@@ -8,28 +10,35 @@ interface VianEmptyStateProps {
 
 const PROMPT_SUGGESTIONS = [
   {
-    title: "Strongest AI Project",
-    query: "What's Vivek's strongest AI project?",
-    category: "Projects",
+    title: "Schedule a Meeting",
+    query: "Schedule a 30-minute sync with Vivek tomorrow at 4 PM to discuss AI collaboration.",
+    category: "Jarvis Action",
   },
   {
-    title: "Technical Skills",
-    query: "Tell me about Vivek's technical skills and engineering stack.",
-    category: "Skills",
+    title: "Draft an Email to Vivek",
+    query: "Draft a concise email to Vivek proposing an AI hackathon partnership.",
+    category: "Jarvis Action",
   },
   {
-    title: "Hackathons & Awards",
-    query: "Which hackathons and awards has Vivek won?",
-    category: "Achievements",
+    title: "Explore AI Projects",
+    query: "What are Vivek's top AI & Full-Stack projects like BharatBhasha and Recipe Engine?",
+    category: "Portfolio",
   },
   {
-    title: "Contact & Resume",
-    query: "How can I contact Vivek Hingu?",
-    category: "Contact",
+    title: "Search AI Trends",
+    query: "Search latest trends in agentic AI and multi-agent systems.",
+    category: "Web Search",
   },
 ];
 
 export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
+  const greeting = useMemo(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+    return "Good evening";
+  }, []);
+
   return (
     <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
       {/* Product Avatar Badge */}
@@ -43,16 +52,21 @@ export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
         />
       </div>
 
+      <div className="flex items-center gap-1.5 text-xs font-semibold text-cyan-600 dark:text-cyan-400 font-mono mb-0.5">
+        <IconSparkles className="h-3.5 w-3.5" />
+        <span>{greeting}!</span>
+      </div>
+
       <h3 className="text-base font-bold text-slate-900 dark:text-zinc-100 tracking-tight">
-        Hi, I&#39;m VIAN.
+        I&#39;m VIAN, your Autonomous Agent.
       </h3>
 
-      <p className="mt-1 text-xs text-slate-600 dark:text-zinc-400 max-w-xs leading-relaxed font-mono">
-        I can help you explore Vivek&#39;s engineering projects, machine learning skills, education, and hackathons.
+      <p className="mt-1 text-xs text-slate-600 dark:text-zinc-400 max-w-xs leading-relaxed font-sans">
+        I can search live facts, draft emails, schedule meetings, write code, or explore Vivek&#39;s AI portfolio.
       </p>
 
       {/* Suggested Questions Matrix */}
-      <div className="mt-6 grid w-full max-w-sm grid-cols-1 gap-2 sm:grid-cols-2">
+      <div className="mt-5 grid w-full max-w-sm grid-cols-1 gap-2 sm:grid-cols-2">
         {PROMPT_SUGGESTIONS.map((item) => (
           <button
             key={item.title}
@@ -75,3 +89,4 @@ export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
     </div>
   );
 }
+
