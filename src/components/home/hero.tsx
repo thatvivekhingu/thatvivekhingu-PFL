@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import profilePic from "@/images/profile-color.jpg";
-import profileHover from "@/images/profile-spiderman.jpg";
 import { HeroConstellation } from "@/components/ui/hero-constellation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -22,10 +22,105 @@ import {
 } from "@/components/ui/tooltip";
 import { data } from "@/data/data";
 
+interface AvatarCharacter {
+  id: string;
+  name: string;
+  badge: string;
+  icon: string;
+  src: string | StaticImageData;
+  borderColor: string;
+  shadowColor: string;
+  badgeBorder: string;
+  badgeText: string;
+  haloGradient: string;
+}
+
+const HERO_AVATARS: AvatarCharacter[] = [
+  {
+    id: "default",
+    name: "Vivek Hingu",
+    badge: "AI / ML",
+    icon: "⚡",
+    src: profilePic,
+    borderColor: "border-cyan-400/60",
+    shadowColor: "shadow-[0_0_40px_rgba(34,211,238,0.45)]",
+    badgeBorder: "border-cyan-400/60 text-cyan-300",
+    badgeText: "text-cyan-300",
+    haloGradient: "from-cyan-500 via-sky-400 to-indigo-500",
+  },
+  {
+    id: "ironman",
+    name: "Iron Man",
+    badge: "IRON MAN",
+    icon: "🦾",
+    src: "/avatars/ironman.jpg",
+    borderColor: "border-red-500/90",
+    shadowColor: "shadow-[0_0_45px_rgba(239,68,68,0.6)]",
+    badgeBorder: "border-amber-400/80 text-amber-300",
+    badgeText: "text-amber-300",
+    haloGradient: "from-red-500 via-amber-500 to-yellow-400",
+  },
+  {
+    id: "spiderman",
+    name: "Spider-Man",
+    badge: "SPIDER-MAN",
+    icon: "🕷️",
+    src: "/avatars/spiderman.jpg",
+    borderColor: "border-red-500/90",
+    shadowColor: "shadow-[0_0_45px_rgba(239,68,68,0.6)]",
+    badgeBorder: "border-red-500/80 text-red-400",
+    badgeText: "text-red-400",
+    haloGradient: "from-red-600 via-rose-500 to-blue-600",
+  },
+  {
+    id: "blackpanther",
+    name: "Black Panther",
+    badge: "BLACK PANTHER",
+    icon: "🐆",
+    src: "/avatars/blackpanther.jpg",
+    borderColor: "border-purple-500/90",
+    shadowColor: "shadow-[0_0_45px_rgba(168,85,247,0.6)]",
+    badgeBorder: "border-purple-400/80 text-purple-300",
+    badgeText: "text-purple-300",
+    haloGradient: "from-purple-600 via-indigo-500 to-slate-900",
+  },
+  {
+    id: "thor",
+    name: "Thor",
+    badge: "THOR",
+    icon: "⚡",
+    src: "/avatars/thor.jpg",
+    borderColor: "border-sky-400/90",
+    shadowColor: "shadow-[0_0_45px_rgba(56,189,248,0.6)]",
+    badgeBorder: "border-sky-400/80 text-sky-300",
+    badgeText: "text-sky-300",
+    haloGradient: "from-sky-400 via-blue-500 to-red-600",
+  },
+  {
+    id: "drstrange",
+    name: "Doctor Strange",
+    badge: "DR. STRANGE",
+    icon: "🔮",
+    src: "/avatars/drstrange.jpg",
+    borderColor: "border-amber-500/90",
+    shadowColor: "shadow-[0_0_45px_rgba(245,158,11,0.6)]",
+    badgeBorder: "border-amber-400/80 text-amber-300",
+    badgeText: "text-amber-300",
+    haloGradient: "from-amber-500 via-orange-600 to-red-700",
+  },
+];
+
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [isSpidey, setIsSpidey] = useState(false);
+  const [avatarIdx, setAvatarIdx] = useState(0);
+
+  const currentAvatar = HERO_AVATARS[avatarIdx];
+
+  const handleAvatarClick = () => {
+    playTapSound("pop");
+    setAvatarIdx((prev) => (prev + 1) % HERO_AVATARS.length);
+  };
 
   const { status, dotColor } = getStatus();
 
@@ -101,56 +196,55 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Interactive Profile Photo - Crossfades to Spider-Man suit on hover / touch */}
+              {/* Interactive Superhero Profile Avatar - Cycles sequentially on Click / Touch */}
               <div
-                className="group relative z-50 cursor-pointer transition-transform duration-500 hover:scale-105"
-                onClick={() => {
-                  playTapSound("chime");
-                  setIsSpidey((prev) => !prev);
-                }}
-                onMouseEnter={() => setIsSpidey(true)}
-                onMouseLeave={() => setIsSpidey(false)}
-                onTouchStart={() => setIsSpidey(true)}
-                onTouchEnd={() => setTimeout(() => setIsSpidey(false), 2000)}
+                className="group relative z-50 cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 select-none"
+                onClick={handleAvatarClick}
+                onTouchStart={handleAvatarClick}
+                role="button"
+                tabIndex={0}
+                aria-label={`Current Avatar: ${currentAvatar.name}. Tap to switch avatar character.`}
               >
-                <div className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full transition-all duration-500 ${
-                  isSpidey
-                    ? "border-2 border-red-500/80 shadow-[0_0_35px_rgba(239,68,68,0.5)]"
-                    : "border-2 border-cyan-500/40 shadow-2xl group-hover:border-red-500/80 group-hover:shadow-[0_0_35px_rgba(239,68,68,0.5)]"
-                }`}>
-                  {/* Default Real Profile Photo */}
-                  <Image
-                    src={profilePic}
-                    alt="Vivek Hingu"
-                    priority
-                    fill
-                    className={`object-cover transition-opacity duration-500 ${
-                      isSpidey ? "opacity-0" : "opacity-100"
-                    } group-hover:opacity-0`}
-                  />
+                {/* Dynamic Ambient Glowing Halo */}
+                <div
+                  className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-xl group-hover:opacity-95 transition-all duration-500 animate-pulse`}
+                />
 
-                  {/* Spider-Man Suit Profile Photo on Hover / Touch */}
-                  <Image
-                    src={profileHover}
-                    alt="Vivek Hingu (Spider-Man)"
-                    fill
-                    className={`object-cover transition-opacity duration-500 ${
-                      isSpidey ? "opacity-100" : "opacity-0"
-                    } group-hover:opacity-100`}
-                  />
+                {/* Avatar Border Ring */}
+                <div
+                  className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentAvatar.id}
+                      initial={{ opacity: 0, scale: 0.88, rotate: -4 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      exit={{ opacity: 0, scale: 1.08, rotate: 4 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="relative h-full w-full"
+                    >
+                      <Image
+                        src={currentAvatar.src}
+                        alt={`Vivek Hingu (${currentAvatar.name})`}
+                        priority
+                        fill
+                        className="object-cover"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
 
-                  {/* AI / ML -> Spidey Vian Badge on Hover / Touch */}
-                  <div className={`absolute bottom-2.5 sm:bottom-3 inset-x-0 mx-auto w-max px-3.5 py-1 rounded-full bg-black/90 backdrop-blur-md border transition-all duration-300 text-[10px] sm:text-xs font-black tracking-widest uppercase z-20 flex items-center justify-center gap-1.5 ${
-                    isSpidey 
-                      ? "border-red-500/80 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.6)]" 
-                      : "border-cyan-400/40 text-cyan-300 group-hover:border-red-500/80 group-hover:text-red-400 group-hover:shadow-[0_0_15px_rgba(239,68,68,0.6)]"
-                  }`}>
-                    <span className={isSpidey ? "hidden" : "block group-hover:hidden"}>AI / ML</span>
-                    <span className={isSpidey ? "inline-flex items-center gap-1" : "hidden group-hover:inline-flex items-center gap-1"}>
-                      <span>🕷️</span>
-                      <span>VIAN</span>
-                    </span>
+                  {/* Character Hero Badge (e.g. AI / ML, IRON MAN, SPIDER-MAN, etc.) */}
+                  <div
+                    className={`absolute bottom-2.5 sm:bottom-3 inset-x-0 mx-auto w-max px-3.5 py-1 rounded-full bg-black/90 backdrop-blur-md border transition-all duration-300 text-[10px] sm:text-xs font-black tracking-widest uppercase z-20 flex items-center justify-center gap-1.5 shadow-lg ${currentAvatar.badgeBorder}`}
+                  >
+                    <span>{currentAvatar.icon}</span>
+                    <span>{currentAvatar.badge}</span>
                   </div>
+                </div>
+
+                {/* Interactive Tap Hint Pill */}
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none px-3 py-0.5 rounded-full bg-zinc-950/90 border border-cyan-400/40 text-[10px] font-mono font-bold text-cyan-300 shadow-xl whitespace-nowrap z-30">
+                  Tap to swap ({avatarIdx + 1}/{HERO_AVATARS.length})
                 </div>
               </div>
 
