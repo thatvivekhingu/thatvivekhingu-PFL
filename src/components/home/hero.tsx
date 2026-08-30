@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { HeroConstellation } from "@/components/ui/hero-constellation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -132,9 +131,21 @@ export default function Hero() {
 
   const currentAvatar = HERO_AVATARS[avatarIdx];
 
-  const handleAvatarClick = () => {
+  const handleAvatarClick = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
     playTapSound("pop");
     setAvatarIdx((prev) => (prev + 1) % HERO_AVATARS.length);
+  };
+
+  const handleMouseEnter = () => {
+    playTapSound("pop");
+    setAvatarIdx((prev) => (prev === 0 ? 1 : (prev + 1) % HERO_AVATARS.length));
+  };
+
+  const handleMouseLeave = () => {
+    setAvatarIdx(0);
   };
 
   const { status, dotColor } = getStatus();
@@ -211,12 +222,16 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Interactive Superhero Profile Avatar - Changes on Cursor Hover or Touch */}
+              {/* Interactive Superhero Profile Avatar - Smooth Crossfade & Auto-Reset on Mouse Leave */}
               <div
                 className="group relative z-50 cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 select-none"
                 onClick={handleAvatarClick}
-                onMouseEnter={handleAvatarClick}
-                onTouchStart={handleAvatarClick}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  handleAvatarClick();
+                }}
                 role="button"
                 tabIndex={0}
                 aria-label={`Current Persona: ${currentAvatar.name}`}
@@ -226,28 +241,26 @@ export default function Hero() {
                   className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-60 blur-xl group-hover:opacity-95 transition-all duration-500 animate-pulse`}
                 />
 
-                {/* Avatar Border Ring */}
+                {/* Avatar Border Ring with Smooth Crossfade Layers */}
                 <div
                   className={`relative h-44 w-44 sm:h-52 sm:w-52 md:h-56 md:w-56 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
                 >
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentAvatar.id}
-                      initial={{ opacity: 0, scale: 0.88, rotate: -4 }}
-                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                      exit={{ opacity: 0, scale: 1.08, rotate: 4 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                      className="relative h-full w-full"
+                  {HERO_AVATARS.map((avatar, idx) => (
+                    <div
+                      key={avatar.id}
+                      className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                        idx === avatarIdx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                      }`}
                     >
                       <Image
-                        src={currentAvatar.src}
-                        alt={`Vivek Hingu (${currentAvatar.name})`}
-                        priority
+                        src={avatar.src}
+                        alt={`Vivek Hingu (${avatar.name})`}
+                        priority={idx === 0}
                         fill
                         className="object-cover"
                       />
-                    </motion.div>
-                  </AnimatePresence>
+                    </div>
+                  ))}
                 </div>
               </div>
 
