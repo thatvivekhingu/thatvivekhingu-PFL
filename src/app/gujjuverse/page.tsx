@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef } from "react";
 import Link from "next/link";
@@ -35,7 +35,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "માયાભાઈ આહીર",
     title: "હાસ્ય ની બધડાટી (હસવાની ૧૦૦% ગેરેંટી)",
     category: "comedy",
-    categoryLabel: "Comedy Dayro",
+    categoryLabel: "હાસ્ય ડાયરો",
     tag: "New Jokes",
     youtubeId: "aE3_WjWz9tc",
     thumbnail: "https://img.youtube.com/vi/aE3_WjWz9tc/hqdefault.jpg",
@@ -45,7 +45,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "સાંઈરામ દવે",
     title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (હાસ્ય દરબાર)",
     category: "comedy",
-    categoryLabel: "Hasya Darbar",
+    categoryLabel: "હાસ્ય દરબાર",
     tag: "Full Comedy",
     youtubeId: "9N4--Ldqhuc",
     thumbnail: "https://img.youtube.com/vi/9N4--Ldqhuc/hqdefault.jpg",
@@ -55,7 +55,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "હિતેશ અંટાળા",
     title: "સાવ નવા જથ્થાબંધ જોક્સ & હાસ્ય મહેફિલ",
     category: "comedy",
-    categoryLabel: "Comedy Dayro",
+    categoryLabel: "હાસ્ય ડાયરો",
     tag: "Non-Stop Jokes",
     youtubeId: "f2vHjuiIpqQ",
     thumbnail: "https://img.youtube.com/vi/f2vHjuiIpqQ/hqdefault.jpg",
@@ -65,7 +65,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "ધીરૂભાઈ સરવૈયા",
     title: "વાંદરીપાનું — સુપરહિટ દેશી જોક્સ",
     category: "comedy",
-    categoryLabel: "Classic Comedy",
+    categoryLabel: "દેશી રમૂજ",
     tag: "Superhit Comedy",
     youtubeId: "FEZPU-4lMo8",
     thumbnail: "https://img.youtube.com/vi/FEZPU-4lMo8/hqdefault.jpg",
@@ -75,7 +75,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "ધીરૂભાઈ સરવૈયા",
     title: "લગન કરો હપ્તા ભરો (Lagan Karo Hapta Bharo)",
     category: "comedy",
-    categoryLabel: "Classic Comedy",
+    categoryLabel: "દેશી રમૂજ",
     tag: "Family Comedy",
     youtubeId: "p7pA36rZJiw",
     thumbnail: "https://img.youtube.com/vi/p7pA36rZJiw/hqdefault.jpg",
@@ -85,7 +85,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "જીતુભાઈ દ્વારકાવાળા",
     title: "ડોશીનું જીન્સ (Doshi Nu Jeans Comedy)",
     category: "comedy",
-    categoryLabel: "Comedy Dayro",
+    categoryLabel: "હાસ્ય ડાયરો",
     tag: "Viral Jokes",
     youtubeId: "6LWx0N_MCZU",
     thumbnail: "https://img.youtube.com/vi/6LWx0N_MCZU/hqdefault.jpg",
@@ -97,7 +97,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "કીર્તિદાન ગઢવી & રાજભા ગઢવી",
     title: "બેસ્ટ જુગલબંધી લોકડાયરો (રાપર કચ્છ લાઈવ)",
     category: "jugalbandhi",
-    categoryLabel: "Grand Jugalbandhi",
+    categoryLabel: "મહા જુગલબંધી",
     tag: "Historic Jugalbandhi",
     youtubeId: "i8POjs66f9g",
     thumbnail: "https://img.youtube.com/vi/i8POjs66f9g/hqdefault.jpg",
@@ -107,7 +107,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "રાજભા ગઢવી",
     title: "ક્ષત્રિયની વાત & રૂંવાડા ઊભા કરતો વીર રસ",
     category: "sahitya",
-    categoryLabel: "Veer Ras Dayro",
+    categoryLabel: "વીર રસ",
     tag: "Veer Ras Dayro",
     youtubeId: "LlsYNC4l0GA",
     thumbnail: "https://img.youtube.com/vi/LlsYNC4l0GA/hqdefault.jpg",
@@ -117,7 +117,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "રાજદાન ગઢવી",
     title: "સુપર હિટ લોકડાયરો (વડોદરા લાઈવ ડાયરો)",
     category: "sahitya",
-    categoryLabel: "Lok Sahitya",
+    categoryLabel: "લોક સાહિત્ય",
     tag: "Vadodara Live",
     youtubeId: "qW1ss5bq90A",
     thumbnail: "https://img.youtube.com/vi/qW1ss5bq90A/hqdefault.jpg",
@@ -127,7 +127,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "કીર્તિદાન ગઢવી",
     title: "દેશી તાલે કાનુડાના ગીતો & રાસ",
     category: "music",
-    categoryLabel: "Krishna Raas",
+    categoryLabel: "કાનુડાના ગીતો",
     tag: "Krishna Songs",
     youtubeId: "KpFUjNxGCbo",
     thumbnail: "https://img.youtube.com/vi/KpFUjNxGCbo/hqdefault.jpg",
@@ -137,7 +137,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "કીર્તિદાન ગઢવી",
     title: "રસિયો રૂપાળો રંગરેલીયો (વેજાગામ લાઈવ)",
     category: "music",
-    categoryLabel: "Folk Music",
+    categoryLabel: "લોક સંગીત",
     tag: "Superhit Folk",
     youtubeId: "_IMnebRMPcY",
     thumbnail: "https://img.youtube.com/vi/_IMnebRMPcY/hqdefault.jpg",
@@ -147,7 +147,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
     artist: "કીર્તિદાન ગઢવી",
     title: "ડાકોરના ઠાકોર (અમરેલી લાઈવ પોલીસ ડાયરો)",
     category: "music",
-    categoryLabel: "Folk & Bhajan",
+    categoryLabel: "ભક્તિ ડાયરો",
     tag: "Dakor Na Thakor",
     youtubeId: "w3O3aikm4xM",
     thumbnail: "https://img.youtube.com/vi/w3O3aikm4xM/hqdefault.jpg",
@@ -227,6 +227,7 @@ const GUJJU_RULES = [
 export default function GujjuversePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("comedy");
   const [activeVideo, setActiveVideo] = useState<DayroVideo | null>(null);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const filteredVideos = DAYRO_VIDEOS.filter((v) => v.category === selectedCategory);
@@ -241,6 +242,18 @@ export default function GujjuversePage() {
     if (scrollContainerRef.current) {
       const scrollAmount = direction === "left" ? -340 : 340;
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  const handleScrollEvent = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const totalScroll = scrollWidth - clientWidth;
+      if (totalScroll > 0) {
+        setScrollProgress((scrollLeft / totalScroll) * 100);
+      } else {
+        setScrollProgress(0);
+      }
     }
   };
 
@@ -306,7 +319,7 @@ export default function GujjuversePage() {
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/20 hover:bg-red-600/30 border border-red-500/40 text-red-400 text-xs font-mono font-bold shrink-0 transition-colors"
                 >
                   <IconBrandYoutube className="w-4 h-4 text-red-500" />
-                  <span>Watch on YouTube / યુટ્યુબ પર જુઓ</span>
+                  <span>YouTube પર જુઓ</span>
                 </a>
               </div>
             </motion.div>
@@ -329,7 +342,7 @@ export default function GujjuversePage() {
 
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-amber-400">
               <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-              <span>🕷️ દેશી કરોડિયો</span>
+              <span>🕷️ દેશી કરોડિયો Approved</span>
             </div>
           </div>
         </BlurFade>
@@ -350,71 +363,72 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 1: હાસ્ય ડાયરો & લોકસંગીત (Single-Line Horizontal Carousel) */}
+        {/* SECTION 1: હાસ્ય ડાયરો & લોકસંગીત (Structured Header & Carousel) */}
         <BlurFade delay={0.15} inView>
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-900 pb-4">
+            {/* Header Row 1: Title + Scroll Buttons */}
+            <div className="flex items-center justify-between gap-4 border-b border-zinc-900 pb-4">
               <div className="flex items-center gap-3">
-                <IconBrandYoutube className="w-6 h-6 text-red-500" />
+                <IconBrandYoutube className="w-6 h-6 text-red-500 shrink-0" />
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100 font-sans">
-                    Lok Dayro & Comedy Lounge 📺
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
+                    લોકડાયરો & હાસ્ય મહેફિલ 📺
                   </h2>
                   <p className="text-xs text-zinc-400">
-                    Scroll horizontally & click any video to play live
+                    વિડીયો સ્ક્રોલ કરીને લાઈવ પ્લે કરવા ક્લિક કરો
                   </p>
                 </div>
               </div>
 
-              {/* Filter Tabs + Left/Right Arrows */}
-              <div className="flex items-center gap-3">
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    { id: "comedy", label: "Comedy & Jokes 😂" },
-                    { id: "music", label: "Folk & Music 🎶" },
-                    { id: "sahitya", label: "Veer Ras ⚔️" },
-                    { id: "jugalbandhi", label: "Grand Jugalbandhi 🔥" },
-                  ].map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => {
-                        playTapSound("hover");
-                        setSelectedCategory(tab.id);
-                      }}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
-                        selectedCategory === tab.id
-                          ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]"
-                          : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="hidden sm:flex items-center gap-1.5 border-l border-zinc-800 pl-3">
-                  <button
-                    onClick={() => handleScroll("left")}
-                    aria-label="Scroll Left"
-                    className="p-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
-                  >
-                    <IconChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => handleScroll("right")}
-                    aria-label="Scroll Right"
-                    className="p-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
-                  >
-                    <IconChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
+              {/* Scroll Arrows */}
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => handleScroll("left")}
+                  aria-label="Scroll Left"
+                  className="p-2 sm:p-2.5 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                >
+                  <IconChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => handleScroll("right")}
+                  aria-label="Scroll Right"
+                  className="p-2 sm:p-2.5 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                >
+                  <IconChevronRight className="w-4 h-4" />
+                </button>
               </div>
+            </div>
+
+            {/* Header Row 2: Category Filter Tabs */}
+            <div className="flex flex-wrap gap-2 pt-1">
+              {[
+                { id: "comedy", label: "હાસ્ય & જોક્સ 😂" },
+                { id: "music", label: "લોક સંગીત 🎶" },
+                { id: "sahitya", label: "વીર રસ ⚔️" },
+                { id: "jugalbandhi", label: "મહા જુગલબંધી 🔥" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    playTapSound("hover");
+                    setSelectedCategory(tab.id);
+                  }}
+                  className={`px-4 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
+                    selectedCategory === tab.id
+                      ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]"
+                      : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
 
             {/* Single-Row Horizontal Scrolling Carousel */}
             <div
               ref={scrollContainerRef}
-              className="flex overflow-x-auto gap-4 sm:gap-6 pb-4 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+              onScroll={handleScrollEvent}
+              className="flex overflow-x-auto gap-4 sm:gap-6 pb-4 pt-2 snap-x snap-mandatory scroll-smooth"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {filteredVideos.map((video) => (
@@ -459,6 +473,18 @@ export default function GujjuversePage() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Scroll Progress Line Indicator */}
+            <div className="flex items-center justify-center gap-3 pt-2">
+              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Scroll</span>
+              <div className="w-32 sm:w-48 h-1.5 bg-zinc-900 border border-zinc-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-amber-500 to-yellow-300 rounded-full transition-all duration-150"
+                  style={{ width: `${Math.max(20, scrollProgress)}%` }}
+                />
+              </div>
+              <span className="text-[10px] font-mono text-zinc-500">100%</span>
+            </div>
           </div>
         </BlurFade>
 
@@ -466,7 +492,7 @@ export default function GujjuversePage() {
         <BlurFade delay={0.2} inView>
           <div className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
-              <IconBook className="w-6 h-6 text-cyan-400" />
+              <IconBook className="w-6 h-6 text-cyan-400 shrink-0" />
               <div>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100 font-sans">
                   The Gujju Tech Dictionary 📖
@@ -505,7 +531,7 @@ export default function GujjuversePage() {
         <BlurFade delay={0.25} inView>
           <div className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
-              <IconQuote className="w-6 h-6 text-amber-400" />
+              <IconQuote className="w-6 h-6 text-amber-400 shrink-0" />
               <div>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100 font-sans">
                   The Gujju Developer Manifesto 📜
@@ -551,19 +577,19 @@ export default function GujjuversePage() {
         <BlurFade delay={0.3} inView>
           <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-b from-zinc-950 to-black border border-amber-500/20 text-center space-y-4">
             <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-100 font-sans">
-              Keep Calm & Jalsa Karo! 🔥
+              જલસા કરો બાપ, મોજમાં રહેવું! 🔥
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
-              The sweet fusion of Saurashtra’s Folk Culture, Comedy & Artificial Intelligence.
+            <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+              ગુજરાતી લોકસંસ્કૃતિ, હાસ્ય દરબાર અને આર્ટિફિશિયલ ઇન્ટેલિજન્સનું અનોખું સંગમ.
             </p>
             <div className="pt-2">
               <Link
                 href="/"
                 onClick={() => playTapSound("pop")}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black text-xs sm:text-sm font-bold transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-lg shadow-amber-500/10"
               >
                 <IconArrowLeft className="w-4 h-4" />
-                <span>← Back to Main Portfolio</span>
+                <span>મુખ્ય પોર્ટફોલિયો પર પાછા જાઓ</span>
               </Link>
             </div>
           </div>
