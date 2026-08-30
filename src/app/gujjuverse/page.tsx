@@ -13,6 +13,9 @@ import {
   IconChevronLeft,
   IconChevronRight,
   IconCircleCheckFilled,
+  IconCoffee,
+  IconMapPin,
+  IconExternalLink,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -26,6 +29,36 @@ interface DayroVideo {
   youtubeId: string;
   thumbnail: string;
 }
+
+const CHAI_SPOTS = [
+  {
+    id: "nikol",
+    name: "Tea Post — Nikol",
+    gujjuName: "ટી પોસ્ટ — નિકોલ",
+    location: "Raspan Arcade / SP Ring Road, Nikol",
+    desc: "કડક મસાલા ચા, મસ્કા બન અને નેક્સ્ટ-લેવલ ટેક આઈડિયાઝ પર ચર્ચા.",
+    mapsUrl: "https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A",
+    tag: "East Ahmedabad Hub",
+  },
+  {
+    id: "science-city",
+    name: "Tea Post — Science City",
+    gujjuName: "ટી પોસ્ટ — સાયન્સ સીટી",
+    location: "Science City Road, Sola",
+    desc: "AI, ડીપ લર્નિંગ, પ્રોડક્ટ બિલ્ડિંગ અને સ્ટાર્ટઅપ પ્લાનિંગ મીટઅપ.",
+    mapsUrl: "https://maps.google.com/?q=Tea+Post+Science+City+Ahmedabad",
+    tag: "Tech & Startup Zone",
+  },
+  {
+    id: "maninagar",
+    name: "Tea Post — Maninagar",
+    gujjuName: "ટી પોસ્ટ — મણિનગર",
+    location: "Maninagar, Near Kankaria Lake",
+    desc: "કાંકરિયાની શાંત વાઇબ્સ, ગરમ ચા અને બિઝનેસ કૉલેબોરેશન.",
+    mapsUrl: "https://maps.google.com/?q=Tea+Post+Maninagar+Ahmedabad",
+    tag: "South Ahmedabad Hub",
+  },
+];
 
 const DAYRO_VIDEOS: DayroVideo[] = [
   // 1. Comedy Videos
@@ -41,7 +74,7 @@ const DAYRO_VIDEOS: DayroVideo[] = [
   {
     id: "sairam-hasya-varsad",
     artist: "સાંઈરામ દવે",
-    title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (સાંઈરામ નો હાસ્ય દરબાર)",
+    title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (હાસ્ય દરબાર)",
     category: "comedy",
     categoryLabel: "હાસ્ય દરબાર",
     youtubeId: "9N4--Ldqhuc",
@@ -214,7 +247,6 @@ const GUJJU_RULES = [
 export default function GujjuversePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("comedy");
   const [activeVideo, setActiveVideo] = useState<DayroVideo | null>(null);
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const filteredVideos = DAYRO_VIDEOS.filter((v) => v.category === selectedCategory);
@@ -229,18 +261,6 @@ export default function GujjuversePage() {
     if (scrollContainerRef.current) {
       const scrollAmount = direction === "left" ? -340 : 340;
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
-
-  const handleScrollEvent = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      const totalScroll = scrollWidth - clientWidth;
-      if (totalScroll > 0) {
-        setScrollProgress((scrollLeft / totalScroll) * 100);
-      } else {
-        setScrollProgress(0);
-      }
     }
   };
 
@@ -345,12 +365,86 @@ export default function GujjuversePage() {
             </h1>
 
             <p className="text-sm sm:text-base text-zinc-400 font-medium leading-relaxed">
-              કોડિંગ સાથે અસલ ગુજરાતી હાસ્ય ડાયરો, દેશી જોક્સ અને લોકસંગીતની મોજ.
+              કોડિંગ સાથે અસલ ગુજરાતી હાસ્ય ડાયરો, દેશી જોક્સ અને ચાની કિટલી વાળી મોજ.
             </p>
           </div>
         </BlurFade>
 
-        {/* SECTION 1: હાસ્ય ડાયરો & લોકસંગીત (YouTube Card Carousel) */}
+        {/* SECTION 1: ચા ની કિટલી પર મીટિંગ & કૉલેબોરેશન ☕ */}
+        <BlurFade delay={0.12} inView>
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
+              <div className="p-2 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                <IconCoffee className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
+                  ચા ની કિટલી પર મીટિંગ & કૉલેબોરેશન ☕
+                </h2>
+                <p className="text-xs sm:text-sm text-zinc-400">
+                  મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે! ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ.
+                </p>
+              </div>
+            </div>
+
+            {/* 3 Tea Post Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {CHAI_SPOTS.map((spot) => (
+                <div
+                  key={spot.id}
+                  className="rounded-3xl bg-zinc-950/80 border border-zinc-800 hover:border-amber-500/60 p-5 flex flex-col justify-between space-y-4 transition-all group shadow-lg"
+                >
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono font-bold">
+                        {spot.tag}
+                      </span>
+                      <IconCoffee className="w-4 h-4 text-amber-400/80 group-hover:scale-110 transition-transform" />
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-bold text-zinc-100 group-hover:text-amber-300 transition-colors">
+                        {spot.gujjuName}
+                      </h3>
+                      <p className="text-[11px] font-mono text-zinc-500 flex items-center gap-1 mt-0.5">
+                        <IconMapPin className="w-3.5 h-3.5 text-red-400 shrink-0" />
+                        <span className="truncate">{spot.location}</span>
+                      </p>
+                    </div>
+
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      {spot.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-zinc-900 flex items-center justify-between gap-2">
+                    <a
+                      href={spot.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => playTapSound("pop")}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-amber-500/40 text-zinc-200 text-xs font-mono font-medium transition-all group/btn"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Google Maps</span>
+                      <IconExternalLink className="w-3 h-3 text-zinc-500 group-hover/btn:text-amber-400 transition-colors" />
+                    </a>
+
+                    <a
+                      href="mailto:hinguvivek05@gmail.com?subject=Chai%20Meetup%20Collab"
+                      onClick={() => playTapSound("pop")}
+                      className="text-[11px] font-mono text-amber-400 hover:text-amber-300 font-semibold transition-colors"
+                    >
+                      મળવું છે? ☕
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </BlurFade>
+
+        {/* SECTION 2: હાસ્ય ડાયરો & લોકસંગીત (YouTube Card Carousel with Real Scrollbar) */}
         <BlurFade delay={0.15} inView>
           <div className="space-y-6">
             {/* Header Row 1: Title + Scroll Buttons */}
@@ -411,12 +505,14 @@ export default function GujjuversePage() {
               ))}
             </div>
 
-            {/* Single-Row Horizontal Scrolling Carousel (Pure YouTube Vibe) */}
+            {/* Single-Row Horizontal Carousel with Real Hardware & Styled Scrollbar */}
             <div
               ref={scrollContainerRef}
-              onScroll={handleScrollEvent}
-              className="flex overflow-x-auto gap-4 sm:gap-6 pb-4 pt-2 snap-x snap-mandatory scroll-smooth"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              className="flex overflow-x-auto gap-4 sm:gap-6 pb-4 pt-2 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-zinc-900/60 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-amber-500/40 hover:[&::-webkit-scrollbar-thumb]:bg-amber-500 [&::-webkit-scrollbar-thumb]:rounded-full"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "rgba(245, 158, 11, 0.4) rgba(24, 24, 27, 0.6)",
+              }}
             >
               {filteredVideos.map((video) => (
                 <motion.div
@@ -455,22 +551,10 @@ export default function GujjuversePage() {
                 </motion.div>
               ))}
             </div>
-
-            {/* Scroll Progress Line Indicator */}
-            <div className="flex items-center justify-center gap-3 pt-2">
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Scroll</span>
-              <div className="w-32 sm:w-48 h-1.5 bg-zinc-900 border border-zinc-800 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-amber-500 to-yellow-300 rounded-full transition-all duration-150"
-                  style={{ width: `${Math.max(20, scrollProgress)}%` }}
-                />
-              </div>
-              <span className="text-[10px] font-mono text-zinc-500">100%</span>
-            </div>
           </div>
         </BlurFade>
 
-        {/* SECTION 2: ગુજ્જુ ટેક શબ્દકોશ (The Gujju Tech Dictionary) */}
+        {/* SECTION 3: ગુજ્જુ ટેક શબ્દકોશ (The Gujju Tech Dictionary) */}
         <BlurFade delay={0.2} inView>
           <div className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
@@ -509,7 +593,7 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 3: અમદાવાદી ડેવલપરના નિયમો (The Gujju Dev Rules) */}
+        {/* SECTION 4: અમદાવાદી ડેવલપરના નિયમો (The Gujju Dev Rules) */}
         <BlurFade delay={0.25} inView>
           <div className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
