@@ -13,11 +13,14 @@ import {
   IconChevronLeft,
   IconChevronRight,
   IconCircleCheckFilled,
+  IconCoffee,
   IconMapPin,
   IconExternalLink,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 
 interface VideoItem {
   id: string;
@@ -34,10 +37,10 @@ const CHAI_SPOTS = [
     id: "nikol",
     name: "Tea Post — Nikol",
     gujjuName: "ટી પોસ્ટ — નિકોલ",
-    location: "Raspan Arcade / SP Ring Road",
-    desc: "કડક મસાલા ચા, મસ્કા બન અને ટેક ચર્ચા.",
+    location: "Raspan Arcade / SP Ring Road, Nikol",
+    desc: "કડક મસાલા ચા, મસ્કા બન અને નેક્સ્ટ-લેવલ ટેક આઈડિયાઝ પર ચર્ચા.",
     mapsUrl: "https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A",
-    tag: "Nikol",
+    tag: "East Ahmedabad Hub",
     image: "/teapost/nikol.jpg",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Nikol પર મળીએ ને આઈડિયા ડિસ્કસ કરીએ ☕",
   },
@@ -46,9 +49,9 @@ const CHAI_SPOTS = [
     name: "Tea Post — Science City",
     gujjuName: "ટી પોસ્ટ — સાયન્સ સીટી",
     location: "Science City Road, Sola",
-    desc: "AI, પ્રોડક્ટ બિલ્ડિંગ અને સ્ટાર્ટઅપ મીટઅપ.",
+    desc: "AI, ડીપ લર્નિંગ, પ્રોડક્ટ બિલ્ડિંગ અને સ્ટાર્ટઅપ પ્લાનિંગ મીટઅપ.",
     mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
-    tag: "Science City",
+    tag: "Tech & Startup Zone",
     image: "/teapost/science-city.png",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Science City પર મળીએ ને AI / Tech ડિસ્કસ કરીએ ☕",
   },
@@ -56,10 +59,10 @@ const CHAI_SPOTS = [
     id: "maninagar",
     name: "Tea Post — Maninagar",
     gujjuName: "ટી પોસ્ટ — મણિનગર",
-    location: "Near Kankaria Lake, Maninagar",
-    desc: "કાંકરિયા વાઇબ્સ, ગરમ ચા અને કૉલેબોરેશન.",
+    location: "Maninagar, Near Kankaria Lake",
+    desc: "કાંકરિયાની શાંત વાઇબ્સ, ગરમ ચા અને બિઝનેસ કૉલેબોરેશન.",
     mapsUrl: "https://maps.app.goo.gl/XQgNsuKokUm7CuBq8",
-    tag: "Maninagar",
+    tag: "South Ahmedabad Hub",
     image: "/teapost/maninagar.png",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Maninagar પર મળીએ ને કૉલેબોરેશન કરીએ ☕",
   },
@@ -370,7 +373,7 @@ export default function GujjuversePage() {
         <BlurFade delay={0.05} inView>
           <div className="flex items-center justify-between">
             <Link
-              href="/"
+              href="/#dashboard"
               onClick={() => playTapSound("pop")}
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-zinc-400 hover:text-white transition-colors group"
             >
@@ -404,80 +407,95 @@ export default function GujjuversePage() {
         {/* SECTION 1 (FIRST SECTION): ચા ની કિટલી પર મીટિંગ & કૉલેબોરેશન ☕ */}
         <BlurFade delay={0.12} inView>
           <div className="space-y-6">
-            {/* Header: Large Prominent Chai Logo + Headline */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 border-b border-zinc-900 pb-6 text-center sm:text-left">
-              {/* Prominent Large Chai Kitli Logo */}
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 shrink-0 rounded-3xl overflow-hidden bg-white/95 p-2 shadow-[0_0_35px_rgba(245,158,11,0.3)] border-2 border-amber-500/40 flex items-center justify-center">
+            {/* Header: Clean Transparent Kettle Logo matched to Heading Height */}
+            <div className="flex flex-row items-center gap-3.5 sm:gap-5 border-b border-zinc-900 pb-5">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 shrink-0 flex items-center justify-center">
                 <Image
                   src="/chai-kitli-logo.png"
-                  alt="ચાની કિટલી આઈડિયાઝ લોગો"
+                  alt="ચાની કિટલી લોગો"
                   fill
-                  sizes="(max-width: 640px) 120px, 160px"
-                  className="object-contain p-1"
+                  sizes="(max-width: 640px) 70px, 100px"
+                  className="object-contain drop-shadow-[0_0_20px_rgba(245,158,11,0.4)]"
                   priority
                 />
               </div>
 
-              <div className="space-y-2 min-w-0 flex-1 pt-1 sm:pt-2">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-zinc-100 leading-snug sm:leading-tight tracking-tight">
+              <div className="space-y-1 min-w-0 flex-1">
+                <h2 className="text-base sm:text-xl md:text-2xl font-black text-zinc-100 leading-snug sm:leading-tight tracking-tight">
                   મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે! ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ. ☕
                 </h2>
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                <p className="text-[11px] sm:text-xs text-zinc-400">
                   અમદાવાદના ફેવરિટ ચા અડ્ડા (Tea Post) જ્યાં ચર્ચા થાય છે ટેક, AI અને નેક્સ્ટ-લેવલ કૉલેબોરેશન પર.
                 </p>
               </div>
             </div>
 
-            {/* Compact Lambchoras (Horizontal Rectangular) Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+            {/* Developer Telemetry Style Cards for Tea Post Spots */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {CHAI_SPOTS.map((spot) => (
                 <div
                   key={spot.id}
-                  className="rounded-2xl bg-zinc-950/90 border border-zinc-800/90 hover:border-amber-500/60 p-3 flex flex-row items-center gap-3.5 transition-all group shadow-lg hover:shadow-amber-500/5 min-h-[105px]"
+                  className="relative mx-auto h-full w-full rounded-2xl border border-zinc-800/80 p-2 bg-zinc-950/60 shadow-lg group/container"
                 >
-                  {/* Compact Rectangular Thumbnail */}
-                  <div className="relative w-24 sm:w-28 h-24 rounded-xl overflow-hidden shrink-0 bg-zinc-900 border border-zinc-800">
-                    <Image
-                      src={spot.image}
-                      alt={spot.name}
-                      fill
-                      sizes="120px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                    <span className="absolute bottom-1 left-1.5 px-1.5 py-0.5 rounded bg-amber-500/90 text-black text-[9px] font-bold font-mono">
-                      Tea Post
-                    </span>
-                  </div>
+                  <GlowingEffect
+                    spread={40}
+                    glow={false}
+                    disabled={true}
+                    proximity={64}
+                    inactiveZone={0.01}
+                  />
+                  <div className="group/glow relative flex h-full flex-col justify-between gap-3 overflow-hidden rounded-xl border border-zinc-800/70 p-4 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414] transition-all hover:border-amber-500/50">
+                    <SpotlightGlow color="rgba(245, 158, 11, 0.15)" />
 
-                  {/* Concise Details & Action Pills */}
-                  <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0 space-y-1.5">
-                    <div>
-                      <h3 className="text-sm font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-tight truncate">
-                        {spot.gujjuName}
-                      </h3>
-                      <p className="text-[11px] font-mono text-zinc-400 flex items-center gap-1 mt-0.5">
-                        <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
-                        <span className="truncate">{spot.location}</span>
+                    {/* Card Top: Icon + Title + Tag */}
+                    <div className="relative flex items-center justify-between gap-2 border-b border-zinc-900/80 pb-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <div className="p-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 shrink-0">
+                          <IconCoffee className="h-4 w-4" />
+                        </div>
+                        <h3 className="text-sm font-bold text-zinc-100 tracking-tight truncate">
+                          {spot.gujjuName}
+                        </h3>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[10px] font-mono font-bold shrink-0">
+                        {spot.tag}
+                      </span>
+                    </div>
+
+                    {/* Card Body: Outlet Image + Location + Desc */}
+                    <div className="space-y-2">
+                      <div className="relative aspect-video w-full rounded-lg overflow-hidden bg-zinc-900 border border-zinc-800/80">
+                        <Image
+                          src={spot.image}
+                          alt={spot.name}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 320px"
+                          className="object-cover group-hover/glow:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                        <span className="absolute bottom-1.5 left-2 right-2 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[10px] font-mono font-medium flex items-center gap-1 border border-zinc-800/60">
+                          <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
+                          <span className="truncate">{spot.location}</span>
+                        </span>
+                      </div>
+
+                      <p className="text-[11px] text-zinc-400 leading-relaxed line-clamp-2">
+                        {spot.desc}
                       </p>
                     </div>
 
-                    <p className="text-[11px] text-zinc-400 line-clamp-1 leading-snug">
-                      {spot.desc}
-                    </p>
-
-                    {/* Action Buttons Row */}
-                    <div className="flex items-center gap-2 pt-0.5">
+                    {/* Card Footer: Telemetry Style Action Buttons */}
+                    <div className="pt-2 border-t border-zinc-900 flex items-center justify-between gap-2">
                       <a
                         href={spot.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-amber-500/40 text-zinc-300 hover:text-white text-[10px] font-mono transition-all group/btn shrink-0"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-amber-500/40 text-zinc-300 hover:text-white text-xs font-mono transition-all group/btn"
                       >
-                        <IconMapPin className="w-2.5 h-2.5 text-amber-400" />
+                        <IconMapPin className="w-3 h-3 text-amber-400" />
                         <span>Maps</span>
-                        <IconExternalLink className="w-2.5 h-2.5 text-zinc-500 group-hover/btn:text-amber-400 transition-colors" />
+                        <IconExternalLink className="w-3 h-3 text-zinc-500 group-hover/btn:text-amber-400 transition-colors" />
                       </a>
 
                       <a
@@ -485,15 +503,15 @@ export default function GujjuversePage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 text-[10px] font-mono font-bold transition-all shrink-0 cursor-pointer shadow-sm group/wa"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 text-xs font-mono font-bold transition-all shadow-sm cursor-pointer group/wa"
                       >
                         <svg
-                          className="w-3 h-3 fill-current text-emerald-400 group-hover/wa:scale-110 transition-transform shrink-0"
+                          className="w-3.5 h-3.5 fill-current text-emerald-400 group-hover/wa:scale-110 transition-transform shrink-0"
                           viewBox="0 0 24 24"
                         >
                           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                         </svg>
-                        <span>મળવું છે?</span>
+                        <span>WhatsApp</span>
                       </a>
                     </div>
                   </div>
