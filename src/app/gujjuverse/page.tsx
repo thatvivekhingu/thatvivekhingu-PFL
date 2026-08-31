@@ -290,6 +290,198 @@ const ALL_DAYRO_VIDEOS: VideoItem[] = [
   },
 ];
 
+function InteractiveStampCard({ spot }: { spot: (typeof CHAI_SPOTS)[0] }) {
+  const photoRef = useRef<HTMLDivElement>(null);
+  const [lensState, setLensState] = useState<{ x: number; y: number; active: boolean }>({
+    x: 50,
+    y: 50,
+    active: false,
+  });
+
+  const updateCoordinates = (clientX: number, clientY: number) => {
+    if (!photoRef.current) return;
+    const rect = photoRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    setLensState({ x, y, active: true });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    updateCoordinates(e.clientX, e.clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches && e.touches[0]) {
+      updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleLeave = () => {
+    setLensState((prev) => ({ ...prev, active: false }));
+  };
+
+  return (
+    <div className="rounded-2xl sm:rounded-[24px] bg-[#16171a] border border-[#25282f] p-2.5 sm:p-3.5 flex flex-row sm:flex-col justify-between items-center sm:items-stretch gap-3 sm:gap-3.5 shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:border-zinc-600 group">
+      {/* POSTAGE STAMP FRAME (Exact Match to Reference Image) */}
+      <div
+        className={`relative ${spot.bgColor} w-24 h-28 sm:w-full sm:h-auto rounded-2xl p-2 sm:p-3.5 shrink-0 flex flex-col justify-between gap-1 sm:gap-2.5 overflow-hidden shadow-inner`}
+      >
+        {/* Top Scalloped Perforation Teeth */}
+        <div className="absolute -top-1.5 sm:-top-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={`t-${i}`}
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-sm"
+            />
+          ))}
+        </div>
+
+        {/* Bottom Scalloped Perforation Teeth */}
+        <div className="absolute -bottom-1.5 sm:-bottom-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={`b-${i}`}
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-sm"
+            />
+          ))}
+        </div>
+
+        {/* Left Scalloped Perforation Teeth */}
+        <div className="absolute top-0 bottom-0 -left-1.5 sm:-left-2 flex flex-col justify-between py-1 pointer-events-none">
+          {Array.from({ length: 14 }).map((_, i) => (
+            <div
+              key={`l-${i}`}
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-sm"
+            />
+          ))}
+        </div>
+
+        {/* Right Scalloped Perforation Teeth */}
+        <div className="absolute top-0 bottom-0 -right-1.5 sm:-right-2 flex flex-col justify-between py-1 pointer-events-none">
+          {Array.from({ length: 14 }).map((_, i) => (
+            <div
+              key={`r-${i}`}
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-sm"
+            />
+          ))}
+        </div>
+
+        {/* Stamp Top Header Bar: Black eyelet hole - Monospace code - Black eyelet hole */}
+        <div className="flex items-center justify-between px-0.5 pt-0.5 sm:pt-1 z-10">
+          <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#16171a] shadow-inner" />
+          <span
+            className={`font-mono text-[8px] sm:text-[11px] font-black tracking-wider sm:tracking-widest ${spot.textColor} uppercase drop-shadow-sm truncate`}
+          >
+            {spot.badge}
+          </span>
+          <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#16171a] shadow-inner" />
+        </div>
+
+        {/* Center Photo Container with Interactive Mouse/Touch Unblur Lens */}
+        <div
+          ref={photoRef}
+          onMouseMove={handleMouseMove}
+          onTouchMove={handleTouchMove}
+          onTouchStart={handleTouchMove}
+          onMouseLeave={handleLeave}
+          onTouchEnd={handleLeave}
+          className="relative aspect-square sm:aspect-[4/3.8] w-full rounded-xl overflow-hidden bg-black border border-black/50 shadow-inner z-10 flex-1 cursor-crosshair select-none"
+        >
+          {/* Base Sharp Image */}
+          <Image
+            src={spot.image}
+            alt={spot.name}
+            fill
+            sizes="(max-width: 640px) 120px, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+
+          {/* Halftone / Pixelated Dither & Blur Overlay that unmasks where mouse / touch moves */}
+          <div
+            className="absolute inset-0 bg-[radial-gradient(#000_1.5px,transparent_1.5px)] [background-size:4px_4px] backdrop-blur-[2px] opacity-85 transition-opacity duration-200 pointer-events-none group-hover:opacity-60"
+            style={{
+              maskImage: lensState.active
+                ? `radial-gradient(circle 55px at ${lensState.x}px ${lensState.y}px, transparent 0%, black 80%)`
+                : "none",
+              WebkitMaskImage: lensState.active
+                ? `radial-gradient(circle 55px at ${lensState.x}px ${lensState.y}px, transparent 0%, black 80%)`
+                : "none",
+            }}
+          />
+
+          {/* Interactive Flash Lens Ring around cursor/touch */}
+          {lensState.active && (
+            <div
+              className="absolute w-28 h-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.3)] pointer-events-none transition-transform duration-75"
+              style={{
+                left: `${lensState.x}px`,
+                top: `${lensState.y}px`,
+              }}
+            />
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+          <span className="hidden sm:flex absolute bottom-1.5 left-1.5 right-1.5 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[9px] font-mono font-medium items-center gap-1 border border-zinc-800/60">
+            <IconMapPin className="w-2.5 h-2.5 text-red-400 shrink-0" />
+            <span className="truncate">{spot.location}</span>
+          </span>
+        </div>
+
+        {/* Stamp Bottom Label */}
+        <div className="text-center z-10 pb-0.5">
+          <span
+            className={`font-mono text-[7px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.28em] ${spot.textColor} drop-shadow-sm`}
+          >
+            {spot.footer}
+          </span>
+        </div>
+      </div>
+
+      {/* Card Content & Action Buttons */}
+      <div className="flex-1 min-w-0 space-y-1.5 sm:space-y-2 w-full">
+        <div className="space-y-0.5">
+          <div className="flex items-center justify-between gap-1">
+            <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
+              {spot.gujjuName}
+            </h3>
+            <span className="sm:hidden font-mono text-[9px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-bold shrink-0">
+              TEA POST
+            </span>
+          </div>
+          <p className="text-[11px] text-zinc-400 truncate flex items-center gap-1">
+            <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
+            <span>{spot.location}</span>
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between gap-2 pt-1 border-t border-zinc-800/80">
+          <a
+            href={spot.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => playTapSound("pop")}
+            className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-800/70 hover:bg-zinc-700 text-zinc-300 hover:text-white text-[11px] font-mono transition-colors flex-1 sm:flex-initial"
+          >
+            <IconMapPin className="w-3 h-3 text-red-400" />
+            <span>Maps</span>
+          </a>
+
+          <a
+            href={`https://wa.me/918866688575?text=${encodeURIComponent(spot.whatsappMsg)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => playTapSound("pop")}
+            className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-[11px] font-mono font-bold transition-colors flex-1 sm:flex-initial"
+          >
+            <IconBrandWhatsapp className="w-3 h-3" />
+            <span>મળવું છે?</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function GujjuversePage() {
   const [selectedVideoCategory, setSelectedVideoCategory] = useState<string>("music");
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
@@ -458,134 +650,10 @@ export default function GujjuversePage() {
         <BlurFade delay={0.08} inView>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
 
-            {/* 4 POSTAGE STAMP CARDS (Mobile: Notification Landscape | Desktop: Vertical Stamp) */}
+            {/* 4 POSTAGE STAMP CARDS (Interactive Scalloped Frame & Mouse/Touch Unblur Lens) */}
             <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4.5">
               {CHAI_SPOTS.map((spot) => (
-                <div
-                  key={spot.id}
-                  className="rounded-2xl sm:rounded-[22px] bg-[#16171a] border border-[#25282f] p-2.5 sm:p-3.5 flex flex-row sm:flex-col justify-between items-center sm:items-stretch gap-3 sm:gap-3 shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:border-zinc-600 group"
-                >
-                  {/* POSTAGE STAMP TICKET (Square on mobile, Full vertical on desktop) */}
-                  <div
-                    className={`relative ${spot.bgColor} w-24 h-24 sm:w-full sm:h-auto rounded-xl p-1.5 sm:p-3 shrink-0 flex flex-col justify-between gap-1 sm:gap-2 overflow-hidden shadow-inner`}
-                  >
-                    {/* Top Scalloped Perforation Holes */}
-                    <div className="absolute -top-1.5 sm:-top-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
-                      {Array.from({ length: 11 }).map((_, i) => (
-                        <div
-                          key={`t-${i}`}
-                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#16171a] shadow-sm"
-                        />
-                      ))}
-                    </div>
-
-                    {/* Bottom Scalloped Perforation Holes */}
-                    <div className="absolute -bottom-1.5 sm:-bottom-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
-                      {Array.from({ length: 11 }).map((_, i) => (
-                        <div
-                          key={`b-${i}`}
-                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#16171a] shadow-sm"
-                        />
-                      ))}
-                    </div>
-
-                    {/* Left Scalloped Perforation Holes */}
-                    <div className="absolute top-0 bottom-0 -left-1.5 sm:-left-2 flex flex-col justify-between py-1 pointer-events-none">
-                      {Array.from({ length: 11 }).map((_, i) => (
-                        <div
-                          key={`l-${i}`}
-                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#16171a] shadow-sm"
-                        />
-                      ))}
-                    </div>
-
-                    {/* Right Scalloped Perforation Holes */}
-                    <div className="absolute top-0 bottom-0 -right-1.5 sm:-right-2 flex flex-col justify-between py-1 pointer-events-none">
-                      {Array.from({ length: 11 }).map((_, i) => (
-                        <div
-                          key={`r-${i}`}
-                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#16171a] shadow-sm"
-                        />
-                      ))}
-                    </div>
-
-                    {/* Stamp Header Bar: Black hole - Code - Black hole */}
-                    <div className="flex items-center justify-between px-0.5 pt-0.5 sm:pt-1 z-10">
-                      <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-inner" />
-                      <span className={`font-mono text-[8px] sm:text-[11px] font-black tracking-wider sm:tracking-widest ${spot.textColor} uppercase drop-shadow-sm truncate`}>
-                        {spot.badge}
-                      </span>
-                      <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-inner" />
-                    </div>
-
-                    {/* Photo with Halftone Dot Matrix Texture Overlay */}
-                    <div className="relative aspect-square w-full rounded-md overflow-hidden bg-black border border-black/40 shadow-inner z-10 flex-1">
-                      <Image
-                        src={spot.image}
-                        alt={spot.name}
-                        fill
-                        sizes="(max-width: 640px) 96px, (max-width: 1024px) 50vw, 25vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      {/* Halftone / Dither print texture overlay */}
-                      <div className="absolute inset-0 bg-[radial-gradient(#000_1.5px,transparent_1.5px)] [background-size:4px_4px] opacity-35 mix-blend-multiply pointer-events-none" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                      <span className="hidden sm:flex absolute bottom-1.5 left-1.5 right-1.5 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[9px] font-mono font-medium items-center gap-1 border border-zinc-800/60">
-                        <IconMapPin className="w-2.5 h-2.5 text-red-400 shrink-0" />
-                        <span className="truncate">{spot.location}</span>
-                      </span>
-                    </div>
-
-                    {/* Stamp Footer: Unique Location Vibe */}
-                    <div className="text-center z-10 pb-0.5">
-                      <span className={`font-mono text-[7px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] ${spot.textColor} drop-shadow-sm`}>
-                        {spot.footer}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card Content: Name, Location & Actions (Horizontal on mobile, Stacked on desktop) */}
-                  <div className="flex-1 min-w-0 space-y-1.5 sm:space-y-2 w-full">
-                    <div className="space-y-0.5">
-                      <div className="flex items-center justify-between gap-1">
-                        <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
-                          {spot.gujjuName}
-                        </h3>
-                        <span className="sm:hidden font-mono text-[9px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-bold shrink-0">
-                          TEA POST
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-zinc-400 truncate flex items-center gap-1">
-                        <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
-                        <span>{spot.location}</span>
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between gap-2 pt-1 border-t border-zinc-800/80">
-                      <a
-                        href={spot.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-800/70 hover:bg-zinc-700 text-zinc-300 hover:text-white text-[11px] font-mono transition-colors flex-1 sm:flex-initial"
-                      >
-                        <IconMapPin className="w-3 h-3 text-red-400" />
-                        <span>Maps</span>
-                      </a>
-
-                      <a
-                        href={`https://wa.me/918866688575?text=${encodeURIComponent(spot.whatsappMsg)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-[11px] font-mono font-bold transition-colors flex-1 sm:flex-initial"
-                      >
-                        <IconBrandWhatsapp className="w-3 h-3" />
-                        <span>મળવું છે?</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                <InteractiveStampCard key={spot.id} spot={spot} />
               ))}
             </div>
 
