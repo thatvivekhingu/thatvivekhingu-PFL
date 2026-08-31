@@ -293,9 +293,9 @@ export default function GujjuversePage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground selection:bg-amber-400 selection:text-black font-gujarati antialiased relative overflow-x-hidden pt-28 sm:pt-36 pb-16 sm:pb-24">
-      {/* Precision Ambient Light */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[450px] bg-[radial-gradient(ellipse_70%_40%_at_50%_-10%,rgba(245,158,11,0.18),rgba(0,0,0,0))] pointer-events-none -z-10" />
+    <div className="min-h-screen w-full bg-background text-foreground selection:bg-white selection:text-black font-gujarati antialiased relative overflow-x-hidden pt-28 sm:pt-36 pb-16 sm:pb-24">
+      {/* Precision Subtle Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[350px] bg-[radial-gradient(ellipse_60%_30%_at_50%_0%,rgba(255,255,255,0.04),rgba(0,0,0,0))] pointer-events-none -z-10" />
 
       {/* Video Modal Player */}
       <AnimatePresence>
@@ -310,11 +310,11 @@ export default function GujjuversePage() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-4xl bg-zinc-950 border border-amber-500/40 rounded-3xl overflow-hidden shadow-2xl space-y-4 p-4 sm:p-6"
+              className="relative w-full max-w-4xl bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl space-y-4 p-4 sm:p-6"
             >
               <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
                 <div className="space-y-0.5">
-                  <span className="text-xs font-mono text-amber-400 font-bold uppercase">
+                  <span className="text-xs font-mono text-zinc-400 font-semibold uppercase">
                     {activeVideo.artist}
                   </span>
                   <h3 className="text-base sm:text-lg font-bold text-zinc-100 truncate max-w-md">
@@ -327,7 +327,7 @@ export default function GujjuversePage() {
                     playTapSound("hover");
                     setActiveVideo(null);
                   }}
-                  className="p-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                  className="p-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
                 >
                   <IconX className="w-5 h-5" />
                 </button>
@@ -363,29 +363,25 @@ export default function GujjuversePage() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-8 sm:space-y-12">
         {/* ========================================================
-            HERO HEADER (Inspired by main portfolio Hero)
+            HERO HEADER (Clean, Professional & Free of Loud Yellow Badges)
             ======================================================== */}
         <BlurFade delay={0.05} inView>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
-            <div className="space-y-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-xs font-mono text-amber-400">
-                <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-                <span>☕ GUJJU VERSE • AHMEDABAD MATRIX</span>
-              </div>
-              <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-2">
+            <div className="space-y-1.5">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-100 flex items-center gap-2">
                 <span>મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે!</span>
-                <span className="text-amber-400">☕</span>
+                <span>☕</span>
               </h1>
-              <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">
                 ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ. અમદાવાદના ડેવલપર્સ, કોડિંગ, લોકડાયરો અને દેશી મોજ.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2.5 shrink-0">
               <Link
                 href="/#hero"
                 onClick={() => playTapSound("pop")}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-300 hover:text-white transition-all group"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-300 hover:text-white transition-all group"
               >
                 <IconArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                 <span>Back to Hero</span>
@@ -411,7 +407,7 @@ export default function GujjuversePage() {
         <BlurFade delay={0.08} inView>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
 
-            {/* 3 TEA POST LOCATION CARDS (Each identical to Telemetry GridItem) */}
+            {/* 3 TEA POST LOCATION CARDS (Clean Minimalist Design) */}
             {CHAI_SPOTS.map((spot) => (
               <div
                 key={spot.id}
@@ -424,20 +420,20 @@ export default function GujjuversePage() {
                   proximity={64}
                   inactiveZone={0.01}
                 />
-                <div className="group/glow relative flex h-full flex-col justify-between gap-3 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414] transition-all hover:border-amber-500/50">
-                  <SpotlightGlow color="rgba(245, 158, 11, 0.15)" />
+                <div className="group/glow relative flex h-full flex-col justify-between gap-3 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414] transition-all hover:border-zinc-700">
+                  <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
 
                   {/* Header */}
                   <div className="flex items-center justify-between gap-2 border-b border-zinc-900 pb-2.5">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                      <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
                         <IconCoffee className="h-4 w-4" />
                       </div>
                       <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
                         {spot.gujjuName}
                       </h3>
                     </div>
-                    <span className="px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[10px] font-mono font-bold">
+                    <span className="px-2.5 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] font-mono font-medium">
                       {spot.zone}
                     </span>
                   </div>
@@ -453,7 +449,7 @@ export default function GujjuversePage() {
                         className="object-cover group-hover/glow:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                      <span className="absolute bottom-1.5 left-2 right-2 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[10px] font-mono font-medium flex items-center gap-1 border border-zinc-800/60">
+                      <span className="absolute bottom-1.5 left-2 right-2 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-300 text-[10px] font-mono font-medium flex items-center gap-1 border border-zinc-800/60">
                         <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
                         <span className="truncate">{spot.location}</span>
                       </span>
@@ -471,11 +467,11 @@ export default function GujjuversePage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => playTapSound("pop")}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-amber-500/40 text-zinc-300 hover:text-white text-xs font-mono transition-all group/btn"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white text-xs font-mono transition-all group/btn"
                     >
-                      <IconMapPin className="w-3 h-3 text-amber-400" />
+                      <IconMapPin className="w-3 h-3 text-zinc-400" />
                       <span>Maps</span>
-                      <IconExternalLink className="w-3 h-3 text-zinc-500 group-hover/btn:text-amber-400 transition-colors" />
+                      <IconExternalLink className="w-3 h-3 text-zinc-500 group-hover/btn:text-zinc-300 transition-colors" />
                     </a>
 
                     <a
@@ -505,7 +501,7 @@ export default function GujjuversePage() {
                 inactiveZone={0.01}
               />
               <div className="group/glow relative flex flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-6 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
-                <SpotlightGlow color="rgba(239, 68, 68, 0.12)" />
+                <SpotlightGlow color="rgba(255, 255, 255, 0.06)" />
 
                 {/* Dayro Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-900 pb-3">
@@ -528,21 +524,21 @@ export default function GujjuversePage() {
                     <button
                       onClick={() => handleScroll("left")}
                       aria-label="Scroll Left"
-                      className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                      className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
                     >
                       <IconChevronLeft className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleScroll("right")}
                       aria-label="Scroll Right"
-                      className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                      className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
                     >
                       <IconChevronRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
 
-                {/* Category Tabs */}
+                {/* Category Tabs (Clean Modern High-Contrast Filter) */}
                 <div className="flex flex-wrap gap-2">
                   {[
                     { id: "all", label: "બધા વિડીયો ✨" },
@@ -559,7 +555,7 @@ export default function GujjuversePage() {
                       }}
                       className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
                         selectedVideoCategory === tab.id
-                          ? "bg-amber-400 text-black font-bold shadow-md shadow-amber-400/20"
+                          ? "bg-white text-black font-semibold shadow-sm"
                           : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
                       }`}
                     >
@@ -571,13 +567,13 @@ export default function GujjuversePage() {
                 {/* Video Carousel */}
                 <div
                   ref={dayroScrollRef}
-                  className="flex overflow-x-auto gap-4 pb-2 pt-1 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-zinc-900 [&::-webkit-scrollbar-thumb]:bg-amber-500/40 hover:[&::-webkit-scrollbar-thumb]:bg-amber-500 [&::-webkit-scrollbar-thumb]:rounded-full"
+                  className="flex overflow-x-auto gap-4 pb-2 pt-1 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-zinc-900 [&::-webkit-scrollbar-thumb]:bg-zinc-700 hover:[&::-webkit-scrollbar-thumb]:bg-zinc-500 [&::-webkit-scrollbar-thumb]:rounded-full"
                 >
                   {filteredVideos.map((video) => (
                     <div
                       key={video.id}
                       onClick={() => handlePlayVideo(video)}
-                      className="w-[260px] sm:w-[280px] shrink-0 snap-start rounded-xl bg-zinc-900/80 border border-zinc-800/80 hover:border-amber-500/50 overflow-hidden cursor-pointer flex flex-col gap-2.5 transition-all group p-2.5"
+                      className="w-[260px] sm:w-[280px] shrink-0 snap-start rounded-xl bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 overflow-hidden cursor-pointer flex flex-col gap-2.5 transition-all group p-2.5"
                     >
                       <div className="relative aspect-video w-full rounded-lg overflow-hidden bg-zinc-950">
                         <Image
@@ -588,25 +584,25 @@ export default function GujjuversePage() {
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                          <div className="w-9 h-9 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                          <div className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all">
                             <IconPlayerPlayFilled className="w-4 h-4 ml-0.5" />
                           </div>
                         </div>
-                        <div className="absolute bottom-1.5 right-1.5 px-1 py-0.5 rounded bg-black/85 text-[9px] font-mono text-zinc-300">
+                        <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/85 text-[9px] font-mono text-zinc-300">
                           HD
                         </div>
-                        <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full bg-amber-500/90 text-black text-[9px] font-bold">
+                        <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-zinc-200 text-[9px] font-medium">
                           {video.categoryLabel}
                         </div>
                       </div>
 
                       <div className="px-0.5 space-y-1">
-                        <h4 className="text-xs font-bold text-zinc-100 group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">
+                        <h4 className="text-xs font-bold text-zinc-100 group-hover:text-white transition-colors line-clamp-2 leading-snug">
                           {video.title}
                         </h4>
                         <div className="flex items-center gap-1 text-[11px] text-zinc-400">
                           <span className="truncate">{video.artist}</span>
-                          <IconCircleCheckFilled className="w-3 h-3 text-amber-400 shrink-0" />
+                          <IconCircleCheckFilled className="w-3 h-3 text-zinc-400 shrink-0" />
                         </div>
                       </div>
                     </div>
@@ -627,11 +623,11 @@ export default function GujjuversePage() {
                 inactiveZone={0.01}
               />
               <div className="group/glow relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
-                <SpotlightGlow color="rgba(34, 211, 238, 0.12)" />
+                <SpotlightGlow color="rgba(34, 211, 238, 0.08)" />
 
                 <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
                   <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-cyan-400">
                       <IconTerminal2 className="w-4 h-4" />
                     </div>
                     <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
@@ -675,11 +671,11 @@ export default function GujjuversePage() {
                 inactiveZone={0.01}
               />
               <div className="group/glow relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
-                <SpotlightGlow color="rgba(245, 158, 11, 0.12)" />
+                <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
 
                 <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
                   <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
                       <IconCode className="w-4 h-4" />
                     </div>
                     <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
@@ -696,7 +692,7 @@ export default function GujjuversePage() {
                       className="p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-850 space-y-1"
                     >
                       <div className="flex items-center justify-between text-xs font-bold text-zinc-200">
-                        <span className="flex items-center gap-1.5 text-amber-400 font-mono">
+                        <span className="flex items-center gap-1.5 font-mono text-zinc-400">
                           <span>{rule.num}.</span>
                           <span className="text-zinc-200">{rule.title}</span>
                         </span>
@@ -722,11 +718,11 @@ export default function GujjuversePage() {
                 proximity={64}
                 inactiveZone={0.01}
               />
-              <div className="group/glow relative flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-5 bg-gradient-to-r from-zinc-950 via-zinc-900 to-black shadow-[0px_0px_27px_0px_#141414]">
-                <SpotlightGlow color="rgba(245, 158, 11, 0.15)" />
+              <div className="group/glow relative flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
+                <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
 
                 <div className="flex items-center gap-3.5 text-left">
-                  <div className="p-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-2xl shrink-0">
+                  <div className="p-2.5 rounded-2xl bg-zinc-900 border border-zinc-800 text-2xl shrink-0">
                     ☕
                   </div>
                   <div>
