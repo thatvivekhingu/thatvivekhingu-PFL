@@ -917,93 +917,136 @@ export default function GujjuversePage() {
         </BlurFade>
 
         {/* ========================================================
-            8. SOCIAL MEDIA SHOWCASE (Clean Edge-to-Edge Framed Cards)
+            8. MEDIA SHOWCASE (3 Identical 1:1 Square Frames - 24px Gap)
             ======================================================== */}
         <BlurFade delay={0.09} inView>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-4.5">
-            {/* 1. Large Left Frame: GitHub Ecosystem (2 Columns Wide) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* 1. GitHub Frame (Identical 1:1 Aspect Ratio) */}
             <a
               href="https://github.com/thatvivekhingu"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => playTapSound("pop")}
-              className="lg:col-span-2 group relative h-[320px] sm:h-[400px] lg:h-[440px] rounded-2xl sm:rounded-3xl border border-zinc-800/80 bg-[#0d1117] overflow-hidden shadow-2xl hover:border-zinc-500 transition-all duration-300 block"
+              className="group relative aspect-square w-full rounded-[22px] sm:rounded-3xl border border-zinc-800/80 bg-[#0d1117] p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden shadow-2xl hover:border-zinc-500 transition-all duration-300 hover:-translate-y-1"
             >
-              {/* Floating Pill Badge */}
-              <div className="absolute top-3 right-3 z-20">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-zinc-200 group-hover:text-white group-hover:border-white/40 text-xs font-mono font-bold shadow-xl transition-all group-hover:scale-105">
-                  <IconBrandGithub className="w-4 h-4" />
-                  <span>GitHub ↗</span>
+              {/* Minimal Top Platform Header */}
+              <div className="flex items-center justify-between pb-2.5 border-b border-zinc-800/80 z-10">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 rounded-lg bg-zinc-800 text-zinc-100 border border-zinc-700/60">
+                    <IconBrandGithub className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-zinc-100 group-hover:text-white transition-colors">
+                      GitHub
+                    </span>
+                    <span className="block text-[10px] text-zinc-400 font-mono">
+                      thatvivekhingu
+                    </span>
+                  </div>
+                </div>
+                <span className="text-[11px] font-mono text-zinc-400 group-hover:text-white transition-colors">
+                  ↗
                 </span>
               </div>
 
-              {/* Edge-to-Edge Screenshot */}
-              <div className="relative w-full h-full overflow-hidden">
-                <Image
-                  src="/social/github-profile.png"
-                  alt="thatvivekhingu GitHub Profile & Repositories"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                  className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
-                />
+              {/* Centered Proportional Image (100% Complete Image Visible - No Cropping/Distortion) */}
+              <div className="relative flex-1 w-full flex items-center justify-center my-auto p-1 overflow-hidden">
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/social/github-profile.png"
+                    alt="thatvivekhingu GitHub Profile"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-contain object-center group-hover:scale-[1.03] transition-transform duration-500 rounded-lg"
+                  />
+                </div>
               </div>
             </a>
 
-            {/* 2. Right Stacked Frames (LinkedIn + Instagram) */}
-            <div className="flex flex-col gap-4">
-              {/* Top Frame: LinkedIn */}
-              <a
-                href="https://linkedin.com/in/vivekhingu"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => playTapSound("pop")}
-                className="group relative h-[155px] sm:h-[195px] lg:h-[212px] rounded-2xl sm:rounded-3xl border border-zinc-800/80 bg-black overflow-hidden shadow-xl hover:border-blue-500/60 transition-all duration-300 block"
-              >
-                <div className="absolute top-3 right-3 z-20">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-blue-500/30 text-blue-400 group-hover:text-blue-300 group-hover:border-blue-400/60 text-xs font-mono font-bold shadow-xl transition-all group-hover:scale-105">
+            {/* 2. LinkedIn Frame (Identical 1:1 Aspect Ratio) */}
+            <a
+              href="https://linkedin.com/in/vivekhingu"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playTapSound("pop")}
+              className="group relative aspect-square w-full rounded-[22px] sm:rounded-3xl border border-zinc-800/80 bg-[#000000] p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden shadow-2xl hover:border-blue-500/60 transition-all duration-300 hover:-translate-y-1"
+            >
+              {/* Minimal Top Platform Header */}
+              <div className="flex items-center justify-between pb-2.5 border-b border-zinc-800/80 z-10">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
                     <IconBrandLinkedin className="w-4 h-4" />
-                    <span>LinkedIn ↗</span>
-                  </span>
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">
+                      LinkedIn
+                    </span>
+                    <span className="block text-[10px] text-zinc-400 font-mono">
+                      Vivek Hingu
+                    </span>
+                  </div>
                 </div>
+                <span className="text-[11px] font-mono text-blue-400 group-hover:text-blue-300 transition-colors">
+                  ↗
+                </span>
+              </div>
 
-                <div className="relative w-full h-full overflow-hidden">
+              {/* Centered Proportional Image (100% Complete Image Visible - No Cropping/Distortion) */}
+              <div className="relative flex-1 w-full flex items-center justify-center my-auto p-1 overflow-hidden">
+                <div className="relative w-full h-full">
                   <Image
                     src="/social/linkedin-post.png"
-                    alt="Vivek Hingu LinkedIn GDG Cloud Gandhinagar"
+                    alt="Vivek Hingu LinkedIn Post"
                     fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-contain object-center group-hover:scale-[1.03] transition-transform duration-500 rounded-lg"
                   />
                 </div>
-              </a>
+              </div>
+            </a>
 
-              {/* Bottom Frame: Instagram */}
-              <a
-                href="https://instagram.com/realvivek.py"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => playTapSound("pop")}
-                className="group relative h-[155px] sm:h-[195px] lg:h-[212px] rounded-2xl sm:rounded-3xl border border-zinc-800/80 bg-black overflow-hidden shadow-xl hover:border-pink-500/60 transition-all duration-300 block"
-              >
-                <div className="absolute top-3 right-3 z-20">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-pink-500/30 text-pink-400 group-hover:text-pink-300 group-hover:border-pink-400/60 text-xs font-mono font-bold shadow-xl transition-all group-hover:scale-105">
+            {/* 3. Instagram Frame (Identical 1:1 Aspect Ratio) */}
+            <a
+              href="https://instagram.com/realvivek.py"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playTapSound("pop")}
+              className="group relative aspect-square w-full rounded-[22px] sm:rounded-3xl border border-zinc-800/80 bg-[#000000] p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden shadow-2xl hover:border-pink-500/60 transition-all duration-300 hover:-translate-y-1"
+            >
+              {/* Minimal Top Platform Header */}
+              <div className="flex items-center justify-between pb-2.5 border-b border-zinc-800/80 z-10">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20">
                     <IconBrandInstagram className="w-4 h-4" />
-                    <span>Instagram ↗</span>
-                  </span>
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-zinc-100 group-hover:text-pink-400 transition-colors">
+                      Instagram
+                    </span>
+                    <span className="block text-[10px] text-zinc-400 font-mono">
+                      @realvivek.py
+                    </span>
+                  </div>
                 </div>
+                <span className="text-[11px] font-mono text-pink-400 group-hover:text-pink-300 transition-colors">
+                  ↗
+                </span>
+              </div>
 
-                <div className="relative w-full h-full overflow-hidden">
+              {/* Centered Proportional Image (100% Complete Image Visible - No Cropping/Distortion) */}
+              <div className="relative flex-1 w-full flex items-center justify-center my-auto p-1 overflow-hidden">
+                <div className="relative w-full h-full">
                   <Image
                     src="/social/instagram-profile.png"
                     alt="realvivek.py Pythonic Engineer Instagram"
                     fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-contain object-center group-hover:scale-[1.03] transition-transform duration-500 rounded-lg"
                   />
                 </div>
-              </a>
-            </div>
+              </div>
+            </a>
           </div>
         </BlurFade>
 
