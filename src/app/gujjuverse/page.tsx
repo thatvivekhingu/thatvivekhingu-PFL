@@ -15,7 +15,6 @@ import {
   IconCircleCheckFilled,
   IconMapPin,
   IconExternalLink,
-  IconMusic,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -24,7 +23,7 @@ interface VideoItem {
   id: string;
   artist: string;
   title: string;
-  category: string;
+  category: "music" | "hasya" | "veer-ras" | "jugalbandhi";
   categoryLabel: string;
   youtubeId: string;
   thumbnail: string;
@@ -66,14 +65,15 @@ const CHAI_SPOTS = [
   },
 ];
 
-// 1. Lok Sangeet Videos (First Section)
-const LOK_SANGEET_VIDEOS: VideoItem[] = [
+// All Videos for the unified "લોકડાયરો & હાસ્ય દરબાર" section (including Lok Sangeet, Dayro, Veer Ras, Jugalbandhi)
+const ALL_DAYRO_VIDEOS: VideoItem[] = [
+  // 1. Lok Sangeet & Folk Songs
   {
     id: "kirtidan-kanudo",
     artist: "કીર્તિદાન ગઢવી",
     title: "દેશી તાલે કાનુડાના ગીતો & રાસ (લાઈવ ગરબા & સૂર)",
-    category: "ras",
-    categoryLabel: "કાનુડાના ગીતો",
+    category: "music",
+    categoryLabel: "લોક સંગીત",
     youtubeId: "KpFUjNxGCbo",
     thumbnail: "https://img.youtube.com/vi/KpFUjNxGCbo/hqdefault.jpg",
   },
@@ -81,7 +81,7 @@ const LOK_SANGEET_VIDEOS: VideoItem[] = [
     id: "kirtidan-rasiyo",
     artist: "કીર્તિદાન ગઢવી",
     title: "રસિયો રૂપાળો રંગરેલીયો (વેજાગામ લાઈવ સંગીત)",
-    category: "folk",
+    category: "music",
     categoryLabel: "લોક સંગીત",
     youtubeId: "_IMnebRMPcY",
     thumbnail: "https://img.youtube.com/vi/_IMnebRMPcY/hqdefault.jpg",
@@ -90,7 +90,7 @@ const LOK_SANGEET_VIDEOS: VideoItem[] = [
     id: "kirtidan-dakor",
     artist: "કીર્તિદાન ગઢવી",
     title: "ડાકોરના ઠાકોર (અમરેલી લાઈવ પોલીસ ડાયરો સંગીત)",
-    category: "bhakti",
+    category: "music",
     categoryLabel: "ભક્તિ સંગીત",
     youtubeId: "w3O3aikm4xM",
     thumbnail: "https://img.youtube.com/vi/w3O3aikm4xM/hqdefault.jpg",
@@ -99,7 +99,7 @@ const LOK_SANGEET_VIDEOS: VideoItem[] = [
     id: "osman-mir-morbi",
     artist: "ઓસ્માન મીર",
     title: "મોરબીની વાણીયાણ & રૂડા ગીતો (દેશી ગઝલ & લોકસંગીત)",
-    category: "folk",
+    category: "music",
     categoryLabel: "લોક ગીત",
     youtubeId: "gK6X4GvA9v8",
     thumbnail: "https://img.youtube.com/vi/gK6X4GvA9v8/hqdefault.jpg",
@@ -108,8 +108,8 @@ const LOK_SANGEET_VIDEOS: VideoItem[] = [
     id: "hemant-chauhan-bhajan",
     artist: "હેમંત ચૌહાણ",
     title: "શિવ તાંડવ સ્તોત્ર & દેશી પ્રભાતિયા",
-    category: "bhakti",
-    categoryLabel: "ભજન & સ્તોત્ર",
+    category: "music",
+    categoryLabel: "ભજન & સૂર",
     youtubeId: "yN33Wk6023I",
     thumbnail: "https://img.youtube.com/vi/yN33Wk6023I/hqdefault.jpg",
   },
@@ -117,15 +117,13 @@ const LOK_SANGEET_VIDEOS: VideoItem[] = [
     id: "geeta-rabari-rona",
     artist: "ગીતા રબારી",
     title: "રોણા શેરમાં રે (ઓરિજિનલ દેશી સૂર)",
-    category: "folk",
+    category: "music",
     categoryLabel: "દેશી સૂર",
     youtubeId: "O9rYqgKq_oE",
     thumbnail: "https://img.youtube.com/vi/O9rYqgKq_oE/hqdefault.jpg",
   },
-];
 
-// 2. Lok Dayro & Hasya Darbar (Second Last Section)
-const LOK_DAYRO_VIDEOS: VideoItem[] = [
+  // 2. Hasya Dayro & Jokes
   {
     id: "mayabhai-badhdati",
     artist: "માયાભાઈ આહીર",
@@ -180,6 +178,8 @@ const LOK_DAYRO_VIDEOS: VideoItem[] = [
     youtubeId: "6LWx0N_MCZU",
     thumbnail: "https://img.youtube.com/vi/6LWx0N_MCZU/hqdefault.jpg",
   },
+
+  // 3. Maha Jugalbandhi
   {
     id: "kirtidan-rajbha-jugalbandhi",
     artist: "કીર્તિદાન ગઢવી & રાજભા ગઢવી",
@@ -189,6 +189,8 @@ const LOK_DAYRO_VIDEOS: VideoItem[] = [
     youtubeId: "i8POjs66f9g",
     thumbnail: "https://img.youtube.com/vi/i8POjs66f9g/hqdefault.jpg",
   },
+
+  // 4. Veer Ras & Lok Sahitya
   {
     id: "rajbha-kashtriya",
     artist: "રાજભા ગઢવી",
@@ -281,26 +283,24 @@ const GUJJU_RULES = [
 
 export default function GujjuversePage() {
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
-  const [selectedDayroCat, setSelectedDayroCat] = useState<string>("all");
-
-  const sangeetScrollRef = useRef<HTMLDivElement>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const dayroScrollRef = useRef<HTMLDivElement>(null);
 
-  const filteredDayroVideos =
-    selectedDayroCat === "all"
-      ? LOK_DAYRO_VIDEOS
-      : LOK_DAYRO_VIDEOS.filter((v) => v.category === selectedDayroCat);
+  const filteredVideos =
+    selectedCategory === "all"
+      ? ALL_DAYRO_VIDEOS
+      : ALL_DAYRO_VIDEOS.filter((v) => v.category === selectedCategory);
 
   const handlePlayVideo = (video: VideoItem) => {
     playTapSound("pop");
     setActiveVideo(video);
   };
 
-  const handleScroll = (ref: React.RefObject<HTMLDivElement | null>, direction: "left" | "right") => {
+  const handleScroll = (direction: "left" | "right") => {
     playTapSound("hover");
-    if (ref.current) {
+    if (dayroScrollRef.current) {
       const scrollAmount = direction === "left" ? -340 : 340;
-      ref.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      dayroScrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
@@ -405,98 +405,13 @@ export default function GujjuversePage() {
             </h1>
 
             <p className="text-sm sm:text-base text-zinc-400 font-medium leading-relaxed">
-              કોડિંગ સાથે અસલ ગુજરાતી લોક સંગીત, હાસ્ય ડાયરો અને ચાની કિટલી વાળી મોજ.
+              કોડિંગ સાથે અસલ ગુજરાતી હાસ્ય ડાયરો, લોક સંગીત અને ચાની કિટલી વાળી મોજ.
             </p>
           </div>
         </BlurFade>
 
-        {/* SECTION 1 (FIRST): લોક સંગીત 🎶 */}
-        <BlurFade delay={0.1} inView>
-          <div className="space-y-6">
-            <div className="flex items-center justify-between gap-4 border-b border-zinc-900 pb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
-                  <IconMusic className="w-6 h-6" />
-                </div>
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-100">
-                    ગુજરાતી લોક સંગીત & સુરીલા ગીતો 🎶
-                  </h2>
-                  <p className="text-xs sm:text-sm text-zinc-400">
-                    કીર્તિદાન ગઢવી અને દિગ્ગજ કલાકારોના કર્ણપ્રિય દેશી ગીતો, રાસ અને ભક્તિ સંગીત
-                  </p>
-                </div>
-              </div>
-
-              {/* Scroll Arrows */}
-              <div className="flex items-center gap-1.5 shrink-0">
-                <button
-                  onClick={() => handleScroll(sangeetScrollRef, "left")}
-                  aria-label="Scroll Left"
-                  className="p-2 sm:p-2.5 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
-                >
-                  <IconChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => handleScroll(sangeetScrollRef, "right")}
-                  aria-label="Scroll Right"
-                  className="p-2 sm:p-2.5 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
-                >
-                  <IconChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Sangeet Horizontal Carousel */}
-            <div
-              ref={sangeetScrollRef}
-              className="flex overflow-x-auto gap-4 sm:gap-6 pb-4 pt-2 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-zinc-900/60 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-amber-500/40 hover:[&::-webkit-scrollbar-thumb]:bg-amber-500 [&::-webkit-scrollbar-thumb]:rounded-full"
-              style={{
-                scrollbarWidth: "thin",
-                scrollbarColor: "rgba(245, 158, 11, 0.4) rgba(24, 24, 27, 0.6)",
-              }}
-            >
-              {LOK_SANGEET_VIDEOS.map((video) => (
-                <motion.div
-                  key={video.id}
-                  whileHover={{ y: -4 }}
-                  onClick={() => handlePlayVideo(video)}
-                  className="w-[280px] sm:w-[320px] shrink-0 snap-start rounded-2xl bg-zinc-950/80 border border-zinc-800/80 hover:border-amber-500/60 overflow-hidden cursor-pointer flex flex-col gap-3 transition-all shadow-xl group p-2.5"
-                >
-                  <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-zinc-900">
-                    <Image
-                      src={video.thumbnail}
-                      alt={video.title}
-                      fill
-                      sizes="320px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/85 backdrop-blur-sm text-[10px] font-mono text-zinc-300 font-medium flex items-center gap-1">
-                      <IconBrandYoutube className="w-3.5 h-3.5 text-red-500" />
-                      <span>HD</span>
-                    </div>
-                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-amber-500/90 text-black text-[10px] font-bold">
-                      {video.categoryLabel}
-                    </div>
-                  </div>
-
-                  <div className="px-1 space-y-1.5">
-                    <h3 className="text-sm font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-snug line-clamp-2">
-                      {video.title}
-                    </h3>
-                    <div className="flex items-center gap-1.5 text-xs text-zinc-400">
-                      <span className="truncate">{video.artist}</span>
-                      <IconCircleCheckFilled className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </BlurFade>
-
-        {/* SECTION 2: મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે! ☕ */}
-        <BlurFade delay={0.14} inView>
+        {/* SECTION 1 (FIRST SECTION): ચા ની કિટલી પર મીટિંગ & કૉલેબોરેશન ☕ */}
+        <BlurFade delay={0.12} inView>
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border-b border-zinc-900 pb-6">
               {/* Chai Kitli Illustration Logo */}
@@ -610,8 +525,8 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 3: ગુજ્જુ ટેક શબ્દકોશ (The Gujju Tech Dictionary) */}
-        <BlurFade delay={0.18} inView>
+        {/* SECTION 2: ગુજ્જુ ટેક શબ્દકોશ (The Gujju Tech Dictionary) */}
+        <BlurFade delay={0.16} inView>
           <div className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
               <IconBook className="w-6 h-6 text-cyan-400 shrink-0" />
@@ -649,8 +564,8 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 4: અમદાવાદી ડેવલપરના નિયમો (The Gujju Dev Rules) */}
-        <BlurFade delay={0.22} inView>
+        {/* SECTION 3: અમદાવાદી ડેવલપરના નિયમો (The Gujju Dev Rules) */}
+        <BlurFade delay={0.2} inView>
           <div className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-900 pb-4">
               <IconQuote className="w-6 h-6 text-amber-400 shrink-0" />
@@ -695,8 +610,8 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 5 (SECOND LAST): લોકડાયરો & હાસ્ય દરબાર 🎭 */}
-        <BlurFade delay={0.26} inView>
+        {/* SECTION 4 (SECOND LAST): લોકડાયરો & હાસ્ય દરબાર 🎭 (Now includes Lok Sangeet, Dayro, Veer Ras, Jugalbandhi) */}
+        <BlurFade delay={0.24} inView>
           <div className="space-y-6">
             {/* Header Row 1: Title + Scroll Buttons */}
             <div className="flex items-center justify-between gap-4 border-b border-zinc-900 pb-4">
@@ -709,7 +624,7 @@ export default function GujjuversePage() {
                     લોકડાયરો & હાસ્ય દરબાર 🎭
                   </h2>
                   <p className="text-xs text-zinc-400">
-                    માયાભાઈ આહીર, સાંઈરામ દવે, ધીરૂભાઈ સરવૈયા અને રાજભા ગઢવીનો અસલ હાસ્ય ડાયરો & વીર રસ
+                    કીર્તિદાન ગઢવી, માયાભાઈ આહીર, સાંઈરામ દવે, ધીરૂભાઈ સરવૈયા, ઓસ્માન મીર અને રાજભા ગઢવીનો અસલ ડાયરો & લોકસંગીત
                   </p>
                 </div>
               </div>
@@ -717,14 +632,14 @@ export default function GujjuversePage() {
               {/* Scroll Arrows */}
               <div className="flex items-center gap-1.5 shrink-0">
                 <button
-                  onClick={() => handleScroll(dayroScrollRef, "left")}
+                  onClick={() => handleScroll("left")}
                   aria-label="Scroll Left"
                   className="p-2 sm:p-2.5 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
                 >
                   <IconChevronLeft className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => handleScroll(dayroScrollRef, "right")}
+                  onClick={() => handleScroll("right")}
                   aria-label="Scroll Right"
                   className="p-2 sm:p-2.5 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-500 text-zinc-300 hover:text-white transition-colors cursor-pointer"
                 >
@@ -733,22 +648,23 @@ export default function GujjuversePage() {
               </div>
             </div>
 
-            {/* Filter Tabs for Dayro */}
+            {/* Filter Tabs for Dayro & Lok Sangeet */}
             <div className="flex flex-wrap gap-2 pt-1">
               {[
                 { id: "all", label: "બધા વિડીયો ✨" },
+                { id: "music", label: "લોક સંગીત & ગીતો 🎶" },
                 { id: "hasya", label: "હાસ્ય ડાયરો & જોક્સ 😂" },
-                { id: "veer-ras", label: "વીર રસ & સાહિત્ય ⚔️" },
                 { id: "jugalbandhi", label: "મહા જુગલબંધી 🔥" },
+                { id: "veer-ras", label: "વીર રસ & સાહિત્ય ⚔️" },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => {
                     playTapSound("hover");
-                    setSelectedDayroCat(tab.id);
+                    setSelectedCategory(tab.id);
                   }}
                   className={`px-4 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
-                    selectedDayroCat === tab.id
+                    selectedCategory === tab.id
                       ? "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]"
                       : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
                   }`}
@@ -758,7 +674,7 @@ export default function GujjuversePage() {
               ))}
             </div>
 
-            {/* Dayro Horizontal Carousel */}
+            {/* Video Horizontal Carousel */}
             <div
               ref={dayroScrollRef}
               className="flex overflow-x-auto gap-4 sm:gap-6 pb-4 pt-2 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-zinc-900/60 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-amber-500/40 hover:[&::-webkit-scrollbar-thumb]:bg-amber-500 [&::-webkit-scrollbar-thumb]:rounded-full"
@@ -767,12 +683,12 @@ export default function GujjuversePage() {
                 scrollbarColor: "rgba(245, 158, 11, 0.4) rgba(24, 24, 27, 0.6)",
               }}
             >
-              {filteredDayroVideos.map((video) => (
+              {filteredVideos.map((video) => (
                 <motion.div
                   key={video.id}
                   whileHover={{ y: -4 }}
                   onClick={() => handlePlayVideo(video)}
-                  className="w-[280px] sm:w-[320px] shrink-0 snap-start rounded-2xl bg-zinc-950/80 border border-zinc-800/80 hover:border-red-500/50 overflow-hidden cursor-pointer flex flex-col gap-3 transition-all shadow-xl group p-2.5"
+                  className="w-[280px] sm:w-[320px] shrink-0 snap-start rounded-2xl bg-zinc-950/80 border border-zinc-800/80 hover:border-amber-500/50 overflow-hidden cursor-pointer flex flex-col gap-3 transition-all shadow-xl group p-2.5"
                 >
                   <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-zinc-900">
                     <Image
@@ -786,7 +702,7 @@ export default function GujjuversePage() {
                       <IconBrandYoutube className="w-3.5 h-3.5 text-red-500" />
                       <span>HD</span>
                     </div>
-                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-red-500/90 text-white text-[10px] font-bold">
+                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-amber-500/90 text-black text-[10px] font-bold">
                       {video.categoryLabel}
                     </div>
                   </div>
@@ -806,8 +722,8 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 6 (LAST): Bottom Outro CTA */}
-        <BlurFade delay={0.3} inView>
+        {/* SECTION 5 (LAST): Bottom Outro CTA */}
+        <BlurFade delay={0.28} inView>
           <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-b from-zinc-950 to-black border border-amber-500/20 text-center space-y-4">
             <h3 className="text-xl sm:text-2xl font-extrabold text-zinc-100 font-sans">
               જલસા કરો બાપ, મોજમાં રહેવું! 🔥
