@@ -425,22 +425,17 @@ export default function GujjuversePage() {
                   <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
 
                   {/* Header */}
-                  <div className="flex items-center justify-between gap-2 border-b border-zinc-900 pb-2.5">
-                    <div className="flex items-center gap-2">
-                      <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
-                        <IconCoffee className="h-4 w-4" />
-                      </div>
-                      <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
-                        {spot.gujjuName}
-                      </h3>
+                  <div className="flex items-center gap-2 border-b border-zinc-900 pb-2.5">
+                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
+                      <IconCoffee className="h-4 w-4" />
                     </div>
-                    <span className="px-2.5 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] font-mono font-medium">
-                      {spot.zone}
-                    </span>
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
+                      {spot.gujjuName}
+                    </h3>
                   </div>
 
-                  {/* Image & Body */}
-                  <div className="space-y-2">
+                  {/* Image with Address */}
+                  <div>
                     <div className="relative aspect-video w-full rounded-lg overflow-hidden bg-zinc-900 border border-zinc-800/80">
                       <Image
                         src={spot.image}
@@ -455,10 +450,6 @@ export default function GujjuversePage() {
                         <span className="truncate">{spot.location}</span>
                       </span>
                     </div>
-
-                    <p className="text-[11px] text-zinc-400 leading-relaxed line-clamp-2">
-                      {spot.desc}
-                    </p>
                   </div>
 
                   {/* Footer Actions */}
