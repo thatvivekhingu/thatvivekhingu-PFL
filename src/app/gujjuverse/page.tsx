@@ -13,7 +13,6 @@ import {
   IconChevronLeft,
   IconChevronRight,
   IconCircleCheckFilled,
-  IconCoffee,
   IconMapPin,
   IconExternalLink,
   IconMusic,
@@ -499,11 +498,23 @@ export default function GujjuversePage() {
         {/* SECTION 2: મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે! ☕ */}
         <BlurFade delay={0.14} inView>
           <div className="space-y-6">
-            <div className="flex items-start sm:items-center gap-3.5 border-b border-zinc-900 pb-5">
-              <div className="p-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0 mt-1 sm:mt-0">
-                <IconCoffee className="w-7 h-7" />
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border-b border-zinc-900 pb-6">
+              {/* Chai Kitli Illustration Logo */}
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden bg-white/95 p-1.5 shadow-[0_0_25px_rgba(245,158,11,0.25)] border border-amber-500/30 flex items-center justify-center">
+                <Image
+                  src="/chai-kitli-logo.png"
+                  alt="ચાની કિટલી આઈડિયાઝ લોગો"
+                  width={120}
+                  height={120}
+                  className="w-full h-full object-contain"
+                  priority
+                />
               </div>
-              <div className="space-y-1">
+
+              <div className="space-y-1.5 min-w-0">
+                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[11px] font-mono font-bold">
+                  <span>☕ ચાની કિટલી x ટેક કૉલેબોરેશન</span>
+                </div>
                 <h2 className="text-lg sm:text-2xl md:text-3xl font-black text-zinc-100 leading-snug sm:leading-tight tracking-tight">
                   મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે! ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ. ☕
                 </h2>
