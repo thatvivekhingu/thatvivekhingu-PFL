@@ -571,63 +571,64 @@ export default function GujjuversePage() {
 
       <div className="max-w-6xl mx-auto px-3.5 sm:px-6 space-y-6 sm:space-y-10">
         {/* ========================================================
-            1. HERO HEADER (Topmost position - 100% Mobile Friendly)
+            1. FIGMA 2-COLUMN SPLIT HERO SECTION
             ======================================================== */}
         <BlurFade delay={0.02} inView>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 border-b border-zinc-800/80 pb-4 sm:pb-6">
-            <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-              <div className="relative w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 shrink-0 flex items-center justify-center">
-                <Image
-                  src="/chai-kitli-logo.png"
-                  alt="ચાની કિટલી લોગો"
-                  fill
-                  sizes="(max-width: 640px) 56px, 96px"
-                  className="object-contain drop-shadow-[0_4px_16px_rgba(245,158,11,0.25)]"
-                  priority
-                />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center border-b border-zinc-800/80 pb-8 sm:pb-12">
+            {/* Left Content Column */}
+            <div className="lg:col-span-6 xl:col-span-6 space-y-4 sm:space-y-6 text-left">
+              {/* Top Pill Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-mono font-bold tracking-wider uppercase">
+                <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+                <span>GUJARAT&apos;S NEXT-GEN DEV PORTFOLIO</span>
               </div>
 
-              <div className="space-y-0.5 sm:space-y-1 min-w-0">
-                <h1 className="text-base sm:text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-100 leading-snug">
-                  મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે!
-                </h1>
-                <p className="text-[11px] sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">
-                  ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ. અમદાવાદના ડેવલપર્સ, કોડિંગ, લોકડાયરો અને દેશી મોજ.
-                </p>
+              {/* Bold Gujarati Headline (Warm Golden Orange) */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] font-black tracking-tight text-[#f59e0b] drop-shadow-[0_4px_24px_rgba(245,158,11,0.25)] leading-[1.18]">
+                મોટાભાગના તગડા<br />
+                આઈડિયા ચાની કિટલી પર<br />
+                જ બને છે!
+              </h1>
+
+              {/* Natural Gujarati Subtitle */}
+              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl font-normal">
+                ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ. અમદાવાદના ડેવલપર્સ, કોડિંગ, લોકડાયરો અને દેશી મોજ.
+              </p>
+
+              {/* Back to Hero Button */}
+              <div className="pt-2">
+                <Link
+                  href="/#hero"
+                  onClick={() => playTapSound("pop")}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-300 hover:text-white transition-all uppercase tracking-wider group cursor-pointer shadow-md"
+                >
+                  <IconArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                  <span>BACK TO HERO</span>
+                </Link>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
-              <Link
-                href="/#hero"
-                onClick={() => playTapSound("pop")}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-300 hover:text-white transition-all group"
-              >
-                <IconArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-1" />
-                <span>Back to Hero</span>
-              </Link>
-            </div>
-          </div>
-        </BlurFade>
+            {/* Right Visual Card Column: Framed Cyber Tapri Looping Video Card */}
+            <div className="lg:col-span-6 xl:col-span-6 relative">
+              {/* Ambient Warm Orange Glow behind card */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/20 to-orange-500/10 rounded-[32px] blur-2xl pointer-events-none -z-10" />
 
-        {/* ========================================================
-            2. CINEMATIC VIDEO BANNER (LinkedIn Size - Loop & Muted)
-            ======================================================== */}
-        <BlurFade delay={0.05} inView>
-          <div className="relative w-full aspect-[16/6] sm:aspect-[3.8/1] min-h-[110px] sm:min-h-[170px] md:min-h-[220px] rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-800/80 shadow-2xl bg-zinc-950 group">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              className="w-full h-full object-cover"
-            >
-              <source src="/gujjuverse-banner.mp4" type="video/mp4" />
-            </video>
-            {/* Subtle Gradient & Glass Border */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-black/20 pointer-events-none" />
-            <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl sm:rounded-2xl md:rounded-3xl pointer-events-none" />
+              <div className="relative w-full aspect-[4/3] sm:aspect-[1.25/1] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/90 shadow-2xl bg-zinc-950 group">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  className="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
+                >
+                  <source src="/gujjuverse-banner.mp4" type="video/mp4" />
+                </video>
+                {/* Subtle Inner Highlight & Gradient */}
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl sm:rounded-3xl pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+              </div>
+            </div>
           </div>
         </BlurFade>
 
