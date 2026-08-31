@@ -18,6 +18,8 @@ import {
   IconBrandWhatsapp,
   IconPlayerPlayFilled,
   IconBrandGithub,
+  IconBrandLinkedin,
+  IconBrandInstagram,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -974,24 +976,37 @@ export default function GujjuversePage() {
                     <span>WhatsApp Chat</span>
                   </a>
 
-                  <Link
-                    href="/#hero"
+                  <a
+                    href="https://linkedin.com/in/vivekhingu"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => playTapSound("pop")}
-                    className="hover:text-white transition-colors flex items-center gap-1.5"
+                    className="hover:text-blue-400 transition-colors flex items-center gap-1.5"
                   >
-                    <IconArrowLeft className="w-4 h-4" />
-                    <span>Main Portfolio</span>
-                  </Link>
+                    <IconBrandLinkedin className="w-4 h-4 text-blue-400" />
+                    <span>LinkedIn Profile</span>
+                  </a>
 
                   <a
-                    href="https://github.com/thatvivekhingu/thatvivekhingu-PFL"
+                    href="https://instagram.com/realvivek.py"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTapSound("pop")}
+                    className="hover:text-pink-400 transition-colors flex items-center gap-1.5"
+                  >
+                    <IconBrandInstagram className="w-4 h-4 text-pink-400" />
+                    <span>Instagram (@realvivek.py)</span>
+                  </a>
+
+                  <a
+                    href="https://github.com/thatvivekhingu"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => playTapSound("pop")}
                     className="hover:text-white transition-colors flex items-center gap-1.5"
                   >
                     <IconBrandGithub className="w-4 h-4" />
-                    <span>GitHub Repository</span>
+                    <span>GitHub (@thatvivekhingu)</span>
                   </a>
                 </div>
               </div>

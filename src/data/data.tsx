@@ -1,4 +1,4 @@
-import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconMail, IconAward, IconFileText, IconSparkles } from "@tabler/icons-react"
+import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconBrandInstagram, IconMail, IconAward, IconFileText, IconSparkles } from "@tabler/icons-react"
 
 export interface ProjectItem {
   title: string;
@@ -264,6 +264,12 @@ export const data = {
       label: "GitHub",
       icon: <IconBrandGithub className="h-5 w-5" />,
       aria: "GitHub",
+    },
+    {
+      href: "https://instagram.com/realvivek.py",
+      label: "Instagram",
+      icon: <IconBrandInstagram className="h-5 w-5" />,
+      aria: "Instagram",
     },
   ],
 

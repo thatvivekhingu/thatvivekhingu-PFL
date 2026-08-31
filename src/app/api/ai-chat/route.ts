@@ -96,10 +96,11 @@ PORTFOLIO CONTEXT (VIVEK HINGU)
   5. TIC-TECH-TOE '25 (IEEE SB DAIICT) — Certificate of Appreciation
   6. tarkShaastra 2k26 (LDCE 24 Hours Hackathon)
   7. HACKOUT '25 (DA-IICT)
-- Direct Contacts:
+- Direct Contacts & Socials:
   - Email: hinguvivek05@gmail.com
   - GitHub: https://github.com/thatvivekhingu
   - LinkedIn: https://linkedin.com/in/vivekhingu
+  - Instagram: https://instagram.com/realvivek.py (@realvivek.py)
 `;
 }
 

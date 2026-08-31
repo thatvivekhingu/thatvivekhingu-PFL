@@ -32,8 +32,8 @@ const KNOWLEDGE_BASE = [
   },
   {
     id: "kb-contact",
-    keywords: ["contact", "email", "hire", "reach", "github", "linkedin", "social", "connect"],
-    content: "Vivek Hingu Direct Contact Details:\n- **Email**: hinguvivek56@gmail.com\n- **GitHub**: https://github.com/thatvivekhingu\n- **LinkedIn**: https://linkedin.com/in/vivek-hingu",
+    keywords: ["contact", "email", "hire", "reach", "github", "linkedin", "instagram", "social", "connect"],
+    content: "Vivek Hingu Direct Contact & Social Media Profiles:\n- **Email**: hinguvivek05@gmail.com\n- **GitHub**: https://github.com/thatvivekhingu (@thatvivekhingu)\n- **LinkedIn**: https://linkedin.com/in/vivekhingu (Vivek Hingu)\n- **Instagram**: https://instagram.com/realvivek.py (@realvivek.py - Pythonic Engineer)",
   },
 ];
 

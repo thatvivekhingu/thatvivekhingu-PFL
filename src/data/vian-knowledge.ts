@@ -19,6 +19,7 @@ export const PORTFOLIO_KNOWLEDGE: PortfolioChunk[] = [
     links: [
       { label: "GitHub", url: "https://github.com/thatvivekhingu" },
       { label: "LinkedIn", url: "https://linkedin.com/in/vivekhingu" },
+      { label: "Instagram", url: "https://instagram.com/realvivek.py" },
     ],
   },
   {
@@ -78,12 +79,13 @@ export const PORTFOLIO_KNOWLEDGE: PortfolioChunk[] = [
     id: "contact",
     category: "contact",
     title: "Verified Contact Information",
-    keywords: ["contact", "email", "hire", "reach", "github", "linkedin", "connect", "mail", "message"],
-    content: `Verified Contact Information for Vivek Hingu:\n- **Email**: [hinguvivek05@gmail.com](mailto:hinguvivek05@gmail.com)\n- **GitHub**: [github.com/thatvivekhingu](https://github.com/thatvivekhingu)\n- **LinkedIn**: [linkedin.com/in/vivekhingu](https://linkedin.com/in/vivekhingu)\n- **Location**: Ahmedabad, Gujarat, India`,
+    keywords: ["contact", "email", "hire", "reach", "github", "linkedin", "instagram", "connect", "mail", "message"],
+    content: `Verified Contact & Social Media Profiles for Vivek Hingu:\n- **Email**: [hinguvivek05@gmail.com](mailto:hinguvivek05@gmail.com)\n- **GitHub**: [github.com/thatvivekhingu](https://github.com/thatvivekhingu)\n- **LinkedIn**: [linkedin.com/in/vivekhingu](https://linkedin.com/in/vivekhingu)\n- **Instagram**: [@realvivek.py](https://instagram.com/realvivek.py) (Pythonic Engineer / ML Tutorials & AI Content)\n- **Location**: Ahmedabad, Gujarat, India`,
     links: [
       { label: "Email Vivek", url: "mailto:hinguvivek05@gmail.com" },
       { label: "GitHub Profile", url: "https://github.com/thatvivekhingu" },
       { label: "LinkedIn Profile", url: "https://linkedin.com/in/vivekhingu" },
+      { label: "Instagram (@realvivek.py)", url: "https://instagram.com/realvivek.py" },
     ],
   },
 ];
