@@ -297,63 +297,69 @@ export default function GujjuversePage() {
       {/* Precision Subtle Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[350px] bg-[radial-gradient(ellipse_60%_30%_at_50%_0%,rgba(255,255,255,0.04),rgba(0,0,0,0))] pointer-events-none -z-10" />
 
-      {/* Video Modal Player */}
+      {/* Video Modal Player - Pure Edge-to-Edge YouTube Cinema Mode */}
       <AnimatePresence>
         {activeVideo && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8"
+            onClick={() => setActiveVideo(null)}
+            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6"
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
+              initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-4xl bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl space-y-4 p-4 sm:p-6"
+              exit={{ scale: 0.96, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
             >
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
-                <div className="space-y-0.5">
-                  <span className="text-xs font-mono text-zinc-400 font-semibold uppercase">
-                    {activeVideo.artist}
-                  </span>
-                  <h3 className="text-base sm:text-lg font-bold text-zinc-100 truncate max-w-md">
-                    {activeVideo.title}
-                  </h3>
-                </div>
+              {/* Floating Sleek Close Button */}
+              <button
+                onClick={() => {
+                  playTapSound("hover");
+                  setActiveVideo(null);
+                }}
+                className="absolute top-3 right-3 z-30 p-2 rounded-full bg-black/80 hover:bg-zinc-800 border border-white/15 text-white transition-all cursor-pointer shadow-lg backdrop-blur-md"
+                aria-label="Close video"
+              >
+                <IconX className="w-4 h-4" />
+              </button>
 
-                <button
-                  onClick={() => {
-                    playTapSound("hover");
-                    setActiveVideo(null);
-                  }}
-                  className="p-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  <IconX className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* YouTube Embed */}
-              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-zinc-800">
+              {/* Edge-to-Edge YouTube Player */}
+              <div className="relative w-full aspect-video bg-black">
                 <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1`}
+                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0`}
                   title={activeVideo.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   className="absolute inset-0 w-full h-full border-0"
                 />
               </div>
 
-              <div className="flex items-center justify-end pt-1">
+              {/* Sleek YouTube Style Bottom Info Strip */}
+              <div className="px-4 py-3 bg-zinc-950/95 border-t border-white/[0.08] flex items-center justify-between gap-3">
+                <div className="min-w-0 space-y-0.5">
+                  <h3 className="text-sm sm:text-base font-bold text-zinc-100 truncate">
+                    {activeVideo.title}
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-xs text-zinc-400">
+                    <span className="font-medium text-zinc-300">{activeVideo.artist}</span>
+                    <IconCircleCheckFilled className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                    <span className="text-zinc-600">•</span>
+                    <span className="text-zinc-500 font-mono text-[11px]">{activeVideo.categoryLabel}</span>
+                  </div>
+                </div>
+
                 <a
                   href={`https://www.youtube.com/watch?v=${activeVideo.youtubeId}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => playTapSound("pop")}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/20 hover:bg-red-600/30 border border-red-500/40 text-red-400 text-xs font-mono font-bold shrink-0 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-red-600/20 hover:bg-red-600/30 border border-red-500/40 text-red-400 text-xs font-mono font-bold shrink-0 transition-colors"
                 >
                   <IconBrandYoutube className="w-4 h-4 text-red-500" />
-                  <span>YouTube પર જુઓ</span>
+                  <span className="hidden sm:inline">YouTube</span>
                 </a>
               </div>
             </motion.div>
