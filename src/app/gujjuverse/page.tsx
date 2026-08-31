@@ -39,7 +39,7 @@ const CHAI_SPOTS = [
     desc: "કડક મસાલા ચા, મસ્કા બન અને નેક્સ્ટ-લેવલ ટેક આઈડિયાઝ પર ચર્ચા.",
     mapsUrl: "https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A",
     tag: "East Ahmedabad Hub",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80",
+    image: "/teapost/nikol.jpg",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Nikol પર મળીએ ને આઈડિયા ડિસ્કસ કરીએ ☕",
   },
   {
@@ -48,9 +48,9 @@ const CHAI_SPOTS = [
     gujjuName: "ટી પોસ્ટ — સાયન્સ સીટી",
     location: "Science City Road, Sola",
     desc: "AI, ડીપ લર્નિંગ, પ્રોડક્ટ બિલ્ડિંગ અને સ્ટાર્ટઅપ પ્લાનિંગ મીટઅપ.",
-    mapsUrl: "https://maps.google.com/?q=Tea+Post+Science+City+Ahmedabad",
+    mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
     tag: "Tech & Startup Zone",
-    image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+    image: "/teapost/science-city.png",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Science City પર મળીએ ને AI / Tech ડિસ્કસ કરીએ ☕",
   },
   {
@@ -59,9 +59,9 @@ const CHAI_SPOTS = [
     gujjuName: "ટી પોસ્ટ — મણિનગર",
     location: "Maninagar, Near Kankaria Lake",
     desc: "કાંકરિયાની શાંત વાઇબ્સ, ગરમ ચા અને બિઝનેસ કૉલેબોરેશન.",
-    mapsUrl: "https://maps.google.com/?q=Tea+Post+Maninagar+Ahmedabad",
+    mapsUrl: "https://maps.app.goo.gl/XQgNsuKokUm7CuBq8",
     tag: "South Ahmedabad Hub",
-    image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&q=80",
+    image: "/teapost/maninagar.png",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Maninagar પર મળીએ ને કૉલેબોરેશન કરીએ ☕",
   },
 ];
