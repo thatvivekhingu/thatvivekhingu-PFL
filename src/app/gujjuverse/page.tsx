@@ -368,13 +368,13 @@ export default function GujjuversePage() {
         <BlurFade delay={0.05} inView>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
             <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
-              <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 flex items-center justify-center">
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 shrink-0 flex items-center justify-center">
                 <Image
                   src="/chai-kitli-logo.png"
                   alt="ચાની કિટલી લોગો"
                   fill
-                  sizes="64px"
-                  className="object-contain drop-shadow-md"
+                  sizes="(max-width: 640px) 80px, 112px"
+                  className="object-contain drop-shadow-[0_4px_16px_rgba(245,158,11,0.25)] hover:scale-105 transition-transform"
                   priority
                 />
               </div>
