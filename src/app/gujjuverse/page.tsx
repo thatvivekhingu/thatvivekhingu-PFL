@@ -377,7 +377,7 @@ function InteractiveStampCard({ spot }: { spot: (typeof CHAI_SPOTS)[0] }) {
           <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#16171a] shadow-inner" />
         </div>
 
-        {/* Center Photo Container with Interactive Mouse/Touch Unblur Lens */}
+        {/* Center Photo Container with 100% Crystal Clear Image */}
         <div
           ref={photoRef}
           onMouseMove={handleMouseMove}
@@ -385,34 +385,21 @@ function InteractiveStampCard({ spot }: { spot: (typeof CHAI_SPOTS)[0] }) {
           onTouchStart={handleTouchMove}
           onMouseLeave={handleLeave}
           onTouchEnd={handleLeave}
-          className="relative aspect-square sm:aspect-[4/3.8] w-full rounded-xl overflow-hidden bg-black border border-black/50 shadow-inner z-10 flex-1 cursor-crosshair select-none"
+          className="relative aspect-square sm:aspect-[4/3.8] w-full rounded-xl overflow-hidden bg-black border border-black/50 shadow-inner z-10 flex-1 select-none group/photo"
         >
-          {/* Base Sharp Image */}
+          {/* Base 100% Crisp High-Resolution Image */}
           <Image
             src={spot.image}
             alt={spot.name}
             fill
             sizes="(max-width: 640px) 120px, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover group-hover/photo:scale-105 transition-transform duration-500"
           />
 
-          {/* Halftone / Pixelated Dither & Blur Overlay that unmasks where mouse / touch moves */}
-          <div
-            className="absolute inset-0 bg-[radial-gradient(#000_1.5px,transparent_1.5px)] [background-size:4px_4px] backdrop-blur-[2px] opacity-85 transition-opacity duration-200 pointer-events-none group-hover:opacity-60"
-            style={{
-              maskImage: lensState.active
-                ? `radial-gradient(circle 55px at ${lensState.x}px ${lensState.y}px, transparent 0%, black 80%)`
-                : "none",
-              WebkitMaskImage: lensState.active
-                ? `radial-gradient(circle 55px at ${lensState.x}px ${lensState.y}px, transparent 0%, black 80%)`
-                : "none",
-            }}
-          />
-
-          {/* Interactive Flash Lens Ring around cursor/touch */}
+          {/* Interactive Subtle Glow Lens following Mouse/Touch */}
           {lensState.active && (
             <div
-              className="absolute w-28 h-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.3)] pointer-events-none transition-transform duration-75"
+              className="absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50 shadow-[0_0_24px_rgba(255,255,255,0.4)] pointer-events-none transition-transform duration-75"
               style={{
                 left: `${lensState.x}px`,
                 top: `${lensState.y}px`,
@@ -420,7 +407,7 @@ function InteractiveStampCard({ spot }: { spot: (typeof CHAI_SPOTS)[0] }) {
             />
           )}
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
           <span className="hidden sm:flex absolute bottom-1.5 left-1.5 right-1.5 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[9px] font-mono font-medium items-center gap-1 border border-zinc-800/60">
             <IconMapPin className="w-2.5 h-2.5 text-red-400 shrink-0" />
             <span className="truncate">{spot.location}</span>
@@ -986,10 +973,11 @@ export default function GujjuversePage() {
                     src="/social/github-profile.png"
                     alt="Vivek Hingu GitHub Repositories and 562 Contributions"
                     fill
+                    priority
                     sizes="(max-width: 1024px) 100vw, 66vw"
-                    className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-4 right-4 text-left pointer-events-none">
                     <span className="text-xs sm:text-sm font-extrabold text-white drop-shadow-md">
                       thatvivekhingu — Pinned Projects, AI Systems &amp; 562+ Year Contributions 🚀
@@ -1028,15 +1016,15 @@ export default function GujjuversePage() {
                     </span>
                   </div>
 
-                  <div className="relative w-full aspect-[16/9] bg-black overflow-hidden">
+                  <div className="relative w-full aspect-[16/9] sm:h-[180px] bg-black overflow-hidden">
                     <Image
                       src="/social/linkedin-post.png"
                       alt="Build with Antigravity Final Edition GDG Gandhinagar"
                       fill
                       sizes="(max-width: 1024px) 100vw, 33vw"
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent pointer-events-none" />
                   </div>
                 </a>
 
@@ -1065,15 +1053,15 @@ export default function GujjuversePage() {
                     </span>
                   </div>
 
-                  <div className="relative w-full aspect-[16/9] bg-zinc-900 overflow-hidden">
+                  <div className="relative w-full aspect-[16/10] sm:h-[190px] bg-zinc-950 overflow-hidden">
                     <Image
                       src="/social/instagram-profile.png"
                       alt="realvivek.py Machine Learning Series on Instagram"
                       fill
                       sizes="(max-width: 1024px) 100vw, 33vw"
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent pointer-events-none" />
                   </div>
                 </a>
               </div>
