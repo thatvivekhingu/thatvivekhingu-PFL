@@ -34,10 +34,10 @@ const CHAI_SPOTS = [
     id: "nikol",
     name: "Tea Post — Nikol",
     gujjuName: "ટી પોસ્ટ — નિકોલ",
-    location: "Raspan Arcade / SP Ring Road, Nikol",
-    desc: "કડક મસાલા ચા, મસ્કા બન અને નેક્સ્ટ-લેવલ ટેક આઈડિયાઝ પર ચર્ચા.",
+    location: "Raspan Arcade / SP Ring Road",
+    desc: "કડક મસાલા ચા, મસ્કા બન અને ટેક ચર્ચા.",
     mapsUrl: "https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A",
-    tag: "East Ahmedabad Hub",
+    tag: "Nikol",
     image: "/teapost/nikol.jpg",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Nikol પર મળીએ ને આઈડિયા ડિસ્કસ કરીએ ☕",
   },
@@ -46,9 +46,9 @@ const CHAI_SPOTS = [
     name: "Tea Post — Science City",
     gujjuName: "ટી પોસ્ટ — સાયન્સ સીટી",
     location: "Science City Road, Sola",
-    desc: "AI, ડીપ લર્નિંગ, પ્રોડક્ટ બિલ્ડિંગ અને સ્ટાર્ટઅપ પ્લાનિંગ મીટઅપ.",
+    desc: "AI, પ્રોડક્ટ બિલ્ડિંગ અને સ્ટાર્ટઅપ મીટઅપ.",
     mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
-    tag: "Tech & Startup Zone",
+    tag: "Science City",
     image: "/teapost/science-city.png",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Science City પર મળીએ ને AI / Tech ડિસ્કસ કરીએ ☕",
   },
@@ -56,18 +56,45 @@ const CHAI_SPOTS = [
     id: "maninagar",
     name: "Tea Post — Maninagar",
     gujjuName: "ટી પોસ્ટ — મણિનગર",
-    location: "Maninagar, Near Kankaria Lake",
-    desc: "કાંકરિયાની શાંત વાઇબ્સ, ગરમ ચા અને બિઝનેસ કૉલેબોરેશન.",
+    location: "Near Kankaria Lake, Maninagar",
+    desc: "કાંકરિયા વાઇબ્સ, ગરમ ચા અને કૉલેબોરેશન.",
     mapsUrl: "https://maps.app.goo.gl/XQgNsuKokUm7CuBq8",
-    tag: "South Ahmedabad Hub",
+    tag: "Maninagar",
     image: "/teapost/maninagar.png",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Maninagar પર મળીએ ને કૉલેબોરેશન કરીએ ☕",
   },
 ];
 
-// All Videos for the unified "લોકડાયરો & હાસ્ય દરબાર" section (including Lok Sangeet, Dayro, Veer Ras, Jugalbandhi)
+// All Videos for the unified "લોકડાયરો & હાસ્ય દરબાર" section
 const ALL_DAYRO_VIDEOS: VideoItem[] = [
-  // 1. Lok Sangeet & Folk Songs
+  // 1. Lok Sangeet & Folk Songs (Updated with user's new links)
+  {
+    id: "gopal-sadhu-lokgeet",
+    artist: "ગોપાલ સાધુ",
+    title: "લોકગીતો ની જોરદાર જમાવટ (જીનમ ડાયરો લાઈવ)",
+    category: "music",
+    categoryLabel: "લોક ગીત",
+    youtubeId: "K_ehyAc0TmU",
+    thumbnail: "https://img.youtube.com/vi/K_ehyAc0TmU/hqdefault.jpg",
+  },
+  {
+    id: "aditya-raj-jugalbandhi",
+    artist: "આદિત્ય ગઢવી & રાજ ગઢવી",
+    title: "ડાયરામાં પહેલીવાર આ જુગલબંધી 🔥 (બોટાદ લાઈવ ડાયરો)",
+    category: "jugalbandhi",
+    categoryLabel: "મહા જુગલબંધી",
+    youtubeId: "ZDW9SoRQi8A",
+    thumbnail: "https://img.youtube.com/vi/ZDW9SoRQi8A/hqdefault.jpg",
+  },
+  {
+    id: "rajdan-gadhvi-vadodara",
+    artist: "રાજદાન ગઢવી",
+    title: "સુપર હિટ લોકડાયરો & સાહિત્ય (વડોદરા લાઈવ ડાયરો)",
+    category: "music",
+    categoryLabel: "લોક સાહિત્ય",
+    youtubeId: "qW1ss5bq90A",
+    thumbnail: "https://img.youtube.com/vi/qW1ss5bq90A/hqdefault.jpg",
+  },
   {
     id: "kirtidan-kanudo",
     artist: "કીર્તિદાન ગઢવી",
@@ -94,33 +121,6 @@ const ALL_DAYRO_VIDEOS: VideoItem[] = [
     categoryLabel: "ભક્તિ સંગીત",
     youtubeId: "w3O3aikm4xM",
     thumbnail: "https://img.youtube.com/vi/w3O3aikm4xM/hqdefault.jpg",
-  },
-  {
-    id: "osman-mir-morbi",
-    artist: "ઓસ્માન મીર",
-    title: "મોરબીની વાણીયાણ & રૂડા ગીતો (દેશી ગઝલ & લોકસંગીત)",
-    category: "music",
-    categoryLabel: "લોક ગીત",
-    youtubeId: "gK6X4GvA9v8",
-    thumbnail: "https://img.youtube.com/vi/gK6X4GvA9v8/hqdefault.jpg",
-  },
-  {
-    id: "hemant-chauhan-bhajan",
-    artist: "હેમંત ચૌહાણ",
-    title: "શિવ તાંડવ સ્તોત્ર & દેશી પ્રભાતિયા",
-    category: "music",
-    categoryLabel: "ભજન & સૂર",
-    youtubeId: "yN33Wk6023I",
-    thumbnail: "https://img.youtube.com/vi/yN33Wk6023I/hqdefault.jpg",
-  },
-  {
-    id: "geeta-rabari-rona",
-    artist: "ગીતા રબારી",
-    title: "રોણા શેરમાં રે (ઓરિજિનલ દેશી સૂર)",
-    category: "music",
-    categoryLabel: "દેશી સૂર",
-    youtubeId: "O9rYqgKq_oE",
-    thumbnail: "https://img.youtube.com/vi/O9rYqgKq_oE/hqdefault.jpg",
   },
 
   // 2. Hasya Dayro & Jokes
@@ -199,15 +199,6 @@ const ALL_DAYRO_VIDEOS: VideoItem[] = [
     categoryLabel: "વીર રસ",
     youtubeId: "LlsYNC4l0GA",
     thumbnail: "https://img.youtube.com/vi/LlsYNC4l0GA/hqdefault.jpg",
-  },
-  {
-    id: "rajdan-vadodara",
-    artist: "રાજદાન ગઢવી",
-    title: "સુપર હિટ લોકડાયરો (વડોદરા લાઈવ ડાયરો)",
-    category: "veer-ras",
-    categoryLabel: "લોક સાહિત્ય",
-    youtubeId: "qW1ss5bq90A",
-    thumbnail: "https://img.youtube.com/vi/qW1ss5bq90A/hqdefault.jpg",
   },
 ];
 
@@ -384,7 +375,7 @@ export default function GujjuversePage() {
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-zinc-400 hover:text-white transition-colors group"
             >
               <IconArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>Back to Portfolio</span>
+              <span>Back to Dashboard</span>
             </Link>
 
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-amber-400">
@@ -413,109 +404,96 @@ export default function GujjuversePage() {
         {/* SECTION 1 (FIRST SECTION): ચા ની કિટલી પર મીટિંગ & કૉલેબોરેશન ☕ */}
         <BlurFade delay={0.12} inView>
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border-b border-zinc-900 pb-6">
-              {/* Chai Kitli Illustration Logo */}
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden bg-white/95 p-1.5 shadow-[0_0_25px_rgba(245,158,11,0.25)] border border-amber-500/30 flex items-center justify-center">
+            {/* Header: Large Prominent Chai Logo + Headline */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 border-b border-zinc-900 pb-6 text-center sm:text-left">
+              {/* Prominent Large Chai Kitli Logo */}
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 shrink-0 rounded-3xl overflow-hidden bg-white/95 p-2 shadow-[0_0_35px_rgba(245,158,11,0.3)] border-2 border-amber-500/40 flex items-center justify-center">
                 <Image
                   src="/chai-kitli-logo.png"
                   alt="ચાની કિટલી આઈડિયાઝ લોગો"
-                  width={120}
-                  height={120}
-                  className="w-full h-full object-contain"
+                  fill
+                  sizes="(max-width: 640px) 120px, 160px"
+                  className="object-contain p-1"
                   priority
                 />
               </div>
 
-              <div className="space-y-1.5 min-w-0">
-                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[11px] font-mono font-bold">
-                  <span>☕ ચાની કિટલી x ટેક કૉલેબોરેશન</span>
-                </div>
-                <h2 className="text-lg sm:text-2xl md:text-3xl font-black text-zinc-100 leading-snug sm:leading-tight tracking-tight">
+              <div className="space-y-2 min-w-0 flex-1 pt-1 sm:pt-2">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-zinc-100 leading-snug sm:leading-tight tracking-tight">
                   મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે! ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ. ☕
                 </h2>
-                <p className="text-xs sm:text-sm text-zinc-400">
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                   અમદાવાદના ફેવરિટ ચા અડ્ડા (Tea Post) જ્યાં ચર્ચા થાય છે ટેક, AI અને નેક્સ્ટ-લેવલ કૉલેબોરેશન પર.
                 </p>
               </div>
             </div>
 
-            {/* Tea Post Location Cards: Horizontal on mobile, Grid on desktop */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Compact Lambchoras (Horizontal Rectangular) Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
               {CHAI_SPOTS.map((spot) => (
                 <div
                   key={spot.id}
-                  className="rounded-3xl bg-zinc-950/90 border border-zinc-800 hover:border-amber-500/60 p-3 sm:p-4 md:p-5 flex flex-row md:flex-col justify-between gap-3.5 sm:gap-4 transition-all group shadow-xl hover:shadow-amber-500/5"
+                  className="rounded-2xl bg-zinc-950/90 border border-zinc-800/90 hover:border-amber-500/60 p-3 flex flex-row items-center gap-3.5 transition-all group shadow-lg hover:shadow-amber-500/5 min-h-[105px]"
                 >
-                  {/* Left (Mobile) / Top (Desktop) Image */}
-                  <div className="relative w-28 sm:w-36 md:w-full h-auto min-h-[120px] md:h-44 rounded-2xl overflow-hidden shrink-0 bg-zinc-900 border border-zinc-800/80">
+                  {/* Compact Rectangular Thumbnail */}
+                  <div className="relative w-24 sm:w-28 h-24 rounded-xl overflow-hidden shrink-0 bg-zinc-900 border border-zinc-800">
                     <Image
                       src={spot.image}
                       alt={spot.name}
                       fill
-                      sizes="(max-width: 768px) 150px, 320px"
+                      sizes="120px"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
-                      <span className="px-2 py-0.5 rounded-md bg-amber-500/90 text-black text-[10px] font-bold font-mono tracking-tight shadow">
-                        Tea Post ☕
-                      </span>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                    <span className="absolute bottom-1 left-1.5 px-1.5 py-0.5 rounded bg-amber-500/90 text-black text-[9px] font-bold font-mono">
+                      Tea Post
+                    </span>
                   </div>
 
-                  {/* Right (Mobile) / Bottom (Desktop) Details & Buttons */}
-                  <div className="flex-1 flex flex-col justify-between space-y-3 min-w-0">
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <span className="px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono font-bold">
-                          {spot.tag}
-                        </span>
-                      </div>
-
-                      <div>
-                        <h3 className="text-sm sm:text-base font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-snug">
-                          {spot.gujjuName}
-                        </h3>
-                        <p className="text-[11px] font-mono text-zinc-500 flex items-center gap-1 mt-0.5">
-                          <IconMapPin className="w-3.5 h-3.5 text-red-400 shrink-0" />
-                          <span className="truncate">{spot.location}</span>
-                        </p>
-                      </div>
-
-                      <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2 md:line-clamp-none">
-                        {spot.desc}
+                  {/* Concise Details & Action Pills */}
+                  <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0 space-y-1.5">
+                    <div>
+                      <h3 className="text-sm font-bold text-zinc-100 group-hover:text-amber-300 transition-colors leading-tight truncate">
+                        {spot.gujjuName}
+                      </h3>
+                      <p className="text-[11px] font-mono text-zinc-400 flex items-center gap-1 mt-0.5">
+                        <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
+                        <span className="truncate">{spot.location}</span>
                       </p>
                     </div>
 
-                    {/* Action Buttons: Google Maps & WhatsApp */}
-                    <div className="pt-2 border-t border-zinc-900 flex flex-wrap items-center gap-2 justify-between">
+                    <p className="text-[11px] text-zinc-400 line-clamp-1 leading-snug">
+                      {spot.desc}
+                    </p>
+
+                    {/* Action Buttons Row */}
+                    <div className="flex items-center gap-2 pt-0.5">
                       <a
                         href={spot.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-amber-500/40 text-zinc-300 hover:text-white text-[11px] font-mono transition-all group/btn shrink-0"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-amber-500/40 text-zinc-300 hover:text-white text-[10px] font-mono transition-all group/btn shrink-0"
                       >
-                        <IconMapPin className="w-3 h-3 text-amber-400" />
+                        <IconMapPin className="w-2.5 h-2.5 text-amber-400" />
                         <span>Maps</span>
-                        <IconExternalLink className="w-3 h-3 text-zinc-500 group-hover/btn:text-amber-400 transition-colors" />
+                        <IconExternalLink className="w-2.5 h-2.5 text-zinc-500 group-hover/btn:text-amber-400 transition-colors" />
                       </a>
 
-                      {/* WhatsApp Connect Link with 8866688575 */}
                       <a
                         href={`https://wa.me/918866688575?text=${encodeURIComponent(spot.whatsappMsg)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 text-[11px] font-mono font-bold transition-all shrink-0 cursor-pointer shadow-sm group/wa"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 text-[10px] font-mono font-bold transition-all shrink-0 cursor-pointer shadow-sm group/wa"
                       >
                         <svg
-                          className="w-3.5 h-3.5 fill-current text-emerald-400 group-hover/wa:scale-110 transition-transform shrink-0"
+                          className="w-3 h-3 fill-current text-emerald-400 group-hover/wa:scale-110 transition-transform shrink-0"
                           viewBox="0 0 24 24"
                         >
                           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                         </svg>
-                        <span>મળવું છે? 💬</span>
+                        <span>મળવું છે?</span>
                       </a>
                     </div>
                   </div>
@@ -610,7 +588,7 @@ export default function GujjuversePage() {
           </div>
         </BlurFade>
 
-        {/* SECTION 4 (SECOND LAST): લોકડાયરો & હાસ્ય દરબાર 🎭 (Now includes Lok Sangeet, Dayro, Veer Ras, Jugalbandhi) */}
+        {/* SECTION 4 (SECOND LAST): લોકડાયરો & હાસ્ય દરબાર 🎭 */}
         <BlurFade delay={0.24} inView>
           <div className="space-y-6">
             {/* Header Row 1: Title + Scroll Buttons */}
@@ -624,7 +602,7 @@ export default function GujjuversePage() {
                     લોકડાયરો & હાસ્ય દરબાર 🎭
                   </h2>
                   <p className="text-xs text-zinc-400">
-                    કીર્તિદાન ગઢવી, માયાભાઈ આહીર, સાંઈરામ દવે, ધીરૂભાઈ સરવૈયા, ઓસ્માન મીર અને રાજભા ગઢવીનો અસલ ડાયરો & લોકસંગીત
+                    ગોપાલ સાધુ, આદિત્ય ગઢવી, કીર્તિદાન ગઢવી, માયાભાઈ આહીર, સાંઈરામ દવે અને રાજભા ગઢવીનો અસલ ડાયરો & લોકસંગીત
                   </p>
                 </div>
               </div>
@@ -729,16 +707,16 @@ export default function GujjuversePage() {
               જલસા કરો બાપ, મોજમાં રહેવું! 🔥
             </h3>
             <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
-              ગુજરાતી લોકસંસ્કૃતિ, લોક સંગીત, હાસ્ય દરબાર અને આર્ટિફિશિયલ ઇન્ટેલિજન્સનું અનોખું સંગમ.
+              ચાની ચૂસકી, દેશી ડાયરો અને ટેકનોલોજીની મોજ — બસ આનંદ કરો ને કંઈક નવું બનાવતા રહો!
             </p>
             <div className="pt-2">
               <Link
-                href="/"
+                href="/#dashboard"
                 onClick={() => playTapSound("pop")}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-lg shadow-amber-500/10"
               >
                 <IconArrowLeft className="w-4 h-4" />
-                <span>મુખ્ય પોર્ટફોલિયો પર પાછા જાઓ</span>
+                <span>મુખ્ય ડેશબોર્ડ પર પાછા જાઓ</span>
               </Link>
             </div>
           </div>
