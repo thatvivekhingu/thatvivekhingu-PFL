@@ -44,8 +44,10 @@ const CHAI_SPOTS = [
     location: "Raspan Arcade, Nikol",
     mapsUrl: "https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A",
     image: "/teapost/nikol.jpg",
-    badge: "STAFF : 26-12",
-    bgColor: "bg-[#ea580c]", // Orange
+    badge: "KADAK • MASALA",
+    footer: "DESI POWER",
+    bgColor: "bg-[#ea580c]", // Warm Orange
+    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Nikol પર મળીએ ને આઈડિયા ડિસ્કસ કરીએ ☕",
   },
   {
@@ -55,8 +57,10 @@ const CHAI_SPOTS = [
     location: "Science City Road, Sola",
     mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
     image: "/teapost/science-city.png",
-    badge: "STAFF : 26-13",
-    bgColor: "bg-[#0284c7]", // Blue
+    badge: "CODE • BRAINSTORM",
+    footer: "AI MATRIX",
+    bgColor: "bg-[#0284c7]", // Electric Blue
+    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Science City પર મળીએ ને AI / Tech ડિસ્કસ કરીએ ☕",
   },
   {
@@ -66,8 +70,10 @@ const CHAI_SPOTS = [
     location: "Near Kankaria Lake",
     mapsUrl: "https://maps.app.goo.gl/XQgNsuKokUm7CuBq8",
     image: "/teapost/maninagar.png",
-    badge: "STAFF : 26-14",
-    bgColor: "bg-[#16a34a]", // Green
+    badge: "CHILL • KANKARIA",
+    footer: "CALM VIBES",
+    bgColor: "bg-[#16a34a]", // Emerald Green
+    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Maninagar પર મળીએ ને કૉલેબોરેશન કરીએ ☕",
   },
   {
@@ -77,8 +83,10 @@ const CHAI_SPOTS = [
     location: "Prahlad Nagar / SG Highway",
     mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
     image: "/teapost/science-city.png",
-    badge: "STAFF : 26-15",
-    bgColor: "bg-[#dc2626]", // Red
+    badge: "STARTUP • HUB",
+    footer: "HIGH VOLTAGE",
+    bgColor: "bg-[#eab308]", // Vibrant Yellow (Not Red!)
+    textColor: "text-zinc-950",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post SG Highway પર મળીએ ☕",
   },
 ];
@@ -504,7 +512,7 @@ export default function GujjuversePage() {
                     {/* Stamp Header Bar: Black hole - Code - Black hole */}
                     <div className="flex items-center justify-between px-0.5 pt-0.5 sm:pt-1 z-10">
                       <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-inner" />
-                      <span className="font-mono text-[8px] sm:text-[11px] font-black tracking-wider sm:tracking-widest text-white uppercase drop-shadow-sm truncate">
+                      <span className={`font-mono text-[8px] sm:text-[11px] font-black tracking-wider sm:tracking-widest ${spot.textColor} uppercase drop-shadow-sm truncate`}>
                         {spot.badge}
                       </span>
                       <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-inner" />
@@ -528,10 +536,10 @@ export default function GujjuversePage() {
                       </span>
                     </div>
 
-                    {/* Stamp Footer: ON DUTY */}
+                    {/* Stamp Footer: Unique Location Vibe */}
                     <div className="text-center z-10 pb-0.5">
-                      <span className="font-mono text-[7px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/95 drop-shadow-sm">
-                        ON DUTY
+                      <span className={`font-mono text-[7px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] ${spot.textColor} drop-shadow-sm`}>
+                        {spot.footer}
                       </span>
                     </div>
                   </div>
