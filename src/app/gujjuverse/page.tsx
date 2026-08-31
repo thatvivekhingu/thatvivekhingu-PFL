@@ -369,6 +369,27 @@ export default function GujjuversePage() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-8 sm:space-y-12">
         {/* ========================================================
+            TOP LINKEDIN-STYLE CINEMATIC VIDEO BANNER (Muted Loop)
+            ======================================================== */}
+        <BlurFade delay={0.02} inView>
+          <div className="relative w-full aspect-[3.8/1] min-h-[140px] sm:min-h-[180px] md:min-h-[220px] rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-800/80 shadow-2xl bg-zinc-950 group">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover"
+            >
+              <source src="/gujjuverse-banner.mp4" type="video/mp4" />
+            </video>
+            {/* Subtle Gradient & Glass Border */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-black/20 pointer-events-none" />
+            <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl md:rounded-3xl pointer-events-none" />
+          </div>
+        </BlurFade>
+
+        {/* ========================================================
             HERO HEADER (Clean, Professional & Free of Loud Yellow Badges)
             ======================================================== */}
         <BlurFade delay={0.05} inView>
