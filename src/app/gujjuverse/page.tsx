@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   IconArrowLeft,
+  IconArrowUp,
   IconBrandYoutube,
   IconX,
   IconChevronLeft,
@@ -16,6 +17,7 @@ import {
   IconTerminal2,
   IconBrandWhatsapp,
   IconPlayerPlayFilled,
+  IconBrandGithub,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -279,14 +281,11 @@ const ALL_DAYRO_VIDEOS: VideoItem[] = [
 ];
 
 export default function GujjuversePage() {
-  const [selectedVideoCategory, setSelectedVideoCategory] = useState<string>("all");
+  const [selectedVideoCategory, setSelectedVideoCategory] = useState<string>("music");
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
   const dayroScrollRef = useRef<HTMLDivElement>(null);
 
-  const filteredVideos =
-    selectedVideoCategory === "all"
-      ? ALL_DAYRO_VIDEOS
-      : ALL_DAYRO_VIDEOS.filter((v) => v.category === selectedVideoCategory);
+  const filteredVideos = ALL_DAYRO_VIDEOS.filter((v) => v.category === selectedVideoCategory);
 
   const handlePlayVideo = (video: VideoItem) => {
     playTapSound("pop");
@@ -301,8 +300,13 @@ export default function GujjuversePage() {
     }
   };
 
+  const scrollToTop = () => {
+    playTapSound("pop");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <div className="min-h-screen w-full bg-background text-foreground selection:bg-white selection:text-black font-gujarati antialiased relative overflow-x-hidden pt-16 sm:pt-24 md:pt-32 pb-16 sm:pb-24">
+    <div className="min-h-screen w-full bg-background text-foreground selection:bg-white selection:text-black font-gujarati antialiased relative overflow-x-hidden pt-16 sm:pt-24 md:pt-32 pb-16">
       {/* Precision Subtle Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[350px] bg-[radial-gradient(ellipse_60%_30%_at_50%_0%,rgba(255,255,255,0.04),rgba(0,0,0,0))] pointer-events-none -z-10" />
 
@@ -378,7 +382,7 @@ export default function GujjuversePage() {
 
       <div className="max-w-6xl mx-auto px-3.5 sm:px-6 space-y-6 sm:space-y-10">
         {/* ========================================================
-            HERO HEADER (Topmost position - 100% Mobile Friendly)
+            1. HERO HEADER (Topmost position - 100% Mobile Friendly)
             ======================================================== */}
         <BlurFade delay={0.02} inView>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 border-b border-zinc-800/80 pb-4 sm:pb-6">
@@ -418,7 +422,7 @@ export default function GujjuversePage() {
         </BlurFade>
 
         {/* ========================================================
-            CINEMATIC VIDEO BANNER (LinkedIn Size - Loop & Muted)
+            2. CINEMATIC VIDEO BANNER (LinkedIn Size - Loop & Muted)
             ======================================================== */}
         <BlurFade delay={0.05} inView>
           <div className="relative w-full aspect-[16/6] sm:aspect-[3.8/1] min-h-[110px] sm:min-h-[170px] md:min-h-[220px] rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-800/80 shadow-2xl bg-zinc-950 group">
@@ -439,7 +443,7 @@ export default function GujjuversePage() {
         </BlurFade>
 
         {/* ========================================================
-            UNIFIED BENTO GRID (Developer Telemetry Style)
+            3. UNIFIED BENTO GRID
             ======================================================== */}
         <BlurFade delay={0.08} inView>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
@@ -576,7 +580,103 @@ export default function GujjuversePage() {
             </div>
 
             {/* ========================================================
-                LOK DAYRO & HASYA DARBAR BENTO TILE (Full 3-Column Width)
+                4. GUJJU TECH DICTIONARY BENTO TILE (col-span-2)
+                ======================================================== */}
+            <div className="md:col-span-2 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
+              <GlowingEffect
+                spread={40}
+                glow={false}
+                disabled={true}
+                proximity={64}
+                inactiveZone={0.01}
+              />
+              <div className="group/glow relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
+                <SpotlightGlow color="rgba(34, 211, 238, 0.08)" />
+
+                <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-cyan-400">
+                      <IconTerminal2 className="w-4 h-4" />
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
+                      The Gujju Tech Dictionary 📖
+                    </h3>
+                  </div>
+                  <span className="text-[11px] font-mono text-zinc-500">Gujarati Slang</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {GUJJU_DICTIONARY.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-855 hover:border-cyan-500/40 transition-all space-y-1 group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono text-zinc-500">{item.term}</span>
+                        <span>{item.emoji}</span>
+                      </div>
+                      <h4 className="text-sm font-extrabold text-cyan-300 group-hover:text-cyan-200">
+                        {item.gujju}
+                      </h4>
+                      <p className="text-[11px] text-zinc-400 leading-snug">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ========================================================
+                5. GUJJU DEVELOPER MANIFESTO BENTO TILE (col-span-1)
+                ======================================================== */}
+            <div className="md:col-span-1 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
+              <GlowingEffect
+                spread={40}
+                glow={false}
+                disabled={true}
+                proximity={64}
+                inactiveZone={0.01}
+              />
+              <div className="group/glow relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
+                <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
+
+                <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
+                      <IconCode className="w-4 h-4" />
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
+                      Manifesto 📜
+                    </h3>
+                  </div>
+                  <span className="text-[11px] font-mono text-zinc-500">Golden Rules</span>
+                </div>
+
+                <div className="space-y-2.5">
+                  {GUJJU_RULES.map((rule, idx) => (
+                    <div
+                      key={idx}
+                      className="p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-855 space-y-1"
+                    >
+                      <div className="flex items-center justify-between text-xs font-bold text-zinc-200">
+                        <span className="flex items-center gap-1.5 font-mono text-zinc-400">
+                          <span>{rule.num}.</span>
+                          <span className="text-zinc-200">{rule.title}</span>
+                        </span>
+                        <span>{rule.icon}</span>
+                      </div>
+                      <p className="text-[11px] text-zinc-400 leading-snug">
+                        {rule.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ========================================================
+                6. LOK DAYRO & HASYA DARBAR (SECOND LAST SECTION!)
                 ======================================================== */}
             <div className="md:col-span-3 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
               <GlowingEffect
@@ -624,10 +724,9 @@ export default function GujjuversePage() {
                   </div>
                 </div>
 
-                {/* Category Tabs (Clean Modern High-Contrast Filter) */}
+                {/* Specific Curated Category Tabs (No "બધા વિડીયો" tab) */}
                 <div className="flex flex-wrap gap-2">
                   {[
-                    { id: "all", label: "બધા વિડીયો ✨" },
                     { id: "music", label: "લોક સંગીત & ગીતો 🎶" },
                     { id: "hasya", label: "હાસ્ય ડાયરો & જોક્સ 😂" },
                     { id: "jugalbandhi", label: "મહા જુગલબંધી 🔥" },
@@ -688,7 +787,7 @@ export default function GujjuversePage() {
                         </h4>
                         <div className="flex items-center gap-1 text-[11px] text-zinc-400">
                           <span className="truncate">{video.artist}</span>
-                          <IconCircleCheckFilled className="w-3 h-3 text-zinc-400 shrink-0" />
+                          <IconCircleCheckFilled className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                         </div>
                       </div>
                     </div>
@@ -698,103 +797,7 @@ export default function GujjuversePage() {
             </div>
 
             {/* ========================================================
-                GUJJU TECH DICTIONARY BENTO TILE (col-span-2)
-                ======================================================== */}
-            <div className="md:col-span-2 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
-              <GlowingEffect
-                spread={40}
-                glow={false}
-                disabled={true}
-                proximity={64}
-                inactiveZone={0.01}
-              />
-              <div className="group/glow relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
-                <SpotlightGlow color="rgba(34, 211, 238, 0.08)" />
-
-                <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
-                  <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-cyan-400">
-                      <IconTerminal2 className="w-4 h-4" />
-                    </div>
-                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
-                      The Gujju Tech Dictionary 📖
-                    </h3>
-                  </div>
-                  <span className="text-[11px] font-mono text-zinc-500">Gujarati Slang</span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {GUJJU_DICTIONARY.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-850 hover:border-cyan-500/40 transition-all space-y-1 group"
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-mono text-zinc-500">{item.term}</span>
-                        <span>{item.emoji}</span>
-                      </div>
-                      <h4 className="text-sm font-extrabold text-cyan-300 group-hover:text-cyan-200">
-                        {item.gujju}
-                      </h4>
-                      <p className="text-[11px] text-zinc-400 leading-snug">
-                        {item.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* ========================================================
-                GUJJU DEVELOPER MANIFESTO BENTO TILE (col-span-1)
-                ======================================================== */}
-            <div className="md:col-span-1 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
-              <GlowingEffect
-                spread={40}
-                glow={false}
-                disabled={true}
-                proximity={64}
-                inactiveZone={0.01}
-              />
-              <div className="group/glow relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
-                <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
-
-                <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
-                  <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
-                      <IconCode className="w-4 h-4" />
-                    </div>
-                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
-                      Manifesto 📜
-                    </h3>
-                  </div>
-                  <span className="text-[11px] font-mono text-zinc-500">Golden Rules</span>
-                </div>
-
-                <div className="space-y-2.5">
-                  {GUJJU_RULES.map((rule, idx) => (
-                    <div
-                      key={idx}
-                      className="p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-850 space-y-1"
-                    >
-                      <div className="flex items-center justify-between text-xs font-bold text-zinc-200">
-                        <span className="flex items-center gap-1.5 font-mono text-zinc-400">
-                          <span>{rule.num}.</span>
-                          <span className="text-zinc-200">{rule.title}</span>
-                        </span>
-                        <span>{rule.icon}</span>
-                      </div>
-                      <p className="text-[11px] text-zinc-400 leading-snug">
-                        {rule.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* ========================================================
-                BOTTOM CONNECT & JALSA BENTO TILE (Full Width)
+                7. NATURAL CONNECT BANNER (Friendly, Authentic Tone)
                 ======================================================== */}
             <div className="md:col-span-3 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
               <GlowingEffect
@@ -804,19 +807,19 @@ export default function GujjuversePage() {
                 proximity={64}
                 inactiveZone={0.01}
               />
-              <div className="group/glow relative flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
+              <div className="group/glow relative flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-5 sm:p-6 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
                 <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
 
                 <div className="flex items-center gap-3.5 text-left">
                   <div className="p-2.5 rounded-2xl bg-zinc-900 border border-zinc-800 text-2xl shrink-0">
                     ☕
                   </div>
-                  <div>
+                  <div className="space-y-0.5">
                     <h3 className="text-base sm:text-lg font-bold text-zinc-100">
-                      જલસા કરો બાપ, મોજમાં રહેવું! 🔥
+                      ચાલો મળીએ, એક કપ ચા સાથે ગપ્પાં મારીએ! ☕
                     </h3>
-                    <p className="text-xs text-zinc-400">
-                      ચાની ચૂસકી, દેશી ડાયરો અને ટેકનોલોજીની મોજ — ચાલો WhatsApp પર કનેક્ટ થઈએ!
+                    <p className="text-xs sm:text-sm text-zinc-400">
+                      કોડિંગ, નવા આઈડિયાઝ કે બસ મોજમજા — અમદાવાદમાં હોવ તો Tea Post પર ચા પીવા જરૂર આવજો!
                     </p>
                   </div>
                 </div>
@@ -827,25 +830,188 @@ export default function GujjuversePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => playTapSound("pop")}
-                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs sm:text-sm transition-all shadow-md shadow-emerald-500/20 cursor-pointer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs sm:text-sm transition-all shadow-md shadow-emerald-500/20 cursor-pointer"
                   >
                     <IconBrandWhatsapp className="w-4 h-4" />
-                    <span>WhatsApp</span>
+                    <span>WhatsApp Connect</span>
                   </a>
 
                   <Link
                     href="/#hero"
                     onClick={() => playTapSound("pop")}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-300 hover:text-white transition-all"
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-300 hover:text-white transition-all"
                   >
                     <IconArrowLeft className="w-3.5 h-3.5" />
-                    <span>Hero</span>
+                    <span>Back to Hero</span>
                   </Link>
                 </div>
               </div>
             </div>
 
           </div>
+        </BlurFade>
+
+        {/* ========================================================
+            8. GUJJUVERSE FOOTER (Styled like Main Portfolio Footer)
+            ======================================================== */}
+        <BlurFade delay={0.1} inView>
+          <footer className="pt-12 sm:pt-16 border-t border-zinc-800/80 mt-12 space-y-10">
+            {/* Top GujjuVerse Footer Columns */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Brand Column */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="relative w-8 h-8 shrink-0">
+                    <Image
+                      src="/chai-kitli-logo.png"
+                      alt="GujjuVerse"
+                      fill
+                      sizes="32px"
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="font-extrabold text-base text-zinc-100 tracking-tight">
+                    GujjuVerse
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Vivek Hingu&apos;s cultural dimension — where Ahmedabad chai kitli culture meets modern web engineering & AI.
+                </p>
+                <div className="inline-flex items-center gap-2 text-[11px] font-mono text-zinc-500">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Ahmedabad, Gujarat</span>
+                </div>
+              </div>
+
+              {/* Chai Spots Column */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                  Ahmedabad Tea Hubs
+                </h4>
+                <ul className="space-y-2 text-xs text-zinc-400">
+                  <li>
+                    <a
+                      href="https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                      <span>Tea Post — Nikol</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                      <span>Tea Post — Science City</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://maps.app.goo.gl/XQgNsuKokUm7CuBq8"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                      <span>Tea Post — Maninagar</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                      <span>Tea Post — SG Highway</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              {/* GujjuVerse Modules */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                  GujjuVerse Highlights
+                </h4>
+                <ul className="space-y-2 text-xs text-zinc-400">
+                  <li className="hover:text-white transition-colors cursor-pointer">
+                    📖 The Gujju Tech Dictionary
+                  </li>
+                  <li className="hover:text-white transition-colors cursor-pointer">
+                    📜 The Developer Manifesto
+                  </li>
+                  <li className="hover:text-white transition-colors cursor-pointer">
+                    🎭 Desi Dayro & Lok Sangeet
+                  </li>
+                  <li className="hover:text-white transition-colors cursor-pointer">
+                    🤝 Chai & Code Collaboration
+                  </li>
+                </ul>
+              </div>
+
+              {/* Connect Links */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                  Connect & Links
+                </h4>
+                <div className="space-y-2 text-xs text-zinc-400">
+                  <a
+                    href="https://wa.me/918866688575?text=%E0%AA%A8%E0%AA%AE%E0%AA%B8%E0%AB%8D%E0%AA%A4%E0%AB%87%20%E0%AA%B5%E0%AA%BF%E0%AA%B5%E0%AB%87%E0%AA%95!%20%E0%AA%9A%E0%AA%BE%E0%AA%B2%E0%AB%8B%20%E0%AA%9A%E0%AA%BE%20%E0%AA%AA%E0%AB%80%E0%AA%A4%E0%AA%BE%E0%AA%82%20%E0%AA%AA%E0%AB%80%E0%AA%A4%E0%AA%BE%E0%AA%82%20%E0%AA%AE%E0%AA%B3%E0%AB%80%E0%AA%8F%20%E2%98%95"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTapSound("pop")}
+                    className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                  >
+                    <IconBrandWhatsapp className="w-4 h-4 text-emerald-400" />
+                    <span>WhatsApp Chat</span>
+                  </a>
+
+                  <Link
+                    href="/#hero"
+                    onClick={() => playTapSound("pop")}
+                    className="hover:text-white transition-colors flex items-center gap-1.5"
+                  >
+                    <IconArrowLeft className="w-4 h-4" />
+                    <span>Main Portfolio</span>
+                  </Link>
+
+                  <a
+                    href="https://github.com/thatvivekhingu/thatvivekhingu-PFL"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTapSound("pop")}
+                    className="hover:text-white transition-colors flex items-center gap-1.5"
+                  >
+                    <IconBrandGithub className="w-4 h-4" />
+                    <span>GitHub Repository</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Strip */}
+            <div className="pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 font-mono">
+              <p>
+                © {new Date().getFullYear()} Vivek Hingu • Designed with Chai &amp; Code in Ahmedabad ☕
+              </p>
+
+              <button
+                onClick={scrollToTop}
+                className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              >
+                <span>Back to Top</span>
+                <IconArrowUp className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </footer>
         </BlurFade>
       </div>
     </div>
