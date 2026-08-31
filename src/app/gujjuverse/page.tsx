@@ -879,42 +879,44 @@ export default function GujjuversePage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-4.5">
-              {/* 1. Large Left Card: LinkedIn / GDG Community Stage (2-Columns Wide) */}
+              {/* 1. Large Left Card: GitHub Ecosystem & Open Source (2-Columns Wide) */}
               <a
-                href="https://linkedin.com/in/vivekhingu"
+                href="https://github.com/thatvivekhingu"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => playTapSound("pop")}
-                className="lg:col-span-2 group relative rounded-2xl md:rounded-3xl border border-zinc-800/80 bg-zinc-950/90 overflow-hidden shadow-2xl hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between"
+                className="lg:col-span-2 group relative rounded-2xl md:rounded-3xl border border-zinc-800/80 bg-zinc-950/90 overflow-hidden shadow-2xl hover:border-zinc-500 transition-all duration-300 flex flex-col justify-between"
               >
                 {/* Header */}
                 <div className="p-4 sm:p-5 flex items-center justify-between border-b border-zinc-900 bg-zinc-900/40">
                   <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
-                      <IconBrandLinkedin className="w-5 h-5" />
+                    <div className="p-2 rounded-xl bg-zinc-800 text-zinc-100 border border-zinc-700/50">
+                      <IconBrandGithub className="w-5 h-5" />
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-sm font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">
-                          Vivek Hingu
+                        <span className="text-sm font-bold text-zinc-100 group-hover:text-zinc-300 transition-colors">
+                          thatvivekhingu
                         </span>
-                        <IconCircleCheckFilled className="w-3.5 h-3.5 text-blue-400" />
+                        <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                          562 contributions
+                        </span>
                       </div>
                       <p className="text-[11px] text-zinc-400">
-                        AI/ML Engineer • Speaker &amp; Community at GDG Cloud Gandhinagar
+                        Aspiring ML Engineer • Machine Learning, Data Science &amp; Full-Stack Repositories
                       </p>
                     </div>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-mono text-xs font-semibold group-hover:bg-blue-500 group-hover:text-black transition-all">
-                    LinkedIn ↗
+                  <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-200 border border-zinc-700 font-mono text-xs font-semibold group-hover:bg-white group-hover:text-black transition-all">
+                    GitHub ↗
                   </span>
                 </div>
 
                 {/* Main Large Showcase Image */}
-                <div className="relative w-full aspect-[16/9] sm:aspect-[21/10] bg-black overflow-hidden">
+                <div className="relative w-full aspect-[16/9] sm:aspect-[21/10] bg-zinc-950 overflow-hidden">
                   <Image
-                    src="/social/linkedin-post.png"
-                    alt="Build with Antigravity Final Edition GDG Gandhinagar"
+                    src="/social/github-profile.png"
+                    alt="Vivek Hingu GitHub Repositories and 562 Contributions"
                     fill
                     sizes="(max-width: 1024px) 100vw, 66vw"
                     className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
@@ -922,43 +924,46 @@ export default function GujjuversePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-4 right-4 text-left pointer-events-none">
                     <span className="text-xs sm:text-sm font-extrabold text-white drop-shadow-md">
-                      Spent the day at Build with Antigravity: Final Edition — GDG Cloud Gandhinagar 🚀
+                      thatvivekhingu — Pinned Projects, AI Systems &amp; 562+ Year Contributions 🚀
                     </span>
                   </div>
                 </div>
               </a>
 
-              {/* 2. Right Stacked Column (GitHub + Instagram) */}
+              {/* 2. Right Stacked Column (LinkedIn + Instagram) */}
               <div className="flex flex-col gap-4">
-                {/* Top: GitHub Profile Tile */}
+                {/* Top: LinkedIn Profile Tile (Normal) */}
                 <a
-                  href="https://github.com/thatvivekhingu"
+                  href="https://linkedin.com/in/vivekhingu"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => playTapSound("pop")}
-                  className="group relative rounded-2xl md:rounded-3xl border border-zinc-800/80 bg-zinc-950/90 overflow-hidden shadow-xl hover:border-zinc-500 transition-all duration-300 flex-1 flex flex-col justify-between"
+                  className="group relative rounded-2xl md:rounded-3xl border border-zinc-800/80 bg-zinc-950/90 overflow-hidden shadow-xl hover:border-blue-500/50 transition-all duration-300 flex-1 flex flex-col justify-between"
                 >
                   <div className="p-3.5 sm:p-4 flex items-center justify-between border-b border-zinc-900 bg-zinc-900/40">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5 rounded-lg bg-zinc-800 text-zinc-100">
-                        <IconBrandGithub className="w-4 h-4" />
+                      <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                        <IconBrandLinkedin className="w-4 h-4" />
                       </div>
                       <div>
-                        <span className="text-xs font-bold text-zinc-200 group-hover:text-white transition-colors">
-                          thatvivekhingu
-                        </span>
-                        <span className="block text-[10px] text-zinc-400 font-mono">562 contributions</span>
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs font-bold text-zinc-200 group-hover:text-blue-400 transition-colors">
+                            Vivek Hingu
+                          </span>
+                          <IconCircleCheckFilled className="w-3 h-3 text-blue-400" />
+                        </div>
+                        <span className="block text-[10px] text-zinc-400">GDG Cloud Gandhinagar</span>
                       </div>
                     </div>
-                    <span className="text-[11px] font-mono text-zinc-400 group-hover:text-white font-semibold">
-                      GitHub ↗
+                    <span className="text-[11px] font-mono text-blue-400 group-hover:text-blue-300 font-semibold">
+                      LinkedIn ↗
                     </span>
                   </div>
 
-                  <div className="relative w-full aspect-[16/9] bg-zinc-900 overflow-hidden">
+                  <div className="relative w-full aspect-[16/9] bg-black overflow-hidden">
                     <Image
-                      src="/social/github-profile.png"
-                      alt="Vivek Hingu GitHub Repositories and Contributions"
+                      src="/social/linkedin-post.png"
+                      alt="Build with Antigravity Final Edition GDG Gandhinagar"
                       fill
                       sizes="(max-width: 1024px) 100vw, 33vw"
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
@@ -967,7 +972,7 @@ export default function GujjuversePage() {
                   </div>
                 </a>
 
-                {/* Bottom: Instagram Pythonic ML Creator Tile */}
+                {/* Bottom: Instagram Pythonic ML Creator Tile (Normal) */}
                 <a
                   href="https://instagram.com/realvivek.py"
                   target="_blank"
