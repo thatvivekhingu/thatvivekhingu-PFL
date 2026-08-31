@@ -862,6 +862,153 @@ export default function GujjuversePage() {
         </BlurFade>
 
         {/* ========================================================
+            8. SOCIAL MEDIA SHOWCASE BENTO (Exact 3-Tile DevFest Layout)
+            ======================================================== */}
+        <BlurFade delay={0.09} inView>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🌐</span>
+                <h3 className="text-sm sm:text-base font-bold text-zinc-100">
+                  Social Presence &amp; Tech Community
+                </h3>
+              </div>
+              <span className="text-[11px] font-mono text-zinc-500 hidden sm:inline">
+                @thatvivekhingu • @realvivek.py
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-4.5">
+              {/* 1. Large Left Card: LinkedIn / GDG Community Stage (2-Columns Wide) */}
+              <a
+                href="https://linkedin.com/in/vivekhingu"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => playTapSound("pop")}
+                className="lg:col-span-2 group relative rounded-2xl md:rounded-3xl border border-zinc-800/80 bg-zinc-950/90 overflow-hidden shadow-2xl hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between"
+              >
+                {/* Header */}
+                <div className="p-4 sm:p-5 flex items-center justify-between border-b border-zinc-900 bg-zinc-900/40">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                      <IconBrandLinkedin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-sm font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">
+                          Vivek Hingu
+                        </span>
+                        <IconCircleCheckFilled className="w-3.5 h-3.5 text-blue-400" />
+                      </div>
+                      <p className="text-[11px] text-zinc-400">
+                        AI/ML Engineer • Speaker &amp; Community at GDG Cloud Gandhinagar
+                      </p>
+                    </div>
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-mono text-xs font-semibold group-hover:bg-blue-500 group-hover:text-black transition-all">
+                    LinkedIn ↗
+                  </span>
+                </div>
+
+                {/* Main Large Showcase Image */}
+                <div className="relative w-full aspect-[16/9] sm:aspect-[21/10] bg-black overflow-hidden">
+                  <Image
+                    src="/social/linkedin-post.png"
+                    alt="Build with Antigravity Final Edition GDG Gandhinagar"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 66vw"
+                    className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-4 right-4 text-left pointer-events-none">
+                    <span className="text-xs sm:text-sm font-extrabold text-white drop-shadow-md">
+                      Spent the day at Build with Antigravity: Final Edition — GDG Cloud Gandhinagar 🚀
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              {/* 2. Right Stacked Column (GitHub + Instagram) */}
+              <div className="flex flex-col gap-4">
+                {/* Top: GitHub Profile Tile */}
+                <a
+                  href="https://github.com/thatvivekhingu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => playTapSound("pop")}
+                  className="group relative rounded-2xl md:rounded-3xl border border-zinc-800/80 bg-zinc-950/90 overflow-hidden shadow-xl hover:border-zinc-500 transition-all duration-300 flex-1 flex flex-col justify-between"
+                >
+                  <div className="p-3.5 sm:p-4 flex items-center justify-between border-b border-zinc-900 bg-zinc-900/40">
+                    <div className="flex items-center gap-2">
+                      <div className="p-1.5 rounded-lg bg-zinc-800 text-zinc-100">
+                        <IconBrandGithub className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-zinc-200 group-hover:text-white transition-colors">
+                          thatvivekhingu
+                        </span>
+                        <span className="block text-[10px] text-zinc-400 font-mono">562 contributions</span>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-mono text-zinc-400 group-hover:text-white font-semibold">
+                      GitHub ↗
+                    </span>
+                  </div>
+
+                  <div className="relative w-full aspect-[16/9] bg-zinc-900 overflow-hidden">
+                    <Image
+                      src="/social/github-profile.png"
+                      alt="Vivek Hingu GitHub Repositories and Contributions"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                </a>
+
+                {/* Bottom: Instagram Pythonic ML Creator Tile */}
+                <a
+                  href="https://instagram.com/realvivek.py"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => playTapSound("pop")}
+                  className="group relative rounded-2xl md:rounded-3xl border border-zinc-800/80 bg-zinc-950/90 overflow-hidden shadow-xl hover:border-pink-500/50 transition-all duration-300 flex-1 flex flex-col justify-between"
+                >
+                  <div className="p-3.5 sm:p-4 flex items-center justify-between border-b border-zinc-900 bg-zinc-900/40">
+                    <div className="flex items-center gap-2">
+                      <div className="p-1.5 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20">
+                        <IconBrandInstagram className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-zinc-200 group-hover:text-pink-400 transition-colors">
+                          @realvivek.py
+                        </span>
+                        <span className="block text-[10px] text-zinc-400">Pythonic Engineer • ML Series</span>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-mono text-pink-400 group-hover:text-pink-300 font-semibold">
+                      Instagram ↗
+                    </span>
+                  </div>
+
+                  <div className="relative w-full aspect-[16/9] bg-zinc-900 overflow-hidden">
+                    <Image
+                      src="/social/instagram-profile.png"
+                      alt="realvivek.py Machine Learning Series on Instagram"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </BlurFade>
+
+        {/* ========================================================
             8. GUJJUVERSE FOOTER (Styled like Main Portfolio Footer)
             ======================================================== */}
         <BlurFade delay={0.1} inView>
