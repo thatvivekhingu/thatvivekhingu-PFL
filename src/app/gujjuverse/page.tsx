@@ -16,7 +16,6 @@ import {
   IconTerminal2,
   IconBrandWhatsapp,
   IconPlayerPlayFilled,
-  IconExternalLink,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -38,11 +37,11 @@ const CHAI_SPOTS = [
     id: "nikol",
     name: "Tea Post — Nikol",
     gujjuName: "ટી પોસ્ટ — નિકોલ",
-    location: "Raspan Arcade / SP Ring Road, Nikol",
-    zone: "East Ahmedabad",
-    desc: "કડક મસાલા ચા, મસ્કા બન અને ટેક આઈડિયાઝ પર ગહન ચર્ચા.",
+    location: "Raspan Arcade, Nikol",
     mapsUrl: "https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A",
     image: "/teapost/nikol.jpg",
+    badge: "STAFF : 26-12",
+    bgColor: "bg-[#ea580c]", // Orange
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Nikol પર મળીએ ને આઈડિયા ડિસ્કસ કરીએ ☕",
   },
   {
@@ -50,22 +49,33 @@ const CHAI_SPOTS = [
     name: "Tea Post — Science City",
     gujjuName: "ટી પોસ્ટ — સાયન્સ સીટી",
     location: "Science City Road, Sola",
-    zone: "Tech & Startup Zone",
-    desc: "AI, ડીપ લર્નિંગ, પ્રોડક્ટ બિલ્ડિંગ અને સ્ટાર્ટઅપ પ્લાનિંગ.",
     mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
     image: "/teapost/science-city.png",
+    badge: "STAFF : 26-13",
+    bgColor: "bg-[#0284c7]", // Blue
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Science City પર મળીએ ને AI / Tech ડિસ્કસ કરીએ ☕",
   },
   {
     id: "maninagar",
     name: "Tea Post — Maninagar",
     gujjuName: "ટી પોસ્ટ — મણિનગર",
-    location: "Maninagar, Near Kankaria Lake",
-    zone: "South Ahmedabad",
-    desc: "કાંકરિયાની શાંત વાઇબ્સ, ગરમ ચા અને બિઝનેસ કૉલેબોરેશન.",
+    location: "Near Kankaria Lake",
     mapsUrl: "https://maps.app.goo.gl/XQgNsuKokUm7CuBq8",
     image: "/teapost/maninagar.png",
+    badge: "STAFF : 26-14",
+    bgColor: "bg-[#16a34a]", // Green
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Maninagar પર મળીએ ને કૉલેબોરેશન કરીએ ☕",
+  },
+  {
+    id: "sghighway",
+    name: "Tea Post — SG Highway",
+    gujjuName: "ટી પોસ્ટ — એસ.જી. હાઈવે",
+    location: "Prahlad Nagar / SG Highway",
+    mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
+    image: "/teapost/science-city.png",
+    badge: "STAFF : 26-15",
+    bgColor: "bg-[#dc2626]", // Red
+    whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post SG Highway પર મળીએ ☕",
   },
 ];
 
@@ -434,117 +444,108 @@ export default function GujjuversePage() {
         <BlurFade delay={0.08} inView>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
 
-            {/* 3 POSTAGE STAMP TEA POST CARDS (Matching Reference Design) */}
-            {CHAI_SPOTS.map((spot, idx) => {
-              const stampThemes = [
-                {
-                  bg: "bg-[#ea580c]", // Orange (Nikol)
-                  ring: "ring-[#c2410c]",
-                  badge: "STAFF : 26-01",
-                  status: "ON DUTY",
-                  accent: "text-[#ea580c]",
-                },
-                {
-                  bg: "bg-[#0284c7]", // Blue (Science City)
-                  ring: "ring-[#0369a1]",
-                  badge: "STAFF : 26-02",
-                  status: "ON DUTY",
-                  accent: "text-[#0284c7]",
-                },
-                {
-                  bg: "bg-[#16a34a]", // Green (Maninagar)
-                  ring: "ring-[#15803d]",
-                  badge: "STAFF : 26-03",
-                  status: "ON DUTY",
-                  accent: "text-[#16a34a]",
-                },
-              ];
-              const theme = stampThemes[idx % stampThemes.length];
-
-              return (
+            {/* 4 POSTAGE STAMP CARDS (100% MATCHING REFERENCE DESIGN) */}
+            <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5">
+              {CHAI_SPOTS.map((spot) => (
                 <div
                   key={spot.id}
-                  className="relative rounded-2xl md:rounded-3xl bg-zinc-900 border border-zinc-800 p-3 sm:p-4 flex flex-col justify-between gap-3.5 shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700 group"
+                  className="rounded-[22px] bg-[#16171a] border border-[#25282f] p-3 sm:p-3.5 flex flex-col justify-between gap-3 shadow-2xl transition-all duration-300 hover:-translate-y-1.5 hover:border-zinc-600 group"
                 >
-                  {/* POSTAGE STAMP FRAME */}
-                  <div className={`relative ${theme.bg} rounded-xl p-2.5 sm:p-3 shadow-inner flex flex-col gap-2 overflow-hidden`}>
-                    {/* Perforated / Scalloped Stamp Edge Simulation */}
-                    <div className="absolute -top-1 left-0 right-0 flex justify-around pointer-events-none">
-                      {Array.from({ length: 14 }).map((_, i) => (
-                        <div key={i} className="w-2 h-2 rounded-full bg-zinc-900 -mt-1 shadow-sm" />
-                      ))}
-                    </div>
-                    <div className="absolute -bottom-1 left-0 right-0 flex justify-around pointer-events-none">
-                      {Array.from({ length: 14 }).map((_, i) => (
-                        <div key={i} className="w-2 h-2 rounded-full bg-zinc-900 -mb-1 shadow-sm" />
-                      ))}
-                    </div>
-                    <div className="absolute top-0 bottom-0 -left-1 flex flex-col justify-around pointer-events-none">
-                      {Array.from({ length: 14 }).map((_, i) => (
-                        <div key={i} className="w-2 h-2 rounded-full bg-zinc-900 -ml-1 shadow-sm" />
-                      ))}
-                    </div>
-                    <div className="absolute top-0 bottom-0 -right-1 flex flex-col justify-around pointer-events-none">
-                      {Array.from({ length: 14 }).map((_, i) => (
-                        <div key={i} className="w-2 h-2 rounded-full bg-zinc-900 -mr-1 shadow-sm" />
+                  {/* POSTAGE STAMP TICKET */}
+                  <div
+                    className={`relative ${spot.bgColor} rounded-xl p-2.5 sm:p-3 flex flex-col gap-2 overflow-hidden shadow-inner`}
+                  >
+                    {/* Top Scalloped Perforation Holes */}
+                    <div className="absolute -top-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
+                      {Array.from({ length: 13 }).map((_, i) => (
+                        <div
+                          key={`t-${i}`}
+                          className="w-2.5 h-2.5 rounded-full bg-[#16171a] shadow-sm"
+                        />
                       ))}
                     </div>
 
-                    {/* Stamp Top Bar */}
-                    <div className="flex items-center justify-between px-1 pt-0.5 z-10">
-                      <div className="w-2.5 h-2.5 rounded-full bg-black/90 shadow-inner" />
+                    {/* Bottom Scalloped Perforation Holes */}
+                    <div className="absolute -bottom-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
+                      {Array.from({ length: 13 }).map((_, i) => (
+                        <div
+                          key={`b-${i}`}
+                          className="w-2.5 h-2.5 rounded-full bg-[#16171a] shadow-sm"
+                        />
+                      ))}
+                    </div>
+
+                    {/* Left Scalloped Perforation Holes */}
+                    <div className="absolute top-0 bottom-0 -left-2 flex flex-col justify-between py-1 pointer-events-none">
+                      {Array.from({ length: 15 }).map((_, i) => (
+                        <div
+                          key={`l-${i}`}
+                          className="w-2.5 h-2.5 rounded-full bg-[#16171a] shadow-sm"
+                        />
+                      ))}
+                    </div>
+
+                    {/* Right Scalloped Perforation Holes */}
+                    <div className="absolute top-0 bottom-0 -right-2 flex flex-col justify-between py-1 pointer-events-none">
+                      {Array.from({ length: 15 }).map((_, i) => (
+                        <div
+                          key={`r-${i}`}
+                          className="w-2.5 h-2.5 rounded-full bg-[#16171a] shadow-sm"
+                        />
+                      ))}
+                    </div>
+
+                    {/* Stamp Header Bar: Black hole - Code - Black hole */}
+                    <div className="flex items-center justify-between px-1 pt-1 z-10">
+                      <div className="w-3 h-3 rounded-full bg-[#16171a] shadow-inner" />
                       <span className="font-mono text-[10px] sm:text-[11px] font-black tracking-widest text-white uppercase drop-shadow-sm">
-                        {theme.badge}
+                        {spot.badge}
                       </span>
-                      <div className="w-2.5 h-2.5 rounded-full bg-black/90 shadow-inner" />
+                      <div className="w-3 h-3 rounded-full bg-[#16171a] shadow-inner" />
                     </div>
 
-                    {/* Stamp Center Photo */}
-                    <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-black border border-black/30 shadow-inner z-10">
+                    {/* Photo with Halftone Dot Matrix Texture Overlay */}
+                    <div className="relative aspect-square w-full rounded-md overflow-hidden bg-black border border-black/40 shadow-inner z-10">
                       <Image
                         src={spot.image}
                         alt={spot.name}
                         fill
-                        sizes="(max-width: 768px) 100vw, 320px"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
+                      {/* Halftone / Dither print texture overlay */}
+                      <div className="absolute inset-0 bg-[radial-gradient(#000_1.5px,transparent_1.5px)] [background-size:4px_4px] opacity-35 mix-blend-multiply pointer-events-none" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                      <span className="absolute bottom-1.5 left-2 right-2 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[10px] font-mono font-medium flex items-center gap-1 border border-zinc-800/60">
-                        <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
+                      <span className="absolute bottom-1.5 left-1.5 right-1.5 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[9px] font-mono font-medium flex items-center gap-1 border border-zinc-800/60">
+                        <IconMapPin className="w-2.5 h-2.5 text-red-400 shrink-0" />
                         <span className="truncate">{spot.location}</span>
                       </span>
                     </div>
 
-                    {/* Stamp Bottom Status */}
+                    {/* Stamp Footer: ON DUTY */}
                     <div className="text-center z-10 pb-0.5">
-                      <span className="font-mono text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] text-white/95 drop-shadow-sm">
-                        {theme.status}
+                      <span className="font-mono text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-white/95 drop-shadow-sm">
+                        ON DUTY
                       </span>
                     </div>
                   </div>
 
-                  {/* Stamp Card Bottom Metadata & Actions */}
-                  <div className="space-y-2.5 pt-0.5">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
-                        {spot.gujjuName}
-                      </h3>
-                      <span className="text-[10px] font-mono font-bold text-zinc-400">
-                        TEA POST
-                      </span>
-                    </div>
+                  {/* Card Bottom: Name & Quick Action Links */}
+                  <div className="space-y-1.5 px-0.5">
+                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
+                      {spot.gujjuName}
+                    </h3>
 
-                    <div className="flex items-center justify-between gap-2 pt-1 border-t border-zinc-800">
+                    <div className="flex items-center justify-between gap-1 pt-1 border-t border-zinc-800/80">
                       <a
                         href={spot.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700 text-zinc-200 hover:text-white text-xs font-mono transition-all group/btn"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-800/70 hover:bg-zinc-700 text-zinc-300 hover:text-white text-[11px] font-mono transition-colors"
                       >
-                        <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                        <IconMapPin className="w-3 h-3 text-red-400" />
                         <span>Maps</span>
-                        <IconExternalLink className="w-3 h-3 text-zinc-400 group-hover/btn:text-white transition-colors" />
                       </a>
 
                       <a
@@ -552,16 +553,16 @@ export default function GujjuversePage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 text-xs font-mono font-bold transition-all shadow-sm cursor-pointer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-[11px] font-mono font-bold transition-colors"
                       >
-                        <IconBrandWhatsapp className="w-3.5 h-3.5" />
+                        <IconBrandWhatsapp className="w-3 h-3" />
                         <span>મળવું છે?</span>
                       </a>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
 
             {/* ========================================================
                 LOK DAYRO & HASYA DARBAR BENTO TILE (Full 3-Column Width)
