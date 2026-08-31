@@ -367,17 +367,29 @@ export default function GujjuversePage() {
             ======================================================== */}
         <BlurFade delay={0.05} inView>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
-            <div className="space-y-1.5">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-100 flex items-center gap-2">
-                <span>મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે!</span>
-                <span>☕</span>
-              </h1>
-              <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">
-                ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ. અમદાવાદના ડેવલપર્સ, કોડિંગ, લોકડાયરો અને દેશી મોજ.
-              </p>
+            <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+              <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 flex items-center justify-center">
+                <Image
+                  src="/chai-kitli-logo.png"
+                  alt="ચાની કિટલી લોગો"
+                  fill
+                  sizes="64px"
+                  className="object-contain drop-shadow-md"
+                  priority
+                />
+              </div>
+
+              <div className="space-y-1 min-w-0">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-100 leading-snug">
+                  મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે!
+                </h1>
+                <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">
+                  ચાલો ચા પીતાં પીતાં ભેગા થઈએ ને કંઈક મોટું બનાવીએ. અમદાવાદના ડેવલપર્સ, કોડિંગ, લોકડાયરો અને દેશી મોજ.
+                </p>
+              </div>
             </div>
 
-            <div className="flex items-center gap-2.5 shrink-0">
+            <div className="flex items-center gap-2.5 shrink-0 self-end sm:self-center">
               <Link
                 href="/#hero"
                 onClick={() => playTapSound("pop")}
@@ -386,17 +398,6 @@ export default function GujjuversePage() {
                 <IconArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                 <span>Back to Hero</span>
               </Link>
-
-              <a
-                href="https://wa.me/918866688575?text=%E0%AA%A8%E0%AA%AE%E0%AA%B8%E0%AB%8D%E0%AA%A4%E0%AB%87%20%E0%AA%B5%E0%AA%BF%E0%AA%B5%E0%AB%87%E0%AA%95!%20%E0%AA%9A%E0%AA%BE%E0%AA%B2%E0%AB%8B%20%E0%AA%9A%E0%AA%BE%20%E0%AA%AA%E0%AB%80%E0%AA%A4%E0%AA%BE%E0%AA%82%20%E0%AA%AA%E0%AB%80%E0%AA%A4%E0%AA%BE%E0%AA%82%20%E0%AA%AE%E0%AA%B3%E0%AB%80%E0%AA%8F%20%E0%AA%A8%E0%AB%87%20%E0%AA%95%E0%AA%82%E0%AA%88%E0%AA%95%20%E0%AA%AE%E0%AB%8B%E0%AA%9F%E0%AB%81%E0%AA%82%20%E0%AA%AC%E0%AA%A8%E0%AA%BE%E0%AA%B5%E0%AB%80%E0%AA%8F%20%E2%98%95"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => playTapSound("pop")}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 text-xs font-mono font-bold transition-all shadow-sm"
-              >
-                <IconBrandWhatsapp className="w-4 h-4" />
-                <span>WhatsApp</span>
-              </a>
             </div>
           </div>
         </BlurFade>
