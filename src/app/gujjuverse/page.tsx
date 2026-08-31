@@ -302,7 +302,7 @@ export default function GujjuversePage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground selection:bg-white selection:text-black font-gujarati antialiased relative overflow-x-hidden pt-28 sm:pt-36 pb-16 sm:pb-24">
+    <div className="min-h-screen w-full bg-background text-foreground selection:bg-white selection:text-black font-gujarati antialiased relative overflow-x-hidden pt-16 sm:pt-24 md:pt-32 pb-16 sm:pb-24">
       {/* Precision Subtle Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[350px] bg-[radial-gradient(ellipse_60%_30%_at_50%_0%,rgba(255,255,255,0.04),rgba(0,0,0,0))] pointer-events-none -z-10" />
 
@@ -444,79 +444,79 @@ export default function GujjuversePage() {
         <BlurFade delay={0.08} inView>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
 
-            {/* 4 POSTAGE STAMP CARDS (100% MATCHING REFERENCE DESIGN) */}
-            <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5">
+            {/* 4 POSTAGE STAMP CARDS (Mobile: Notification Landscape | Desktop: Vertical Stamp) */}
+            <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4.5">
               {CHAI_SPOTS.map((spot) => (
                 <div
                   key={spot.id}
-                  className="rounded-[22px] bg-[#16171a] border border-[#25282f] p-3 sm:p-3.5 flex flex-col justify-between gap-3 shadow-2xl transition-all duration-300 hover:-translate-y-1.5 hover:border-zinc-600 group"
+                  className="rounded-2xl sm:rounded-[22px] bg-[#16171a] border border-[#25282f] p-2.5 sm:p-3.5 flex flex-row sm:flex-col justify-between items-center sm:items-stretch gap-3 sm:gap-3 shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:border-zinc-600 group"
                 >
-                  {/* POSTAGE STAMP TICKET */}
+                  {/* POSTAGE STAMP TICKET (Square on mobile, Full vertical on desktop) */}
                   <div
-                    className={`relative ${spot.bgColor} rounded-xl p-2.5 sm:p-3 flex flex-col gap-2 overflow-hidden shadow-inner`}
+                    className={`relative ${spot.bgColor} w-24 h-24 sm:w-full sm:h-auto rounded-xl p-1.5 sm:p-3 shrink-0 flex flex-col justify-between gap-1 sm:gap-2 overflow-hidden shadow-inner`}
                   >
                     {/* Top Scalloped Perforation Holes */}
-                    <div className="absolute -top-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
-                      {Array.from({ length: 13 }).map((_, i) => (
+                    <div className="absolute -top-1.5 sm:-top-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
+                      {Array.from({ length: 11 }).map((_, i) => (
                         <div
                           key={`t-${i}`}
-                          className="w-2.5 h-2.5 rounded-full bg-[#16171a] shadow-sm"
+                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#16171a] shadow-sm"
                         />
                       ))}
                     </div>
 
                     {/* Bottom Scalloped Perforation Holes */}
-                    <div className="absolute -bottom-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
-                      {Array.from({ length: 13 }).map((_, i) => (
+                    <div className="absolute -bottom-1.5 sm:-bottom-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
+                      {Array.from({ length: 11 }).map((_, i) => (
                         <div
                           key={`b-${i}`}
-                          className="w-2.5 h-2.5 rounded-full bg-[#16171a] shadow-sm"
+                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#16171a] shadow-sm"
                         />
                       ))}
                     </div>
 
                     {/* Left Scalloped Perforation Holes */}
-                    <div className="absolute top-0 bottom-0 -left-2 flex flex-col justify-between py-1 pointer-events-none">
-                      {Array.from({ length: 15 }).map((_, i) => (
+                    <div className="absolute top-0 bottom-0 -left-1.5 sm:-left-2 flex flex-col justify-between py-1 pointer-events-none">
+                      {Array.from({ length: 11 }).map((_, i) => (
                         <div
                           key={`l-${i}`}
-                          className="w-2.5 h-2.5 rounded-full bg-[#16171a] shadow-sm"
+                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#16171a] shadow-sm"
                         />
                       ))}
                     </div>
 
                     {/* Right Scalloped Perforation Holes */}
-                    <div className="absolute top-0 bottom-0 -right-2 flex flex-col justify-between py-1 pointer-events-none">
-                      {Array.from({ length: 15 }).map((_, i) => (
+                    <div className="absolute top-0 bottom-0 -right-1.5 sm:-right-2 flex flex-col justify-between py-1 pointer-events-none">
+                      {Array.from({ length: 11 }).map((_, i) => (
                         <div
                           key={`r-${i}`}
-                          className="w-2.5 h-2.5 rounded-full bg-[#16171a] shadow-sm"
+                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#16171a] shadow-sm"
                         />
                       ))}
                     </div>
 
                     {/* Stamp Header Bar: Black hole - Code - Black hole */}
-                    <div className="flex items-center justify-between px-1 pt-1 z-10">
-                      <div className="w-3 h-3 rounded-full bg-[#16171a] shadow-inner" />
-                      <span className="font-mono text-[10px] sm:text-[11px] font-black tracking-widest text-white uppercase drop-shadow-sm">
+                    <div className="flex items-center justify-between px-0.5 pt-0.5 sm:pt-1 z-10">
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-inner" />
+                      <span className="font-mono text-[8px] sm:text-[11px] font-black tracking-wider sm:tracking-widest text-white uppercase drop-shadow-sm truncate">
                         {spot.badge}
                       </span>
-                      <div className="w-3 h-3 rounded-full bg-[#16171a] shadow-inner" />
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-inner" />
                     </div>
 
                     {/* Photo with Halftone Dot Matrix Texture Overlay */}
-                    <div className="relative aspect-square w-full rounded-md overflow-hidden bg-black border border-black/40 shadow-inner z-10">
+                    <div className="relative aspect-square w-full rounded-md overflow-hidden bg-black border border-black/40 shadow-inner z-10 flex-1">
                       <Image
                         src={spot.image}
                         alt={spot.name}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        sizes="(max-width: 640px) 96px, (max-width: 1024px) 50vw, 25vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       {/* Halftone / Dither print texture overlay */}
                       <div className="absolute inset-0 bg-[radial-gradient(#000_1.5px,transparent_1.5px)] [background-size:4px_4px] opacity-35 mix-blend-multiply pointer-events-none" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                      <span className="absolute bottom-1.5 left-1.5 right-1.5 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[9px] font-mono font-medium flex items-center gap-1 border border-zinc-800/60">
+                      <span className="hidden sm:flex absolute bottom-1.5 left-1.5 right-1.5 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[9px] font-mono font-medium items-center gap-1 border border-zinc-800/60">
                         <IconMapPin className="w-2.5 h-2.5 text-red-400 shrink-0" />
                         <span className="truncate">{spot.location}</span>
                       </span>
@@ -524,25 +524,36 @@ export default function GujjuversePage() {
 
                     {/* Stamp Footer: ON DUTY */}
                     <div className="text-center z-10 pb-0.5">
-                      <span className="font-mono text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-white/95 drop-shadow-sm">
+                      <span className="font-mono text-[7px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/95 drop-shadow-sm">
                         ON DUTY
                       </span>
                     </div>
                   </div>
 
-                  {/* Card Bottom: Name & Quick Action Links */}
-                  <div className="space-y-1.5 px-0.5">
-                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
-                      {spot.gujjuName}
-                    </h3>
+                  {/* Card Content: Name, Location & Actions (Horizontal on mobile, Stacked on desktop) */}
+                  <div className="flex-1 min-w-0 space-y-1.5 sm:space-y-2 w-full">
+                    <div className="space-y-0.5">
+                      <div className="flex items-center justify-between gap-1">
+                        <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
+                          {spot.gujjuName}
+                        </h3>
+                        <span className="sm:hidden font-mono text-[9px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-bold shrink-0">
+                          TEA POST
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-zinc-400 truncate flex items-center gap-1">
+                        <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
+                        <span>{spot.location}</span>
+                      </p>
+                    </div>
 
-                    <div className="flex items-center justify-between gap-1 pt-1 border-t border-zinc-800/80">
+                    <div className="flex items-center justify-between gap-2 pt-1 border-t border-zinc-800/80">
                       <a
                         href={spot.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-800/70 hover:bg-zinc-700 text-zinc-300 hover:text-white text-[11px] font-mono transition-colors"
+                        className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-800/70 hover:bg-zinc-700 text-zinc-300 hover:text-white text-[11px] font-mono transition-colors flex-1 sm:flex-initial"
                       >
                         <IconMapPin className="w-3 h-3 text-red-400" />
                         <span>Maps</span>
@@ -553,7 +564,7 @@ export default function GujjuversePage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => playTapSound("pop")}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-[11px] font-mono font-bold transition-colors"
+                        className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-[11px] font-mono font-bold transition-colors flex-1 sm:flex-initial"
                       >
                         <IconBrandWhatsapp className="w-3 h-3" />
                         <span>મળવું છે?</span>
