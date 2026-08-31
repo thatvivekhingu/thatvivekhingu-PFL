@@ -373,12 +373,12 @@ export default function GujjuversePage() {
         <BlurFade delay={0.05} inView>
           <div className="flex items-center justify-between">
             <Link
-              href="/#dashboard"
+              href="/#hero"
               onClick={() => playTapSound("pop")}
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-zinc-400 hover:text-white transition-colors group"
             >
               <IconArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>Back to Dashboard</span>
+              <span>Back to Portfolio</span>
             </Link>
 
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-amber-400">
@@ -729,12 +729,12 @@ export default function GujjuversePage() {
             </p>
             <div className="pt-2">
               <Link
-                href="/#dashboard"
+                href="/#hero"
                 onClick={() => playTapSound("pop")}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-lg shadow-amber-500/10"
               >
                 <IconArrowLeft className="w-4 h-4" />
-                <span>મુખ્ય ડેશબોર્ડ પર પાછા જાઓ</span>
+                <span>મુખ્ય પોર્ટફોલિયો પર પાછા જાઓ</span>
               </Link>
             </div>
           </div>
