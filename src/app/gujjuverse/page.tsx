@@ -293,7 +293,7 @@ export default function GujjuversePage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground selection:bg-amber-400 selection:text-black font-gujarati antialiased relative overflow-x-hidden py-10 sm:py-16">
+    <div className="min-h-screen w-full bg-background text-foreground selection:bg-amber-400 selection:text-black font-gujarati antialiased relative overflow-x-hidden pt-28 sm:pt-36 pb-16 sm:pb-24">
       {/* Precision Ambient Light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[450px] bg-[radial-gradient(ellipse_70%_40%_at_50%_-10%,rgba(245,158,11,0.18),rgba(0,0,0,0))] pointer-events-none -z-10" />
 
