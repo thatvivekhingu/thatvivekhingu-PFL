@@ -30,6 +30,7 @@ import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
+import { InstagramCard, LinkedInCard, GitHubCard } from "@/components/social-cards";
 
 interface VideoItem {
   id: string;
@@ -992,136 +993,74 @@ export default function GujjuversePage() {
         </BlurFade>
 
         {/* ========================================================
-            8. MEDIA SHOWCASE (3 Identical 1:1 Square Frames - 24px Gap)
+            8. SOCIAL MEDIA SHOWCASE (Instagram, LinkedIn & GitHub in 9:16 Ratio)
             ======================================================== */}
         <BlurFade delay={0.09} inView>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* 1. GitHub Frame (Identical 1:1 Aspect Ratio) */}
-            <a
-              href="https://github.com/thatvivekhingu"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => playTapSound("pop")}
-              className="group relative aspect-square w-full rounded-[22px] sm:rounded-3xl border border-zinc-800/80 bg-[#0d1117] p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden shadow-2xl hover:border-zinc-500 transition-all duration-300 hover:-translate-y-1"
-            >
-              {/* Minimal Top Platform Header */}
-              <div className="flex items-center justify-between pb-2.5 border-b border-zinc-800/80 z-10">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-zinc-800 text-zinc-100 border border-zinc-700/60">
-                    <IconBrandGithub className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-zinc-100 group-hover:text-white transition-colors">
-                      GitHub
-                    </span>
-                    <span className="block text-[10px] text-zinc-400 font-mono">
-                      thatvivekhingu
-                    </span>
-                  </div>
-                </div>
-                <span className="text-[11px] font-mono text-zinc-400 group-hover:text-white transition-colors">
-                  ↗
+          <div className="space-y-4">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="text-base sm:text-lg font-bold text-zinc-100">
+                  Digital Footprint & Social Hub 🌐
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                  9:16 VERTICAL CARDS
                 </span>
               </div>
+              <span className="text-xs text-zinc-400 font-mono hidden sm:inline">
+                Live & Interactive
+              </span>
+            </div>
 
-              {/* Centered Proportional Image (100% Complete Image Visible - No Cropping/Distortion) */}
-              <div className="relative flex-1 w-full flex items-center justify-center my-auto p-1 overflow-hidden">
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/social/github-profile.png"
-                    alt="thatvivekhingu GitHub Profile"
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-contain object-center group-hover:scale-[1.03] transition-transform duration-500 rounded-lg"
-                  />
-                </div>
-              </div>
-            </a>
-
-            {/* 2. LinkedIn Frame (Identical 1:1 Aspect Ratio) */}
-            <a
-              href="https://linkedin.com/in/vivekhingu"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => playTapSound("pop")}
-              className="group relative aspect-square w-full rounded-[22px] sm:rounded-3xl border border-zinc-800/80 bg-[#000000] p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden shadow-2xl hover:border-blue-500/60 transition-all duration-300 hover:-translate-y-1"
-            >
-              {/* Minimal Top Platform Header */}
-              <div className="flex items-center justify-between pb-2.5 border-b border-zinc-800/80 z-10">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                    <IconBrandLinkedin className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">
-                      LinkedIn
-                    </span>
-                    <span className="block text-[10px] text-zinc-400 font-mono">
-                      Vivek Hingu
-                    </span>
-                  </div>
-                </div>
-                <span className="text-[11px] font-mono text-blue-400 group-hover:text-blue-300 transition-colors">
-                  ↗
-                </span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
+              {/* 1. Instagram 9:16 Embed Card */}
+              <div className="w-full flex justify-center">
+                <InstagramCard
+                  username="realvivek.py"
+                  userHandle="realvivek.py"
+                  avatarUrl="/avatars/vivek.jpg"
+                  mediaImage="/social/instagram-profile.png"
+                  location="DAU (DA-IICT), Gandhinagar"
+                  followersCount="4,651 followers"
+                  likesCount={710}
+                  commentsCount={42}
+                  caption="Live from the AI & Tech session! Exploring next-gen multilingual models ⚡🤖 #TechFest #AI"
+                  eventTitle="THE 9TEEN • i.FEST"
+                  eventDate="15th November"
+                />
               </div>
 
-              {/* Centered Proportional Image (100% Complete Image Visible - No Cropping/Distortion) */}
-              <div className="relative flex-1 w-full flex items-center justify-center my-auto p-1 overflow-hidden">
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/social/linkedin-post.png"
-                    alt="Vivek Hingu LinkedIn Post"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-contain object-center group-hover:scale-[1.03] transition-transform duration-500 rounded-lg"
-                  />
-                </div>
-              </div>
-            </a>
-
-            {/* 3. Instagram Frame (Identical 1:1 Aspect Ratio) */}
-            <a
-              href="https://instagram.com/realvivek.py"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => playTapSound("pop")}
-              className="group relative aspect-square w-full rounded-[22px] sm:rounded-3xl border border-zinc-800/80 bg-[#000000] p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden shadow-2xl hover:border-pink-500/60 transition-all duration-300 hover:-translate-y-1"
-            >
-              {/* Minimal Top Platform Header */}
-              <div className="flex items-center justify-between pb-2.5 border-b border-zinc-800/80 z-10">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20">
-                    <IconBrandInstagram className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-zinc-100 group-hover:text-pink-400 transition-colors">
-                      Instagram
-                    </span>
-                    <span className="block text-[10px] text-zinc-400 font-mono">
-                      @realvivek.py
-                    </span>
-                  </div>
-                </div>
-                <span className="text-[11px] font-mono text-pink-400 group-hover:text-pink-300 transition-colors">
-                  ↗
-                </span>
+              {/* 2. LinkedIn 9:16 Post Card */}
+              <div className="w-full flex justify-center">
+                <LinkedInCard
+                  name="Vivek Hingu"
+                  headline="AI & Machine Learning Engineer | B.E. IT @ SAL"
+                  avatarUrl="/avatars/vivek.jpg"
+                  mediaImage="/social/linkedin-post.png"
+                  badgeText="🏆 2nd Prize Winner — Flinders AI Competition"
+                  reactionsCount={842}
+                  commentsCount={48}
+                  repostsCount={19}
+                  postContent="Honored to receive the 2nd Prize at Flinders University AI Competition 2026! 🚀 Grateful to mentors and organizers."
+                />
               </div>
 
-              {/* Centered Proportional Image (100% Complete Image Visible - No Cropping/Distortion) */}
-              <div className="relative flex-1 w-full flex items-center justify-center my-auto p-1 overflow-hidden">
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/social/instagram-profile.png"
-                    alt="realvivek.py Pythonic Engineer Instagram"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-contain object-center group-hover:scale-[1.03] transition-transform duration-500 rounded-lg"
-                  />
-                </div>
+              {/* 3. GitHub 9:16 Repo Card */}
+              <div className="w-full flex justify-center">
+                <GitHubCard
+                  owner="thatvivekhingu"
+                  repoName="Bharat-Bhasha-Ai-2.0"
+                  avatarUrl="/avatars/vivek.jpg"
+                  mediaImage="/social/github-profile.png"
+                  starsCount={148}
+                  forksCount={34}
+                  watchersCount={52}
+                  primaryLanguage="Python"
+                  latestRelease="v2.1.0"
+                  description="Multilingual Voice & Text AI Operating System powered by Grok API with real-time Indian language synthesis."
+                  tags={["ai-os", "grok-api", "voice-synthesis", "gujarati", "nlp"]}
+                />
               </div>
-            </a>
+            </div>
           </div>
         </BlurFade>
 
