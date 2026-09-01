@@ -81,6 +81,13 @@ export const InstagramCard: React.FC<InstagramCardProps> = ({
     setTimeout(() => setShowHeartOverlay(false), 900);
   };
 
+  const aspectClass =
+    aspectRatio === "9/16"
+      ? "aspect-[9/16]"
+      : aspectRatio === "4/5"
+      ? "aspect-[4/5]"
+      : "aspect-square";
+
   return (
     <div
       className={`w-full max-w-[360px] mx-auto bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden font-sans transition-all duration-300 hover:shadow-2xl ${className}`}
@@ -143,7 +150,7 @@ export const InstagramCard: React.FC<InstagramCardProps> = ({
 
       {/* 2. Media Container (9:16 Aspect Ratio) */}
       <div
-        className="relative w-full aspect-[9/16] bg-zinc-950 select-none overflow-hidden cursor-pointer group"
+        className={`relative w-full ${aspectClass} bg-zinc-950 select-none overflow-hidden cursor-pointer group`}
         onDoubleClick={handleDoubleTap}
       >
         <Image
@@ -230,7 +237,7 @@ export const InstagramCard: React.FC<InstagramCardProps> = ({
             {/* Heart / Like Button */}
             <button
               onClick={handleToggleLike}
-              className="group focus:outline-none transition-transform active:scale-125"
+              className="group focus:outline-none transition-transform active:scale-125 cursor-pointer"
               aria-label="Like post"
             >
               {isLiked ? (
@@ -242,7 +249,7 @@ export const InstagramCard: React.FC<InstagramCardProps> = ({
 
             {/* Comment Button */}
             <button
-              className="group focus:outline-none transition-transform active:scale-110"
+              className="group focus:outline-none transition-transform active:scale-110 cursor-pointer"
               aria-label="Comment"
             >
               <IconMessageCircle2 className="w-6 h-6 text-zinc-700 dark:text-zinc-300 group-hover:text-blue-500 transition-colors" />
@@ -263,7 +270,7 @@ export const InstagramCard: React.FC<InstagramCardProps> = ({
           {/* Bookmark / Save */}
           <button
             onClick={() => setIsSaved(!isSaved)}
-            className="group focus:outline-none transition-transform active:scale-110"
+            className="group focus:outline-none transition-transform active:scale-110 cursor-pointer"
             aria-label="Save post"
           >
             {isSaved ? (

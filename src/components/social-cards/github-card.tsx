@@ -10,15 +10,9 @@ import {
   IconStarFilled,
   IconGitFork,
   IconEye,
-  IconHeart,
-  IconHeartFilled,
   IconCopy,
   IconCheck,
   IconGitBranch,
-  IconCode,
-  IconTerminal2,
-  IconFlame,
-  IconSparkles,
 } from "@tabler/icons-react";
 
 export interface GitHubCardProps {
@@ -96,6 +90,13 @@ export const GitHubCard: React.FC<GitHubCardProps> = ({
     setTimeout(() => setIsCopied(false), 2000);
   };
 
+  const aspectClass =
+    aspectRatio === "9/16"
+      ? "aspect-[9/16]"
+      : aspectRatio === "4/5"
+      ? "aspect-[4/5]"
+      : "aspect-square";
+
   return (
     <div
       className={`w-full max-w-[360px] mx-auto bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden font-sans transition-all duration-300 hover:shadow-2xl ${className}`}
@@ -105,20 +106,25 @@ export const GitHubCard: React.FC<GitHubCardProps> = ({
         <div className="flex items-center justify-between gap-2">
           {/* Repo / Author info */}
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="relative flex-shrink-0">
+            <Link
+              href={profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative flex-shrink-0 group"
+            >
               <div className="w-9 h-9 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700 bg-zinc-900 relative">
                 <Image
                   src={avatarUrl}
                   alt={owner}
                   fill
-                  className="object-cover"
+                  className="object-cover group-hover:scale-105 transition-transform"
                   sizes="36px"
                 />
               </div>
               <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-zinc-900 text-white rounded-full flex items-center justify-center p-0.5 border border-zinc-700">
                 <IconBrandGithub className="w-full h-full" />
               </div>
-            </div>
+            </Link>
 
             <div className="flex flex-col min-w-0">
               <div className="flex items-center gap-1.5 leading-tight">
@@ -175,7 +181,7 @@ export const GitHubCard: React.FC<GitHubCardProps> = ({
 
       {/* 2. Media Container (9:16 Aspect Ratio) */}
       <div
-        className="relative w-full aspect-[9/16] bg-zinc-950 select-none overflow-hidden cursor-pointer group"
+        className={`relative w-full ${aspectClass} bg-zinc-950 select-none overflow-hidden cursor-pointer group`}
         onDoubleClick={handleDoubleTap}
       >
         <Image

@@ -13,9 +13,7 @@ import {
   IconSend,
   IconPlus,
   IconCheck,
-  IconDots,
   IconWorld,
-  IconSparkles,
   IconAward,
 } from "@tabler/icons-react";
 
@@ -81,6 +79,13 @@ export const LinkedInCard: React.FC<LinkedInCardProps> = ({
     setTimeout(() => setShowCelebrateOverlay(false), 900);
   };
 
+  const aspectClass =
+    aspectRatio === "9/16"
+      ? "aspect-[9/16]"
+      : aspectRatio === "4/5"
+      ? "aspect-[4/5]"
+      : "aspect-square";
+
   return (
     <div
       className={`w-full max-w-[360px] mx-auto bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden font-sans transition-all duration-300 hover:shadow-2xl ${className}`}
@@ -90,13 +95,18 @@ export const LinkedInCard: React.FC<LinkedInCardProps> = ({
         <div className="flex items-start justify-between gap-2">
           {/* Author info */}
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="relative flex-shrink-0">
+            <Link
+              href={profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative flex-shrink-0 group"
+            >
               <div className="w-10 h-10 rounded-full overflow-hidden border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 relative">
                 <Image
                   src={avatarUrl}
                   alt={name}
                   fill
-                  className="object-cover"
+                  className="object-cover group-hover:scale-105 transition-transform"
                   sizes="40px"
                 />
               </div>
@@ -104,7 +114,7 @@ export const LinkedInCard: React.FC<LinkedInCardProps> = ({
               <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[#0a66c2] text-white rounded-full flex items-center justify-center p-0.5 border-2 border-white dark:border-zinc-950">
                 <IconBrandLinkedin className="w-full h-full" />
               </div>
-            </div>
+            </Link>
 
             <div className="flex flex-col min-w-0">
               <div className="flex items-center gap-1.5 leading-tight">
@@ -122,6 +132,8 @@ export const LinkedInCard: React.FC<LinkedInCardProps> = ({
                 {headline}
               </p>
               <div className="flex items-center gap-1 text-[10px] text-zinc-400 dark:text-zinc-500 mt-0.5">
+                <span>{connectionsCount}</span>
+                <span>•</span>
                 <span>{timeAgo}</span>
                 <span>•</span>
                 <IconWorld className="w-3 h-3 text-zinc-400 inline" />
@@ -132,7 +144,7 @@ export const LinkedInCard: React.FC<LinkedInCardProps> = ({
           {/* Follow / Connect Button */}
           <button
             onClick={() => setFollowing(!following)}
-            className={`flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full transition-all flex items-center gap-1 shadow-sm active:scale-95 ${
+            className={`flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full transition-all flex items-center gap-1 shadow-sm active:scale-95 cursor-pointer ${
               following
                 ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700"
                 : "bg-[#0a66c2] hover:bg-[#004182] text-white"
@@ -162,7 +174,7 @@ export const LinkedInCard: React.FC<LinkedInCardProps> = ({
 
       {/* 2. Media Container (9:16 Aspect Ratio) */}
       <div
-        className="relative w-full aspect-[9/16] bg-zinc-950 select-none overflow-hidden cursor-pointer group"
+        className={`relative w-full ${aspectClass} bg-zinc-950 select-none overflow-hidden cursor-pointer group`}
         onDoubleClick={handleDoubleTap}
       >
         <Image
@@ -254,7 +266,7 @@ export const LinkedInCard: React.FC<LinkedInCardProps> = ({
           {/* Like */}
           <button
             onClick={handleToggleLike}
-            className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition-colors active:scale-95 ${
+            className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition-colors active:scale-95 cursor-pointer ${
               isLiked
                 ? "text-[#0a66c2] bg-blue-50 dark:bg-blue-950/40"
                 : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900"
@@ -269,13 +281,13 @@ export const LinkedInCard: React.FC<LinkedInCardProps> = ({
           </button>
 
           {/* Comment */}
-          <button className="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors active:scale-95">
+          <button className="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors active:scale-95 cursor-pointer">
             <IconMessageCircle className="w-4 h-4" />
             <span>Comment</span>
           </button>
 
           {/* Repost */}
-          <button className="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors active:scale-95">
+          <button className="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors active:scale-95 cursor-pointer">
             <IconRepeat className="w-4 h-4" />
             <span>Repost</span>
           </button>
