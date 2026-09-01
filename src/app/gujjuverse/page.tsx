@@ -29,7 +29,7 @@ import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
-import { InstagramCard, LinkedInCard, GitHubCard } from "@/components/social-cards";
+import { SocialBentoBoard } from "@/components/social-cards";
 
 interface VideoItem {
   id: string;
@@ -969,17 +969,17 @@ export default function GujjuversePage() {
         </BlurFade>
 
         {/* ========================================================
-            8. SOCIAL MEDIA SHOWCASE (Instagram, LinkedIn & GitHub in 9:16 Ratio)
+            8. SOCIAL MEDIA SHOWCASE (Complete Glassmorphic Bento Board)
             ======================================================== */}
         <BlurFade delay={0.09} inView>
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <div className="flex items-center gap-2">
                 <span className="text-base sm:text-lg font-bold text-zinc-100">
-                  Digital Footprint & Social Hub 🌐
+                  Digital Footprint & Social Bento Hub 🌐
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">
-                  9:16 VERTICAL CARDS
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/30">
+                  BENTO GRID
                 </span>
               </div>
               <span className="text-xs text-zinc-400 font-mono hidden sm:inline">
@@ -987,56 +987,8 @@ export default function GujjuversePage() {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
-              {/* 1. Instagram 9:16 Embed Card */}
-              <div className="w-full flex justify-center">
-                <InstagramCard
-                  username="realvivek.py"
-                  userHandle="realvivek.py"
-                  avatarUrl="/avatars/vivek.jpg"
-                  mediaImage="/social/instagram-profile.png"
-                  location="DAU (DA-IICT), Gandhinagar"
-                  followersCount="4,651 followers"
-                  likesCount={710}
-                  commentsCount={42}
-                  caption="Live from the AI & Tech session! Exploring next-gen multilingual models ⚡🤖 #TechFest #AI"
-                  eventTitle="THE 9TEEN • i.FEST"
-                  eventDate="15th November"
-                />
-              </div>
-
-              {/* 2. LinkedIn 9:16 Post Card */}
-              <div className="w-full flex justify-center">
-                <LinkedInCard
-                  name="Vivek Hingu"
-                  headline="AI & Machine Learning Engineer | B.E. IT @ SAL"
-                  avatarUrl="/avatars/vivek.jpg"
-                  mediaImage="/social/linkedin-post.png"
-                  badgeText="🏆 2nd Prize Winner — Flinders AI Competition"
-                  reactionsCount={842}
-                  commentsCount={48}
-                  repostsCount={19}
-                  postContent="Honored to receive the 2nd Prize at Flinders University AI Competition 2026! 🚀 Grateful to mentors and organizers."
-                />
-              </div>
-
-              {/* 3. GitHub 9:16 Repo Card */}
-              <div className="w-full flex justify-center">
-                <GitHubCard
-                  owner="thatvivekhingu"
-                  repoName="Bharat-Bhasha-Ai-2.0"
-                  avatarUrl="/avatars/vivek.jpg"
-                  mediaImage="/social/github-profile.png"
-                  starsCount={148}
-                  forksCount={34}
-                  watchersCount={52}
-                  primaryLanguage="Python"
-                  latestRelease="v2.1.0"
-                  description="Multilingual Voice & Text AI Operating System powered by Grok API with real-time Indian language synthesis."
-                  tags={["ai-os", "grok-api", "voice-synthesis", "gujarati", "nlp"]}
-                />
-              </div>
-            </div>
+            {/* Complete Pixel-Perfect Social Bento Grid */}
+            <SocialBentoBoard />
           </div>
         </BlurFade>
 
