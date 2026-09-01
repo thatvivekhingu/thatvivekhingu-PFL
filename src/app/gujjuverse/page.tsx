@@ -576,37 +576,26 @@ export default function GujjuversePage() {
 
       <div className="max-w-6xl mx-auto px-3.5 sm:px-6 space-y-6 sm:space-y-10">
         {/* ========================================================
-            1. FIGMA 2-COLUMN SPLIT HERO SECTION (KATHIYAWADI MAAR-FAAD EDITION)
+            1. REFINED 2-COLUMN HERO SECTION (BALANCED PROFESSIONAL & DESI HIERARCHY)
             ======================================================== */}
         <BlurFade delay={0.02} inView>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center border-b border-zinc-800/80 pb-8 sm:pb-12">
             {/* Left Content Column */}
-            <div className="lg:col-span-6 xl:col-span-6 space-y-4 sm:space-y-6 text-left">
-              {/* Top Royal Kathiyawadi Hook Badge */}
+            <div className="lg:col-span-6 xl:col-span-6 space-y-4 sm:space-y-5 text-left">
+              {/* 1. Clear Professional Identity & Punchline Badges */}
               <div className="flex flex-wrap items-center gap-2">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-rose-500/20 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase shadow-[0_0_20px_rgba(245,158,11,0.2)]">
-                  <IconFlame className="w-3.5 h-3.5 text-orange-400 animate-pulse" />
-                  <span>કાઠિયાવાડ સ્પેશિયલ • 100% દેશી પાવર</span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-mono font-bold tracking-wide">
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                  <span>AI & ML Engineer • Ahmedabad</span>
                 </div>
-                <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono text-zinc-400 bg-zinc-900/80 px-2.5 py-1 rounded-full border border-zinc-800">
-                  <IconCoffee className="w-3 h-3 text-amber-400" />
-                  <span>અમદાવાદ ➔ સૌરાષ્ટ્ર</span>
-                </span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-medium backdrop-blur-md">
+                  <IconCrown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span className="truncate max-w-[280px] sm:max-w-none">કાઠિયાવાડમાં જેમ ભગવાન પણ ભૂલા પડે...</span>
+                </div>
               </div>
 
-              {/* Iconic Kathiyawadi Punchline Card */}
-              <div className="relative p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-amber-950/40 via-zinc-900/90 to-zinc-950 border border-amber-500/30 shadow-[0_4px_30px_rgba(245,158,11,0.15)] backdrop-blur-md space-y-2 group hover:border-amber-500/60 transition-all duration-300">
-                <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-widest font-mono">
-                  <IconCrown className="w-4 h-4 text-amber-400" />
-                  <span>KATHIYAWADI PUNCHLINE</span>
-                </div>
-                <blockquote className="text-base sm:text-lg md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-400 leading-snug tracking-wide">
-                  &ldquo;કાઠિયાવાડમાં જેમ ભગવાન પણ ભૂલા પડી જાય, તેમ આજે તમે પણ આ Gujjuverse માં ભૂલા પડી જશો!&rdquo;
-                </blockquote>
-              </div>
-
-              {/* Bold Gujarati Headline */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[48px] font-black tracking-tight text-white leading-[1.18]">
+              {/* 2. Main Bold Headline */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[46px] font-black tracking-tight text-white leading-[1.18]">
                 મોટાભાગના તગડા{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 drop-shadow-[0_4px_24px_rgba(245,158,11,0.35)]">
                   આઈડિયા ચાની કિટલી પર
@@ -614,67 +603,56 @@ export default function GujjuversePage() {
                 જ બને છે!
               </h1>
 
-              {/* Natural Gujarati Subtitle */}
-              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl font-normal">
-                જ્યાં આર્ટિફિશિયલ ઇન્ટેલિજન્સ મળે છે અસલ કાઠિયાવાડી મોજ, કડક કટિંગ ચા અને રંગીલા લોકડાયરા સાથે. આવો પધારો, ચા પીતાં પીતાં મોજ કરો ને કંઈક નવું બનાવીએ!
+              {/* 3. Concise 1-Line Subtitle */}
+              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
+                Ahmedabad developer building real-world AI systems with kadak chai, desi vibes, and pure passion for code.
               </p>
 
-              {/* Desi Badges Chips */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-zinc-900/90 border border-zinc-800 text-xs text-zinc-300 font-medium">
-                  ☕ કડક કટિંગ વાઈબ્સ
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-zinc-900/90 border border-zinc-800 text-xs text-zinc-300 font-medium">
-                  🚀 AI + Tech Innovation
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-zinc-900/90 border border-zinc-800 text-xs text-zinc-300 font-medium">
-                  🎭 રંગીલો લોકડાયરો
-                </span>
-              </div>
-
-              {/* Action Buttons */}
+              {/* 4. Actionable CTAs (Professional First, Culture Secondary) */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
+                {/* Primary Action */}
+                <Link
+                  href="/#projects"
+                  onClick={() => playTapSound("pop")}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-zinc-950 text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:shadow-orange-500/25 active:scale-95 cursor-pointer"
+                >
+                  <span>View My Projects</span>
+                  <span className="text-sm">➔</span>
+                </Link>
+
+                {/* Secondary Culture CTA */}
                 <a
                   href="#chai-spots"
                   onClick={() => playTapSound("pop")}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-zinc-950 text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:shadow-orange-500/25 active:scale-95 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-zinc-600 text-xs font-medium text-zinc-300 hover:text-white transition-all cursor-pointer shadow-md active:scale-95"
                 >
-                  <IconCoffee className="w-4 h-4 text-zinc-950" />
-                  <span>ચાની કિટલીઓ (Tea Spots)</span>
-                  <IconArrowDown className="w-3.5 h-3.5" />
+                  <IconCoffee className="w-4 h-4 text-amber-400" />
+                  <span>Explore Tea Spots & Culture ↓</span>
                 </a>
 
-                <a
-                  href="#dayro-section"
-                  onClick={() => playTapSound("pop")}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-rose-500/30 hover:border-rose-500/60 text-xs font-bold text-rose-300 transition-all uppercase tracking-wider cursor-pointer shadow-md active:scale-95"
-                >
-                  <IconPlayerPlayFilled className="w-3.5 h-3.5 text-rose-500" />
-                  <span>લોકડાયરો & હાસ્ય</span>
-                </a>
-
+                {/* Back to Home */}
                 <Link
                   href="/#hero"
                   onClick={() => playTapSound("pop")}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-400 hover:text-white transition-all uppercase tracking-wider group cursor-pointer shadow-md"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-400 hover:text-white transition-all group cursor-pointer"
                 >
-                  <IconArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                  <span>Back to Hero</span>
+                  <IconArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+                  <span>Portfolio</span>
                 </Link>
               </div>
             </div>
 
-            {/* Right Visual Card Column: Framed Cyber Tapri Looping Video Card */}
+            {/* Right Visual Card Column: Purposeful Tech + Tapri Video Showcase */}
             <div className="lg:col-span-6 xl:col-span-6 relative">
-              {/* Ambient Warm Orange Glow behind card */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/25 via-orange-500/20 to-rose-500/15 rounded-[32px] blur-3xl pointer-events-none -z-10" />
+              {/* Ambient Glow */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-blue-500/10 rounded-[32px] blur-3xl pointer-events-none -z-10" />
 
-              <div className="relative w-full aspect-[4/3] sm:aspect-[1.25/1] rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-zinc-950 group">
-                {/* Floating Live Tag */}
-                <div className="absolute top-3.5 left-3.5 z-20 flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-amber-500/40 text-amber-300 text-[11px] font-mono font-bold tracking-wider shadow-lg">
-                    <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                    <span>CYBER TAPRI • LIVE ON AIR</span>
+              <div className="relative w-full aspect-[4/3] sm:aspect-[1.25/1] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl bg-zinc-950 group">
+                {/* Top Location / Status Pill */}
+                <div className="absolute top-3 left-3 z-20 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-zinc-200 text-[10px] font-mono font-medium shadow-md">
+                    <IconMapPin className="w-3 h-3 text-red-400" />
+                    <span>Ahmedabad Tech Hub 🇮🇳</span>
                   </span>
                 </div>
 
@@ -689,17 +667,16 @@ export default function GujjuversePage() {
                   <source src="/gujjuverse-banner.mp4" type="video/mp4" />
                 </video>
 
-                {/* Bottom Floating Location Ribbon */}
-                <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between p-2.5 rounded-xl bg-black/75 backdrop-blur-md border border-white/10 text-white text-xs font-mono">
-                  <span className="flex items-center gap-1 text-amber-300 font-semibold">
-                    <IconMapPin className="w-3.5 h-3.5 text-red-400" />
-                    Nikol • Science City • Maninagar
+                {/* Bottom Tech Stack Strip */}
+                <div className="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap items-center justify-between gap-1 p-2.5 rounded-xl bg-black/80 backdrop-blur-md border border-white/10 text-white text-xs font-mono">
+                  <span className="text-amber-400 font-semibold text-[11px]">
+                    Python • Grok AI • Next.js • ML
                   </span>
-                  <span className="text-zinc-400 text-[11px] hidden sm:inline">24/7 Chai & Code</span>
+                  <span className="text-zinc-400 text-[10px]">Chai & Code ☕</span>
                 </div>
 
-                {/* Subtle Inner Highlight & Gradient */}
-                <div className="absolute inset-0 ring-1 ring-inset ring-amber-500/20 rounded-2xl sm:rounded-3xl pointer-events-none" />
+                {/* Inner Highlight Ring */}
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl sm:rounded-3xl pointer-events-none" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
               </div>
             </div>
