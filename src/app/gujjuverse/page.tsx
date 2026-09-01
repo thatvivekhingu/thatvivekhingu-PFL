@@ -22,7 +22,6 @@ import {
   IconBrandInstagram,
   IconFlame,
   IconCoffee,
-  IconSparkles,
   IconCrown,
   IconArrowDown,
 } from "@tabler/icons-react";
