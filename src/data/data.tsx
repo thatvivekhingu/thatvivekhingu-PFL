@@ -242,6 +242,21 @@ export const data = {
       tags: ["DA-IICT", "Hackathon Sprint"],
       description: "Participated in HACKOUT '25 organized by the Annual Festival Committee at DA-IICT.",
     },
+    {
+      id: "hackthestack-2026",
+      title: "HackTheStack Hackathon 2026",
+      event: "HackTheStack Hackathon 2026",
+      organizer: "StackCode Training Institute",
+      date: "August 8, 2026",
+      location: "Ahmedabad",
+      award: "Participation",
+      badgeType: "Participation",
+      image: "/hackathons/hackthestack-2026.jpg",
+      verificationId: "HACK-3-P-2608-022",
+      verificationUrl: "https://www.stackcodetraining.com",
+      tags: ["StackCode", "HackTheStack", "Hackathon 2026", "Certificate of Participation"],
+      description: "Successfully participated in HackTheStack Hackathon 2026 organized by StackCode Training Institute, recognized for dedication, innovation, and creative problem-solving.",
+    },
   ] as HackathonCertificateItem[],
 
 
