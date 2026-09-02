@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,9 +8,6 @@ import {
   IconArrowLeft,
   IconBrandYoutube,
   IconX,
-  IconChevronLeft,
-  IconChevronRight,
-  IconCircleCheckFilled,
   IconMapPin,
   IconCode,
   IconTerminal2,
@@ -20,17 +17,15 @@ import {
   IconCoffee,
   IconCrown,
   IconSparkles,
-  IconSearch,
-  IconAdjustmentsHorizontal,
-  IconRefresh,
+  IconArrowUpRight,
   IconCopy,
   IconCheck,
   IconBrain,
-  IconDeviceTv,
   IconLayoutGrid,
-  IconFileCode,
-  IconShieldCheck,
-  IconPlayerPauseFilled,
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconBrandInstagram,
+  IconCircleCheckFilled,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -49,54 +44,50 @@ interface VideoItem {
 const CHAI_SPOTS = [
   {
     id: "nikol",
-    name: "Tea Post — Nikol",
+    name: "NIKOL",
     gujjuName: "ટી પોસ્ટ — નિકોલ",
-    location: "Raspan Arcade, Nikol, Ahmedabad",
+    location: "Raspan Arcade, Nikol",
+    vibe: "DESI POWER",
+    color: "#EA4335", // Google Red
+    bgLight: "bg-red-500/10 border-red-500/30 text-red-400",
     mapsUrl: "https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A",
     image: "/teapost/nikol.jpg",
-    badge: "KADAK • MASALA",
-    footer: "DESI POWER",
-    bgColor: "bg-[#ea580c]",
-    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Nikol પર મળીએ ને AI & કોડિંગ ડિસ્કસ કરીએ ☕",
   },
   {
     id: "science-city",
-    name: "Tea Post — Science City",
+    name: "SCIENCE CITY",
     gujjuName: "ટી પોસ્ટ — સાયન્સ સીટી",
-    location: "Science City Road, Sola, Ahmedabad",
+    location: "Science City Road, Sola",
+    vibe: "CODE • BRAINSTORM",
+    color: "#4285F4", // Google Blue
+    bgLight: "bg-blue-500/10 border-blue-500/30 text-blue-400",
     mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
     image: "/teapost/science-city.png",
-    badge: "CODE • BRAINSTORM",
-    footer: "AI MATRIX",
-    bgColor: "bg-[#0284c7]",
-    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Science City પર મળીએ ને AI / Tech ડિસ્કસ કરીએ ☕",
   },
   {
     id: "maninagar",
-    name: "Tea Post — Maninagar",
+    name: "MANINAGAR",
     gujjuName: "ટી પોસ્ટ — મણિનગર",
-    location: "Near Kankaria Lake, Maninagar, Ahmedabad",
+    location: "Near Kankaria Lake",
+    vibe: "CHILL • KANKARIA",
+    color: "#34A853", // Google Green
+    bgLight: "bg-emerald-500/10 border-emerald-500/30 text-emerald-400",
     mapsUrl: "https://maps.app.goo.gl/XQgNsuKokUm7CuBq8",
     image: "/teapost/maninagar.png",
-    badge: "CHILL • KANKARIA",
-    footer: "CALM VIBES",
-    bgColor: "bg-[#16a34a]",
-    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Maninagar પર મળીએ ને કૉલેબોરેશન કરીએ ☕",
   },
   {
     id: "sghighway",
-    name: "Tea Post — SG Highway",
+    name: "SG HIGHWAY",
     gujjuName: "ટી પોસ્ટ — એસ.જી. હાઈવે",
-    location: "Prahlad Nagar / SG Highway, Ahmedabad",
+    location: "Prahlad Nagar / SG Highway",
+    vibe: "STARTUP • HUB",
+    color: "#FBBC04", // Google Yellow
+    bgLight: "bg-amber-500/10 border-amber-500/30 text-amber-400",
     mapsUrl: "https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5",
     image: "/teapost/science-city.png",
-    badge: "STARTUP • HUB",
-    footer: "HIGH VOLTAGE",
-    bgColor: "bg-[#eab308]",
-    textColor: "text-zinc-950",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post SG Highway પર મળીએ ☕",
   },
 ];
@@ -106,74 +97,43 @@ const GUJJU_DICTIONARY = [
     term: "Bug in Code",
     gujju: "લોચો",
     desc: "કોડે કરેલી એવી ભૂલ જે આખી રાત ઊંઘ ના આવવા દે!",
-    emoji: "🐛",
-    pythonSnippet: "def fix_locho():\n    while has_bug():\n        drink_kadak_chai()\n    return 'Done!'",
+    tag: "DEBUGGING",
+    snippet: "def fix_locho():\n    drink_kadak_chai()\n    return 'Fixed!'",
   },
   {
     term: "Debugging",
     gujju: "ફોડ પાડવો",
     desc: "કોડમાં ક્યાં લોચો થયો છે એ ખોળી કાઢીને દેશી લોજિકથી ફિક્સ કરવું.",
-    emoji: "🔍",
-    pythonSnippet: "import logging\nlogging.info('Phod Padyo: Log analysis complete.')",
+    tag: "DIAGNOSTICS",
+    snippet: "log.info('Phod Padyo: Analysis done.')",
   },
   {
     term: "Merge Conflict",
     gujju: "ગોટો વળવો",
     desc: "બે જણાએ એક જ ફાઈલમાં હાથ નાખ્યો ને પંચાયત થઈ!",
-    emoji: "⚡",
-    pythonSnippet: "<<<<<<< HEAD\nmy_kadak_code()\n=======\ntheir_code()\n>>>>>>> branch",
+    tag: "GIT_VCS",
+    snippet: "<<<<<<< HEAD\nmy_code()\n=======\ntheir_code()\n>>>>>>>",
   },
   {
     term: "Client Meeting",
     gujju: "ચોરે પંચાત",
     desc: "જે વાત ૫ મિનિટમાં પતી જતી હોય એને ૨ કલાક ખેંચવી.",
-    emoji: "💼",
-    pythonSnippet: "for minute in range(120):\n    nod_and_say('Haa, ho jayega!')",
+    tag: "SPRINT_SYNC",
+    snippet: "for m in range(120):\n    say('Haa, pakku!')",
   },
   {
     term: "Production Deploy",
     gujju: "શ્રી ગણેશ / ભગવાન ભરોસે",
     desc: "ચાલ્યું તો મોજ અને ના ચાલ્યું તો 'આપણે જોઈ લઈશું'!",
-    emoji: "🚀",
-    pythonSnippet: "try:\n    deploy_to_prod()\nexcept Exception:\n    print('Bhagwan Bharose!')",
+    tag: "CI_CD",
+    snippet: "try:\n    deploy()\nexcept:\n    print('Bhagwan Bharose!')",
   },
   {
     term: "Stack Overflow",
     gujju: "સંજય દ્રષ્ટિ",
     desc: "જ્યાં દુનિયાના તમામ કોડિંગ લોચાના દેશી ઉપાય મળી જાય.",
-    emoji: "💡",
-    pythonSnippet: "answer = stackoverflow.get_accepted_solution(query='python bug')",
-  },
-];
-
-const GUJJU_RULES = [
-  {
-    num: "01",
-    title: "Morning Fuel",
-    gujjuTitle: "સવારનો કડક નિયમ",
-    desc: "કડક કટિંગ ચા અને ગાંઠિયા વગર મગજનું CPU સ્ટાર્ટ નથી થતું.",
-    icon: "☕",
-  },
-  {
-    num: "02",
-    title: "Business Ethos",
-    gujjuTitle: "વેપારનો સોનેરી નિયમ",
-    desc: "ક્લાયન્ટને હંમેશા સમય પહેલા ડિલિવરી આપવી — પાકો વેપાર છે.",
-    icon: "🤝",
-  },
-  {
-    num: "03",
-    title: "Clean Logic",
-    gujjuTitle: "કોડિંગનો નિયમ",
-    desc: "કોડ ભલે ગમે તેટલો મોટો હોય, લોજિક પાણી જેવું ચોખ્ખું હોવું જોઈએ.",
-    icon: "💻",
-  },
-  {
-    num: "04",
-    title: "Jalsa Balance",
-    gujjuTitle: "મોજનો નિયમ",
-    desc: "કામ સાથે ડાયરો, હાસ્ય અને પરિવાર સાથે મોજ કાયમ રહેવી જોઈએ!",
-    icon: "🎉",
+    tag: "INDIC_KNOWLEDGE",
+    snippet: "solution = stackoverflow.find(query)",
   },
 ];
 
@@ -206,15 +166,6 @@ const ALL_DAYRO_VIDEOS: VideoItem[] = [
     thumbnail: "https://img.youtube.com/vi/qW1ss5bq90A/hqdefault.jpg",
   },
   {
-    id: "kirtidan-kanudo",
-    artist: "કીર્તિદાન ગઢવી",
-    title: "દેશી તાલે કાનુડાના ગીતો & રાસ (લાઈવ ગરબા & સૂર)",
-    category: "music",
-    categoryLabel: "લોક ગીત & રાસ",
-    youtubeId: "g6f6t0X-R6U",
-    thumbnail: "https://img.youtube.com/vi/g6f6t0X-R6U/hqdefault.jpg",
-  },
-  {
     id: "mayabhai-comedy-classic",
     artist: "માયાભાઈ આહીર",
     title: "હસી હસીને લોટપોટ થઈ જશો (સુપર કોમેડી ડાયરો)",
@@ -223,833 +174,606 @@ const ALL_DAYRO_VIDEOS: VideoItem[] = [
     youtubeId: "1Y0s2YQZ38Q",
     thumbnail: "https://img.youtube.com/vi/1Y0s2YQZ38Q/hqdefault.jpg",
   },
-  {
-    id: "sanjay-raval-prerana",
-    artist: "સંજય રાવલ",
-    title: "યુવાનો માટે લાઈફ ચેન્જિંગ વાતો & મોટીવેશન",
-    category: "veer-ras",
-    categoryLabel: "મોટીવેશન",
-    youtubeId: "FEZPU-4lMo8",
-    thumbnail: "https://img.youtube.com/vi/FEZPU-4lMo8/hqdefault.jpg",
-  },
-  {
-    id: "kirtidan-rajbha-jugalbandhi",
-    artist: "કીર્તિદાન ગઢવી & રાજભા ગઢવી",
-    title: "બેસ્ટ જુગલબંધી લોકડાયરો (રાપર કચ્છ લાઈવ)",
-    category: "jugalbandhi",
-    categoryLabel: "મહા જુગલબંધી",
-    youtubeId: "i8POjs66f9g",
-    thumbnail: "https://img.youtube.com/vi/i8POjs66f9g/hqdefault.jpg",
-  },
 ];
 
-export default function GujjuversePage() {
-  // Streamlit Interactive State
-  const [activeTab, setActiveTab] = useState<"chai" | "ai-slang" | "dayro" | "bento" | "manifesto" | "code">("chai");
-  const [selectedChaiSpotId, setSelectedChaiSpotId] = useState<string>("nikol");
-  const [kadakLevel, setKadakLevel] = useState<number>(85);
-  const [aiTemperature, setAiTemperature] = useState<number>(0.7);
-  const [showRawCode, setShowRawCode] = useState<boolean>(true);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [selectedDayroCategory, setSelectedDayroCategory] = useState<string>("all");
+export default function GujjuverseDevFestPage() {
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
-  const [copiedCode, setCopiedCode] = useState<boolean>(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
+  const handleCopy = (snippet: string, index: number) => {
+    navigator.clipboard.writeText(snippet);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
   };
-
-  const selectedChaiSpot = useMemo(
-    () => CHAI_SPOTS.find((s) => s.id === selectedChaiSpotId) || CHAI_SPOTS[0],
-    [selectedChaiSpotId]
-  );
-
-  const filteredDictionary = useMemo(() => {
-    if (!searchQuery.trim()) return GUJJU_DICTIONARY;
-    return GUJJU_DICTIONARY.filter(
-      (item) =>
-        item.term.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.gujju.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.desc.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [searchQuery]);
-
-  const filteredVideos = useMemo(() => {
-    if (selectedDayroCategory === "all") return ALL_DAYRO_VIDEOS;
-    return ALL_DAYRO_VIDEOS.filter((v) => v.category === selectedDayroCategory);
-  }, [selectedDayroCategory]);
-
-  const handleScroll = (direction: "left" | "right") => {
-    if (carouselRef.current) {
-      const scrollAmount = 320;
-      carouselRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const streamlitSourceCode = `# GujjuVerse AI — Streamlit Engine
-import streamlit as st
-import pandas as pd
-
-st.set_page_config(page_title="GujjuVerse AI", page_icon="☕", layout="wide")
-
-# Sidebar Controls
-st.sidebar.title("🎛️ Gujju AI Controls")
-kadak_level = st.sidebar.slider("Kadak Chai Level (%)", 1, 100, value=${kadakLevel})
-ai_temp = st.sidebar.slider("Kathiyawadi Slang Temp", 0.1, 1.0, value=${aiTemperature})
-selected_spot = st.sidebar.selectbox("Tea Post Hub", ["Nikol", "Science City", "Maninagar", "SG Highway"])
-
-# Hero Callout
-st.info("👑 કાઠિયાવાડમાં જેમ ભગવાન પણ ભૂલા પડી જાય, તેમ આજે તમે પણ આ Gujjuverse માં ભૂલા પડી જશો!")
-
-# Metrics
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Location Hub", "Ahmedabad", "Kadak Desi")
-col2.metric("AI Core", "Indic LLaMA 3.3", "Zero Hallucination")
-col3.metric("CGPA Metric", "8.61 / 10", "SAL College")
-col4.metric("Dayro Index", "High Voltage", "12+ Streams")
-`;
 
   return (
-    <div className="min-h-screen bg-[#0e1117] text-[#fafafa] font-sans antialiased overflow-x-hidden selection:bg-[#ff4b4b] selection:text-white">
+    <div className="min-h-screen bg-[#07090e] text-[#f8fafc] font-sans selection:bg-[#EA4335] selection:text-white overflow-x-hidden">
+      
       {/* ========================================================
-          1. STREAMLIT TOP NAVIGATION BAR (Exact st.header)
+          TOP CONFERENCE NAVBAR
           ======================================================== */}
-      <header className="sticky top-0 z-50 w-full border-b border-[#262730] bg-[#0e1117]/95 backdrop-blur-md px-3 sm:px-6 py-2.5 flex items-center justify-between shadow-sm">
+      <header className="sticky top-0 z-50 w-full border-b border-zinc-800/80 bg-[#07090e]/90 backdrop-blur-xl px-4 sm:px-8 py-3.5 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          {/* Streamlit Sidebar Toggle */}
-          <button
-            onClick={() => {
-              playTapSound("hover");
-              setIsSidebarOpen(!isSidebarOpen);
-            }}
-            className="p-1.5 rounded-md hover:bg-[#262730] text-zinc-400 hover:text-white transition-colors cursor-pointer"
-            title="Toggle Sidebar"
-          >
-            <IconAdjustmentsHorizontal className="w-4 h-4 text-[#ff4b4b]" />
-          </button>
-
-          {/* Streamlit Red Crown/Polygon Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#ff4b4b] to-[#ff8585] flex items-center justify-center text-white font-black text-xs shadow-[0_0_12px_rgba(255,75,75,0.4)]">
-              👑
+          <Link href="/" className="flex items-center gap-2.5 group">
+            {/* Google DevFest 4-Color Dots Geometric */}
+            <div className="flex items-center gap-1">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#EA4335]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#4285F4]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#34A853]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FBBC04]" />
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold text-sm tracking-tight text-white group-hover:text-[#ff4b4b] transition-colors">
-                GujjuVerse
+            <div className="flex items-center gap-1.5 pl-1">
+              <span className="font-black text-sm tracking-tight text-white uppercase group-hover:text-amber-400 transition-colors">
+                GUJJU AI
               </span>
-              <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#262730] text-zinc-400 border border-zinc-700">
-                st.app v2.4
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-300">
+                DEVFEST 2026
               </span>
             </div>
           </Link>
         </div>
 
-        {/* Center Running Status Pill */}
-        <div className="hidden md:flex items-center gap-2 text-xs font-mono text-zinc-400 bg-[#262730]/80 px-3 py-1 rounded-full border border-zinc-700">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span className="text-zinc-200 font-semibold">● RUNNING</span>
-          <span className="text-zinc-600">|</span>
-          <span className="text-zinc-400">Rerun (R)</span>
-        </div>
-
-        {/* Right Actions: Back to Portfolio & Deploy Pill */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3 font-mono text-xs">
           <Link
             href="/#hero"
             onClick={() => playTapSound("pop")}
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#262730] hover:bg-zinc-800 border border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-300 hover:text-white transition-all cursor-pointer"
           >
             <IconArrowLeft className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Portfolio</span>
+            <span>Portfolio</span>
           </Link>
-
           <a
-            href="https://wa.me/918866688575?text=%E0%AA%A8%E0%AA%AE%E0%AA%B8%E0%AB%8D%E0%AA%A4%E0%AB%87%20%E0%AA%B5%E0%AA%BF%E0%AA%B5%E0%AB%87%E0%AA%95!%20%E0%AA%9A%E0%AA%BE%E0%AA%B2%E0%AB%8B%20Tea%20Post%20%E0%AA%AA%E0%AA%B0%20%E0%AA%AE%E0%AA%B3%E0%AB%80%E0%AA%8F%20%E2%98%95"
+            href="https://github.com/thatvivekhingu/thatvivekhingu-PFL"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => playTapSound("pop")}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#ff4b4b] hover:bg-[#ff3333] text-white font-bold text-xs shadow-md shadow-[#ff4b4b]/25 transition-all cursor-pointer active:scale-95"
+            className="hidden sm:inline-flex items-center gap-1 text-zinc-400 hover:text-white transition-colors"
           >
-            <IconCoffee className="w-3.5 h-3.5" />
-            <span>Chai Connect</span>
+            <span>GitHub</span>
+            <IconArrowUpRight className="w-3.5 h-3.5" />
           </a>
         </div>
       </header>
 
-      {/* Streamlit Toast Notification */}
-      <AnimatePresence>
-        {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed top-14 right-4 z-50 px-4 py-2 rounded-xl bg-[#262730] border border-[#ff4b4b] text-white text-xs font-mono shadow-2xl flex items-center gap-2 backdrop-blur-md"
+      {/* ========================================================
+          1. HERO SECTION (DevFest 2026 Editorial Headline)
+          ======================================================== */}
+      <section className="relative pt-12 sm:pt-20 pb-16 sm:pb-24 px-4 sm:px-8 max-w-7xl mx-auto border-b border-zinc-800/80">
+        {/* Subtle GDG Color Accent Glows */}
+        <div className="absolute top-10 left-1/4 w-72 h-72 bg-[#4285F4]/10 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="absolute top-20 right-1/4 w-72 h-72 bg-[#EA4335]/10 rounded-full blur-3xl pointer-events-none -z-10" />
+
+        <div className="space-y-6 text-left max-w-5xl">
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-[11px] font-mono tracking-widest text-zinc-400 uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#EA4335]" />
+            <span>AHMEDABAD • GUJARAT • INDIA</span>
+          </div>
+
+          {/* Main Huge Conference Headline */}
+          <div className="space-y-1">
+            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-[0.95] uppercase">
+              GUJJU AI
+            </h1>
+            <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#EA4335] via-[#FBBC04] to-[#4285F4] leading-[0.95] uppercase">
+              DEVFEST 2026
+            </h2>
+          </div>
+
+          {/* Supporting Gujarati Headline */}
+          <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-amber-300 leading-tight">
+            ચા, કોડ અને કાઠિયાવાડી ક્રિએટિવિટી.
+          </p>
+
+          {/* Supporting Tech Text */}
+          <p className="text-sm sm:text-base font-mono text-zinc-400 max-w-2xl leading-relaxed">
+            Python • AI • Machine Learning • GenAI • Developer Culture
+          </p>
+
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center gap-3.5 pt-4">
+            <a
+              href="#the-gujjuverse"
+              onClick={() => playTapSound("pop")}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-zinc-200 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all shadow-xl hover:shadow-white/10 active:scale-95 cursor-pointer"
+            >
+              <span>EXPLORE THE GUJJUVERSE</span>
+              <span>➔</span>
+            </a>
+
+            <a
+              href="https://github.com/thatvivekhingu/thatvivekhingu-PFL"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playTapSound("pop")}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-300 hover:text-white font-mono text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 cursor-pointer"
+            >
+              <span>VIEW SOURCE</span>
+              <IconArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================
+          2. BIG STATEMENT (Oversized Editorial Statement)
+          ======================================================== */}
+      <section className="py-20 sm:py-28 px-4 sm:px-8 max-w-7xl mx-auto border-b border-zinc-800/80">
+        <BlurFade delay={0.04} inView>
+          <div className="space-y-6 max-w-4xl">
+            <span className="text-xs font-mono text-[#FBBC04] uppercase tracking-widest block font-bold">
+              // CORE MANIFESTO
+            </span>
+            <div className="space-y-2">
+              <h3 className="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight">
+                મોટાભાગના તગડા આઈડિયા
+              </h3>
+              <h3 className="text-3xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 leading-tight">
+                ચાની કિટલી પર જ બને છે.
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm font-mono text-zinc-400 pt-2 border-t border-zinc-800/80 tracking-wide">
+              Python · Machine Learning · Data Science · AI · GenAI · Gujarati Culture
+            </p>
+          </div>
+        </BlurFade>
+      </section>
+
+      {/* ========================================================
+          3. THE GUJJUVERSE (Asymmetric Modern Bento Layout)
+          ======================================================== */}
+      <section id="the-gujjuverse" className="py-20 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto border-b border-zinc-800/80 space-y-10">
+        <BlurFade delay={0.06} inView>
+          <div className="space-y-2">
+            <span className="text-xs font-mono text-[#4285F4] uppercase tracking-widest font-bold">
+              // MODULES
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">
+              EXPLORE THE GUJJUVERSE
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400 font-medium">
+              Where developer culture meets Gujarati chaos.
+            </p>
+          </div>
+        </BlurFade>
+
+        {/* 4 Asymmetric Modules Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+          
+          {/* Module 01: CHAI TAPRI GPS (7 cols) */}
+          <a
+            href="#locations"
+            className="md:col-span-7 group p-6 sm:p-8 rounded-3xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between gap-6 shadow-xl hover:-translate-y-1"
           >
-            <IconSparkles className="w-4 h-4 text-[#ff4b4b] animate-spin" />
-            <span>{toastMessage}</span>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
+                01 // GPS ROUTE
+              </span>
+              <span className="text-zinc-500 group-hover:text-white transition-colors">➔</span>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-amber-300 transition-colors">
+                ☕ CHAI TAPRI GPS
+              </h3>
+              <p className="text-sm text-zinc-400 leading-relaxed max-w-md">
+                Find the perfect place to meet, brainstorm and build across Ahmedabad.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {["Nikol", "Science City", "Maninagar", "SG Highway"].map((loc, i) => (
+                <span key={i} className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-black/60 border border-zinc-800 text-zinc-300">
+                  {loc}
+                </span>
+              ))}
+            </div>
+          </a>
+
+          {/* Module 02: GUJJU AI (5 cols) */}
+          <a
+            href="#ai-matrix"
+            className="md:col-span-5 group p-6 sm:p-8 rounded-3xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between gap-6 shadow-xl hover:-translate-y-1"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/30">
+                02 // TRANSLATOR
+              </span>
+              <span className="text-zinc-500 group-hover:text-white transition-colors">➔</span>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-cyan-300 transition-colors">
+                🤖 GUJJU AI
+              </h3>
+              <p className="text-sm text-zinc-400 leading-relaxed">
+                Gujarati slang × AI × Code: Real developer problems in raw Kathiyawadi.
+              </p>
+            </div>
+            <div className="text-xs font-mono text-emerald-400 bg-black/60 p-2.5 rounded-xl border border-zinc-800">
+              <code>locho = fix_with_kadak_chai()</code>
+            </div>
+          </a>
+
+          {/* Module 03: LOK DAYRO (5 cols) */}
+          <a
+            href="#dayro-videos"
+            className="md:col-span-5 group p-6 sm:p-8 rounded-3xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-rose-500/50 transition-all duration-300 flex flex-col justify-between gap-6 shadow-xl hover:-translate-y-1"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold text-rose-400 bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/30">
+                03 // CULTURE
+              </span>
+              <span className="text-zinc-500 group-hover:text-white transition-colors">➔</span>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-rose-300 transition-colors">
+                🎭 LOK DAYRO
+              </h3>
+              <p className="text-sm text-zinc-400 leading-relaxed">
+                Hasya, culture and developer chaos — live performance streams.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+              <IconPlayerPlayFilled className="w-4 h-4 text-rose-500" />
+              <span>Gopal Sadhu • Aditya Gadhvi • Mayabhai</span>
+            </div>
+          </a>
+
+          {/* Module 04: DEVELOPER BENTO (7 cols) */}
+          <a
+            href="#developer-bento"
+            className="md:col-span-7 group p-6 sm:p-8 rounded-3xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between gap-6 shadow-xl hover:-translate-y-1"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/30">
+                04 // IDENTITY
+              </span>
+              <span className="text-zinc-500 group-hover:text-white transition-colors">➔</span>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-blue-300 transition-colors">
+                📊 DEVELOPER BENTO
+              </h3>
+              <p className="text-sm text-zinc-400 leading-relaxed max-w-md">
+                Tools, resources and developer life: GitHub commits, LinkedIn achievements, and Instagram ML series.
+              </p>
+            </div>
+            <div className="flex items-center gap-4 text-xs font-mono text-zinc-400">
+              <span>562 Commits</span>
+              <span>•</span>
+              <span>10 ML Episodes</span>
+              <span>•</span>
+              <span>GDG Cloud Speaker</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      {/* ========================================================
+          4. AHMEDABAD TO SAURASHTRA (Map Route Visual)
+          ======================================================== */}
+      <section id="locations" className="py-20 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto border-b border-zinc-800/80 space-y-10">
+        <BlurFade delay={0.08} inView>
+          <div className="space-y-2">
+            <span className="text-xs font-mono text-[#34A853] uppercase tracking-widest font-bold">
+              // CONNECTED ROUTE
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">
+              AHMEDABAD → SAURASHTRA
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400 font-medium">
+              Where the brainstorming starts.
+            </p>
+          </div>
+        </BlurFade>
+
+        {/* Visual Map-Inspired Connected Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
+          {CHAI_SPOTS.map((spot, idx) => (
+            <div
+              key={spot.id}
+              className="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 transition-all flex flex-col justify-between gap-5 group shadow-lg"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${spot.bgLight}`}>
+                    {spot.vibe}
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500">0{idx + 1}</span>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-black text-white group-hover:text-amber-300 transition-colors">
+                    {spot.name}
+                  </h4>
+                  <p className="text-xs text-zinc-400 mt-0.5">{spot.location}</p>
+                </div>
+              </div>
+
+              {/* CTAs: Meet & Maps */}
+              <div className="flex items-center gap-2 pt-3 border-t border-zinc-800/80 font-mono text-xs">
+                <a
+                  href={`https://wa.me/918866688575?text=${encodeURIComponent(spot.whatsappMsg)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-1.5 px-3 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 font-bold text-center transition-colors text-[11px]"
+                >
+                  Meet ☕
+                </a>
+                <a
+                  href={spot.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-1.5 px-3 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-center transition-colors text-[11px]"
+                >
+                  Maps ↗
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ========================================================
+          5. AI MATRIX (GUJJU AI × CODE)
+          ======================================================== */}
+      <section id="ai-matrix" className="py-20 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto border-b border-zinc-800/80 space-y-10">
+        <BlurFade delay={0.1} inView>
+          <div className="space-y-2">
+            <span className="text-xs font-mono text-[#EA4335] uppercase tracking-widest font-bold">
+              // CODE & SLANG
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">
+              GUJJU AI × CODE
+            </h2>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {["Gujarati Slang", "Prompt Engineering", "GenAI", "Python", "Machine Learning", "Indic AI"].map((c, i) => (
+                <span key={i} className="text-xs font-mono px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300">
+                  #{c}
+                </span>
+              ))}
+            </div>
+          </div>
+        </BlurFade>
+
+        {/* Interactive Slang & Code Matrix Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {GUJJU_DICTIONARY.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between gap-4 shadow-lg group"
+            >
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-cyan-400 font-bold">{item.tag}</span>
+                  <span className="text-zinc-500">{item.term}</span>
+                </div>
+                <h4 className="text-xl font-black text-white group-hover:text-cyan-300 transition-colors">
+                  {item.gujju}
+                </h4>
+                <p className="text-xs text-zinc-400 leading-relaxed">{item.desc}</p>
+              </div>
+
+              {/* Code Snippet Box */}
+              <div className="p-3 rounded-xl bg-black/80 border border-zinc-800/80 font-mono text-[11px] text-emerald-400 flex items-start justify-between gap-2 overflow-x-auto">
+                <pre className="whitespace-pre-wrap">{item.snippet}</pre>
+                <button
+                  onClick={() => handleCopy(item.snippet, idx)}
+                  className="p-1 rounded hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer shrink-0"
+                  title="Copy Code"
+                >
+                  {copiedIndex === idx ? <IconCheck className="w-3.5 h-3.5 text-emerald-400" /> : <IconCopy className="w-3.5 h-3.5" />}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ========================================================
+          DAYRO & HASYA VIDEO JUKEOX
+          ======================================================== */}
+      <section id="dayro-videos" className="py-20 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto border-b border-zinc-800/80 space-y-8">
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#FBBC04] uppercase tracking-widest font-bold">
+              // LIVE STREAMS
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight uppercase">
+              LOK DAYRO & HASYA
+            </h2>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {ALL_DAYRO_VIDEOS.map((video) => (
+            <div
+              key={video.id}
+              onClick={() => {
+                setActiveVideo(video);
+                playTapSound("pop");
+              }}
+              className="rounded-2xl bg-zinc-900/60 border border-zinc-800 p-3 space-y-3 cursor-pointer group hover:border-[#EA4335] transition-all shadow-md"
+            >
+              <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black">
+                <Image
+                  src={video.thumbnail}
+                  alt={video.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="260px"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 flex items-center justify-center transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-[#EA4335] text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <IconPlayerPlayFilled className="w-4 h-4 ml-0.5" />
+                  </div>
+                </div>
+                <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/80 text-[9px] font-mono text-zinc-200">
+                  {video.categoryLabel}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">
+                  {video.title}
+                </h4>
+                <span className="text-[10px] text-zinc-400 font-mono block mt-1">{video.artist}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Video Modal Player */}
+      <AnimatePresence>
+        {activeVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={() => setActiveVideo(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-3xl rounded-2xl bg-zinc-950 border border-zinc-700 overflow-hidden shadow-2xl"
+            >
+              <div className="flex items-center justify-between p-3 border-b border-zinc-800 bg-zinc-900">
+                <span className="text-xs font-bold text-white truncate font-mono">
+                  {activeVideo.title}
+                </span>
+                <button
+                  onClick={() => setActiveVideo(null)}
+                  className="p-1 rounded-md hover:bg-zinc-800 text-zinc-400 hover:text-white"
+                >
+                  <IconX className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="relative aspect-video w-full bg-black">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0`}
+                  title={activeVideo.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full border-0"
+                />
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* ========================================================
-          2. MAIN STREAMLIT WORKSPACE (SIDEBAR + MAIN CANVAS)
+          6. DEVELOPER MANIFESTO (Dramatic Minimal Dark Section)
           ======================================================== */}
-      <div className="max-w-[1600px] mx-auto flex flex-col lg:flex-row items-start min-h-[calc(100vh-50px)]">
+      <section className="py-24 sm:py-32 px-4 sm:px-8 max-w-7xl mx-auto border-b border-zinc-800/80 text-left">
+        <BlurFade delay={0.12} inView>
+          <div className="space-y-8 max-w-4xl">
+            <div className="space-y-3 font-black text-4xl sm:text-6xl md:text-7xl uppercase tracking-tighter leading-none">
+              <h2 className="text-white">CODE WITH PURPOSE.</h2>
+              <h2 className="text-white">BUILD WITH PEOPLE.</h2>
+              <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+                SHIP WITH CHAI. ☕
+              </h2>
+            </div>
 
-        {/* ========================================================
-            STREAMLIT SIDEBAR (st.sidebar)
-            ======================================================== */}
-        <AnimatePresence>
-          {isSidebarOpen && (
-            <motion.aside
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: "auto", opacity: 1 }}
-              exit={{ width: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="w-full lg:w-80 shrink-0 border-b lg:border-b-0 lg:border-r border-[#262730] bg-[#11141c]/95 p-4 sm:p-5 space-y-5"
-            >
-              {/* Sidebar Title */}
-              <div className="flex items-center justify-between pb-2 border-b border-[#262730]">
-                <div className="flex items-center gap-2">
-                  <span className="text-base font-bold text-white font-mono">🎛️ st.sidebar</span>
-                </div>
-                <span className="text-[10px] font-mono text-zinc-500">Gujju AI</span>
-              </div>
+            <div className="pt-6 border-t border-zinc-800 flex flex-wrap items-center gap-6 text-sm sm:text-base font-mono text-zinc-400">
+              <span className="text-amber-300 font-bold">અમદાવાદથી બનાવેલું.</span>
+              <span>•</span>
+              <span className="text-orange-400 font-bold">કાઠિયાવાડથી powered.</span>
+            </div>
+          </div>
+        </BlurFade>
+      </section>
 
-              {/* Module Navigator Selectbox */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-300 font-mono">
-                  st.selectbox(&quot;Choose Module&quot;)
-                </label>
-                <div className="space-y-1">
-                  {[
-                    { id: "chai", label: "☕ Chai Tapri GPS", icon: IconCoffee },
-                    { id: "ai-slang", label: "🤖 Gujju AI Slang & Code", icon: IconTerminal2 },
-                    { id: "dayro", label: "🎭 Lok Dayro Jukebox", icon: IconBrandYoutube },
-                    { id: "bento", label: "📊 Developer Bento Hub", icon: IconLayoutGrid },
-                    { id: "manifesto", label: "📜 Developer Manifesto", icon: IconShieldCheck },
-                    { id: "code", label: "💻 Streamlit Source Code", icon: IconFileCode },
-                  ].map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => {
-                        playTapSound("click");
-                        setActiveTab(tab.id as any);
-                        showToast(`Switched to: ${tab.label}`);
-                      }}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-all flex items-center justify-between cursor-pointer ${
-                        activeTab === tab.id
-                          ? "bg-[#ff4b4b] text-white font-bold shadow-md shadow-[#ff4b4b]/20"
-                          : "bg-[#262730]/60 hover:bg-[#262730] text-zinc-300 hover:text-white"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <tab.icon className="w-3.5 h-3.5" />
-                        <span>{tab.label}</span>
-                      </div>
-                      {activeTab === tab.id && <span className="text-xs">➔</span>}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Slider 1: Kadak Chai Concentration */}
-              <div className="space-y-1.5 bg-[#262730]/40 p-3 rounded-xl border border-zinc-800">
-                <div className="flex justify-between items-center text-xs font-mono">
-                  <span className="text-zinc-300 font-semibold">Kadak Chai Level</span>
-                  <span className="text-amber-400 font-bold">{kadakLevel}%</span>
-                </div>
-                <input
-                  type="range"
-                  min="1"
-                  max="100"
-                  value={kadakLevel}
-                  onChange={(e) => {
-                    setKadakLevel(Number(e.target.value));
-                    showToast(`Chai Kadak Factor: ${e.target.value}%`);
-                  }}
-                  className="w-full accent-[#ff4b4b] cursor-pointer"
-                />
-                <div className="flex justify-between text-[9px] font-mono text-zinc-500">
-                  <span>Light</span>
-                  <span>Masala</span>
-                  <span>Full Kadak 🔥</span>
-                </div>
-              </div>
-
-              {/* Slider 2: Desi Humor Temperature */}
-              <div className="space-y-1.5 bg-[#262730]/40 p-3 rounded-xl border border-zinc-800">
-                <div className="flex justify-between items-center text-xs font-mono">
-                  <span className="text-zinc-300 font-semibold">AI Slang Temp</span>
-                  <span className="text-cyan-400 font-bold">{aiTemperature}</span>
-                </div>
-                <input
-                  type="range"
-                  min="0.1"
-                  max="1.0"
-                  step="0.1"
-                  value={aiTemperature}
-                  onChange={(e) => {
-                    setAiTemperature(Number(e.target.value));
-                    showToast(`AI Temperature: ${e.target.value}`);
-                  }}
-                  className="w-full accent-cyan-400 cursor-pointer"
-                />
-                <div className="flex justify-between text-[9px] font-mono text-zinc-500">
-                  <span>0.1 (Formal)</span>
-                  <span>0.7 (Desi)</span>
-                  <span>1.0 (Moj)</span>
-                </div>
-              </div>
-
-              {/* Sidebar Metrics Stack */}
-              <div className="space-y-2 pt-1 border-t border-[#262730]">
-                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
-                  Live Streamlit Metrics
-                </span>
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="p-2.5 rounded-xl bg-[#262730]/60 border border-zinc-800">
-                    <span className="block text-[10px] font-mono text-zinc-400">Chai Consumed</span>
-                    <span className="text-sm font-bold text-amber-400">1,420 ☕</span>
-                    <span className="block text-[9px] text-emerald-400 font-mono">+12% today</span>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-[#262730]/60 border border-zinc-800">
-                    <span className="block text-[10px] font-mono text-zinc-400">Gujju Bugs</span>
-                    <span className="text-sm font-bold text-white">489 🐛</span>
-                    <span className="block text-[9px] text-emerald-400 font-mono">100% Fixed</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Raw Code Toggle */}
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#262730]/40 border border-zinc-800 text-xs font-mono">
-                <span className="text-zinc-300">st.code Output</span>
-                <button
-                  onClick={() => setShowRawCode(!showRawCode)}
-                  className={`w-9 h-5 rounded-full p-0.5 transition-colors cursor-pointer ${
-                    showRawCode ? "bg-emerald-500" : "bg-zinc-700"
-                  }`}
-                >
-                  <div
-                    className={`w-4 h-4 rounded-full bg-white transition-transform ${
-                      showRawCode ? "translate-x-4" : "translate-x-0"
-                    }`}
-                  />
-                </button>
-              </div>
-
-              {/* Sidebar Footer */}
-              <div className="p-3 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20 text-xs text-amber-300 font-mono space-y-1">
-                <span className="font-bold block">💡 Pro-Tip:</span>
-                <p className="text-[11px] text-zinc-400 leading-snug">
-                  અમદાવાદના Tea Post પર કડક ચા સાથે કૉલેબોરેશન માટે મળો!
-                </p>
-              </div>
-            </motion.aside>
-          )}
-        </AnimatePresence>
-
-        {/* ========================================================
-            MAIN STREAMLIT CANVAS (Interactive st.main)
-            ======================================================== */}
-        <main className="flex-1 w-full p-4 sm:p-6 lg:p-8 space-y-6">
-
-          {/* 1. Streamlit Hero Callout Box */}
-          <BlurFade delay={0.02} inView>
-            <div className="relative p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-[#1e222d] to-[#161a24] border border-amber-500/30 shadow-xl space-y-2">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-[#ff4b4b] text-white font-bold text-xs">
-                    st.info
-                  </div>
-                  <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
-                    👑 KATHIYAWADI PUNCHLINE • AI MATRIX
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono text-zinc-400 bg-zinc-900/80 px-2.5 py-0.5 rounded-full border border-zinc-800">
-                  Ahmedabad • B.E. IT @ SAL (8.61 CGPA)
-                </span>
-              </div>
-
-              <blockquote className="text-base sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-400 leading-snug">
-                &ldquo;કાઠિયાવાડમાં જેમ ભગવાન પણ ભૂલા પડી જાય, તેમ આજે તમે પણ આ Gujjuverse માં ભૂલા પડી જશો!&rdquo;
-              </blockquote>
-
-              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
-                મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે! Python, Machine Learning, Data Science અને રંગીલા લોકડાયરાનો અસલ દેશી સંગમ.
+      {/* ========================================================
+          7. CREATOR PROFILE (Conference Speaker Format & Bento)
+          ======================================================== */}
+      <section id="developer-bento" className="py-20 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto border-b border-zinc-800/80 space-y-12">
+        <BlurFade delay={0.14} inView>
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="space-y-2">
+              <span className="text-xs font-mono text-[#4285F4] uppercase tracking-widest font-bold">
+                // SPEAKER / CREATOR
+              </span>
+              <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight uppercase">
+                VIVEK HINGU
+              </h2>
+              <p className="text-sm font-mono text-zinc-400">
+                B.E. IT • SAL College of Engineering · <span className="text-emerald-400 font-bold">8.61 CGPA</span>
               </p>
             </div>
-          </BlurFade>
 
-          {/* 2. Streamlit Metrics Row (st.columns(4)) */}
-          <BlurFade delay={0.04} inView>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              <div className="p-3.5 rounded-xl bg-[#1a1c24] border border-[#262730] shadow-md space-y-1">
-                <span className="text-[11px] font-mono text-zinc-400 block">Location Hub</span>
-                <span className="text-sm sm:text-base font-bold text-white block truncate">Ahmedabad ➔ Saurashtra</span>
-                <span className="text-[10px] font-mono text-amber-400 flex items-center gap-1">
-                  <IconMapPin className="w-3 h-3 text-red-400" />
-                  Kadak Desi Vibes
+            {/* Skills & Quick Conference Links */}
+            <div className="flex flex-wrap items-center gap-2">
+              {["AI", "Python", "Machine Learning", "Generative AI"].map((skill, i) => (
+                <span key={i} className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300">
+                  {skill}
                 </span>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-[#1a1c24] border border-[#262730] shadow-md space-y-1">
-                <span className="text-[11px] font-mono text-zinc-400 block">AI Engine</span>
-                <span className="text-sm sm:text-base font-bold text-cyan-300 block truncate">BharatBhasha AI</span>
-                <span className="text-[10px] font-mono text-emerald-400">Grok + Indic Voice OS</span>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-[#1a1c24] border border-[#262730] shadow-md space-y-1">
-                <span className="text-[11px] font-mono text-zinc-400 block">Coding Fuel</span>
-                <span className="text-sm sm:text-base font-bold text-amber-300 block truncate">Masala Chai</span>
-                <span className="text-[10px] font-mono text-amber-400">Kadak Level: {kadakLevel}%</span>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-[#1a1c24] border border-[#262730] shadow-md space-y-1">
-                <span className="text-[11px] font-mono text-zinc-400 block">Dayro & Hasya</span>
-                <span className="text-sm sm:text-base font-bold text-rose-300 block truncate">12+ Live Streams</span>
-                <span className="text-[10px] font-mono text-rose-400">High Voltage ⚡</span>
+              ))}
+              <div className="flex items-center gap-2 pl-2">
+                <a
+                  href="https://github.com/thatvivekhingu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white"
+                >
+                  <IconBrandGithub className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://linkedin.com/in/vivekhingu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white"
+                >
+                  <IconBrandLinkedin className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://instagram.com/realvivek.py"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white"
+                >
+                  <IconBrandInstagram className="w-4 h-4" />
+                </a>
               </div>
             </div>
-          </BlurFade>
+          </div>
+        </BlurFade>
 
-          {/* ========================================================
-              3. STREAMLIT INTERACTIVE TABS (st.tabs)
-              ======================================================== */}
-          <BlurFade delay={0.06} inView>
-            <div className="space-y-4">
-              {/* Horizontal Tabs Header Bar */}
-              <div className="flex items-center gap-1 overflow-x-auto border-b border-[#262730] pb-2">
-                {[
-                  { id: "chai", label: "☕ Chai Tapri GPS", count: 4 },
-                  { id: "ai-slang", label: "🤖 Gujju AI & Slang Matrix", count: 6 },
-                  { id: "dayro", label: "🎭 Lok Dayro & Hasya", count: 7 },
-                  { id: "bento", label: "📊 Social Bento Hub", count: 3 },
-                  { id: "manifesto", label: "📜 Developer Manifesto", count: 4 },
-                  { id: "code", label: "💻 Streamlit Source (app.py)", count: 1 },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => {
-                      playTapSound("click");
-                      setActiveTab(tab.id as any);
-                    }}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-2 cursor-pointer ${
-                      activeTab === tab.id
-                        ? "bg-[#262730] text-[#ff4b4b] border border-[#ff4b4b]/40 shadow-sm"
-                        : "text-zinc-400 hover:text-white hover:bg-[#1a1c24]"
-                    }`}
-                  >
-                    <span>{tab.label}</span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-black/40 text-zinc-400">
-                      {tab.count}
-                    </span>
-                  </button>
-                ))}
-              </div>
+        {/* The 3-Column Compact Social Bento Hub */}
+        <SocialBentoBoard />
+      </section>
 
-              {/* ========================================================
-                  TAB 1: CHAI TAPRI GPS & INTERACTIVE STAMP CARDS
-                  ======================================================== */}
-              {activeTab === "chai" && (
-                <div className="space-y-4">
-                  {/* Streamlit st.radio / spot selector */}
-                  <div className="p-4 rounded-2xl bg-[#1a1c24] border border-[#262730] space-y-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="text-xs font-mono text-zinc-300 font-bold">
-                        st.radio(&quot;Select Ahmedabad Tea Post Branch&quot;)
-                      </span>
-                      <span className="text-[10px] font-mono text-amber-400">
-                        Active GPS: {selectedChaiSpot.location}
-                      </span>
-                    </div>
+      {/* ========================================================
+          8. FOOTER (Minimal Premium Conference Footer)
+          ======================================================== */}
+      <footer className="py-16 px-4 sm:px-8 max-w-7xl mx-auto space-y-8">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-zinc-800/80 pb-8">
+          <div>
+            <h3 className="text-3xl sm:text-4xl font-black text-white tracking-tighter uppercase">
+              GUJJU AI
+            </h3>
+            <p className="text-xs font-mono text-zinc-500 mt-1">
+              Made in Ahmedabad with ☕ + Python
+            </p>
+          </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {CHAI_SPOTS.map((spot) => (
-                        <button
-                          key={spot.id}
-                          onClick={() => {
-                            setSelectedChaiSpotId(spot.id);
-                            playTapSound("pop");
-                            showToast(`Selected Branch: ${spot.name}`);
-                          }}
-                          className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer ${
-                            selectedChaiSpotId === spot.id
-                              ? "bg-[#ff4b4b]/10 border-[#ff4b4b] text-white shadow-md shadow-[#ff4b4b]/20"
-                              : "bg-[#0e1117] border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700"
-                          }`}
-                        >
-                          <span className="block text-xs font-bold text-white">{spot.gujjuName}</span>
-                          <span className="block text-[10px] text-zinc-400 truncate">{spot.location}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+          <div className="flex items-center gap-6 text-xs font-mono text-zinc-400">
+            <Link href="/#hero" className="hover:text-white transition-colors">Portfolio</Link>
+            <Link href="/social-cards" className="hover:text-white transition-colors">Social</Link>
+            <a href="https://github.com/thatvivekhingu" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub ↗</a>
+          </div>
+        </div>
 
-                  {/* 4 Interactive Postage Stamp Cards Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {CHAI_SPOTS.map((spot) => (
-                      <div
-                        key={spot.id}
-                        className={`rounded-2xl bg-[#16171a] border p-3 flex flex-col justify-between gap-3 shadow-xl transition-all duration-300 hover:-translate-y-1 ${
-                          selectedChaiSpotId === spot.id ? "border-[#ff4b4b] ring-2 ring-[#ff4b4b]/30" : "border-[#25282f]"
-                        }`}
-                      >
-                        {/* Stamp Header */}
-                        <div className={`relative ${spot.bgColor} rounded-xl p-2.5 flex flex-col justify-between gap-2 overflow-hidden shadow-inner`}>
-                          <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-white">
-                            <span>{spot.badge}</span>
-                            <IconCoffee className="w-3.5 h-3.5" />
-                          </div>
+        <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-zinc-500 gap-2">
+          <span>DEVFEST 2026 • GUJARAT</span>
+          <span>© 2026 Vivek Hingu. All rights reserved.</span>
+        </div>
+      </footer>
 
-                          <div className="relative aspect-video w-full rounded-lg overflow-hidden bg-black border border-black/50">
-                            <Image
-                              src={spot.image}
-                              alt={spot.name}
-                              fill
-                              className="object-cover hover:scale-105 transition-transform duration-500"
-                              sizes="200px"
-                            />
-                            <div className="absolute bottom-1 left-1 right-1 px-1.5 py-0.5 rounded bg-black/80 text-[9px] font-mono text-zinc-300 truncate">
-                              {spot.location}
-                            </div>
-                          </div>
-
-                          <div className="text-center font-mono text-[9px] font-black uppercase tracking-widest text-white">
-                            {spot.footer}
-                          </div>
-                        </div>
-
-                        {/* Details & WhatsApp invite */}
-                        <div className="space-y-2">
-                          <div>
-                            <h4 className="text-sm font-bold text-white">{spot.gujjuName}</h4>
-                            <p className="text-[11px] text-zinc-400 truncate">{spot.location}</p>
-                          </div>
-
-                          <div className="flex items-center gap-2 pt-1 border-t border-zinc-800">
-                            <a
-                              href={spot.mapsUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-1 py-1 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[11px] font-mono text-center transition-colors"
-                            >
-                              Maps ↗
-                            </a>
-                            <a
-                              href={`https://wa.me/918866688575?text=${encodeURIComponent(spot.whatsappMsg)}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="py-1 px-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold flex items-center gap-1 transition-colors"
-                            >
-                              <IconBrandWhatsapp className="w-3.5 h-3.5" />
-                              <span>Meet</span>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* ========================================================
-                  TAB 2: KATHIYAWADI AI SLANG & CODE PLAYGROUND
-                  ======================================================== */}
-              {activeTab === "ai-slang" && (
-                <div className="space-y-4">
-                  {/* Streamlit Input Box */}
-                  <div className="p-4 rounded-2xl bg-[#1a1c24] border border-[#262730] space-y-3">
-                    <label className="text-xs font-mono text-zinc-300 font-bold block">
-                      st.text_input(&quot;Search / Translate Tech Term into Kathiyawadi Slang&quot;)
-                    </label>
-                    <div className="relative">
-                      <IconSearch className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        placeholder="e.g. Bug, Merge Conflict, Production, Client Meeting..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-[#0e1117] border border-zinc-700 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#ff4b4b]"
-                      />
-                    </div>
-
-                    {/* Quick filter chips */}
-                    <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                      <span className="text-[10px] font-mono text-zinc-500">Quick Prompts:</span>
-                      {["Bug", "Debugging", "Merge Conflict", "Client Meeting", "Production Deploy"].map((term) => (
-                        <button
-                          key={term}
-                          onClick={() => {
-                            setSearchQuery(term);
-                            playTapSound("pop");
-                          }}
-                          className="px-2 py-0.5 rounded-md bg-zinc-800/80 hover:bg-zinc-700 text-[10px] font-mono text-cyan-300 border border-zinc-700 cursor-pointer"
-                        >
-                          #{term}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Slang Matrix Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {filteredDictionary.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="p-3.5 rounded-xl bg-[#1a1c24] border border-zinc-800 hover:border-cyan-500/50 transition-all space-y-2 group shadow-md"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-mono text-zinc-400">{item.term}</span>
-                          <span className="text-base">{item.emoji}</span>
-                        </div>
-
-                        <div>
-                          <h4 className="text-base font-black text-cyan-300 group-hover:text-cyan-200">
-                            {item.gujju}
-                          </h4>
-                          <p className="text-xs text-zinc-300 leading-snug mt-0.5">{item.desc}</p>
-                        </div>
-
-                        {/* Python st.code Snippet */}
-                        {showRawCode && (
-                          <div className="p-2 rounded-lg bg-[#0e1117] border border-zinc-800/80 text-[10px] font-mono text-emerald-400 overflow-x-auto">
-                            <pre className="whitespace-pre-wrap">{item.pythonSnippet}</pre>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* ========================================================
-                  TAB 3: LOK DAYRO & HASYA JUKEOX (st.video)
-                  ======================================================== */}
-              {activeTab === "dayro" && (
-                <div className="space-y-4">
-                  {/* Category Filter Pills */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-[#1a1c24] border border-[#262730]">
-                    <div className="flex flex-wrap items-center gap-1.5">
-                      {[
-                        { id: "all", label: "All Streams" },
-                        { id: "music", label: "Lokgeet & Sangeet" },
-                        { id: "jugalbandhi", label: "Maha Jugalbandhi 🔥" },
-                        { id: "hasya", label: "Hasya Darbar 🎭" },
-                        { id: "veer-ras", label: "Veer Ras & Motivation" },
-                      ].map((cat) => (
-                        <button
-                          key={cat.id}
-                          onClick={() => {
-                            setSelectedDayroCategory(cat.id);
-                            playTapSound("click");
-                          }}
-                          className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
-                            selectedDayroCategory === cat.id
-                              ? "bg-[#ff4b4b] text-white font-bold"
-                              : "bg-zinc-800 text-zinc-400 hover:text-white"
-                          }`}
-                        >
-                          {cat.label}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Carousel navigation buttons */}
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => handleScroll("left")}
-                        className="p-1.5 rounded-lg bg-zinc-800 text-zinc-300 hover:text-white"
-                      >
-                        <IconChevronLeft className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => handleScroll("right")}
-                        className="p-1.5 rounded-lg bg-zinc-800 text-zinc-300 hover:text-white"
-                      >
-                        <IconChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Horizontal Scrollable Dayro Cards */}
-                  <div
-                    ref={carouselRef}
-                    className="flex gap-3 overflow-x-auto pb-2 snap-x scrollbar-thin scrollbar-thumb-zinc-800"
-                  >
-                    {filteredVideos.map((video) => (
-                      <div
-                        key={video.id}
-                        onClick={() => {
-                          setActiveVideo(video);
-                          playTapSound("pop");
-                        }}
-                        className="w-[260px] sm:w-[280px] shrink-0 snap-start rounded-xl bg-[#1a1c24] border border-zinc-800 p-2.5 space-y-2 cursor-pointer group hover:border-[#ff4b4b] transition-all shadow-md"
-                      >
-                        <div className="relative aspect-video w-full rounded-lg overflow-hidden bg-black">
-                          <Image
-                            src={video.thumbnail}
-                            alt={video.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            sizes="280px"
-                          />
-                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 flex items-center justify-center transition-colors">
-                            <div className="w-8 h-8 rounded-full bg-[#ff4b4b] text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                              <IconPlayerPlayFilled className="w-4 h-4 ml-0.5" />
-                            </div>
-                          </div>
-                          <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full bg-black/80 text-[8.5px] font-mono text-zinc-200">
-                            {video.categoryLabel}
-                          </div>
-                        </div>
-
-                        <div className="space-y-0.5">
-                          <h4 className="text-xs font-bold text-white group-hover:text-[#ff4b4b] transition-colors line-clamp-2 leading-snug">
-                            {video.title}
-                          </h4>
-                          <span className="text-[10px] text-zinc-400 block truncate">{video.artist}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Video Modal Player */}
-                  <AnimatePresence>
-                    {activeVideo && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
-                        onClick={() => setActiveVideo(null)}
-                      >
-                        <motion.div
-                          initial={{ scale: 0.9, y: 20 }}
-                          animate={{ scale: 1, y: 0 }}
-                          exit={{ scale: 0.9, y: 20 }}
-                          onClick={(e) => e.stopPropagation()}
-                          className="relative w-full max-w-3xl rounded-2xl bg-[#11141c] border border-zinc-700 overflow-hidden shadow-2xl"
-                        >
-                          <div className="flex items-center justify-between p-3 border-b border-zinc-800 bg-[#1a1c24]">
-                            <span className="text-xs font-bold text-white truncate font-mono">
-                              st.video — {activeVideo.title}
-                            </span>
-                            <button
-                              onClick={() => setActiveVideo(null)}
-                              className="p-1 rounded-md hover:bg-zinc-800 text-zinc-400 hover:text-white"
-                            >
-                              <IconX className="w-4 h-4" />
-                            </button>
-                          </div>
-
-                          <div className="relative aspect-video w-full bg-black">
-                            <iframe
-                              src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0`}
-                              title={activeVideo.title}
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                              className="w-full h-full border-0"
-                            />
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              )}
-
-              {/* ========================================================
-                  TAB 4: DEVELOPER IDENTITY BENTO GRID
-                  ======================================================== */}
-              {activeTab === "bento" && (
-                <div className="space-y-3">
-                  <div className="p-3 rounded-xl bg-[#1a1c24] border border-[#262730] flex items-center justify-between">
-                    <span className="text-xs font-mono text-zinc-300 font-bold">
-                      st.container — 3-Column Developer Bento Grid
-                    </span>
-                    <span className="text-[10px] font-mono text-emerald-400">100% Space Efficient</span>
-                  </div>
-                  <SocialBentoBoard />
-                </div>
-              )}
-
-              {/* ========================================================
-                  TAB 5: DEVELOPER MANIFESTO & RULES
-                  ======================================================== */}
-              {activeTab === "manifesto" && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {GUJJU_RULES.map((rule, idx) => (
-                    <div
-                      key={idx}
-                      className="p-4 rounded-xl bg-[#1a1c24] border border-zinc-800 space-y-1.5 shadow-md"
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono font-bold text-amber-400">
-                          RULE {rule.num}: {rule.title}
-                        </span>
-                        <span className="text-lg">{rule.icon}</span>
-                      </div>
-                      <h4 className="text-sm font-bold text-white">{rule.gujjuTitle}</h4>
-                      <p className="text-xs text-zinc-300 leading-relaxed">{rule.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* ========================================================
-                  TAB 6: STREAMLIT PYTHON SOURCE CODE (app.py)
-                  ======================================================== */}
-              {activeTab === "code" && (
-                <div className="p-4 rounded-2xl bg-[#1a1c24] border border-[#262730] space-y-3">
-                  <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                    <div className="flex items-center gap-2">
-                      <IconFileCode className="w-4 h-4 text-[#ff4b4b]" />
-                      <span className="text-xs font-mono font-bold text-white">gujjuverse_streamlit_app.py</span>
-                    </div>
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(streamlitSourceCode);
-                        setCopiedCode(true);
-                        setTimeout(() => setCopiedCode(false), 2000);
-                      }}
-                      className="py-1 px-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-mono text-zinc-300 flex items-center gap-1 transition-colors cursor-pointer"
-                    >
-                      {copiedCode ? <IconCheck className="w-3.5 h-3.5 text-emerald-400" /> : <IconCopy className="w-3.5 h-3.5" />}
-                      <span>{copiedCode ? "Copied!" : "Copy Code"}</span>
-                    </button>
-                  </div>
-
-                  <div className="p-3 rounded-xl bg-[#0e1117] border border-zinc-800 text-xs font-mono text-emerald-400 overflow-x-auto">
-                    <pre>{streamlitSourceCode}</pre>
-                  </div>
-                </div>
-              )}
-
-            </div>
-          </BlurFade>
-
-          {/* Streamlit Footer */}
-          <footer className="pt-6 border-t border-[#262730] flex flex-wrap items-center justify-between text-xs font-mono text-zinc-500 gap-2">
-            <span>Made with Streamlit aesthetic & pure Gujju passion ☕</span>
-            <div className="flex items-center gap-3">
-              <Link href="/#hero" className="hover:text-zinc-300 transition-colors">Portfolio</Link>
-              <Link href="/social-cards" className="hover:text-zinc-300 transition-colors">Social Cards</Link>
-              <a href="https://github.com/thatvivekhingu" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors">GitHub ↗</a>
-            </div>
-          </footer>
-
-        </main>
-
-      </div>
     </div>
   );
 }
