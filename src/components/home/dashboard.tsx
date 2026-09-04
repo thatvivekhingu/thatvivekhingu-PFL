@@ -36,30 +36,22 @@ export default function Dashboard() {
   const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
-  const [scratchGif, setScratchGif] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      const stored = sessionStorage.getItem("scratch_gif_index");
-      const idx = stored !== null ? Number(stored) % data.scratchGifs.length : 0;
-      return data.scratchGifs[idx];
-    }
-    return data.scratchGifs[0];
-  });
+  const [scratchGif, setScratchGif] = useState("");
   const spotlightColor = useAlbumColor(track?.albumImageUrl || null);
 
   const dashboardIconClass = "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary";
 
+  useEffect(() => {
+    // Randomly select a GIF on mount
+    const randomGif = data.scratchGifs[Math.floor(Math.random() * data.scratchGifs.length)];
+    setScratchGif(randomGif);
+  }, []);
+
   const pickNewGif = () => {
     playTapSound("pop");
-    const gifs = data.scratchGifs;
-    if (!gifs || gifs.length === 0) return;
-
-    let nextIdx = 0;
-    if (typeof window !== "undefined") {
-      const stored = sessionStorage.getItem("scratch_gif_index");
-      nextIdx = stored !== null ? (Number(stored) + 1) % gifs.length : 1;
-      sessionStorage.setItem("scratch_gif_index", String(nextIdx));
-    }
-    setScratchGif(gifs[nextIdx]);
+    const availableGifs = data.scratchGifs.filter((gif) => gif !== scratchGif);
+    const randomGif = availableGifs[Math.floor(Math.random() * availableGifs.length)];
+    setScratchGif(randomGif);
   };
 
   useEffect(() => {
@@ -180,22 +172,20 @@ export default function Dashboard() {
           <div className="relative">
             <ScratchToReveal
               minScratchPercentage={20}
-              className="flex items-center h-28 sm:h-36 justify-center overflow-hidden rounded-xl bg-background"
+              className="flex items-center h-24 sm:h-35 justify-center overflow-hidden rounded-md bg-background"
               gradientColors={["#A97CF933", "#F38CB933", "#FDCC9233"]}
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
             >
               {scratchGif && (
-                <div className="relative w-full h-full flex items-center justify-center p-1.5">
-                  <Image
-                    src={scratchGif}
-                    alt="Developer meme"
-                    width={200}
-                    height={140}
-                    className="max-h-24 sm:max-h-30 w-auto object-contain rounded-lg"
-                    unoptimized
-                  />
-                </div>
+                <Image
+                  src={scratchGif}
+                  alt="Scratch to reveal"
+                  width={100}
+                  height={100}
+                  className="h-14 sm:h-16 object-contain"
+                  unoptimized
+                />
               )}
             </ScratchToReveal>
             <button
