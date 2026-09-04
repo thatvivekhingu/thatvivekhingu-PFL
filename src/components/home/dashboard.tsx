@@ -172,26 +172,21 @@ export default function Dashboard() {
           <div className="relative">
             <ScratchToReveal
               minScratchPercentage={35}
-              className="flex items-center h-28 sm:h-36 justify-center overflow-hidden rounded-xl bg-background border border-border/40"
-              gradientColors={["#4f46e5", "#7c3aed", "#db2777"]}
+              className="flex items-center h-28 sm:h-36 justify-center overflow-hidden rounded-xl bg-background"
+              gradientColors={["#A97CF8", "#F38CB8", "#FDCC92"]}
               onComplete={handleScratchComplete}
               resetKey={scratchResetKey}
             >
               {currentMeme && (
-                <div className="relative w-full h-full flex flex-col items-center justify-center p-1.5 select-none">
+                <div className="relative w-full h-full flex items-center justify-center p-1.5">
                   <Image
                     src={currentMeme.src}
                     alt={currentMeme.title || "Developer meme"}
                     width={200}
                     height={140}
-                    className="max-h-24 sm:max-h-28 w-auto object-contain rounded-lg shadow-sm"
+                    className="max-h-24 sm:max-h-30 w-auto object-contain rounded-lg"
                     unoptimized
                   />
-                  {currentMeme.isNew && (
-                    <span className="absolute bottom-1 right-2 text-[9px] font-mono tracking-wider font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-1.5 py-0.5 rounded shadow-sm pointer-events-none">
-                      NEW ✨
-                    </span>
-                  )}
                 </div>
               )}
             </ScratchToReveal>
@@ -200,9 +195,8 @@ export default function Dashboard() {
               onClick={pickNewGif}
               onMouseDown={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
-              aria-label="Refresh scratch meme"
-              title="Get another random meme sticker"
-              className="absolute top-1 right-1 z-20 p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-background/80 bg-background/50 backdrop-blur-sm border border-border/30 transition-all shadow-sm group"
+              aria-label="Refresh scratch"
+              className="absolute top-1 right-1 z-20 p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-background/60 transition-colors group"
             >
               <IconRefresh className="h-4 w-4 transition-transform group-hover:rotate-180 duration-300" />
             </button>

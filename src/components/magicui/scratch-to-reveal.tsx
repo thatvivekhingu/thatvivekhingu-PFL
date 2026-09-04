@@ -22,7 +22,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
   onComplete,
   children,
   className,
-  gradientColors = ["#4f46e5", "#7c3aed", "#db2777"],
+  gradientColors = ["#A97CF8", "#F38CB8", "#FDCC92"],
   resetKey,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,7 +41,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
     const container = containerRef.current;
     const rect = container?.getBoundingClientRect();
-    const w = Math.round(rect?.width || width || 280);
+    const w = Math.round(rect?.width || width || 260);
     const h = Math.round(rect?.height || height || 140);
 
     if (w <= 0 || h <= 0) return;
@@ -53,45 +53,16 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
     ctx.globalCompositeOperation = "source-over";
 
     // 1. Solid opaque base
-    ctx.fillStyle = "#1e1b4b";
+    ctx.fillStyle = "#cccccc";
     ctx.fillRect(0, 0, w, h);
 
-    // 2. High-contrast gradient
+    // 2. Original soft pastel gradient
     const gradient = ctx.createLinearGradient(0, 0, w, h);
-    gradient.addColorStop(0, gradientColors[0] || "#4f46e5");
-    gradient.addColorStop(0.5, gradientColors[1] || "#7c3aed");
-    gradient.addColorStop(1, gradientColors[2] || "#db2777");
+    gradient.addColorStop(0, gradientColors[0]);
+    gradient.addColorStop(0.5, gradientColors[1]);
+    gradient.addColorStop(1, gradientColors[2]);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, w, h);
-
-    // 3. Diagonal metallic hatch lines
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
-    ctx.lineWidth = 1.5;
-    for (let x = -h; x < w + h; x += 14) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x + h, h);
-      ctx.stroke();
-    }
-
-    // 4. Scratch Card Border inside canvas
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(4, 4, w - 8, h - 8);
-
-    // 5. Centered Instruction Badge
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 13px system-ui, -apple-system, sans-serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
-    ctx.shadowBlur = 4;
-    ctx.fillText("🪙 SCRATCH ME 🪙", w / 2, h / 2 - 8);
-
-    ctx.font = "bold 10px monospace";
-    ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
-    ctx.shadowBlur = 0;
-    ctx.fillText("Drag or swipe to reveal", w / 2, h / 2 + 12);
   }, [width, height, gradientColors]);
 
   // Initial and resetKey mount
@@ -102,7 +73,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
     const timer = setTimeout(() => {
       drawScratchSurface();
-    }, 40);
+    }, 30);
 
     return () => clearTimeout(timer);
   }, [resetKey, drawScratchSurface]);
