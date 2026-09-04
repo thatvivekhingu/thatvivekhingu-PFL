@@ -127,6 +127,77 @@ export function pickWeightedScratchMeme(currentSrc?: string): ScratchMemeItem {
   return pool[0];
 }
 
+export function getNextScratchMeme(currentSrc?: string): string {
+  if (typeof window === "undefined") {
+    const newPool = scratchMemes.filter((m) => m.isNew);
+    return newPool[0]?.src || scratchMemes[0].src;
+  }
+
+  const STORAGE_KEY_SHOWN_NEW = "scratch_shown_new_v3";
+  const STORAGE_KEY_SHOWN_OLD = "scratch_shown_old_v3";
+
+  let shownNew: string[] = [];
+  let shownOld: string[] = [];
+
+  try {
+    const rawNew = sessionStorage.getItem(STORAGE_KEY_SHOWN_NEW);
+    if (rawNew) shownNew = JSON.parse(rawNew);
+    const rawOld = sessionStorage.getItem(STORAGE_KEY_SHOWN_OLD);
+    if (rawOld) shownOld = JSON.parse(rawOld);
+  } catch {}
+
+  const allNewMemes = scratchMemes.filter((m) => m.isNew).map((m) => m.src);
+  const allOldMemes = scratchMemes.filter((m) => !m.isNew).map((m) => m.src);
+
+  // 1. Prioritize all new memes randomly until every single one is shown
+  const unshownNew = allNewMemes.filter((src) => !shownNew.includes(src));
+
+  if (unshownNew.length > 0) {
+    const candidates = unshownNew.filter((src) => src !== currentSrc);
+    const pool = candidates.length > 0 ? candidates : unshownNew;
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+
+    shownNew.push(picked);
+    try {
+      sessionStorage.setItem(STORAGE_KEY_SHOWN_NEW, JSON.stringify(shownNew));
+    } catch {}
+    return picked;
+  }
+
+  // 2. All 31 new memes have been shown! Now randomly pick from the remaining old memes
+  const unshownOld = allOldMemes.filter((src) => !shownOld.includes(src));
+
+  if (unshownOld.length > 0) {
+    const candidates = unshownOld.filter((src) => src !== currentSrc);
+    const pool = candidates.length > 0 ? candidates : unshownOld;
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+
+    shownOld.push(picked);
+    try {
+      sessionStorage.setItem(STORAGE_KEY_SHOWN_OLD, JSON.stringify(shownOld));
+    } catch {}
+    return picked;
+  }
+
+  // 3. Both pools exhausted! Reset cycle: all new memes first again
+  shownNew = [];
+  shownOld = [];
+  try {
+    sessionStorage.removeItem(STORAGE_KEY_SHOWN_NEW);
+    sessionStorage.removeItem(STORAGE_KEY_SHOWN_OLD);
+  } catch {}
+
+  const candidates = allNewMemes.filter((src) => src !== currentSrc);
+  const pool = candidates.length > 0 ? candidates : allNewMemes;
+  const picked = pool[Math.floor(Math.random() * pool.length)];
+
+  shownNew.push(picked);
+  try {
+    sessionStorage.setItem(STORAGE_KEY_SHOWN_NEW, JSON.stringify(shownNew));
+  } catch {}
+  return picked;
+}
+
 export const data = {
   summary: "Aspiring AI & Machine Learning Engineer pursuing a B.E. in Information Technology at SAL College of Engineering (CGPA 8.61/10). Skilled in Python, Machine Learning, Data Science, NumPy, Pandas, Scikit-learn, and Generative AI with hands-on experience building AI-powered applications and intelligent systems.",
 

@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import Image from "next/image";
-import { data } from "@/data/data";
+import { data, getNextScratchMeme } from "@/data/data";
 import { useTheme } from "next-themes";
 import { ScratchToReveal } from "../magicui/scratch-to-reveal";
 import { useWakaTime } from "@/hooks/useWakaTime";
@@ -42,16 +42,15 @@ export default function Dashboard() {
   const dashboardIconClass = "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary";
 
   useEffect(() => {
-    // Randomly select a GIF on mount
-    const randomGif = data.scratchGifs[Math.floor(Math.random() * data.scratchGifs.length)];
-    setScratchGif(randomGif);
+    // Pick next unshown meme (all 31 new memes randomly first, then old memes)
+    const initialGif = getNextScratchMeme();
+    setScratchGif(initialGif);
   }, []);
 
   const pickNewGif = () => {
     playTapSound("pop");
-    const availableGifs = data.scratchGifs.filter((gif) => gif !== scratchGif);
-    const randomGif = availableGifs[Math.floor(Math.random() * availableGifs.length)];
-    setScratchGif(randomGif);
+    const nextGif = getNextScratchMeme(scratchGif);
+    setScratchGif(nextGif);
   };
 
   useEffect(() => {
