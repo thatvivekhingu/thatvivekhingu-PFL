@@ -48,6 +48,84 @@ export interface HackathonCertificateItem {
   description: string;
 }
 
+export interface ScratchMemeItem {
+  id: string;
+  src: string;
+  title: string;
+  isNew: boolean;
+  weight: number;
+}
+
+export const scratchMemes: ScratchMemeItem[] = [
+  // ==========================================
+  // 31 BRAND NEW DEVELOPER MEMES (High Priority ~98% Weighted)
+  // ==========================================
+  { id: "php-panic", src: "/memes/meme-php-panic.gif", title: "PHP Code Stressed Dev", isNew: true, weight: 15 },
+  { id: "dog-computer", src: "/memes/meme-63-dog-computer.gif", title: "I Have No Idea What I'm Doing", isNew: true, weight: 15 },
+  { id: "typing-pro", src: "/memes/meme-64-typing-pro.gif", title: "10x Developer Typing", isNew: true, weight: 15 },
+  { id: "it-works-why", src: "/memes/meme-19-it-works-why.gif", title: "It Works... But Why?!", isNew: true, weight: 15 },
+  { id: "cat-vibing", src: "/memes/meme-13-cat-vibing.gif", title: "Cat Vibing to Beats", isNew: true, weight: 15 },
+  { id: "crying-dev", src: "/memes/meme-14-crying-dev.gif", title: "Crying Over Bugs at 3 AM", isNew: true, weight: 15 },
+  { id: "smash-computer", src: "/memes/meme-15-smash-computer.gif", title: "Smash Computer Rage", isNew: true, weight: 15 },
+  { id: "typing-speed", src: "/memes/meme-18-typing-speed.gif", title: "Keyboard on Fire", isNew: true, weight: 15 },
+  { id: "coding-doge", src: "/memes/meme-20-coding-doge.gif", title: "Much Code Very Doge", isNew: true, weight: 15 },
+  { id: "spongebob-typing", src: "/memes/meme-21-spongebob-typing.gif", title: "SpongeBob Fast Typing", isNew: true, weight: 15 },
+  { id: "homer-keyboard", src: "/memes/meme-22-homer-keyboard.gif", title: "Homer Pressing Any Key", isNew: true, weight: 15 },
+  { id: "kermit-laptop", src: "/memes/meme-23-kermit-laptop.gif", title: "Kermit Midnight Hack", isNew: true, weight: 15 },
+  { id: "mr-bean-code", src: "/memes/meme-24-mr-bean-code.gif", title: "Mr Bean Inspecting Bug", isNew: true, weight: 15 },
+  { id: "mind-blown", src: "/memes/meme-25-mind-blown.gif", title: "Mind Blown by Prompt", isNew: true, weight: 15 },
+  { id: "hacker-matrix", src: "/memes/meme-26-hacker-matrix.gif", title: "Entering The Matrix", isNew: true, weight: 15 },
+  { id: "programmer-burnout", src: "/memes/meme-27-programmer-burnout.gif", title: "Programmer Burnout Mode", isNew: true, weight: 15 },
+  { id: "desk-flip", src: "/memes/meme-30-desk-flip.gif", title: "Table Flip Rage", isNew: true, weight: 15 },
+  { id: "coffee-coding", src: "/memes/meme-32-coffee-coding.gif", title: "Fuelled by Chai and Coffee", isNew: true, weight: 15 },
+  { id: "confused-travolta", src: "/memes/meme-34-confused-travolta.gif", title: "Where Did The Bug Go?", isNew: true, weight: 15 },
+  { id: "matrix-neo", src: "/memes/meme-35-matrix-neo.gif", title: "Neo Dodging Merge Conflicts", isNew: true, weight: 15 },
+  { id: "programmer-sleep", src: "/memes/meme-36-programmer-sleep.gif", title: "Dev Falling Asleep on Keyboard", isNew: true, weight: 15 },
+  { id: "git-push-force", src: "/memes/meme-37-git-push-force.gif", title: "git push --force and Inshallah", isNew: true, weight: 15 },
+  { id: "hackerman", src: "/memes/meme-38-hackerman.gif", title: "Hackerman In The Zone", isNew: true, weight: 15 },
+  { id: "baby-success", src: "/memes/meme-39-baby-success.gif", title: "First Try Build Passed!", isNew: true, weight: 15 },
+  { id: "keyboard-cat-classic", src: "/memes/meme-40-keyboard-cat-classic.gif", title: "Keyboard Cat Solo", isNew: true, weight: 15 },
+  { id: "fry-squint", src: "/memes/meme-41-fry-squint.gif", title: "Not Sure If Feature Or Bug", isNew: true, weight: 15 },
+  { id: "turning-it-off-and-on", src: "/memes/meme-43-turning-it-off-and-on.gif", title: "Tried Turning It Off & On?", isNew: true, weight: 15 },
+  { id: "no-god-please-no", src: "/memes/meme-44-no-god-please-no.gif", title: "Deploying to Prod on Friday", isNew: true, weight: 15 },
+  { id: "shocked-pikachu", src: "/memes/meme-55-shocked-pikachu.gif", title: "Shocked Pikachu: Runtime Error", isNew: true, weight: 15 },
+  { id: "roll-safe-brain", src: "/memes/meme-56-roll-safe-brain.gif", title: "No Bugs If You Don't Write Code", isNew: true, weight: 15 },
+  { id: "gandalf-confused", src: "/memes/meme-58-gandalf-confused.gif", title: "I Have No Memory of This Code", isNew: true, weight: 15 },
+
+  // ==========================================
+  // 10 CLASSIC MEMES (Rare Easter Eggs ~2% Weighted)
+  // ==========================================
+  { id: "feet-typing", src: "/memes/meme-1-feet-typing.gif", title: "Animaniacs Feet Typing", isNew: false, weight: 1 },
+  { id: "hacker-typing", src: "/memes/meme-2-hacker-typing.gif", title: "Hollywood Fast Hacker", isNew: false, weight: 1 },
+  { id: "synthwave-code", src: "/memes/meme-3-synthwave-code.gif", title: "Synthwave Cyberpunk Dev", isNew: false, weight: 1 },
+  { id: "kermit-fast", src: "/memes/meme-4-kermit-fast.gif", title: "Kermit Supersonic Typing", isNew: false, weight: 1 },
+  { id: "ai-robot", src: "/memes/meme-5-ai-robot.gif", title: "AI Robot Typing", isNew: false, weight: 1 },
+  { id: "cat-jam", src: "/memes/meme-6-cat-jam.gif", title: "Cat Banging Head", isNew: false, weight: 1 },
+  { id: "cat-coding", src: "/memes/meme-7-cat-coding.gif", title: "Cat Typing on Laptop", isNew: false, weight: 1 },
+  { id: "matrix-typing", src: "/memes/meme-8-matrix-typing.gif", title: "Matrix Binary Code Stream", isNew: false, weight: 1 },
+  { id: "hacker-green", src: "/memes/meme-9-hacker-green.gif", title: "Green Hacker Terminal", isNew: false, weight: 1 },
+  { id: "chill-coding", src: "/memes/meme-10-chill-coding.gif", title: "Lofi Night Coding", isNew: false, weight: 1 },
+];
+
+export function pickWeightedScratchMeme(currentSrc?: string): ScratchMemeItem {
+  // Filter out current so it's always different on refresh
+  const candidates = currentSrc
+    ? scratchMemes.filter((m) => m.src !== currentSrc)
+    : scratchMemes;
+  const pool = candidates.length > 0 ? candidates : scratchMemes;
+
+  const totalWeight = pool.reduce((acc, m) => acc + m.weight, 0);
+  let random = Math.random() * totalWeight;
+
+  for (const item of pool) {
+    if (random < item.weight) {
+      return item;
+    }
+    random -= item.weight;
+  }
+
+  return pool[0];
+}
 
 export const data = {
   summary: "Aspiring AI & Machine Learning Engineer pursuing a B.E. in Information Technology at SAL College of Engineering (CGPA 8.61/10). Skilled in Python, Machine Learning, Data Science, NumPy, Pandas, Scikit-learn, and Generative AI with hands-on experience building AI-powered applications and intelligent systems.",
@@ -329,19 +407,8 @@ export const data = {
     }
   ],
 
-  scratchGifs: [
-    // 10 Verified High-Quality Developer & Coding Memes
-    "/memes/meme-1-feet-typing.gif",    // 1. Animaniacs Feet Typing (The classic chill developer meme!)
-    "/memes/meme-7-cat-coding.gif",     // 2. Cat coding furiously on laptop
-    "/memes/meme-2-hacker-typing.gif",  // 3. High-speed Hollywood hacker typing
-    "/memes/meme-4-kermit-fast.gif",    // 4. Kermit typing code at supersonic speed
-    "/memes/meme-6-cat-jam.gif",        // 5. Cat headbanging to music while coding
-    "/memes/meme-5-ai-robot.gif",       // 6. AI Robot fast keyboard typing
-    "/memes/meme-3-synthwave-code.gif", // 7. Cyberpunk Synthwave developer
-    "/memes/meme-9-hacker-green.gif",   // 8. Green terminal hacker code
-    "/memes/meme-10-chill-coding.gif",  // 9. Lofi developer night coding
-    "/memes/meme-8-matrix-typing.gif",  // 10. Matrix digital code stream
-  ],
+  scratchMemes: scratchMemes,
+  scratchGifs: scratchMemes.map((m) => m.src),
 
   tools: [
     {

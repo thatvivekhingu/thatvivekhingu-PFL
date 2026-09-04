@@ -33,23 +33,25 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
   const initializeCanvas = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (canvas && ctx) {
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "#ccc";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        canvas.width,
-        canvas.height,
-      );
-      gradient.addColorStop(0, gradientColors[0]);
-      gradient.addColorStop(0.5, gradientColors[1]);
-      gradient.addColorStop(1, gradientColors[2]);
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const rect = canvas.parentElement?.getBoundingClientRect();
+    const w = width || (rect && rect.width > 0 ? Math.round(rect.width) : 300);
+    const h = height || (rect && rect.height > 0 ? Math.round(rect.height) : 150);
+    canvas.width = w;
+    canvas.height = h;
+
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#181825";
+    ctx.fillRect(0, 0, w, h);
+    const gradient = ctx.createLinearGradient(0, 0, w, h);
+    gradient.addColorStop(0, gradientColors[0]);
+    gradient.addColorStop(0.5, gradientColors[1]);
+    gradient.addColorStop(1, gradientColors[2]);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, w, h);
   };
 
   useEffect(() => {
@@ -119,20 +121,20 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
     const ctx = canvas?.getContext("2d");
     if (canvas && ctx) {
       const rect = canvas.getBoundingClientRect();
-      const x = clientX - rect.left + 16;
-      const y = clientY - rect.top + 16;
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
       ctx.globalCompositeOperation = "destination-out";
       ctx.beginPath();
-      ctx.arc(x, y, 30, 0, Math.PI * 2);
+      ctx.arc(x, y, 26, 0, Math.PI * 2);
       ctx.fill();
     }
   };
 
   const startAnimation = async () => {
     await controls.start({
-      scale: [1, 1.5, 1],
-      rotate: [0, 10, -10, 10, -10, 0],
-      transition: { duration: 0.5 },
+      scale: [1, 1.05, 1],
+      rotate: [0, 4, -4, 4, -4, 0],
+      transition: { duration: 0.4 },
     });
 
     // Call onComplete after animation finishes
@@ -172,8 +174,9 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       style={{
         width,
         height,
-        cursor:
-          "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxNSIgc3R5bGU9ImZpbGw6I2ZmZjtzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MXB4OyIgLz4KPC9zdmc+'), auto",
+        cursor: isComplete
+          ? "default"
+          : "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxNSIgc3R5bGU9ImZpbGw6I2ZmZjtzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MXB4OyIgLz4KPC9zdmc+'), auto",
       }}
       animate={controls}
     >
@@ -181,7 +184,10 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
         ref={canvasRef}
         width={width}
         height={height}
-        className="absolute left-0 top-0"
+        className={cn(
+          "absolute left-0 top-0 transition-opacity duration-300",
+          isComplete && "opacity-0 pointer-events-none"
+        )}
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
       ></canvas>

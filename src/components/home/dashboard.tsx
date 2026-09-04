@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import Image from "next/image";
-import { data } from "@/data/data";
+import { data, pickWeightedScratchMeme, ScratchMemeItem } from "@/data/data";
 import { useTheme } from "next-themes";
 import { ScratchToReveal } from "../magicui/scratch-to-reveal";
 import { useWakaTime } from "@/hooks/useWakaTime";
@@ -36,36 +36,27 @@ export default function Dashboard() {
   const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
-  const [scratchGif, setScratchGif] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      const stored = sessionStorage.getItem("scratch_gif_index");
-      const idx = stored !== null ? Number(stored) % data.scratchGifs.length : 0;
-      return data.scratchGifs[idx];
-    }
-    return data.scratchGifs[0];
+  const [currentMeme, setCurrentMeme] = useState<ScratchMemeItem>(() => {
+    return pickWeightedScratchMeme();
   });
+  const [scratchResetKey, setScratchResetKey] = useState<number>(0);
+  const [isScratched, setIsScratched] = useState<boolean>(false);
   const spotlightColor = useAlbumColor(track?.albumImageUrl || null);
 
   const dashboardIconClass = "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary";
 
   const pickNewGif = () => {
     playTapSound("pop");
-    const gifs = data.scratchGifs;
-    if (!gifs || gifs.length === 0) return;
-
-    let nextIdx = 0;
-    if (typeof window !== "undefined") {
-      const stored = sessionStorage.getItem("scratch_gif_index");
-      nextIdx = stored !== null ? (Number(stored) + 1) % gifs.length : 1;
-      sessionStorage.setItem("scratch_gif_index", String(nextIdx));
-    }
-    setScratchGif(gifs[nextIdx]);
+    const next = pickWeightedScratchMeme(currentMeme?.src);
+    setCurrentMeme(next);
+    setScratchResetKey((prev) => prev + 1);
+    setIsScratched(false);
   };
 
   useEffect(() => {
-    // Preload all GIF stickers into browser cache for instant lag-free switching
+    // Preload top meme stickers into browser cache for instant lag-free switching
     if (typeof window !== "undefined" && data.scratchGifs) {
-      data.scratchGifs.forEach((url) => {
+      data.scratchGifs.slice(0, 20).forEach((url) => {
         const img = new window.Image();
         img.src = url;
       });
@@ -73,7 +64,8 @@ export default function Dashboard() {
   }, []);
 
   const handleScratchComplete = () => {
-    pickNewGif();
+    setIsScratched(true);
+    playTapSound("bell");
   };
 
   return (
@@ -180,21 +172,26 @@ export default function Dashboard() {
           <div className="relative">
             <ScratchToReveal
               minScratchPercentage={20}
-              className="flex items-center h-28 sm:h-36 justify-center overflow-hidden rounded-xl bg-background"
+              className="flex items-center h-28 sm:h-36 justify-center overflow-hidden rounded-xl bg-background border border-border/40"
               gradientColors={["#A97CF933", "#F38CB933", "#FDCC9233"]}
               onComplete={handleScratchComplete}
-              resetKey={scratchGif}
+              resetKey={scratchResetKey}
             >
-              {scratchGif && (
-                <div className="relative w-full h-full flex items-center justify-center p-1.5">
+              {currentMeme && (
+                <div className="relative w-full h-full flex flex-col items-center justify-center p-1.5 select-none">
                   <Image
-                    src={scratchGif}
-                    alt="Developer meme"
+                    src={currentMeme.src}
+                    alt={currentMeme.title || "Developer meme"}
                     width={200}
                     height={140}
-                    className="max-h-24 sm:max-h-30 w-auto object-contain rounded-lg"
+                    className="max-h-24 sm:max-h-28 w-auto object-contain rounded-lg shadow-sm"
                     unoptimized
                   />
+                  {currentMeme.isNew && (
+                    <span className="absolute bottom-1 right-2 text-[9px] font-mono tracking-wider font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-1.5 py-0.5 rounded shadow-sm pointer-events-none">
+                      NEW ✨
+                    </span>
+                  )}
                 </div>
               )}
             </ScratchToReveal>
@@ -203,8 +200,9 @@ export default function Dashboard() {
               onClick={pickNewGif}
               onMouseDown={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
-              aria-label="Refresh scratch"
-              className="absolute top-1 right-1 z-10 p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-background/60 transition-colors group"
+              aria-label="Refresh scratch meme"
+              title="Get another random meme sticker"
+              className="absolute top-1 right-1 z-10 p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-background/80 bg-background/50 backdrop-blur-sm border border-border/30 transition-all shadow-sm group"
             >
               <IconRefresh className="h-4 w-4 transition-transform group-hover:rotate-180 duration-300" />
             </button>
