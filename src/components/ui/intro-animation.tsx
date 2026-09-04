@@ -30,11 +30,25 @@ const INTRO_PAIRS: IntroPair[] = [
   { en: "You clicked the button...", hi: "अब मेरी बारी है." },
   { en: "You made it this far...", hi: "अब दो मिनट दे दे." },
   { en: "Alright, you're here...", hi: "अब अपना ही समझो." },
+  { en: "You actually made it here...", hi: "अब CV देखने की जरूरत नहीं पड़ेगी भाई." },
+  { en: "You were curious, huh?", hi: "अब curiosity का इलाज भी देख लो." },
+  { en: "You wanted to see my work...", hi: "तो फिर बैठो, मेहनत दिखाते हैं." },
+  { en: "You found the secret page...", hi: "अब secret रखना मुश्किल है भाई." },
+  { en: "Still scrolling?", hi: "भाई नौकरी देने आए हो क्या?" },
+  { en: "You came for the projects...", hi: "Projects भी हैं, tension मत ले." },
+  { en: "You made it past the intro...", hi: "अब असली खेल शुरू होता है." },
+  { en: "Looking for experience?", hi: "पहले projects देख लो, फिर फैसला करना." },
+  { en: "You stayed this long...", hi: "अब तारीफ करके ही जाना." },
+  { en: "You want to know what I do?", hi: "चलो भाई, काम की बात करते हैं." },
+  { en: "You thought I was done?", hi: "अभी तो trailer था भाई." },
+  { en: "You reached the good part...", hi: "अब screen मत छोड़ना." },
+  { en: "You came to judge my skills...", hi: "भाई पहले खुद का GitHub दिखा." },
+  { en: "You found me...", hi: "अब bookmark करके जाना." },
 ];
 
 export function IntroAnimation() {
   const [shouldShow, setShouldShow] = useState(true);
-  const [activePair, setActivePair] = useState<IntroPair>(INTRO_PAIRS[0]);
+  const [activePair, setActivePair] = useState<IntroPair | null>(null);
   const [displayedText, setDisplayedText] = useState("");
   const [currentStep, setCurrentStep] = useState<"en" | "hi">("en");
   const [isTypingDone, setIsTypingDone] = useState(false);
