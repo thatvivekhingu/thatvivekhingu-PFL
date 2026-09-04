@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import Image from "next/image";
-import { data, pickWeightedScratchMeme, ScratchMemeItem } from "@/data/data";
+import { data } from "@/data/data";
 import { useTheme } from "next-themes";
 import { ScratchToReveal } from "../magicui/scratch-to-reveal";
 import { useWakaTime } from "@/hooks/useWakaTime";
@@ -36,27 +36,36 @@ export default function Dashboard() {
   const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
-  const [currentMeme, setCurrentMeme] = useState<ScratchMemeItem>(() => {
-    return pickWeightedScratchMeme();
+  const [scratchGif, setScratchGif] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      const stored = sessionStorage.getItem("scratch_gif_index");
+      const idx = stored !== null ? Number(stored) % data.scratchGifs.length : 0;
+      return data.scratchGifs[idx];
+    }
+    return data.scratchGifs[0];
   });
-  const [scratchResetKey, setScratchResetKey] = useState<number>(0);
-  const [isScratched, setIsScratched] = useState<boolean>(false);
   const spotlightColor = useAlbumColor(track?.albumImageUrl || null);
 
   const dashboardIconClass = "h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary";
 
   const pickNewGif = () => {
     playTapSound("pop");
-    const next = pickWeightedScratchMeme(currentMeme?.src);
-    setCurrentMeme(next);
-    setScratchResetKey((prev) => prev + 1);
-    setIsScratched(false);
+    const gifs = data.scratchGifs;
+    if (!gifs || gifs.length === 0) return;
+
+    let nextIdx = 0;
+    if (typeof window !== "undefined") {
+      const stored = sessionStorage.getItem("scratch_gif_index");
+      nextIdx = stored !== null ? (Number(stored) + 1) % gifs.length : 1;
+      sessionStorage.setItem("scratch_gif_index", String(nextIdx));
+    }
+    setScratchGif(gifs[nextIdx]);
   };
 
   useEffect(() => {
-    // Preload top meme stickers into browser cache for instant lag-free switching
+    // Preload all GIF stickers into browser cache for instant lag-free switching
     if (typeof window !== "undefined" && data.scratchGifs) {
-      data.scratchGifs.slice(0, 20).forEach((url) => {
+      data.scratchGifs.forEach((url) => {
         const img = new window.Image();
         img.src = url;
       });
@@ -64,8 +73,7 @@ export default function Dashboard() {
   }, []);
 
   const handleScratchComplete = () => {
-    setIsScratched(true);
-    playTapSound("bell");
+    // Keep revealed meme visible
   };
 
   return (
@@ -171,17 +179,17 @@ export default function Dashboard() {
         >
           <div className="relative">
             <ScratchToReveal
-              minScratchPercentage={35}
+              minScratchPercentage={20}
               className="flex items-center h-28 sm:h-36 justify-center overflow-hidden rounded-xl bg-background"
-              gradientColors={["#A97CF8", "#F38CB8", "#FDCC92"]}
+              gradientColors={["#A97CF933", "#F38CB933", "#FDCC9233"]}
               onComplete={handleScratchComplete}
-              resetKey={scratchResetKey}
+              resetKey={scratchGif}
             >
-              {currentMeme && (
+              {scratchGif && (
                 <div className="relative w-full h-full flex items-center justify-center p-1.5">
                   <Image
-                    src={currentMeme.src}
-                    alt={currentMeme.title || "Developer meme"}
+                    src={scratchGif}
+                    alt="Developer meme"
                     width={200}
                     height={140}
                     className="max-h-24 sm:max-h-30 w-auto object-contain rounded-lg"
@@ -196,7 +204,7 @@ export default function Dashboard() {
               onMouseDown={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
               aria-label="Refresh scratch"
-              className="absolute top-1 right-1 z-20 p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-background/60 transition-colors group"
+              className="absolute top-1 right-1 z-10 p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-background/60 transition-colors group"
             >
               <IconRefresh className="h-4 w-4 transition-transform group-hover:rotate-180 duration-300" />
             </button>
