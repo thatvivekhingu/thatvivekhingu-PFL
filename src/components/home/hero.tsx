@@ -164,43 +164,43 @@ export default function Hero() {
                 </div>
 
                 {/* Concentric Marvel Arc Reactor & Avengers Orbit (Mathematically Centered Behind Avatar) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] sm:w-[540px] sm:h-[540px] md:w-[600px] md:h-[600px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-20 dark:opacity-25">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] sm:w-[580px] sm:h-[580px] md:w-[660px] md:h-[660px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-65 dark:opacity-75 transition-opacity duration-500">
                   <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
                     <svg
                       viewBox="0 0 400 400"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-full h-full text-cyan-500/30 dark:text-cyan-400/35"
+                      className="w-full h-full text-cyan-400/80 dark:text-cyan-300/85 drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]"
                     >
                       {/* Outer Tech Coordinate Rings */}
-                      <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1" strokeDasharray="6 8" />
-                      <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
-                      <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1" strokeDasharray="16 6" />
-                      <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" opacity="0.8" />
-                      <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1" strokeDasharray="8 12" />
-                      <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+                      <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 8" />
+                      <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="2" opacity="0.85" />
+                      <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1.5" strokeDasharray="16 6" />
+                      <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2.5" strokeDasharray="4 4" opacity="0.9" />
+                      <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1.5" strokeDasharray="8 12" />
+                      <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="2" opacity="0.8" />
 
                       {/* Radial Arc Reactor Notches */}
                       {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
                         <line
                           key={deg}
                           x1="200"
-                          y1="10"
+                          y1="8"
                           x2="200"
                           y2="28"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="2.5"
                           transform={`rotate(${deg} 200 200)`}
                         />
                       ))}
 
                       {/* Iconic Avengers 'A' Logo Embedded at Center */}
                       <g transform="translate(100, 100) scale(1)">
-                        <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3" strokeDasharray="140 30" opacity="0.85" />
+                        <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3.5" strokeDasharray="140 30" opacity="0.95" />
                         <path
                           d="M30 115 L160 115 L145 95 L25 95 Z"
                           fill="currentColor"
-                          opacity="0.85"
+                          opacity="0.9"
                         />
                         <polygon
                           points="155,90 185,105 155,120"
@@ -214,7 +214,7 @@ export default function Hero() {
                     </svg>
                   </div>
                   {/* Ambient Marvel Core Glow */}
-                  <div className="absolute inset-16 rounded-full bg-cyan-500/5 dark:bg-cyan-500/5 blur-xl" />
+                  <div className="absolute inset-12 rounded-full bg-cyan-500/20 dark:bg-cyan-400/25 blur-2xl pointer-events-none" />
                 </div>
 
                 {/* Interactive Superhero Profile Avatar - Smooth Crossfade & Auto-Reset on Mouse Leave */}
