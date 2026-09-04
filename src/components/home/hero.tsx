@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -57,15 +57,30 @@ export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [avatarIdx, setAvatarIdx] = useState(0);
+  const avatarTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const currentAvatar = HERO_AVATARS[avatarIdx];
 
+  useEffect(() => {
+    return () => {
+      if (avatarTimeoutRef.current) {
+        clearTimeout(avatarTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleMouseEnter = () => {
+    if (avatarTimeoutRef.current) {
+      clearTimeout(avatarTimeoutRef.current);
+    }
     playTapSound("pop");
     setAvatarIdx(1);
   };
 
   const handleMouseLeave = () => {
+    if (avatarTimeoutRef.current) {
+      clearTimeout(avatarTimeoutRef.current);
+    }
     setAvatarIdx(0);
   };
 
@@ -74,7 +89,27 @@ export default function Hero() {
       e.stopPropagation();
     }
     playTapSound("pop");
-    setAvatarIdx((prev) => (prev === 0 ? 1 : 0));
+    if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+      try {
+        navigator.vibrate([15, 30, 20]);
+      } catch {}
+    }
+
+    if (avatarTimeoutRef.current) {
+      clearTimeout(avatarTimeoutRef.current);
+      avatarTimeoutRef.current = null;
+    }
+
+    setAvatarIdx((prev) => {
+      const next = prev === 0 ? 1 : 0;
+      // If toggled to Desi Karodiya (1) on mobile touch/click, auto-revert after 2.8s
+      if (next === 1) {
+        avatarTimeoutRef.current = setTimeout(() => {
+          setAvatarIdx(0);
+        }, 2800);
+      }
+      return next;
+    });
   };
 
   const { status, dotColor } = getStatus();
@@ -214,16 +249,12 @@ export default function Hero() {
                   <div className="absolute inset-14 rounded-full bg-cyan-500/10 dark:bg-cyan-400/12 blur-xl pointer-events-none" />
                 </div>
 
-                {/* Interactive Superhero Profile Avatar - Smooth Crossfade & Auto-Reset on Mouse Leave */}
+                {/* Interactive Superhero Profile Avatar - Smooth Crossfade, Mobile Auto-Reset & Persona Badge */}
                 <div
                   className="group relative z-50 cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 select-none"
                   onClick={handleAvatarClick}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
-                  onTouchStart={(e) => {
-                    e.preventDefault();
-                    handleAvatarClick();
-                  }}
                   role="button"
                   tabIndex={0}
                   aria-label={`Current Persona: ${currentAvatar.name}`}
@@ -254,15 +285,35 @@ export default function Hero() {
                       </div>
                     ))}
                   </div>
+
+                  {/* Floating Micro-Badge for Touch / Persona Switcher */}
+                  <div
+                    className={`absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20 flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 rounded-full border shadow-lg backdrop-blur-md transition-all duration-300 ${
+                      avatarIdx === 0
+                        ? "bg-cyan-950/85 border-cyan-400/60 text-cyan-300 text-xs shadow-[0_0_12px_rgba(34,211,238,0.3)]"
+                        : "bg-red-950/90 border-red-500/80 text-red-300 text-sm shadow-[0_0_16px_rgba(239,68,68,0.4)] animate-bounce"
+                    }`}
+                  >
+                    {avatarIdx === 0 ? "⚡" : "🕷️"}
+                  </div>
                 </div>
               </div>
 
-              {/* Character Name Label under Avatar - Small, Clean, No Background, No Emoji, No Number */}
-              <div className="mt-1.5 text-center text-xs font-mono font-medium tracking-wide text-zinc-400 select-none z-50">
+              {/* Character Persona Pill with Quick Tap Feedback on Mobile & Desktop */}
+              <button
+                type="button"
+                onClick={handleAvatarClick}
+                className="mt-1.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-background/80 hover:bg-background/95 backdrop-blur-md border border-border/60 hover:border-primary/50 shadow-sm transition-all duration-300 cursor-pointer z-50 group/persona"
+                aria-label="Toggle persona"
+              >
+                <span className={`h-1.5 w-1.5 rounded-full transition-colors ${avatarIdx === 0 ? "bg-cyan-400 animate-pulse" : "bg-red-500 animate-ping"}`} />
                 <span className={currentAvatar.badgeText}>
                   {currentAvatar.name}
                 </span>
-              </div>
+                <span className="text-[10px] text-muted-foreground/70 group-hover/persona:text-primary transition-colors">
+                  {avatarIdx === 0 ? "• tap 🕷️" : "• 2.8s"}
+                </span>
+              </button>
 
               <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-2.5">
                 <div className="z-50 relative flex items-center justify-center">
