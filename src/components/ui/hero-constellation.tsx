@@ -8,25 +8,27 @@ interface HeroConstellationProps {
 }
 
 interface Particle {
-  originX: number;
-  originY: number;
+  baseX: number;
+  baseY: number;
   x: number;
   y: number;
   vx: number;
   vy: number;
   radius: number;
+  baseRadius: number;
   baseOpacity: number;
+  opacity: number;
   color: string;
-  phase: number;
-  pulseSpeed: number;
-  repelled: number;
-  driftRadius: number;
+  glow: boolean;
+  driftAngle: number;
   driftSpeed: number;
+  idleSpeed: number;
+  nearMouse: number; // 0 to 1 intensity
 }
 
 export function HeroConstellation({
-  desktopDots = 140,
-  mobileDots = 45,
+  desktopDots = 320,
+  mobileDots = 80,
 }: HeroConstellationProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -42,68 +44,71 @@ export function HeroConstellation({
     let height = 0;
     let resizeTimer: ReturnType<typeof setTimeout>;
     let isVisible = true;
-    let isMobile = false;
 
-    // Subtle AI/ML futuristic Cyan & Sky Blue particle palette
+    // Vibrant futuristic Cyan/Sky/Blue palette for dark background
     const CYAN_PALETTE = [
-      "34, 211, 238", // Cyan-400
-      "56, 189, 248", // Sky-400
-      "96, 165, 250", // Blue-400
-      "125, 211, 252", // Sky-300
+      "34, 211, 238",   // Cyan-400
+      "56, 189, 248",   // Sky-400
+      "96, 165, 250",   // Blue-400
+      "0, 242, 254",    // Bright Electric Cyan
+      "147, 197, 253",  // Ice Blue
     ];
 
     // Interaction Parameters
-    const INTERACTION_RADIUS = 160; // 140px - 180px radius
+    const INTERACTION_RADIUS = 180;
     const RADIUS_SQ = INTERACTION_RADIUS * INTERACTION_RADIUS;
-    const MAX_LINE_DIST = 75; // Distance for subtle connecting constellation lines
+    const MAX_LINE_DIST = 85;
     const MAX_LINE_DIST_SQ = MAX_LINE_DIST * MAX_LINE_DIST;
 
-    // Center avatar buffer zone (keeps portrait clean)
-    const PORTRAIT_AVOID_RADIUS = 145;
-    const PORTRAIT_AVOID_RADIUS_SQ = PORTRAIT_AVOID_RADIUS * PORTRAIT_AVOID_RADIUS;
-
     // Mouse Tracking State
-    let mouseX = -9999;
-    let mouseY = -9999;
-
-    const checkIsMobile = () => {
-      isMobile =
-        window.innerWidth < 768 ||
-        "ontouchstart" in window ||
-        navigator.maxTouchPoints > 0;
+    const mouse = {
+      x: -9999,
+      y: -9999,
+      active: false,
     };
-    checkIsMobile();
+
+    const updateMousePos = (clientX: number, clientY: number) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      if (x >= -50 && x <= width + 50 && y >= -50 && y <= height + 50) {
+        mouse.x = x;
+        mouse.y = y;
+        mouse.active = true;
+      } else {
+        mouse.x = -9999;
+        mouse.y = -9999;
+        mouse.active = false;
+      }
+    };
 
     const onMouseMove = (e: MouseEvent) => {
-      if (isMobile) return;
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      updateMousePos(e.clientX, e.clientY);
+    };
 
-      // Inside hero section
-      if (x >= -50 && x <= width + 50 && y >= -50 && y <= height + 50) {
-        mouseX = x;
-        mouseY = y;
-      } else {
-        mouseX = -9999;
-        mouseY = -9999;
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches && e.touches[0]) {
+        updateMousePos(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
 
     const onMouseLeave = () => {
-      mouseX = -9999;
-      mouseY = -9999;
+      mouse.x = -9999;
+      mouse.y = -9999;
+      mouse.active = false;
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    window.addEventListener("touchend", onMouseLeave, { passive: true });
 
-    // Pause canvas loop when hero scrolls off-screen for 60 FPS efficiency
+    // Intersection Observer to keep 60 FPS when visible
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
         if (isVisible && !animationId) {
-          lastTime = 0;
           animationId = requestAnimationFrame(animate);
         }
       },
@@ -114,136 +119,123 @@ export function HeroConstellation({
     let particles: Particle[] = [];
 
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = canvas!.offsetWidth;
       height = canvas!.offsetHeight;
       canvas!.width = Math.floor(width * dpr);
       canvas!.height = Math.floor(height * dpr);
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      checkIsMobile();
     }
 
     function initParticles() {
       particles = [];
-      const totalCount = isMobile ? mobileDots : desktopDots;
+      const isSmallScreen = window.innerWidth < 768;
+      const totalCount = isSmallScreen ? mobileDots : desktopDots;
 
-      const padX = width * 0.03;
-      const padY = height * 0.04;
+      const padX = width * 0.02;
+      const padY = height * 0.02;
       const areaW = width - padX * 2;
       const areaH = height - padY * 2;
 
-      const cx = width / 2;
-      const cy = height * 0.42; // Avatar center approximate offset
-
-      let attempts = 0;
-      while (particles.length < totalCount && attempts < totalCount * 3) {
-        attempts++;
-        const originX = padX + Math.random() * areaW;
-        const originY = padY + Math.random() * areaH;
-
-        // Keep center portrait area clean
-        const dpx = originX - cx;
-        const dpy = originY - cy;
-        if (dpx * dpx + dpy * dpy < PORTRAIT_AVOID_RADIUS_SQ) {
-          // 85% chance to skip placing particle directly on portrait face
-          if (Math.random() < 0.85) continue;
-        }
+      for (let i = 0; i < totalCount; i++) {
+        const baseX = padX + Math.random() * areaW;
+        const baseY = padY + Math.random() * areaH;
+        const baseRadius = 1.5 + Math.random() * 1.5; // 1.5px to 3.0px
+        const baseOpacity = 0.35 + Math.random() * 0.30; // 0.35 to 0.65
 
         particles.push({
-          originX,
-          originY,
-          x: originX,
-          y: originY,
+          baseX,
+          baseY,
+          x: baseX,
+          y: baseY,
           vx: 0,
           vy: 0,
-          radius: 0.75 + Math.random() * 0.85, // Tiny: 0.75px - 1.6px
-          baseOpacity: 0.22 + Math.random() * 0.3, // Subtle opacity
+          radius: baseRadius,
+          baseRadius,
+          baseOpacity,
+          opacity: baseOpacity,
           color: CYAN_PALETTE[Math.floor(Math.random() * CYAN_PALETTE.length)],
-          phase: Math.random() * Math.PI * 2,
-          pulseSpeed: 0.001 + Math.random() * 0.0015,
-          repelled: 0,
-          driftRadius: 2.5 + Math.random() * 4.5, // Subtle organic drift
-          driftSpeed: 0.0006 + Math.random() * 0.001,
+          glow: Math.random() > 0.65, // ~35% particles have soft 3-6px glow
+          driftAngle: Math.random() * Math.PI * 2,
+          driftSpeed: (Math.random() - 0.5) * 0.02,
+          idleSpeed: 0.15 + Math.random() * 0.25, // Gentle visible ambient drift
+          nearMouse: 0,
         });
       }
     }
 
-    let lastTime = 0;
-
-    function animate(time: number) {
+    function animate() {
       if (!isVisible) return;
-      const dt = Math.min(lastTime ? time - lastTime : 16, 32); // Clamp dt to prevent jumping
-      lastTime = time;
 
       ctx!.clearRect(0, 0, width, height);
 
       const count = particles.length;
 
       // ----------------------------------------------------
-      // 1. UPDATE PARTICLES WITH REPULSION & ELASTIC RETURN
+      // 1. UPDATE PARTICLES: REPULSION + RETURN + AMBIENT DRIFT
       // ----------------------------------------------------
       for (let i = 0; i < count; i++) {
         const p = particles[i];
 
-        // Idle floating target around original coordinate
-        const idleTargetX =
-          p.originX + Math.cos(time * p.driftSpeed + p.phase) * p.driftRadius;
-        const idleTargetY =
-          p.originY + Math.sin(time * p.driftSpeed + p.phase) * p.driftRadius;
+        // Constant ambient motion so particles are VISIBLY MOVING even without mouse
+        p.driftAngle += p.driftSpeed;
+        p.baseX += Math.cos(p.driftAngle) * p.idleSpeed;
+        p.baseY += Math.sin(p.driftAngle) * p.idleSpeed;
 
-        // Smooth Mouse Repulsion (Desktop Only)
-        if (!isMobile && mouseX > -1000) {
-          const dx = p.x - mouseX;
-          const dy = p.y - mouseY;
+        // Viewport wrapping for continuous ambient flow
+        if (p.baseX < -20) p.baseX = width + 20;
+        if (p.baseX > width + 20) p.baseX = -20;
+        if (p.baseY < -20) p.baseY = height + 20;
+        if (p.baseY > height + 20) p.baseY = -20;
+
+        // Mouse Repulsion Physics
+        if (mouse.active && mouse.x > -1000) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
           const distSq = dx * dx + dy * dy;
 
-          if (distSq < RADIUS_SQ && distSq > 1) {
-            const dist = Math.sqrt(distSq);
-            // Smooth quadratic easing: stronger close-up, subtle at edges
-            const falloff = 1 - dist / INTERACTION_RADIUS;
-            const force = falloff * falloff * 5.2;
+          if (distSq < RADIUS_SQ && distSq > 0.01) {
+            const distance = Math.sqrt(distSq);
+            // Linear falloff: stronger when closer
+            const force = (INTERACTION_RADIUS - distance) / INTERACTION_RADIUS;
+            const angle = Math.atan2(dy, dx);
 
-            const nx = dx / dist;
-            const ny = dy / dist;
+            // Push particle AWAY from mouse
+            p.vx += Math.cos(angle) * force * 2.5;
+            p.vy += Math.sin(angle) * force * 2.5;
 
-            // Repel AWAY from cursor
-            p.vx += nx * force * (dt / 16);
-            p.vy += ny * force * (dt / 16);
-
-            // Increase glow intensity
-            p.repelled = Math.min(1, p.repelled + falloff * 0.25);
+            // Visual excitation factor
+            p.nearMouse = Math.min(1, p.nearMouse + force * 0.3);
           } else {
-            p.repelled *= 0.94; // Smooth decay
+            p.nearMouse *= 0.92;
           }
         } else {
-          p.repelled *= 0.94;
+          p.nearMouse *= 0.92;
         }
 
-        // Hooke's Elastic Spring Return towards idle anchor
-        const springK = 0.038;
-        const damping = 0.86;
+        // Apply velocity to position
+        p.x += p.vx;
+        p.y += p.vy;
 
-        const ax = (idleTargetX - p.x) * springK;
-        const ay = (idleTargetY - p.y) * springK;
+        // Damping / Friction
+        p.vx *= 0.90;
+        p.vy *= 0.90;
 
-        p.vx = (p.vx + ax) * damping;
-        p.vy = (p.vy + ay) * damping;
+        // Smooth spring pull back toward baseX, baseY
+        p.vx += (p.baseX - p.x) * 0.008;
+        p.vy += (p.baseY - p.y) * 0.008;
 
-        p.x += p.vx * (dt / 16);
-        p.y += p.vy * (dt / 16);
-
-        // Breathing pulse phase
-        p.phase += p.pulseSpeed * dt;
+        // Dynamic size & brightness transition
+        p.radius = p.baseRadius + p.nearMouse * 1.2;
+        p.opacity = Math.min(1.0, p.baseOpacity + p.nearMouse * 0.45);
       }
 
       // ----------------------------------------------------
-      // 2. DRAW FAINT CONSTELLATION CONNECTING LINES
+      // 2. DRAW CONNECTING CONSTELLATION LINES
       // ----------------------------------------------------
-      ctx!.lineWidth = 0.65;
       for (let i = 0; i < count; i++) {
         const p1 = particles[i];
 
-        // Draw connections only to a subset to keep 60 FPS locked
         for (let j = i + 1; j < count; j++) {
           const p2 = particles[j];
           const ldx = p1.x - p2.x;
@@ -253,10 +245,10 @@ export function HeroConstellation({
           if (ldistSq < MAX_LINE_DIST_SQ) {
             const ldist = Math.sqrt(ldistSq);
             const lineFactor = 1 - ldist / MAX_LINE_DIST;
-            // Very faint connecting line opacity
-            const lineAlpha =
-              lineFactor * (0.07 + (p1.repelled + p2.repelled) * 0.12);
+            // Lines brighten when near mouse
+            const lineAlpha = lineFactor * (0.12 + (p1.nearMouse + p2.nearMouse) * 0.35);
 
+            ctx!.lineWidth = 0.8 + (p1.nearMouse + p2.nearMouse) * 0.5;
             ctx!.strokeStyle = `rgba(34, 211, 238, ${lineAlpha})`;
             ctx!.beginPath();
             ctx!.moveTo(p1.x, p1.y);
@@ -267,28 +259,48 @@ export function HeroConstellation({
       }
 
       // ----------------------------------------------------
-      // 3. DRAW PARTICLES & SUBTLE GLOW AROUND REPULSED ONES
+      // 3. DRAW PARTICLES WITH SELECTIVE SOFT GLOW
       // ----------------------------------------------------
       for (let i = 0; i < count; i++) {
         const p = particles[i];
 
-        const pulse = (Math.sin(p.phase) + 1) * 0.5;
-        const currentOpacity =
-          (p.baseOpacity * (0.5 + pulse * 0.5) + p.repelled * 0.35);
+        ctx!.save();
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
 
-        // Subtle faint halo glow ONLY on particles affected by cursor
-        if (p.repelled > 0.08) {
-          ctx!.beginPath();
-          ctx!.arc(p.x, p.y, p.radius * 2.8, 0, Math.PI * 2);
-          ctx!.fillStyle = `rgba(${p.color}, ${p.repelled * 0.2})`;
-          ctx!.fill();
+        // Soft 3-6px glow on selected particles or repelled particles
+        if (p.glow || p.nearMouse > 0.15) {
+          ctx!.shadowColor = `rgba(${p.color}, ${Math.min(0.9, p.opacity + 0.3)})`;
+          ctx!.shadowBlur = 4 + p.nearMouse * 4;
         }
 
-        // Core Particle Dot
-        ctx!.beginPath();
-        ctx!.arc(p.x, p.y, p.radius + p.repelled * 0.4, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(${p.color}, ${Math.min(0.85, currentOpacity)})`;
+        ctx!.fillStyle = `rgba(${p.color}, ${p.opacity})`;
         ctx!.fill();
+        ctx!.restore();
+      }
+
+      // ----------------------------------------------------
+      // 4. SUBTLE TRANSPARENT MOUSE CURSOR FIELD (MINIMAL)
+      // ----------------------------------------------------
+      if (mouse.active && mouse.x > -1000) {
+        ctx!.save();
+        const grad = ctx!.createRadialGradient(
+          mouse.x,
+          mouse.y,
+          0,
+          mouse.x,
+          mouse.y,
+          INTERACTION_RADIUS
+        );
+        grad.addColorStop(0, "rgba(34, 211, 238, 0.04)");
+        grad.addColorStop(0.7, "rgba(56, 189, 248, 0.015)");
+        grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+        ctx!.fillStyle = grad;
+        ctx!.beginPath();
+        ctx!.arc(mouse.x, mouse.y, INTERACTION_RADIUS, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.restore();
       }
 
       animationId = requestAnimationFrame(animate);
@@ -319,12 +331,14 @@ export function HeroConstellation({
       observer.disconnect();
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("touchend", onMouseLeave);
     };
   }, [desktopDots, mobileDots]);
 
   return (
-    <div className="absolute inset-0 pointer-events-none -z-30 overflow-hidden select-none">
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
       <canvas
         ref={canvasRef}
         className="w-full h-full block"

@@ -120,16 +120,16 @@ export default function Hero() {
 
   return (
     <div className="w-full pt-12 pb-6 sm:min-h-screen sm:pt-28 sm:pb-16 relative flex flex-col items-center justify-center overflow-hidden">
-      <HeroConstellation desktopDots={260} mobileDots={70} />
+      <HeroConstellation desktopDots={340} mobileDots={80} />
 
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
-          <div className="relative flex-col space-y-3 sm:space-y-4">
+          <div className="relative flex-col space-y-3 sm:space-y-4 z-20">
             <div className="relative flex flex-col items-center justify-center">
               {/* Avatar Center Wrapper with Concentric Marvel Arc Reactor Orbit & Angled Ribbons Perfectly Aligned */}
               <div className="relative flex items-center justify-center my-2 sm:my-3 z-30">
                 {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer - Centered Directly Behind Avatar */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none -z-20 flex items-center justify-center select-none opacity-80">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[5] flex items-center justify-center select-none opacity-80">
                   {/* Cyan/Teal Angled Ribbon (-3.5deg) - 100% Screen Edge-to-Edge Bleed */}
                   <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_15px_rgba(6,182,212,0.15)] border-y border-cyan-200/40">
                     <Marquee repeat={8} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
@@ -164,7 +164,7 @@ export default function Hero() {
                 </div>
 
                 {/* Concentric Marvel Arc Reactor & Avengers Orbit (Mathematically Centered Behind Avatar) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] sm:w-[540px] sm:h-[540px] md:w-[600px] md:h-[600px] pointer-events-none -z-10 select-none flex items-center justify-center opacity-20 dark:opacity-25">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] sm:w-[540px] sm:h-[540px] md:w-[600px] md:h-[600px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-20 dark:opacity-25">
                   <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
                     <svg
                       viewBox="0 0 400 400"
