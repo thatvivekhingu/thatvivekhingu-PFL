@@ -330,37 +330,17 @@ export const data = {
   ],
 
   scratchGifs: [
-    // 10 BRAND NEW HIGH-TECH / CYBERPUNK / MEME STICKERS FIRST
-    // 1. Cyberpunk Matrix Code Rain
-    "https://i.giphy.com/QHE5gWI0QjqF2.gif",
-    // 2. Hacker typing high speed
-    "https://i.giphy.com/26tn33aiTi1jkl6H6.gif",
-    // 3. Bouncing Neon Synthwave
-    "https://i.giphy.com/3oKIPnAiaMCws8nOsE.gif",
-    // 4. Cyberpunk Glitch Grid
-    "https://i.giphy.com/l41lFw05B8JZ3xaW4.gif",
-    // 5. Lofi Anime Girl coding
-    "https://i.giphy.com/d1E2GyfFiCTtSC40.gif",
-    // 6. Spongebob typing furious
-    "https://i.giphy.com/l1EtlhAXY8CG936vq.gif",
-    // 7. Homer Simpson mashing keyboard
-    "https://i.giphy.com/xT5LMWZxR6t32jYjXn.gif",
-    // 8. Kermit writing fast
-    "https://i.giphy.com/10FwycrnAkpshW.gif",
-    // 9. AI Robot typing
-    "https://i.giphy.com/3o7TKSjRrfIPjeiVyM.gif",
-    // 10. Retro Pixel Art Gaming
-    "https://i.giphy.com/26n6Wywq480SmNRY4.gif",
-
-    // CLASSIC STICKERS
-    // 11. Dog coding aggressively
-    "https://i.giphy.com/13Hgw8T855C20M.gif",
-    // 12. Cat Headbang Jamming
-    "https://i.giphy.com/u01ioCe6G8URG.gif",
-    // 13. Cat typing on laptop close up
-    "https://i.giphy.com/LmN8OYiY4m0X4UrzUI.gif",
-    // 14. Cat coding fast on laptop
-    "https://i.giphy.com/JIX9t2j0ZTN9S.gif"
+    // 10 Verified High-Quality Developer & Coding Memes
+    "/memes/meme-1-feet-typing.gif",    // 1. Animaniacs Feet Typing (The classic chill developer meme!)
+    "/memes/meme-7-cat-coding.gif",     // 2. Cat coding furiously on laptop
+    "/memes/meme-2-hacker-typing.gif",  // 3. High-speed Hollywood hacker typing
+    "/memes/meme-4-kermit-fast.gif",    // 4. Kermit typing code at supersonic speed
+    "/memes/meme-6-cat-jam.gif",        // 5. Cat headbanging to music while coding
+    "/memes/meme-5-ai-robot.gif",       // 6. AI Robot fast keyboard typing
+    "/memes/meme-3-synthwave-code.gif", // 7. Cyberpunk Synthwave developer
+    "/memes/meme-9-hacker-green.gif",   // 8. Green terminal hacker code
+    "/memes/meme-10-chill-coding.gif",  // 9. Lofi developer night coding
+    "/memes/meme-8-matrix-typing.gif",  // 10. Matrix digital code stream
   ],
 
   tools: [

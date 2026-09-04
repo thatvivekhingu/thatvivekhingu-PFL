@@ -180,20 +180,22 @@ export default function Dashboard() {
           <div className="relative">
             <ScratchToReveal
               minScratchPercentage={20}
-              className="flex items-center h-24 sm:h-35 justify-center overflow-hidden rounded-md bg-background"
+              className="flex items-center h-28 sm:h-36 justify-center overflow-hidden rounded-xl bg-background"
               gradientColors={["#A97CF933", "#F38CB933", "#FDCC9233"]}
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
             >
               {scratchGif && (
-                <Image
-                  src={scratchGif}
-                  alt="Scratch to reveal"
-                  width={100}
-                  height={100}
-                  className="h-14 sm:h-16 object-contain"
-                  unoptimized
-                />
+                <div className="relative w-full h-full flex items-center justify-center p-1.5">
+                  <Image
+                    src={scratchGif}
+                    alt="Developer meme"
+                    width={200}
+                    height={140}
+                    className="max-h-24 sm:max-h-30 w-auto object-contain rounded-lg"
+                    unoptimized
+                  />
+                </div>
               )}
             </ScratchToReveal>
             <button
