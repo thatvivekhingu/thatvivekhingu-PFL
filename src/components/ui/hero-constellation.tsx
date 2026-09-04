@@ -2,12 +2,32 @@
 
 import { useEffect, useRef } from "react";
 
-function getDotCount(desktop = 350, mobile = 80) {
-  if (typeof window === "undefined") return desktop;
-  return window.innerWidth < 768 ? mobile : desktop;
+interface HeroConstellationProps {
+  desktopDots?: number;
+  mobileDots?: number;
 }
 
-function AnimatedDots({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: number; mobileDots?: number }) {
+interface Particle {
+  originX: number;
+  originY: number;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+  baseOpacity: number;
+  color: string;
+  phase: number;
+  pulseSpeed: number;
+  repelled: number;
+  driftRadius: number;
+  driftSpeed: number;
+}
+
+export function HeroConstellation({
+  desktopDots = 140,
+  mobileDots = 45,
+}: HeroConstellationProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -22,8 +42,63 @@ function AnimatedDots({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: nu
     let height = 0;
     let resizeTimer: ReturnType<typeof setTimeout>;
     let isVisible = true;
+    let isMobile = false;
 
-    // Pause animation when hero is off-screen
+    // Subtle AI/ML futuristic Cyan & Sky Blue particle palette
+    const CYAN_PALETTE = [
+      "34, 211, 238", // Cyan-400
+      "56, 189, 248", // Sky-400
+      "96, 165, 250", // Blue-400
+      "125, 211, 252", // Sky-300
+    ];
+
+    // Interaction Parameters
+    const INTERACTION_RADIUS = 160; // 140px - 180px radius
+    const RADIUS_SQ = INTERACTION_RADIUS * INTERACTION_RADIUS;
+    const MAX_LINE_DIST = 75; // Distance for subtle connecting constellation lines
+    const MAX_LINE_DIST_SQ = MAX_LINE_DIST * MAX_LINE_DIST;
+
+    // Center avatar buffer zone (keeps portrait clean)
+    const PORTRAIT_AVOID_RADIUS = 145;
+    const PORTRAIT_AVOID_RADIUS_SQ = PORTRAIT_AVOID_RADIUS * PORTRAIT_AVOID_RADIUS;
+
+    // Mouse Tracking State
+    let mouseX = -9999;
+    let mouseY = -9999;
+
+    const checkIsMobile = () => {
+      isMobile =
+        window.innerWidth < 768 ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0;
+    };
+    checkIsMobile();
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (isMobile) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Inside hero section
+      if (x >= -50 && x <= width + 50 && y >= -50 && y <= height + 50) {
+        mouseX = x;
+        mouseY = y;
+      } else {
+        mouseX = -9999;
+        mouseY = -9999;
+      }
+    };
+
+    const onMouseLeave = () => {
+      mouseX = -9999;
+      mouseY = -9999;
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mouseleave", onMouseLeave, { passive: true });
+
+    // Pause canvas loop when hero scrolls off-screen for 60 FPS efficiency
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
@@ -36,81 +111,59 @@ function AnimatedDots({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: nu
     );
     observer.observe(canvas);
 
-    // Mouse tracking
-    let mouseX = -9999;
-    let mouseY = -9999;
-    const MOUSE_RADIUS = 160;
-    const MOUSE_FORCE = 0.35;
-
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-
-      // If mouse is outside canvas bounds, treat as gone
-      if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
-        mouseX = -9999;
-        mouseY = -9999;
-      }
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-
-    const colors = ["255, 255, 255"];
-
-    interface Dot {
-      x: number;
-      y: number;
-      baseVx: number;
-      baseVy: number;
-      pushVx: number;
-      pushVy: number;
-      radius: number;
-      baseOpacity: number;
-      phase: number;
-      pulseSpeed: number;
-      color: string;
-    }
-
-    let dots: Dot[] = [];
+    let particles: Particle[] = [];
 
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = canvas!.offsetWidth;
       height = canvas!.offsetHeight;
-      canvas!.width = width * dpr;
-      canvas!.height = height * dpr;
+      canvas!.width = Math.floor(width * dpr);
+      canvas!.height = Math.floor(height * dpr);
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      checkIsMobile();
     }
 
-    function initDots() {
-      dots = [];
+    function initParticles() {
+      particles = [];
+      const totalCount = isMobile ? mobileDots : desktopDots;
 
-      const padX = width * 0.04;
+      const padX = width * 0.03;
       const padY = height * 0.04;
       const areaW = width - padX * 2;
       const areaH = height - padY * 2;
 
-      const dotCount = getDotCount(desktopDots, mobileDots);
-      for (let i = 0; i < dotCount; i++) {
-        const x = padX + Math.random() * areaW;
-        const y = padY + Math.random() * areaH;
+      const cx = width / 2;
+      const cy = height * 0.42; // Avatar center approximate offset
 
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 0.15 + Math.random() * 0.3;
+      let attempts = 0;
+      while (particles.length < totalCount && attempts < totalCount * 3) {
+        attempts++;
+        const originX = padX + Math.random() * areaW;
+        const originY = padY + Math.random() * areaH;
 
-        dots.push({
-          x,
-          y,
-          baseVx: Math.cos(angle) * speed,
-          baseVy: Math.sin(angle) * speed,
-          pushVx: 0,
-          pushVy: 0,
-          radius: 0.5 + Math.random() * 0.6,
-          baseOpacity: 0.15 + Math.random() * 0.25,
+        // Keep center portrait area clean
+        const dpx = originX - cx;
+        const dpy = originY - cy;
+        if (dpx * dpx + dpy * dpy < PORTRAIT_AVOID_RADIUS_SQ) {
+          // 85% chance to skip placing particle directly on portrait face
+          if (Math.random() < 0.85) continue;
+        }
+
+        particles.push({
+          originX,
+          originY,
+          x: originX,
+          y: originY,
+          vx: 0,
+          vy: 0,
+          radius: 0.75 + Math.random() * 0.85, // Tiny: 0.75px - 1.6px
+          baseOpacity: 0.22 + Math.random() * 0.3, // Subtle opacity
+          color: CYAN_PALETTE[Math.floor(Math.random() * CYAN_PALETTE.length)],
           phase: Math.random() * Math.PI * 2,
-          pulseSpeed: 0.0008 + Math.random() * 0.0015,
-          color: colors[Math.floor(Math.random() * colors.length)],
+          pulseSpeed: 0.001 + Math.random() * 0.0015,
+          repelled: 0,
+          driftRadius: 2.5 + Math.random() * 4.5, // Subtle organic drift
+          driftSpeed: 0.0006 + Math.random() * 0.001,
         });
       }
     }
@@ -119,63 +172,122 @@ function AnimatedDots({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: nu
 
     function animate(time: number) {
       if (!isVisible) return;
-      const dt = lastTime ? time - lastTime : 16;
+      const dt = Math.min(lastTime ? time - lastTime : 16, 32); // Clamp dt to prevent jumping
       lastTime = time;
 
       ctx!.clearRect(0, 0, width, height);
 
-      const cx = width / 2;
-      const cy = height / 2;
-      const halfW = width / 2;
-      const halfH = height / 2;
-      const radiusSq = MOUSE_RADIUS * MOUSE_RADIUS;
+      const count = particles.length;
 
-      for (const dot of dots) {
-        // Mouse interaction — repel + slight swirl
-        const dmx = dot.x - mouseX;
-        const dmy = dot.y - mouseY;
-        const distSq = dmx * dmx + dmy * dmy;
+      // ----------------------------------------------------
+      // 1. UPDATE PARTICLES WITH REPULSION & ELASTIC RETURN
+      // ----------------------------------------------------
+      for (let i = 0; i < count; i++) {
+        const p = particles[i];
 
-        if (distSq < radiusSq && distSq > 0) {
-          const dist = Math.sqrt(distSq);
-          const falloff = 1 - dist / MOUSE_RADIUS;
-          const force = MOUSE_FORCE * falloff * falloff;
+        // Idle floating target around original coordinate
+        const idleTargetX =
+          p.originX + Math.cos(time * p.driftSpeed + p.phase) * p.driftRadius;
+        const idleTargetY =
+          p.originY + Math.sin(time * p.driftSpeed + p.phase) * p.driftRadius;
 
-          const nx = dmx / dist;
-          const ny = dmy / dist;
+        // Smooth Mouse Repulsion (Desktop Only)
+        if (!isMobile && mouseX > -1000) {
+          const dx = p.x - mouseX;
+          const dy = p.y - mouseY;
+          const distSq = dx * dx + dy * dy;
 
-          // Add to push velocity only (repel + slight swirl)
-          dot.pushVx += (nx * force + ny * force * 0.3) * (dt / 16);
-          dot.pushVy += (ny * force - nx * force * 0.3) * (dt / 16);
+          if (distSq < RADIUS_SQ && distSq > 1) {
+            const dist = Math.sqrt(distSq);
+            // Smooth quadratic easing: stronger close-up, subtle at edges
+            const falloff = 1 - dist / INTERACTION_RADIUS;
+            const force = falloff * falloff * 5.2;
+
+            const nx = dx / dist;
+            const ny = dy / dist;
+
+            // Repel AWAY from cursor
+            p.vx += nx * force * (dt / 16);
+            p.vy += ny * force * (dt / 16);
+
+            // Increase glow intensity
+            p.repelled = Math.min(1, p.repelled + falloff * 0.25);
+          } else {
+            p.repelled *= 0.94; // Smooth decay
+          }
+        } else {
+          p.repelled *= 0.94;
         }
 
-        // Dampen only the push velocity so dots settle back
-        dot.pushVx *= 0.97;
-        dot.pushVy *= 0.97;
+        // Hooke's Elastic Spring Return towards idle anchor
+        const springK = 0.038;
+        const damping = 0.86;
 
-        // Move by base drift + push
-        dot.x += (dot.baseVx + dot.pushVx) * (dt / 16);
-        dot.y += (dot.baseVy + dot.pushVy) * (dt / 16);
+        const ax = (idleTargetX - p.x) * springK;
+        const ay = (idleTargetY - p.y) * springK;
 
-        if (dot.x < -20) dot.x = width + 20;
-        if (dot.x > width + 20) dot.x = -20;
-        if (dot.y < -20) dot.y = height + 20;
-        if (dot.y > height + 20) dot.y = -20;
+        p.vx = (p.vx + ax) * damping;
+        p.vy = (p.vy + ay) * damping;
 
-        dot.phase += dot.pulseSpeed * dt;
-        const pulse = (Math.sin(dot.phase) + 1) / 2;
-        const opacity = dot.baseOpacity * (0.3 + pulse * 0.7);
+        p.x += p.vx * (dt / 16);
+        p.y += p.vy * (dt / 16);
 
-        const dx = (dot.x - cx) / halfW;
-        const dy = (dot.y - cy) / halfH;
-        const edgeDist = dx * dx + dy * dy;
-        const vignette = Math.max(0, 1 - edgeDist * 0.7);
+        // Breathing pulse phase
+        p.phase += p.pulseSpeed * dt;
+      }
 
+      // ----------------------------------------------------
+      // 2. DRAW FAINT CONSTELLATION CONNECTING LINES
+      // ----------------------------------------------------
+      ctx!.lineWidth = 0.65;
+      for (let i = 0; i < count; i++) {
+        const p1 = particles[i];
+
+        // Draw connections only to a subset to keep 60 FPS locked
+        for (let j = i + 1; j < count; j++) {
+          const p2 = particles[j];
+          const ldx = p1.x - p2.x;
+          const ldy = p1.y - p2.y;
+          const ldistSq = ldx * ldx + ldy * ldy;
+
+          if (ldistSq < MAX_LINE_DIST_SQ) {
+            const ldist = Math.sqrt(ldistSq);
+            const lineFactor = 1 - ldist / MAX_LINE_DIST;
+            // Very faint connecting line opacity
+            const lineAlpha =
+              lineFactor * (0.07 + (p1.repelled + p2.repelled) * 0.12);
+
+            ctx!.strokeStyle = `rgba(34, 211, 238, ${lineAlpha})`;
+            ctx!.beginPath();
+            ctx!.moveTo(p1.x, p1.y);
+            ctx!.lineTo(p2.x, p2.y);
+            ctx!.stroke();
+          }
+        }
+      }
+
+      // ----------------------------------------------------
+      // 3. DRAW PARTICLES & SUBTLE GLOW AROUND REPULSED ONES
+      // ----------------------------------------------------
+      for (let i = 0; i < count; i++) {
+        const p = particles[i];
+
+        const pulse = (Math.sin(p.phase) + 1) * 0.5;
+        const currentOpacity =
+          (p.baseOpacity * (0.5 + pulse * 0.5) + p.repelled * 0.35);
+
+        // Subtle faint halo glow ONLY on particles affected by cursor
+        if (p.repelled > 0.08) {
+          ctx!.beginPath();
+          ctx!.arc(p.x, p.y, p.radius * 2.8, 0, Math.PI * 2);
+          ctx!.fillStyle = `rgba(${p.color}, ${p.repelled * 0.2})`;
+          ctx!.fill();
+        }
+
+        // Core Particle Dot
         ctx!.beginPath();
-        ctx!.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-        const isDark = document.documentElement.classList.contains("dark");
-        const rgb = isDark ? "255, 255, 255" : "30, 30, 30";
-        ctx!.fillStyle = `rgba(${rgb}, ${opacity * vignette * (isDark ? 0.3 : 0.45)})`;
+        ctx!.arc(p.x, p.y, p.radius + p.repelled * 0.4, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${p.color}, ${Math.min(0.85, currentOpacity)})`;
         ctx!.fill();
       }
 
@@ -183,7 +295,7 @@ function AnimatedDots({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: nu
     }
 
     resize();
-    initDots();
+    initParticles();
     animationId = requestAnimationFrame(animate);
 
     let lastWidth = window.innerWidth;
@@ -194,11 +306,12 @@ function AnimatedDots({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: nu
         lastWidth = window.innerWidth;
         resize();
         if (widthChanged) {
-          initDots();
+          initParticles();
         }
-      }, 200);
+      }, 150);
     };
-    window.addEventListener("resize", onResize);
+
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
       cancelAnimationFrame(animationId);
@@ -206,22 +319,17 @@ function AnimatedDots({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: nu
       observer.disconnect();
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseleave", onMouseLeave);
     };
   }, [desktopDots, mobileDots]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      style={{ pointerEvents: "none" }}
-    />
-  );
-}
-
-export function HeroConstellation({ desktopDots = 350, mobileDots = 80 }: { desktopDots?: number; mobileDots?: number } = {}) {
-  return (
-    <div className="absolute inset-0 pointer-events-none">
-      <AnimatedDots desktopDots={desktopDots} mobileDots={mobileDots} />
+    <div className="absolute inset-0 pointer-events-none -z-30 overflow-hidden select-none">
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full block"
+        style={{ pointerEvents: "none" }}
+      />
     </div>
   );
 }
