@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { HeroConstellation } from "@/components/ui/hero-constellation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
@@ -120,8 +119,6 @@ export default function Hero() {
 
   return (
     <div className="w-full pt-12 pb-6 sm:min-h-screen sm:pt-28 sm:pb-16 relative flex flex-col items-center justify-center overflow-hidden">
-      <HeroConstellation desktopDots={340} mobileDots={80} />
-
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative flex-col space-y-3 sm:space-y-4 z-20">
