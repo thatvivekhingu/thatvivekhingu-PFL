@@ -171,9 +171,9 @@ export default function Dashboard() {
         >
           <div className="relative">
             <ScratchToReveal
-              minScratchPercentage={20}
+              minScratchPercentage={35}
               className="flex items-center h-28 sm:h-36 justify-center overflow-hidden rounded-xl bg-background border border-border/40"
-              gradientColors={["#A97CF933", "#F38CB933", "#FDCC9233"]}
+              gradientColors={["#4f46e5", "#7c3aed", "#db2777"]}
               onComplete={handleScratchComplete}
               resetKey={scratchResetKey}
             >
@@ -202,7 +202,7 @@ export default function Dashboard() {
               onTouchStart={(e) => e.stopPropagation()}
               aria-label="Refresh scratch meme"
               title="Get another random meme sticker"
-              className="absolute top-1 right-1 z-10 p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-background/80 bg-background/50 backdrop-blur-sm border border-border/30 transition-all shadow-sm group"
+              className="absolute top-1 right-1 z-20 p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-background/80 bg-background/50 backdrop-blur-sm border border-border/30 transition-all shadow-sm group"
             >
               <IconRefresh className="h-4 w-4 transition-transform group-hover:rotate-180 duration-300" />
             </button>
