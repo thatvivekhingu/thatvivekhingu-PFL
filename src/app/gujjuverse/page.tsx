@@ -9,31 +9,38 @@ import {
   IconArrowUp,
   IconBrandYoutube,
   IconX,
+  IconChevronLeft,
   IconChevronRight,
+  IconCircleCheckFilled,
   IconMapPin,
+  IconCode,
+  IconTerminal2,
   IconBrandWhatsapp,
   IconPlayerPlayFilled,
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandInstagram,
+  IconFlame,
   IconCoffee,
   IconCrown,
-  IconSparkles,
-  IconCode,
-  IconPlus,
-  IconMinus,
-  IconTerminal2,
-  IconStar,
-  IconGitFork,
-  IconCheck,
-  IconCopy,
-  IconArrowUpRight,
-  IconBrain,
+  IconArrowDown,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { SpotlightGlow } from "@/components/ui/spotlight-glow";
+import { SocialBentoBoard } from "@/components/social-cards";
 
-// 4 Tea Spots
+interface VideoItem {
+  id: string;
+  artist: string;
+  title: string;
+  category: "music" | "hasya" | "veer-ras" | "jugalbandhi";
+  categoryLabel: string;
+  youtubeId: string;
+  thumbnail: string;
+}
+
 const CHAI_SPOTS = [
   {
     id: "nikol",
@@ -44,8 +51,8 @@ const CHAI_SPOTS = [
     image: "/teapost/nikol.jpg",
     badge: "KADAK • MASALA",
     footer: "DESI POWER",
-    bgColor: "bg-[#7c2d12]",
-    textColor: "text-amber-100",
+    bgColor: "bg-[#ea580c]", // Warm Orange
+    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Nikol પર મળીએ ને આઈડિયા ડિસ્કસ કરીએ ☕",
   },
   {
@@ -57,8 +64,8 @@ const CHAI_SPOTS = [
     image: "/teapost/science-city.png",
     badge: "CODE • BRAINSTORM",
     footer: "AI MATRIX",
-    bgColor: "bg-[#1e293b]",
-    textColor: "text-sky-100",
+    bgColor: "bg-[#0284c7]", // Electric Blue
+    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Science City પર મળીએ ને AI / Tech ડિસ્કસ કરીએ ☕",
   },
   {
@@ -70,8 +77,8 @@ const CHAI_SPOTS = [
     image: "/teapost/maninagar.png",
     badge: "CHILL • KANKARIA",
     footer: "CALM VIBES",
-    bgColor: "bg-[#14532d]",
-    textColor: "text-emerald-100",
+    bgColor: "bg-[#16a34a]", // Emerald Green
+    textColor: "text-white",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post Maninagar પર મળીએ ને કૉલેબોરેશન કરીએ ☕",
   },
   {
@@ -83,53 +90,51 @@ const CHAI_SPOTS = [
     image: "/teapost/science-city.png",
     badge: "STARTUP • HUB",
     footer: "HIGH VOLTAGE",
-    bgColor: "bg-[#78350f]",
-    textColor: "text-amber-100",
+    bgColor: "bg-[#eab308]", // Vibrant Yellow (Not Red!)
+    textColor: "text-zinc-950",
     whatsappMsg: "નમસ્તે વિવેક! ચાલો Tea Post SG Highway પર મળીએ ☕",
   },
 ];
 
-// 6 Accordion Dictionary Entries
 const GUJJU_DICTIONARY = [
   {
-    term: "Bug in Code",
+    term: "Bug (બગ)",
     gujju: "લોચો",
-    desc: "કોડે કરેલી એવી ભૂલ જે આખી રાત ઊંઘ ના આવવા દે! Unexpected runtime anomaly that demands cutting chai and patient root-cause debugging.",
+    desc: "કોડે કરેલી એવી ભૂલ જે આખી રાત ઊંઘ ના આવવા દે!",
     emoji: "🐛",
   },
   {
     term: "Debugging",
     gujju: "ફોડ પાડવો",
-    desc: "કોડમાં ક્યાં લોચો થયો છે એ ખોળી કાઢીને દેશી લોજિકથી ફિક્સ કરવું. Deep investigative log tracing until the system yields expected output.",
+    desc: "કોડમાં ક્યાં લોચો થયો છે એ ખોળી કાઢીને ફિક્સ કરવું.",
     emoji: "🔍",
   },
   {
     term: "Merge Conflict",
     gujju: "ગોટો વળવો",
-    desc: "બે જણાએ એક જ ફાઈલમાં હાથ નાખ્યો ને પંચાયત થઈ! Two divergent branch states colliding head-on into Git HEAD.",
+    desc: "બે જણાએ એક જ ફાઈલમાં હાથ નાખ્યો ને પંચાયત થઈ!",
     emoji: "⚡",
   },
   {
     term: "Client Meeting",
     gujju: "ચોરે પંચાત",
-    desc: "જે વાત ૫ મિનિટમાં પતી જતી હોય એને ૨ કલાક ખેંચવી. Extensive agile deliberation over sprint requirements and deadline alignment.",
+    desc: "જે વાત ૫ મિનિટમાં પતી જતી હોય એને ૨ કલાક ખેંચવી.",
     emoji: "💼",
   },
   {
     term: "Production Deploy",
     gujju: "શ્રી ગણેશ / ભગવાન ભરોસે",
-    desc: "ચાલ્યું તો મોજ અને ના ચાલ્યું તો 'આપણે જોઈ લઈશું'! Pushing build artifacts to production with high confidence and zero-downtime prayer.",
+    desc: "ચાલ્યું તો મોજ અને ના ચાલ્યું તો 'આપણે જોઈ લઈશું'!",
     emoji: "🚀",
   },
   {
     term: "Stack Overflow",
     gujju: "સંજય દ્રષ્ટિ",
-    desc: "જ્યાં દુનિયાના તમામ કોડિંગ લોચાના દેશી ઉપાય મળી જાય. Omnipresent peer knowledge database rescuing developers at 3:00 AM.",
+    desc: "જ્યાં દુનિયાના તમામ કોડિંગ લોચાના દેશી ઉપાય મળી જાય.",
     emoji: "💡",
   },
 ];
 
-// 4 Golden Rules
 const GUJJU_RULES = [
   {
     num: "01",
@@ -161,704 +166,1007 @@ const GUJJU_RULES = [
   },
 ];
 
-// Exactly 3 Dayro Artists
-const TOP_3_DAYRO_ARTISTS = [
+const ALL_DAYRO_VIDEOS: VideoItem[] = [
   {
-    id: "gopal-sadhu",
-    artist: "Gopal Sadhu",
-    gujjuArtist: "ગોપાલ સાધુ",
-    genre: "Traditional Folk & Sangeet",
+    id: "gopal-sadhu-lokgeet",
+    artist: "ગોપાલ સાધુ",
     title: "લોકગીતો ની જોરદાર જમાવટ (જીનમ ડાયરો લાઈવ)",
+    category: "music",
+    categoryLabel: "લોક ગીત",
     youtubeId: "K_ehyAc0TmU",
     thumbnail: "https://img.youtube.com/vi/K_ehyAc0TmU/hqdefault.jpg",
   },
   {
-    id: "aditya-raj",
-    artist: "Aditya Gadhvi & Raj Gadhvi",
-    gujjuArtist: "આદિત્ય ગઢવી & રાજ ગઢવી",
-    genre: "Maha Jugalbandhi & Folk Heritage",
-    title: "ડાયરામાં પહેલીવાર આ જુગલબંધી 🔥 (બોટાદ લાઈવ)",
+    id: "aditya-raj-jugalbandhi",
+    artist: "આદિત્ય ગઢવી & રાજ ગઢવી",
+    title: "ડાયરામાં પહેલીવાર આ જુગલબંધી 🔥 (બોટાદ લાઈવ ડાયરો)",
+    category: "jugalbandhi",
+    categoryLabel: "મહા જુગલબંધી",
     youtubeId: "ZDW9SoRQi8A",
     thumbnail: "https://img.youtube.com/vi/ZDW9SoRQi8A/hqdefault.jpg",
   },
   {
-    id: "kirtidan-gadhvi",
-    artist: "Kirtidan Gadhvi",
-    gujjuArtist: "કીર્તિદાન ગઢવી",
-    genre: "Classical Dayro & Raas Sangeet",
+    id: "rajdan-gadhvi-vadodara",
+    artist: "રાજદાન ગઢવી",
+    title: "સુપર હિટ લોકડાયરો & સાહિત્ય (વડોદરા લાઈવ ડાયરો)",
+    category: "music",
+    categoryLabel: "લોક સાહિત્ય",
+    youtubeId: "qW1ss5bq90A",
+    thumbnail: "https://img.youtube.com/vi/qW1ss5bq90A/hqdefault.jpg",
+  },
+  {
+    id: "kirtidan-kanudo",
+    artist: "કીર્તિદાન ગઢવી",
     title: "દેશી તાલે કાનુડાના ગીતો & રાસ (લાઈવ ગરબા & સૂર)",
-    youtubeId: "g6f6t0X-R6U",
-    thumbnail: "https://img.youtube.com/vi/g6f6t0X-R6U/hqdefault.jpg",
+    category: "music",
+    categoryLabel: "લોક સંગીત",
+    youtubeId: "KpFUjNxGCbo",
+    thumbnail: "https://img.youtube.com/vi/KpFUjNxGCbo/hqdefault.jpg",
+  },
+  {
+    id: "kirtidan-rasiyo",
+    artist: "કીર્તિદાન ગઢવી",
+    title: "રસિયો રૂપાળો રંગરેલીયો (વેજાગામ લાઈવ સંગીત)",
+    category: "music",
+    categoryLabel: "લોક સંગીત",
+    youtubeId: "_IMnebRMPcY",
+    thumbnail: "https://img.youtube.com/vi/_IMnebRMPcY/hqdefault.jpg",
+  },
+  {
+    id: "kirtidan-dakor",
+    artist: "કીર્તિદાન ગઢવી",
+    title: "ડાકોરના ઠાકોર (અમરેલી લાઈવ પોલીસ ડાયરો સંગીત)",
+    category: "music",
+    categoryLabel: "ભક્તિ સંગીત",
+    youtubeId: "w3O3aikm4xM",
+    thumbnail: "https://img.youtube.com/vi/w3O3aikm4xM/hqdefault.jpg",
+  },
+  {
+    id: "mayabhai-badhdati",
+    artist: "માયાભાઈ આહીર",
+    title: "હાસ્ય ની બધડાટી (હસવાની ૧૦૦% ગેરેંટી)",
+    category: "hasya",
+    categoryLabel: "હાસ્ય ડાયરો",
+    youtubeId: "aE3_WjWz9tc",
+    thumbnail: "https://img.youtube.com/vi/aE3_WjWz9tc/hqdefault.jpg",
+  },
+  {
+    id: "sairam-hasya-varsad",
+    artist: "સાંઈરામ દવે",
+    title: "નોન-સ્ટોપ હાસ્યનો વરસાદ (હાસ્ય દરબાર)",
+    category: "hasya",
+    categoryLabel: "હાસ્ય દરબાર",
+    youtubeId: "9N4--Ldqhuc",
+    thumbnail: "https://img.youtube.com/vi/9N4--Ldqhuc/hqdefault.jpg",
+  },
+  {
+    id: "hitesh-antala-jokes",
+    artist: "હિતેશ અંટાળા",
+    title: "સાવ નવા જથ્થાબંધ જોક્સ & હાસ્ય મહેફિલ",
+    category: "hasya",
+    categoryLabel: "હાસ્ય ડાયરો",
+    youtubeId: "f2vHjuiIpqQ",
+    thumbnail: "https://img.youtube.com/vi/f2vHjuiIpqQ/hqdefault.jpg",
+  },
+  {
+    id: "dhirubhai-vandripanu",
+    artist: "ધીરૂભાઈ સરવૈયા",
+    title: "વાંદરીપાનું — સુપરહિટ દેશી જોક્સ",
+    category: "hasya",
+    categoryLabel: "દેશી રમૂજ",
+    youtubeId: "FEZPU-4lMo8",
+    thumbnail: "https://img.youtube.com/vi/FEZPU-4lMo8/hqdefault.jpg",
+  },
+  {
+    id: "dhirubhai-lagan-hapta",
+    artist: "ધીરૂભાઈ સરવૈયા",
+    title: "લગન કરો હપ્તા ભરો (Lagan Karo Hapta Bharo)",
+    category: "hasya",
+    categoryLabel: "દેશી રમૂજ",
+    youtubeId: "p7pA36rZJiw",
+    thumbnail: "https://img.youtube.com/vi/p7pA36rZJiw/hqdefault.jpg",
+  },
+  {
+    id: "jitubhai-doshi-jeans",
+    artist: "જીતુભાઈ દ્વારકાવાળા",
+    title: "ડોશીનું જીન્સ (Doshi Nu Jeans Comedy)",
+    category: "hasya",
+    categoryLabel: "હાસ્ય ડાયરો",
+    youtubeId: "6LWx0N_MCZU",
+    thumbnail: "https://img.youtube.com/vi/6LWx0N_MCZU/hqdefault.jpg",
+  },
+  {
+    id: "kirtidan-rajbha-jugalbandhi",
+    artist: "કીર્તિદાન ગઢવી & રાજભા ગઢવી",
+    title: "બેસ્ટ જુગલબંધી લોકડાયરો (રાપર કચ્છ લાઈવ)",
+    category: "jugalbandhi",
+    categoryLabel: "મહા જુગલબંધી",
+    youtubeId: "i8POjs66f9g",
+    thumbnail: "https://img.youtube.com/vi/i8POjs66f9g/hqdefault.jpg",
+  },
+  {
+    id: "rajbha-kashtriya",
+    artist: "રાજભા ગઢવી",
+    title: "ક્ષત્રિયની વાત & રૂંવાડા ઊભા કરતો વીર રસ",
+    category: "veer-ras",
+    categoryLabel: "વીર રસ",
+    youtubeId: "LlsYNC4l0GA",
+    thumbnail: "https://img.youtube.com/vi/LlsYNC4l0GA/hqdefault.jpg",
   },
 ];
 
-// 6 Core AI Projects for Tab 2
-const AI_PROJECTS = [
-  {
-    name: "SmartPark-Enforcer",
-    tagline: "Real-time AI Parking Violation Tracking",
-    desc: "Computer-vision surveillance system detecting, classifying, and issuing illegal parking penalties using YOLOv8, OpenCV, and FastAPI.",
-    lang: "Jupyter Notebook / Python",
-    langColor: "#DA5B0B",
-    stars: 5,
-    href: "https://github.com/thatvivekhingu/SmartPark-Enforcer",
-  },
-  {
-    name: "Aerosync",
-    tagline: "Drone AI Land-Record & GIS Intelligence",
-    desc: "Autonomous aerial mapping pipeline converting drone footage into verified cadastral parcel maps aligned with SVAMITVA guidelines.",
-    lang: "Python / PyTorch",
-    langColor: "#3572A5",
-    stars: 1,
-    href: "https://github.com/thatvivekhingu/Aerosync",
-  },
-  {
-    name: "BharatBhasha AI 2.0",
-    tagline: "Multilingual Indic Voice & Text OS",
-    desc: "Next-generation Indic vernacular intelligence system powered by Groq LLaMA 3.3 70B, real-time STT, and voice synthesis across 12+ Indian languages.",
-    lang: "Python / TypeScript",
-    langColor: "#e34c26",
-    stars: 1,
-    href: "https://github.com/thatvivekhingu/Bharat-Bhasha-Ai-2.0",
-  },
-  {
-    name: "AI Startup Success Predictor",
-    tagline: "Venture Intelligence & Viability ML Engine",
-    desc: "Predictive analytics dashboard evaluating funding probability, financial runway, and business model viability using Scikit-Learn and React.",
-    lang: "JavaScript / FastAPI",
-    langColor: "#f1e05a",
-    stars: 3,
-    href: "https://github.com/thatvivekhingu/Startup-Success-Predictor",
-  },
-  {
-    name: "Globe-Trotter (Odoo Titans)",
-    tagline: "Intelligent Trip Planning & Budget Platform",
-    desc: "Full-stack collaborative itinerary manager organizing travel schedules, currency allocations, and live group expenses in one unified interface.",
-    lang: "TypeScript / Next.js",
-    langColor: "#3178c6",
-    stars: 1,
-    forks: 1,
-    href: "https://github.com/thatvivekhingu/Globe-Trotter_odoo_Tech-Titans",
-  },
-  {
-    name: "thatvivekhingu-PFL",
-    tagline: "Developer Portfolio & AI Agent Hub",
-    desc: "Production Next.js 15 portfolio engineered with interactive 3D elements, dark glassmorphism, and an integrated Vian AI conversational agent.",
-    lang: "TypeScript / React",
-    langColor: "#3178c6",
-    stars: 21,
-    href: "https://github.com/thatvivekhingu/thatvivekhingu-PFL",
-  },
-];
+function InteractiveStampCard({ spot }: { spot: (typeof CHAI_SPOTS)[0] }) {
+  const photoRef = useRef<HTMLDivElement>(null);
+  const [lensState, setLensState] = useState<{ x: number; y: number; active: boolean }>({
+    x: 50,
+    y: 50,
+    active: false,
+  });
 
-export default function GujjuversePage() {
-  // 4 Tabs State: 'home' | 'ai-work' | 'gujjuverse' | 'connect'
-  const [activeTab, setActiveTab] = useState<"home" | "ai-work" | "gujjuverse" | "connect">("home");
-  
-  // Accordion State: active slang index (null = all closed)
-  const [openAccordionIdx, setOpenAccordionIdx] = useState<number | null>(null);
-  
-  // Video Modal Player
-  const [activeVideo, setActiveVideo] = useState<(typeof TOP_3_DAYRO_ARTISTS)[0] | null>(null);
+  const updateCoordinates = (clientX: number, clientY: number) => {
+    if (!photoRef.current) return;
+    const rect = photoRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    setLensState({ x, y, active: true });
+  };
 
-  const toggleAccordion = (idx: number) => {
-    playTapSound("click");
-    setOpenAccordionIdx(openAccordionIdx === idx ? null : idx);
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    updateCoordinates(e.clientX, e.clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches && e.touches[0]) {
+      updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleLeave = () => {
+    setLensState((prev) => ({ ...prev, active: false }));
   };
 
   return (
-    <div className="min-h-screen bg-[#080b11] text-[#f8fafc] font-sans antialiased overflow-x-hidden selection:bg-amber-500 selection:text-zinc-950">
-      
-      {/* Video Modal Player */}
+    <div className="rounded-2xl sm:rounded-[24px] bg-[#16171a] border border-[#25282f] p-2.5 sm:p-3.5 flex flex-row sm:flex-col justify-between items-center sm:items-stretch gap-3 sm:gap-3.5 shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:border-zinc-600 group">
+      {/* POSTAGE STAMP FRAME (Exact Match to Reference Image) */}
+      <div
+        className={`relative ${spot.bgColor} w-24 h-28 sm:w-full sm:h-auto rounded-2xl p-2 sm:p-3.5 shrink-0 flex flex-col justify-between gap-1 sm:gap-2.5 overflow-hidden shadow-inner`}
+      >
+        {/* Top Scalloped Perforation Teeth */}
+        <div className="absolute -top-1.5 sm:-top-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={`t-${i}`}
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-sm"
+            />
+          ))}
+        </div>
+
+        {/* Bottom Scalloped Perforation Teeth */}
+        <div className="absolute -bottom-1.5 sm:-bottom-2 left-0 right-0 flex justify-between px-1 pointer-events-none">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={`b-${i}`}
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-sm"
+            />
+          ))}
+        </div>
+
+        {/* Left Scalloped Perforation Teeth */}
+        <div className="absolute top-0 bottom-0 -left-1.5 sm:-left-2 flex flex-col justify-between py-1 pointer-events-none">
+          {Array.from({ length: 14 }).map((_, i) => (
+            <div
+              key={`l-${i}`}
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-sm"
+            />
+          ))}
+        </div>
+
+        {/* Right Scalloped Perforation Teeth */}
+        <div className="absolute top-0 bottom-0 -right-1.5 sm:-right-2 flex flex-col justify-between py-1 pointer-events-none">
+          {Array.from({ length: 14 }).map((_, i) => (
+            <div
+              key={`r-${i}`}
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#16171a] shadow-sm"
+            />
+          ))}
+        </div>
+
+        {/* Stamp Top Header Bar: Black eyelet hole - Monospace code - Black eyelet hole */}
+        <div className="flex items-center justify-between px-0.5 pt-0.5 sm:pt-1 z-10">
+          <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#16171a] shadow-inner" />
+          <span
+            className={`font-mono text-[8px] sm:text-[11px] font-black tracking-wider sm:tracking-widest ${spot.textColor} uppercase drop-shadow-sm truncate`}
+          >
+            {spot.badge}
+          </span>
+          <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#16171a] shadow-inner" />
+        </div>
+
+        {/* Center Photo Container with 100% Crystal Clear Image */}
+        <div
+          ref={photoRef}
+          onMouseMove={handleMouseMove}
+          onTouchMove={handleTouchMove}
+          onTouchStart={handleTouchMove}
+          onMouseLeave={handleLeave}
+          onTouchEnd={handleLeave}
+          className="relative aspect-square sm:aspect-[4/3.8] w-full rounded-xl overflow-hidden bg-black border border-black/50 shadow-inner z-10 flex-1 select-none group/photo"
+        >
+          {/* Base 100% Crisp High-Resolution Image */}
+          <Image
+            src={spot.image}
+            alt={spot.name}
+            fill
+            sizes="(max-width: 640px) 120px, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover group-hover/photo:scale-105 transition-transform duration-500"
+          />
+
+          {/* Interactive Subtle Glow Lens following Mouse/Touch */}
+          {lensState.active && (
+            <div
+              className="absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50 shadow-[0_0_24px_rgba(255,255,255,0.4)] pointer-events-none transition-transform duration-75"
+              style={{
+                left: `${lensState.x}px`,
+                top: `${lensState.y}px`,
+              }}
+            />
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
+          <span className="hidden sm:flex absolute bottom-1.5 left-1.5 right-1.5 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-zinc-200 text-[9px] font-mono font-medium items-center gap-1 border border-zinc-800/60">
+            <IconMapPin className="w-2.5 h-2.5 text-red-400 shrink-0" />
+            <span className="truncate">{spot.location}</span>
+          </span>
+        </div>
+
+        {/* Stamp Bottom Label */}
+        <div className="text-center z-10 pb-0.5">
+          <span
+            className={`font-mono text-[7px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.28em] ${spot.textColor} drop-shadow-sm`}
+          >
+            {spot.footer}
+          </span>
+        </div>
+      </div>
+
+      {/* Card Content & Action Buttons */}
+      <div className="flex-1 min-w-0 space-y-1.5 sm:space-y-2 w-full">
+        <div className="space-y-0.5">
+          <div className="flex items-center justify-between gap-1">
+            <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
+              {spot.gujjuName}
+            </h3>
+            <span className="sm:hidden font-mono text-[9px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-bold shrink-0">
+              TEA POST
+            </span>
+          </div>
+          <p className="text-[11px] text-zinc-400 truncate flex items-center gap-1">
+            <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
+            <span>{spot.location}</span>
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between gap-2 pt-1 border-t border-zinc-800/80">
+          <a
+            href={spot.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => playTapSound("pop")}
+            className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-800/70 hover:bg-zinc-700 text-zinc-300 hover:text-white text-[11px] font-mono transition-colors flex-1 sm:flex-initial"
+          >
+            <IconMapPin className="w-3 h-3 text-red-400" />
+            <span>Maps</span>
+          </a>
+
+          <a
+            href={`https://wa.me/918866688575?text=${encodeURIComponent(spot.whatsappMsg)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => playTapSound("pop")}
+            className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-[11px] font-mono font-bold transition-colors flex-1 sm:flex-initial"
+          >
+            <IconBrandWhatsapp className="w-3 h-3" />
+            <span>મળવું છે?</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function GujjuversePage() {
+  const [selectedVideoCategory, setSelectedVideoCategory] = useState<string>("music");
+  const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
+  const dayroScrollRef = useRef<HTMLDivElement>(null);
+
+  const filteredVideos = ALL_DAYRO_VIDEOS.filter((v) => v.category === selectedVideoCategory);
+
+  const handlePlayVideo = (video: VideoItem) => {
+    playTapSound("pop");
+    setActiveVideo(video);
+  };
+
+  const handleScroll = (direction: "left" | "right") => {
+    playTapSound("hover");
+    if (dayroScrollRef.current) {
+      const scrollAmount = direction === "left" ? -340 : 340;
+      dayroScrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  const scrollToTop = () => {
+    playTapSound("pop");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <div className="min-h-screen w-full bg-background text-foreground selection:bg-white selection:text-black font-gujarati antialiased relative overflow-x-hidden pt-28 sm:pt-36 md:pt-40 pb-16">
+      {/* Precision Subtle Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[350px] bg-[radial-gradient(ellipse_60%_30%_at_50%_0%,rgba(255,255,255,0.04),rgba(0,0,0,0))] pointer-events-none -z-10" />
+
+      {/* Video Modal Player - Pure Edge-to-Edge YouTube Cinema Mode */}
       <AnimatePresence>
         {activeVideo && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setActiveVideo(null)}
+            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-3xl rounded-2xl bg-zinc-950 border border-zinc-700 overflow-hidden shadow-2xl"
+              className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
             >
-              <div className="flex items-center justify-between p-3.5 border-b border-zinc-800 bg-zinc-900">
-                <span className="text-xs font-bold text-white truncate font-mono">
-                  {activeVideo.artist} — {activeVideo.title}
-                </span>
-                <button
-                  onClick={() => setActiveVideo(null)}
-                  className="p-1 rounded-md hover:bg-zinc-800 text-zinc-400 hover:text-white"
-                >
-                  <IconX className="w-4 h-4" />
-                </button>
-              </div>
+              {/* Floating Sleek Close Button */}
+              <button
+                onClick={() => {
+                  playTapSound("hover");
+                  setActiveVideo(null);
+                }}
+                className="absolute top-3 right-3 z-30 p-2 rounded-full bg-black/80 hover:bg-zinc-800 border border-white/15 text-white transition-all cursor-pointer shadow-lg backdrop-blur-md"
+                aria-label="Close video"
+              >
+                <IconX className="w-4 h-4" />
+              </button>
 
-              <div className="relative aspect-video w-full bg-black">
+              {/* Edge-to-Edge YouTube Player */}
+              <div className="relative w-full aspect-video bg-black">
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0`}
                   title={activeVideo.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
-                  className="w-full h-full border-0"
+                  className="absolute inset-0 w-full h-full border-0"
                 />
+              </div>
+
+              {/* Sleek YouTube Style Bottom Info Strip */}
+              <div className="px-4 py-3 bg-zinc-950/95 border-t border-white/[0.08] flex items-center justify-between gap-3">
+                <div className="min-w-0 space-y-0.5">
+                  <h3 className="text-sm sm:text-base font-bold text-zinc-100 truncate">
+                    {activeVideo.title}
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-xs text-zinc-400">
+                    <span className="font-medium text-zinc-300">{activeVideo.artist}</span>
+                    <IconCircleCheckFilled className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                    <span className="text-zinc-600">•</span>
+                    <span className="text-zinc-500 font-mono text-[11px]">{activeVideo.categoryLabel}</span>
+                  </div>
+                </div>
+
+                <a
+                  href={`https://www.youtube.com/watch?v=${activeVideo.youtubeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => playTapSound("pop")}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-red-600/20 hover:bg-red-600/30 border border-red-500/40 text-red-400 text-xs font-mono font-bold shrink-0 transition-colors"
+                >
+                  <IconBrandYoutube className="w-4 h-4 text-red-500" />
+                  <span className="hidden sm:inline">YouTube</span>
+                </a>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Main Container with ample padding to accommodate the global floating navbar smoothly */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20 space-y-8 sm:space-y-10">
-        
+      <div className="max-w-6xl mx-auto px-3.5 sm:px-6 space-y-6 sm:space-y-10">
         {/* ========================================================
-            TAB BAR NAVIGATION (4 TABS: Home, AI Work, GujjuVerse, Connect)
+            1. REFINED 2-COLUMN HERO SECTION (BALANCED PROFESSIONAL & DESI HIERARCHY)
             ======================================================== */}
-        <div className="flex items-center justify-center">
-          <div className="inline-flex items-center p-1.5 rounded-2xl bg-[#0e131d] border border-white/[0.08] shadow-xl backdrop-blur-md">
-            {[
-              { id: "home", label: "Home" },
-              { id: "ai-work", label: "AI Work" },
-              { id: "gujjuverse", label: "GujjuVerse" },
-              { id: "connect", label: "Connect" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  playTapSound("click");
-                  setActiveTab(tab.id as any);
-                }}
-                className={`px-4 sm:px-6 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                  activeTab === tab.id
-                    ? "bg-amber-500 text-zinc-950 font-bold shadow-md shadow-amber-500/20"
-                    : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* ========================================================
-            TAB 1: HOME (Intro, Tagline, 1 CTA, Tech Stack)
-            ======================================================== */}
-        {activeTab === "home" && (
-          <motion.div
-            key="home"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 15 }}
-            transition={{ duration: 0.25 }}
-            className="space-y-8"
-          >
-            {/* 2-Column Hero Card */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6 sm:p-10 rounded-3xl bg-[#0d111a] border border-white/[0.08] shadow-2xl">
-              
-              {/* Left Column */}
-              <div className="md:col-span-7 space-y-4 text-left">
-                {/* Clean Professional Badges */}
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-sky-400 text-xs font-mono font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
-                    <span>AI & ML Engineer • Ahmedabad</span>
-                  </span>
-                </div>
-
-                {/* Main Headline */}
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.18]">
-                  Vivek Hingu
-                </h1>
-
-                {/* The Gujarati Tagline (Exclusive Location 1/3) */}
-                <p className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-300">
-                  મોટાભાગના તગડા આઈડિયા ચાની કિટલી પર જ બને છે.
-                </p>
-
-                {/* Subtitle */}
-                <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-lg font-normal">
-                  Building production Machine Learning architectures, multilingual voice operating systems, and intelligent web applications with real code and disciplined execution.
-                </p>
-
-                {/* 1 Single Primary CTA on Home */}
-                <div className="pt-2">
-                  <button
-                    onClick={() => {
-                      playTapSound("pop");
-                      setActiveTab("ai-work");
-                    }}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-lg hover:shadow-amber-500/25 active:scale-95 cursor-pointer"
-                  >
-                    <span>View My AI Projects</span>
-                    <span className="text-sm">➔</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Right Column Video Frame */}
-              <div className="md:col-span-5 relative">
-                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#080b11]">
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                    className="w-full h-full object-cover"
-                  >
-                    <source src="/gujjuverse-banner.mp4" type="video/mp4" />
-                  </video>
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-xl bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-zinc-300 flex items-center justify-between">
-                    <span className="text-amber-400 font-semibold">Ahmedabad Tech Hub 🇮🇳</span>
-                    <span>Chai & Code ☕</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Tech Stack Distribution Strip */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#0d111a] border border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
-              <span className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-wider">
-                Engineering Stack:
-              </span>
+        <BlurFade delay={0.02} inView>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center border-b border-zinc-800/80 pb-8 sm:pb-12">
+            {/* Left Content Column */}
+            <div className="lg:col-span-6 xl:col-span-6 space-y-4 sm:space-y-5 text-left">
+              {/* 1. Clear Professional Identity & Punchline Badges */}
               <div className="flex flex-wrap items-center gap-2">
-                {["Python", "PyTorch", "FastAPI", "Next.js 15", "TypeScript", "YOLOv8", "LangChain", "Docker"].map((tech, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300"
-                  >
-                    {tech}
-                  </span>
-                ))}
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-mono font-bold tracking-wide">
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                  <span>AI & ML Engineer • Ahmedabad</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-medium backdrop-blur-md">
+                  <IconCrown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span className="truncate max-w-[280px] sm:max-w-none">કાઠિયાવાડમાં જેમ ભગવાન પણ ભૂલા પડે...</span>
+                </div>
+              </div>
+
+              {/* 2. Main Bold Headline */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[46px] font-black tracking-tight text-white leading-[1.18]">
+                મોટાભાગના તગડા{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 drop-shadow-[0_4px_24px_rgba(245,158,11,0.35)]">
+                  આઈડિયા ચાની કિટલી પર
+                </span>{" "}
+                જ બને છે!
+              </h1>
+
+              {/* 3. Concise 1-Line Subtitle */}
+              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
+                Ahmedabad developer building real-world AI systems with kadak chai, desi vibes, and pure passion for code.
+              </p>
+
+              {/* 4. Actionable CTAs (Professional First, Culture Secondary) */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                {/* Primary Action */}
+                <Link
+                  href="/#projects"
+                  onClick={() => playTapSound("pop")}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-zinc-950 text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:shadow-orange-500/25 active:scale-95 cursor-pointer"
+                >
+                  <span>View My Projects</span>
+                  <span className="text-sm">➔</span>
+                </Link>
+
+                {/* Secondary Culture CTA */}
+                <a
+                  href="#chai-spots"
+                  onClick={() => playTapSound("pop")}
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-zinc-600 text-xs font-medium text-zinc-300 hover:text-white transition-all cursor-pointer shadow-md active:scale-95"
+                >
+                  <IconCoffee className="w-4 h-4 text-amber-400" />
+                  <span>Explore Tea Spots & Culture ↓</span>
+                </a>
+
+                {/* Back to Home */}
+                <Link
+                  href="/#hero"
+                  onClick={() => playTapSound("pop")}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-400 hover:text-white transition-all group cursor-pointer"
+                >
+                  <IconArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+                  <span>Portfolio</span>
+                </Link>
               </div>
             </div>
-          </motion.div>
-        )}
+
+            {/* Right Visual Card Column: Purposeful Tech + Tapri Video Showcase */}
+            <div className="lg:col-span-6 xl:col-span-6 relative">
+              {/* Ambient Glow */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-blue-500/10 rounded-[32px] blur-3xl pointer-events-none -z-10" />
+
+              <div className="relative w-full aspect-[4/3] sm:aspect-[1.25/1] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl bg-zinc-950 group">
+                {/* Top Location / Status Pill */}
+                <div className="absolute top-3 left-3 z-20 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-zinc-200 text-[10px] font-mono font-medium shadow-md">
+                    <IconMapPin className="w-3 h-3 text-red-400" />
+                    <span>Ahmedabad Tech Hub 🇮🇳</span>
+                  </span>
+                </div>
+
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  className="w-full h-full object-cover rounded-2xl sm:rounded-3xl transition-transform duration-700 group-hover:scale-105"
+                >
+                  <source src="/gujjuverse-banner.mp4" type="video/mp4" />
+                </video>
+
+                {/* Bottom Tech Stack Strip */}
+                <div className="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap items-center justify-between gap-1 p-2.5 rounded-xl bg-black/80 backdrop-blur-md border border-white/10 text-white text-xs font-mono">
+                  <span className="text-amber-400 font-semibold text-[11px]">
+                    Python • Grok AI • Next.js • ML
+                  </span>
+                  <span className="text-zinc-400 text-[10px]">Chai & Code ☕</span>
+                </div>
+
+                {/* Inner Highlight Ring */}
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl sm:rounded-3xl pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+              </div>
+            </div>
+          </div>
+        </BlurFade>
 
         {/* ========================================================
-            TAB 2: AI WORK (6 Projects + GitHub Stats)
+            3. UNIFIED BENTO GRID
             ======================================================== */}
-        {activeTab === "ai-work" && (
-          <motion.div
-            key="ai-work"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 15 }}
-            transition={{ duration: 0.25 }}
-            className="space-y-6"
-          >
-            {/* GitHub Stats Header Strip */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#0d111a] border border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-white/[0.05] text-white">
-                  <IconBrandGithub className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-sm font-bold text-white block">thatvivekhingu / AI Systems</span>
-                  <span className="text-xs text-zinc-400 font-mono">Open-source machine learning & Indic research</span>
-                </div>
-              </div>
+        <BlurFade delay={0.08} inView>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
 
-              <div className="flex items-center gap-4 text-xs font-mono text-zinc-300">
-                <span className="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-semibold">
-                  562 Contributions in 2026
-                </span>
-                <span className="px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-500/30 text-sky-400 font-semibold">
-                  8 Public Repositories
-                </span>
-              </div>
-            </div>
-
-            {/* 6 AI Projects Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {AI_PROJECTS.map((proj, idx) => (
-                <a
-                  key={idx}
-                  href={proj.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group p-5 rounded-2xl bg-[#0d111a] border border-white/[0.08] hover:border-amber-500/40 transition-all flex flex-col justify-between gap-4 shadow-lg hover:-translate-y-0.5"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <IconBrain className="w-4 h-4 text-amber-400" />
-                        <h3 className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors">
-                          {proj.name}
-                        </h3>
-                      </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-zinc-400">
-                        Public
-                      </span>
-                    </div>
-
-                    <p className="text-xs font-semibold text-sky-300">
-                      {proj.tagline}
-                    </p>
-
-                    <p className="text-xs text-zinc-400 leading-relaxed line-clamp-3">
-                      {proj.desc}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs font-mono text-zinc-400 pt-2 border-t border-white/[0.06]">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: proj.langColor }} />
-                      <span>{proj.lang}</span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <span className="flex items-center gap-1">
-                        <IconStar className="w-3.5 h-3.5 text-zinc-400" />
-                        {proj.stars}
-                      </span>
-                      {proj.forks && (
-                        <span className="flex items-center gap-1">
-                          <IconGitFork className="w-3.5 h-3.5 text-zinc-400" />
-                          {proj.forks}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </a>
+            {/* 4 POSTAGE STAMP CARDS (Interactive Scalloped Frame & Mouse/Touch Unblur Lens) */}
+            <div id="chai-spots" className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4.5 scroll-mt-20">
+              {CHAI_SPOTS.map((spot) => (
+                <InteractiveStampCard key={spot.id} spot={spot} />
               ))}
             </div>
-          </motion.div>
-        )}
 
-        {/* ========================================================
-            TAB 3: GUJJUVERSE (Tea Spots, Accordion Slang, Rules, 3 Dayro)
-            ======================================================== */}
-        {activeTab === "gujjuverse" && (
-          <motion.div
-            key="gujjuverse"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 15 }}
-            transition={{ duration: 0.25 }}
-            className="space-y-10"
-          >
-            {/* 1. 4 Tea Spots Compact Cards (Exclusive Gujarati Names 2/3) */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
-                <div className="flex items-center gap-2">
-                  <IconCoffee className="w-4 h-4 text-amber-400" />
-                  <span className="text-sm sm:text-base font-bold text-white">
-                    Ahmedabad Tea Hubs
-                  </span>
-                </div>
-                <span className="text-xs font-mono text-zinc-400">4 Locations</span>
-              </div>
+            {/* ========================================================
+                4. GUJJU TECH DICTIONARY BENTO TILE (col-span-2)
+                ======================================================== */}
+            <div className="md:col-span-2 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
+              <GlowingEffect
+                spread={40}
+                glow={false}
+                disabled={true}
+                proximity={64}
+                inactiveZone={0.01}
+              />
+              <div className="group/glow relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
+                <SpotlightGlow color="rgba(34, 211, 238, 0.08)" />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-                {CHAI_SPOTS.map((spot) => (
-                  <div
-                    key={spot.id}
-                    className="p-3.5 rounded-2xl bg-[#0d111a] border border-white/[0.08] space-y-3 flex flex-col justify-between"
-                  >
-                    <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-black/40 border border-white/10">
-                      <Image
-                        src={spot.image}
-                        alt={spot.name}
-                        fill
-                        className="object-cover"
-                        sizes="200px"
-                      />
-                      <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded bg-black/80 text-[8px] font-mono text-amber-300">
-                        {spot.badge}
-                      </div>
+                <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-cyan-400">
+                      <IconTerminal2 className="w-4 h-4" />
                     </div>
-
-                    <div className="space-y-1">
-                      <h4 className="text-xs sm:text-sm font-bold text-white">{spot.gujjuName}</h4>
-                      <p className="text-[11px] text-zinc-400 flex items-center gap-1">
-                        <IconMapPin className="w-3 h-3 text-red-400 shrink-0" />
-                        <span className="truncate">{spot.location}</span>
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-1.5 pt-1 border-t border-white/[0.06] text-[10px] font-mono">
-                      <a
-                        href={spot.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 py-1 px-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-zinc-300 text-center transition-colors"
-                      >
-                        Maps ↗
-                      </a>
-                      <a
-                        href={`https://wa.me/918866688575?text=${encodeURIComponent(spot.whatsappMsg)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 py-1 px-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold text-center transition-colors"
-                      >
-                        Meet ☕
-                      </a>
-                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
+                      The Gujju Tech Dictionary 📖
+                    </h3>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 2. 6 Slang Tech Dictionary in Compact ACCORDION Format (Exclusive Gujarati Words 3/3) */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
-                <div className="flex items-center gap-2">
-                  <IconTerminal2 className="w-4 h-4 text-cyan-400" />
-                  <span className="text-sm sm:text-base font-bold text-white">
-                    Tech Dictionary (Accordion)
-                  </span>
+                  <span className="text-[11px] font-mono text-zinc-500">Gujarati Slang</span>
                 </div>
-                <span className="text-xs font-mono text-zinc-400">Click to Expand</span>
-              </div>
 
-              <div className="space-y-2">
-                {GUJJU_DICTIONARY.map((item, idx) => {
-                  const isOpen = openAccordionIdx === idx;
-                  return (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {GUJJU_DICTIONARY.map((item, idx) => (
                     <div
                       key={idx}
-                      className="rounded-xl bg-[#0d111a] border border-white/[0.08] overflow-hidden transition-colors"
+                      className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-855 hover:border-cyan-500/40 transition-all space-y-1 group"
                     >
-                      <button
-                        onClick={() => toggleAccordion(idx)}
-                        className="w-full p-3.5 sm:p-4 flex items-center justify-between text-left cursor-pointer hover:bg-white/[0.02]"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-base">{item.emoji}</span>
-                          <span className="text-base font-extrabold text-cyan-300">
-                            {item.gujju}
-                          </span>
-                          <span className="text-xs text-zinc-400 font-mono">
-                            ({item.term})
-                          </span>
-                        </div>
-                        <div className="p-1 rounded-lg bg-white/[0.05] text-zinc-400">
-                          {isOpen ? <IconMinus className="w-3.5 h-3.5" /> : <IconPlus className="w-3.5 h-3.5" />}
-                        </div>
-                      </button>
-
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="px-4 pb-4 pt-1 border-t border-white/[0.04] text-xs text-zinc-300 leading-relaxed space-y-1.5"
-                          >
-                            <p>{item.desc}</p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono text-zinc-500">{item.term}</span>
+                        <span>{item.emoji}</span>
+                      </div>
+                      <h4 className="text-sm font-extrabold text-cyan-300 group-hover:text-cyan-200">
+                        {item.gujju}
+                      </h4>
+                      <p className="text-[11px] text-zinc-400 leading-snug">
+                        {item.desc}
+                      </p>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* 3. Exactly 3 Compressed Dayro Artists Grid */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
-                <div className="flex items-center gap-2">
-                  <IconBrandYoutube className="w-4 h-4 text-rose-400" />
-                  <span className="text-sm sm:text-base font-bold text-white">
-                    Lok Dayro & Sangeet (3 Artists)
-                  </span>
-                </div>
-                <a
-                  href="https://www.youtube.com/results?search_query=gujarati+dayro+live"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
-                >
-                  View Full Playlist →
-                </a>
-              </div>
+            {/* ========================================================
+                5. GUJJU DEVELOPER MANIFESTO BENTO TILE (col-span-1)
+                ======================================================== */}
+            <div className="md:col-span-1 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
+              <GlowingEffect
+                spread={40}
+                glow={false}
+                disabled={true}
+                proximity={64}
+                inactiveZone={0.01}
+              />
+              <div className="group/glow relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-5 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
+                <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                {TOP_3_DAYRO_ARTISTS.map((item) => (
-                  <div
-                    key={item.id}
-                    onClick={() => {
-                      playTapSound("pop");
-                      setActiveVideo(item);
-                    }}
-                    className="p-3 rounded-2xl bg-[#0d111a] border border-white/[0.08] hover:border-amber-500/40 transition-all space-y-2.5 cursor-pointer group shadow-lg"
-                  >
-                    <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black">
-                      <Image
-                        src={item.thumbnail}
-                        alt={item.artist}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="260px"
-                      />
-                      <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                          <IconPlayerPlayFilled className="w-3.5 h-3.5 ml-0.5" />
-                        </div>
-                      </div>
+                <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
+                      <IconCode className="w-4 h-4" />
                     </div>
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-tight">
+                      Manifesto 📜
+                    </h3>
+                  </div>
+                  <span className="text-[11px] font-mono text-zinc-500">Golden Rules</span>
+                </div>
 
+                <div className="space-y-2.5">
+                  {GUJJU_RULES.map((rule, idx) => (
+                    <div
+                      key={idx}
+                      className="p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-855 space-y-1"
+                    >
+                      <div className="flex items-center justify-between text-xs font-bold text-zinc-200">
+                        <span className="flex items-center gap-1.5 font-mono text-zinc-400">
+                          <span>{rule.num}.</span>
+                          <span className="text-zinc-200">{rule.title}</span>
+                        </span>
+                        <span>{rule.icon}</span>
+                      </div>
+                      <p className="text-[11px] text-zinc-400 leading-snug">
+                        {rule.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ========================================================
+                6. LOK DAYRO & HASYA DARBAR (SECOND LAST SECTION!)
+                ======================================================== */}
+            <div id="dayro-section" className="md:col-span-3 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg scroll-mt-20">
+              <GlowingEffect
+                spread={40}
+                glow={false}
+                disabled={true}
+                proximity={64}
+                inactiveZone={0.01}
+              />
+              <div className="group/glow relative flex flex-col justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-4 sm:p-6 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
+                <SpotlightGlow color="rgba(255, 255, 255, 0.06)" />
+
+                {/* Dayro Header */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-900 pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">
+                      <IconBrandYoutube className="w-5 h-5" />
+                    </div>
                     <div>
-                      <h4 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors truncate">
-                        {item.artist}
-                      </h4>
-                      <p className="text-[11px] text-zinc-400 font-mono truncate">
-                        {item.genre}
+                      <h3 className="text-base sm:text-lg font-bold text-zinc-100 flex items-center gap-2">
+                        <span>લોકડાયરો & હાસ્ય દરબાર 🎭</span>
+                      </h3>
+                      <p className="text-xs text-zinc-400">
+                        ગોપાલ સાધુ, આદિત્ય ગઢવી, રાજદાન ગઢવી, કીર્તિદાન ગઢવી અને માયાભાઈ આહીરનો અસલ ડાયરો & સૂર
                       </p>
                     </div>
                   </div>
-                ))}
+
+                  {/* Carousel Scroll Arrows */}
+                  <div className="flex items-center gap-1.5 self-end sm:self-center">
+                    <button
+                      onClick={() => handleScroll("left")}
+                      aria-label="Scroll Left"
+                      className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    >
+                      <IconChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleScroll("right")}
+                      aria-label="Scroll Right"
+                      className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    >
+                      <IconChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Specific Curated Category Tabs (No "બધા વિડીયો" tab) */}
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: "music", label: "લોક સંગીત & ગીતો 🎶" },
+                    { id: "hasya", label: "હાસ્ય ડાયરો & જોક્સ 😂" },
+                    { id: "jugalbandhi", label: "મહા જુગલબંધી 🔥" },
+                    { id: "veer-ras", label: "વીર રસ & સાહિત્ય ⚔️" },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => {
+                        playTapSound("hover");
+                        setSelectedVideoCategory(tab.id);
+                      }}
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
+                        selectedVideoCategory === tab.id
+                          ? "bg-white text-black font-semibold shadow-sm"
+                          : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Video Carousel */}
+                <div
+                  ref={dayroScrollRef}
+                  className="flex overflow-x-auto gap-4 pb-2 pt-1 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-zinc-900 [&::-webkit-scrollbar-thumb]:bg-zinc-700 hover:[&::-webkit-scrollbar-thumb]:bg-zinc-500 [&::-webkit-scrollbar-thumb]:rounded-full"
+                >
+                  {filteredVideos.map((video) => (
+                    <div
+                      key={video.id}
+                      onClick={() => handlePlayVideo(video)}
+                      className="w-[260px] sm:w-[280px] shrink-0 snap-start rounded-xl bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 overflow-hidden cursor-pointer flex flex-col gap-2.5 transition-all group p-2.5"
+                    >
+                      <div className="relative aspect-video w-full rounded-lg overflow-hidden bg-zinc-950">
+                        <Image
+                          src={video.thumbnail}
+                          alt={video.title}
+                          fill
+                          sizes="280px"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                          <div className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                            <IconPlayerPlayFilled className="w-4 h-4 ml-0.5" />
+                          </div>
+                        </div>
+                        <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/85 text-[9px] font-mono text-zinc-300">
+                          HD
+                        </div>
+                        <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-zinc-200 text-[9px] font-medium">
+                          {video.categoryLabel}
+                        </div>
+                      </div>
+
+                      <div className="px-0.5 space-y-1">
+                        <h4 className="text-xs font-bold text-zinc-100 group-hover:text-white transition-colors line-clamp-2 leading-snug">
+                          {video.title}
+                        </h4>
+                        <div className="flex items-center gap-1 text-[11px] text-zinc-400">
+                          <span className="truncate">{video.artist}</span>
+                          <IconCircleCheckFilled className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* 4. 4 Golden Rules */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {GUJJU_RULES.map((rule, idx) => (
-                <div
-                  key={idx}
-                  className="p-3.5 rounded-xl bg-[#0d111a] border border-white/[0.08] flex items-start gap-3"
-                >
-                  <span className="text-lg">{rule.icon}</span>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono font-bold text-amber-400">
-                        RULE {rule.num}
-                      </span>
-                      <span className="text-xs font-bold text-white">
-                        {rule.title}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-zinc-400 leading-relaxed mt-0.5">
-                      {rule.desc}
+            {/* ========================================================
+                7. NATURAL CONNECT BANNER (Friendly, Authentic Tone)
+                ======================================================== */}
+            <div className="md:col-span-3 relative rounded-xl border border-zinc-800 p-2 md:rounded-2xl md:p-2 bg-zinc-950/40 shadow-lg">
+              <GlowingEffect
+                spread={40}
+                glow={false}
+                disabled={true}
+                proximity={64}
+                inactiveZone={0.01}
+              />
+              <div className="group/glow relative flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden rounded-lg md:rounded-xl border border-zinc-800/80 p-5 sm:p-6 bg-zinc-950/90 shadow-[0px_0px_27px_0px_#141414]">
+                <SpotlightGlow color="rgba(255, 255, 255, 0.08)" />
+
+                <div className="flex items-center gap-3.5 text-left">
+                  <div className="p-2.5 rounded-2xl bg-zinc-900 border border-zinc-800 text-2xl shrink-0">
+                    ☕
+                  </div>
+                  <div className="space-y-0.5">
+                    <h3 className="text-base sm:text-lg font-bold text-zinc-100">
+                      ચાલો મળીએ, એક કપ ચા સાથે ગપ્પાં મારીએ! ☕
+                    </h3>
+                    <p className="text-xs sm:text-sm text-zinc-400">
+                      કોડિંગ, નવા આઈડિયાઝ કે બસ મોજમજા — અમદાવાદમાં હોવ તો Tea Post પર ચા પીવા જરૂર આવજો!
                     </p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
 
-        {/* ========================================================
-            TAB 4: CONNECT (LinkedIn, GitHub, Instagram, WhatsApp)
-            ======================================================== */}
-        {activeTab === "connect" && (
-          <motion.div
-            key="connect"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 15 }}
-            transition={{ duration: 0.25 }}
-            className="space-y-6"
-          >
-            <div className="p-6 sm:p-8 rounded-3xl bg-[#0d111a] border border-white/[0.08] space-y-6 text-center max-w-2xl mx-auto shadow-2xl">
-              <div className="space-y-2">
-                <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
-                  Let&apos;s Build Together
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-                  Connect with Vivek Hingu
-                </h2>
-                <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
-                  Open for machine learning engineering collaborations, enterprise AI consulting, and cutting chai conversations.
-                </p>
-              </div>
+                <div className="flex items-center gap-2.5 shrink-0 w-full sm:w-auto justify-end">
+                  <a
+                    href="https://wa.me/918866688575?text=%E0%AA%A8%E0%AA%AE%E0%AA%B8%E0%AB%8D%E0%AA%A4%E0%AB%87%20%E0%AA%B5%E0%AA%BF%E0%AA%B5%E0%AB%87%E0%AA%95!%20%E0%AA%9A%E0%AA%BE%E0%AA%B2%E0%AB%8B%20%E0%AA%9A%E0%AA%BE%20%E0%AA%AA%E0%AB%80%E0%AA%A4%E0%AA%BE%E0%AA%82%20%E0%AA%AA%E0%AB%80%E0%AA%A4%E0%AA%BE%E0%AA%82%20%E0%AA%AE%E0%AA%B3%E0%AB%80%E0%AA%8F%20%E0%AA%A8%E0%AB%87%20%E0%AA%95%E0%AA%82%E0%AA%88%E0%AA%95%20%E0%AA%AE%E0%AB%8B%E0%AA%9F%E0%AB%81%E0%AA%82%20%E0%AA%AC%E0%AA%A8%E0%AA%BE%E0%AA%B5%E0%AB%80%E0%AA%8F%20%E2%98%95"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTapSound("pop")}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs sm:text-sm transition-all shadow-md shadow-emerald-500/20 cursor-pointer"
+                  >
+                    <IconBrandWhatsapp className="w-4 h-4" />
+                    <span>WhatsApp Connect</span>
+                  </a>
 
-              {/* 4 Direct Social Grid Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-                <a
-                  href="https://linkedin.com/in/vivekhingu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 flex items-center justify-between group transition-all"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-blue-600/20 text-sky-400">
-                      <IconBrandLinkedin className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-white block">LinkedIn</span>
-                      <span className="text-[11px] text-zinc-400 font-mono">/in/vivekhingu</span>
-                    </div>
-                  </div>
-                  <IconChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
-                </a>
-
-                <a
-                  href="https://github.com/thatvivekhingu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 flex items-center justify-between group transition-all"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-white/10 text-white">
-                      <IconBrandGithub className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-white block">GitHub</span>
-                      <span className="text-[11px] text-zinc-400 font-mono">@thatvivekhingu</span>
-                    </div>
-                  </div>
-                  <IconChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
-                </a>
-
-                <a
-                  href="https://instagram.com/realvivek.py"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 flex items-center justify-between group transition-all"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-pink-600/20 text-pink-400">
-                      <IconBrandInstagram className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-white block">Instagram</span>
-                      <span className="text-[11px] text-zinc-400 font-mono">@realvivek.py</span>
-                    </div>
-                  </div>
-                  <IconChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
-                </a>
-
-                <a
-                  href="https://wa.me/918866688575?text=%E0%AA%A8%E0%AA%AE%E0%AA%B8%E0%AB%8D%E0%AA%A4%E0%AB%87%20%E0%AA%B5%E0%AA%BF%E0%AA%B5%E0%AB%87%E0%AA%95!%20%E0%AA%9A%E0%AA%BE%E0%AA%B2%E0%AB%8B%20Tea%20Post%20%E0%AA%AA%E0%AA%B0%20%E0%AA%AE%E0%AA%B3%E0%AB%80%E0%AA%8F%20%E2%98%95"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-between group transition-all"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-emerald-600/20 text-emerald-400">
-                      <IconBrandWhatsapp className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-white block">WhatsApp</span>
-                      <span className="text-[11px] text-zinc-400 font-mono">+91 88666 88575</span>
-                    </div>
-                  </div>
-                  <IconChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
-                </a>
+                  <Link
+                    href="/#hero"
+                    onClick={() => playTapSound("pop")}
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-300 hover:text-white transition-all"
+                  >
+                    <IconArrowLeft className="w-3.5 h-3.5" />
+                    <span>Back to Hero</span>
+                  </Link>
+                </div>
               </div>
             </div>
-          </motion.div>
-        )}
 
-        {/* ========================================================
-            CLEAN FOOTER (Only 1 Chai & Code mention, Zero Duplicates)
-            ======================================================== */}
-        <footer className="pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400 font-mono">
-          <p>© {new Date().getFullYear()} Vivek Hingu • Designed with Chai &amp; Code in Ahmedabad ☕</p>
-          <div className="flex items-center gap-4">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <a href="https://github.com/thatvivekhingu" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub ↗</a>
           </div>
-        </footer>
+        </BlurFade>
 
+        {/* ========================================================
+            8. SOCIAL MEDIA SHOWCASE (Complete Glassmorphic Bento Board)
+            ======================================================== */}
+        <BlurFade delay={0.09} inView>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="text-base sm:text-lg font-bold text-zinc-100">
+                  Digital Footprint & Social Bento Hub 🌐
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/30">
+                  BENTO GRID
+                </span>
+              </div>
+              <span className="text-xs text-zinc-400 font-mono hidden sm:inline">
+                Live & Interactive
+              </span>
+            </div>
+
+            {/* Complete Pixel-Perfect Social Bento Grid */}
+            <SocialBentoBoard />
+          </div>
+        </BlurFade>
+
+        {/* ========================================================
+            8. GUJJUVERSE FOOTER (Styled like Main Portfolio Footer)
+            ======================================================== */}
+        <BlurFade delay={0.1} inView>
+          <footer className="pt-12 sm:pt-16 border-t border-zinc-800/80 mt-12 space-y-10">
+            {/* Top GujjuVerse Footer Columns */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Brand Column */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="relative w-8 h-8 shrink-0">
+                    <Image
+                      src="/chai-kitli-logo.png"
+                      alt="GujjuVerse"
+                      fill
+                      sizes="32px"
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="font-extrabold text-base text-zinc-100 tracking-tight">
+                    GujjuVerse
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Vivek Hingu&apos;s cultural dimension — where Ahmedabad chai kitli culture meets modern web engineering & AI.
+                </p>
+                <div className="inline-flex items-center gap-2 text-[11px] font-mono text-zinc-500">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Ahmedabad, Gujarat</span>
+                </div>
+              </div>
+
+              {/* Chai Spots Column */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                  Ahmedabad Tea Hubs
+                </h4>
+                <ul className="space-y-2 text-xs text-zinc-400">
+                  <li>
+                    <a
+                      href="https://maps.app.goo.gl/mwWKYR9xQxzmoBR6A"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                      <span>Tea Post — Nikol</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                      <span>Tea Post — Science City</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://maps.app.goo.gl/XQgNsuKokUm7CuBq8"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                      <span>Tea Post — Maninagar</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://maps.app.goo.gl/1SUaqrcGcLm7uF5w5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <IconMapPin className="w-3.5 h-3.5 text-red-400" />
+                      <span>Tea Post — SG Highway</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              {/* GujjuVerse Modules */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                  GujjuVerse Highlights
+                </h4>
+                <ul className="space-y-2 text-xs text-zinc-400">
+                  <li className="hover:text-white transition-colors cursor-pointer">
+                    📖 The Gujju Tech Dictionary
+                  </li>
+                  <li className="hover:text-white transition-colors cursor-pointer">
+                    📜 The Developer Manifesto
+                  </li>
+                  <li className="hover:text-white transition-colors cursor-pointer">
+                    🎭 Desi Dayro & Lok Sangeet
+                  </li>
+                  <li className="hover:text-white transition-colors cursor-pointer">
+                    🤝 Chai & Code Collaboration
+                  </li>
+                </ul>
+              </div>
+
+              {/* Connect Links */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                  Connect & Links
+                </h4>
+                <div className="space-y-2 text-xs text-zinc-400">
+                  <a
+                    href="https://wa.me/918866688575?text=%E0%AA%A8%E0%AA%AE%E0%AA%B8%E0%AB%8D%E0%AA%A4%E0%AB%87%20%E0%AA%B5%E0%AA%BF%E0%AA%B5%E0%AB%87%E0%AA%95!%20%E0%AA%9A%E0%AA%BE%E0%AA%B2%E0%AB%8B%20%E0%AA%9A%E0%AA%BE%20%E0%AA%AA%E0%AB%80%E0%AA%A4%E0%AA%BE%E0%AA%82%20%E0%AA%AA%E0%AB%80%E0%AA%A4%E0%AA%BE%E0%AA%82%20%E0%AA%AE%E0%AA%B3%E0%AB%80%E0%AA%8F%20%E2%98%95"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTapSound("pop")}
+                    className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                  >
+                    <IconBrandWhatsapp className="w-4 h-4 text-emerald-400" />
+                    <span>WhatsApp Chat</span>
+                  </a>
+
+                  <a
+                    href="https://linkedin.com/in/vivekhingu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTapSound("pop")}
+                    className="hover:text-blue-400 transition-colors flex items-center gap-1.5"
+                  >
+                    <IconBrandLinkedin className="w-4 h-4 text-blue-400" />
+                    <span>LinkedIn Profile</span>
+                  </a>
+
+                  <a
+                    href="https://instagram.com/realvivek.py"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTapSound("pop")}
+                    className="hover:text-pink-400 transition-colors flex items-center gap-1.5"
+                  >
+                    <IconBrandInstagram className="w-4 h-4 text-pink-400" />
+                    <span>Instagram (@realvivek.py)</span>
+                  </a>
+
+                  <a
+                    href="https://github.com/thatvivekhingu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTapSound("pop")}
+                    className="hover:text-white transition-colors flex items-center gap-1.5"
+                  >
+                    <IconBrandGithub className="w-4 h-4" />
+                    <span>GitHub (@thatvivekhingu)</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Strip */}
+            <div className="pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 font-mono">
+              <p>
+                © {new Date().getFullYear()} Vivek Hingu • Designed with Chai &amp; Code in Ahmedabad ☕
+              </p>
+
+              <button
+                onClick={scrollToTop}
+                className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              >
+                <span>Back to Top</span>
+                <IconArrowUp className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </footer>
+        </BlurFade>
       </div>
     </div>
   );
