@@ -104,7 +104,7 @@ Dual-mode resume viewer supporting live skill category filtering, printable layo
 | :--- | :--- |
 | **Edge-to-Edge Ribbons** | Full-bleed dual-angled tech ribbons (-3.5° / +3.5°) with high-contrast typography and infinite marquee animation. |
 | **Marvel Arc Reactor Orbit** | Centered concentric sci-fi rings and iconic Avengers coordinate geometry rotating smoothly behind the profile avatar. |
-| **Interactive Superhero DP** | Seamless crossfade between **Vivek Hingu** ⚡ and **Desi Karodiya** 🕷️ (*Spider-Man*) with haptic vibrations and a 2.8s auto-revert timer on mobile touch. |
+| **Vector Illustrated DP** | High-definition circular vector portrait of **Vivek Hingu** with dynamic ambient glowing halo and sci-fi arc reactor telemetry. |
 | **4-Flight 3D Globe** | WebGL interactive globe rendering individual flight arcs from **Ahmedabad, India** to **USA**, **UK**, **Germany**, and **Canada**. |
 | **41-Meme Scratch Card** | HTML5 canvas scratch-to-reveal card containing 41 local developer memes with pastel gradient coating and instant shuffle. |
 | **VIAN AI Assistant** | Full-duplex conversational agent simulating native iOS Siri audio synthesis, tool execution, and architecture walkthroughs. |

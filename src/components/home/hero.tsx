@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import Image, { type StaticImageData } from "next/image";
+import React, { useRef, useState } from "react";
+import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
@@ -19,98 +19,18 @@ import {
 } from "@/components/ui/tooltip";
 import { data } from "@/data/data";
 
-interface AvatarCharacter {
-  id: string;
-  name: string;
-  badge: string;
-  src: string | StaticImageData;
-  borderColor: string;
-  shadowColor: string;
-  badgeText: string;
-  haloGradient: string;
-}
-
-const HERO_AVATARS: AvatarCharacter[] = [
-  {
-    id: "default",
-    name: "Vivek Hingu",
-    badge: "AI / ML",
-    src: "/avatars/vivek-avatar.png",
-    borderColor: "border-cyan-400/50",
-    shadowColor: "shadow-[0_0_20px_rgba(34,211,238,0.25)]",
-    badgeText: "text-cyan-400",
-    haloGradient: "from-cyan-500/40 via-sky-400/30 to-indigo-500/30",
-  },
-  {
-    id: "spiderman",
-    name: "દેશી કરોડિયો 🕷️",
-    badge: "દેશી કરોડિયો 🕷️",
-    src: "/avatars/spiderman.jpg",
-    borderColor: "border-red-500/80",
-    shadowColor: "shadow-[0_0_20px_rgba(239,68,68,0.3)]",
-    badgeText: "text-red-400",
-    haloGradient: "from-red-600/40 via-rose-500/30 to-blue-600/30",
-  },
-];
+const HERO_AVATAR = {
+  name: "Vivek Hingu",
+  badge: "AI & ML",
+  src: "/avatars/vivek-avatar.png",
+  borderColor: "border-cyan-400/50",
+  shadowColor: "shadow-[0_0_24px_rgba(34,211,238,0.25)]",
+  haloGradient: "from-cyan-500/40 via-sky-400/30 to-indigo-500/30",
+};
 
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [avatarIdx, setAvatarIdx] = useState(0);
-  const avatarTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const currentAvatar = HERO_AVATARS[avatarIdx];
-
-  useEffect(() => {
-    return () => {
-      if (avatarTimeoutRef.current) {
-        clearTimeout(avatarTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  const handleMouseEnter = () => {
-    if (avatarTimeoutRef.current) {
-      clearTimeout(avatarTimeoutRef.current);
-    }
-    playTapSound("pop");
-    setAvatarIdx(1);
-  };
-
-  const handleMouseLeave = () => {
-    if (avatarTimeoutRef.current) {
-      clearTimeout(avatarTimeoutRef.current);
-    }
-    setAvatarIdx(0);
-  };
-
-  const handleAvatarClick = (e?: React.MouseEvent | React.TouchEvent) => {
-    if (e) {
-      e.stopPropagation();
-    }
-    playTapSound("pop");
-    if (typeof navigator !== "undefined" && "vibrate" in navigator) {
-      try {
-        navigator.vibrate([15, 30, 20]);
-      } catch {}
-    }
-
-    if (avatarTimeoutRef.current) {
-      clearTimeout(avatarTimeoutRef.current);
-      avatarTimeoutRef.current = null;
-    }
-
-    setAvatarIdx((prev) => {
-      const next = prev === 0 ? 1 : 0;
-      // If toggled to Desi Karodiya (1) on mobile touch/click, auto-revert after 2.8s
-      if (next === 1) {
-        avatarTimeoutRef.current = setTimeout(() => {
-          setAvatarIdx(0);
-        }, 2800);
-      }
-      return next;
-    });
-  };
 
   const { status, dotColor } = getStatus();
 
@@ -249,71 +169,39 @@ export default function Hero() {
                   <div className="absolute inset-14 rounded-full bg-cyan-500/10 dark:bg-cyan-400/12 blur-xl pointer-events-none" />
                 </div>
 
-                {/* Interactive Superhero Profile Avatar - Smooth Crossfade, Mobile Auto-Reset & Persona Badge */}
+                {/* Modern Illustrated Profile Avatar */}
                 <div
-                  className="group relative z-50 cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95 select-none"
-                  onClick={handleAvatarClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Current Persona: ${currentAvatar.name}`}
+                  className="group relative z-50 select-none transition-transform duration-300 hover:scale-105"
+                  aria-label="Vivek Hingu"
                 >
                   {/* Dynamic Ambient Glowing Halo */}
                   <div
-                    className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${currentAvatar.haloGradient} opacity-25 blur-lg group-hover:opacity-50 transition-all duration-500 animate-pulse`}
+                    className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${HERO_AVATAR.haloGradient} opacity-25 blur-lg group-hover:opacity-50 transition-all duration-500 animate-pulse`}
                   />
 
-                  {/* Avatar Border Ring with Smooth Crossfade Layers */}
+                  {/* Avatar Border Ring */}
                   <div
-                    className={`relative h-48 w-48 sm:h-56 sm:w-56 md:h-60 md:w-60 overflow-hidden rounded-full border-2 transition-all duration-500 bg-zinc-950 ${currentAvatar.borderColor} ${currentAvatar.shadowColor}`}
+                    className={`relative h-48 w-48 sm:h-56 sm:w-56 md:h-60 md:w-60 overflow-hidden rounded-full border-2 transition-all duration-500 bg-[#081b3b] ${HERO_AVATAR.borderColor} ${HERO_AVATAR.shadowColor}`}
                   >
-                    {HERO_AVATARS.map((avatar, idx) => (
-                      <div
-                        key={avatar.id}
-                        className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                          idx === avatarIdx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                        }`}
-                      >
-                        <Image
-                          src={avatar.src}
-                          alt={`Vivek Hingu (${avatar.name})`}
-                          priority={idx === 0}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Floating Micro-Badge for Touch / Persona Switcher */}
-                  <div
-                    className={`absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20 flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 rounded-full border shadow-lg backdrop-blur-md transition-all duration-300 ${
-                      avatarIdx === 0
-                        ? "bg-cyan-950/85 border-cyan-400/60 text-cyan-300 text-xs shadow-[0_0_12px_rgba(34,211,238,0.3)]"
-                        : "bg-red-950/90 border-red-500/80 text-red-300 text-sm shadow-[0_0_16px_rgba(239,68,68,0.4)] animate-bounce"
-                    }`}
-                  >
-                    {avatarIdx === 0 ? "⚡" : "🕷️"}
+                    <Image
+                      src={HERO_AVATAR.src}
+                      alt="Vivek Hingu"
+                      priority
+                      fill
+                      className="object-cover scale-[1.02]"
+                    />
                   </div>
                 </div>
               </div>
 
-              {/* Character Persona Pill with Quick Tap Feedback on Mobile & Desktop */}
-              <button
-                type="button"
-                onClick={handleAvatarClick}
-                className="mt-1.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-background/80 hover:bg-background/95 backdrop-blur-md border border-border/60 hover:border-primary/50 shadow-sm transition-all duration-300 cursor-pointer z-50 group/persona"
-                aria-label="Toggle persona"
+              {/* Profile Identity Pill */}
+              <div
+                className="mt-1.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-background/80 backdrop-blur-md border border-cyan-500/30 shadow-sm z-50 select-none"
               >
-                <span className={`h-1.5 w-1.5 rounded-full transition-colors ${avatarIdx === 0 ? "bg-cyan-400 animate-pulse" : "bg-red-500 animate-ping"}`} />
-                <span className={currentAvatar.badgeText}>
-                  {currentAvatar.name}
-                </span>
-                <span className="text-[10px] text-muted-foreground/70 group-hover/persona:text-primary transition-colors">
-                  {avatarIdx === 0 ? "• tap 🕷️" : "• 2.8s"}
-                </span>
-              </button>
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="text-cyan-400 font-semibold">Vivek Hingu</span>
+                <span className="text-[10px] text-muted-foreground/80">• AI & ML Engineer</span>
+              </div>
 
               <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-2.5">
                 <div className="z-50 relative flex items-center justify-center">
