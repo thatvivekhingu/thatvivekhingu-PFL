@@ -35,7 +35,7 @@ const HERO_AVATARS: AvatarCharacter[] = [
     id: "default",
     name: "Vivek Hingu",
     badge: "AI / ML",
-    src: "/avatars/vivek.jpg",
+    src: "/avatars/vivek-avatar.png",
     borderColor: "border-cyan-400/50",
     shadowColor: "shadow-[0_0_20px_rgba(34,211,238,0.25)]",
     badgeText: "text-cyan-400",
