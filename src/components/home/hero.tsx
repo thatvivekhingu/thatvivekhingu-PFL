@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ShimmerBorder } from "@/components/ui/shimmer-border";
@@ -10,6 +11,7 @@ import { AnimatedName } from "@/components/ui/animated-name";
 import { VisitorBadge } from "@/components/ui/visitor-badge";
 import { ResumeModal } from "@/components/ui/resume-modal";
 import { Marquee } from "@/components/ui/marquee";
+import { SpiderClock } from "@/components/ui/spider-clock";
 import { IdLanyardBadge } from "@/components/ui/id-lanyard-badge";
 import {
   Tooltip,
@@ -18,6 +20,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { data } from "@/data/data";
+
 
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
@@ -64,160 +67,222 @@ export default function Hero() {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-4rem)] pt-20 sm:pt-28 pb-4 relative flex flex-col justify-between overflow-hidden">
-      {/* Subtle Ambient Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-gradient-to-tr from-sky-500/10 via-indigo-500/10 to-transparent blur-3xl pointer-events-none" />
+    <div className="w-full pt-12 pb-6 sm:min-h-screen sm:pt-28 sm:pb-16 relative flex flex-col items-center justify-center overflow-hidden">
+      {/* Spider Clock (Hanging from top silk thread on the left as requested) */}
+      <div className="absolute top-0 left-3 sm:left-8 md:left-14 lg:left-20 z-30 pointer-events-auto">
+        <SpiderClock />
+      </div>
 
       <TooltipProvider>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20 my-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-            {/* LEFT COLUMN: Recruiter Hook (Headline, Role, CTAs, Contact Icons) */}
-            <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 sm:space-y-5">
-              {/* Status Badge */}
-              <BlurFade delay={0.01} inView>
-                <ShimmerButton onClick={handleShimmerButtonClick} className="z-50">
-                  <div className="z-50 relative flex items-center justify-center">
-                    <div
-                      className={`absolute h-1.5 w-1.5 rounded-full border-1 ${
-                        dotColor === "green"
-                          ? "border-green-600/80 bg-green-500 animate-ping"
-                          : "border-orange-600/80 bg-orange-500 animate-ping"
-                      } mr-2`}
-                    />
-                    <div
-                      className={`relative h-1 w-1 rounded-full border-1 ${
-                        dotColor === "green"
-                          ? "border-green-600/80 bg-green-500 animate-pulse"
-                          : "border-orange-600/80 bg-orange-500 animate-pulse"
-                      } mr-2`}
-                    />
+        <BlurFade delay={0.005} inView>
+          <div className="relative flex-col space-y-3 sm:space-y-4 z-20">
+            <div className="relative flex flex-col items-center justify-center">
+              {/* Avatar Center Wrapper with Concentric Marvel Arc Reactor Orbit & Angled Ribbons Perfectly Aligned */}
+              <div className="relative flex items-center justify-center my-2 sm:my-3 z-30">
+                {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer - Centered Directly Behind Avatar */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[5] flex items-center justify-center select-none opacity-80">
+                  {/* Cyan/Teal Angled Ribbon (-3.5deg) - 100% Screen Edge-to-Edge Bleed */}
+                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_15px_rgba(6,182,212,0.15)] border-y border-cyan-200/40">
+                    <Marquee repeat={8} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                      <span>VIVEK HINGU // AI & ML ENGINEER</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>JARVIS & AGENTIC AI</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>AUTONOMOUS AGENTS</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>NEURAL NETWORKS</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>DATA SCIENCE & PYTHON</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                    </Marquee>
                   </div>
-                  <span className="whitespace-pre-wrap text-center font-semibold leading-none text-muted-foreground text-xs sm:text-sm py-[0.5]">
-                    {status}
-                  </span>
-                </ShimmerButton>
-              </BlurFade>
 
-              {/* Headline */}
-              <BlurFade delay={0.02} inView>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight select-none">
+                  {/* Violet/Indigo Angled Ribbon (+3.5deg) - 100% Screen Edge-to-Edge Bleed */}
+                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_15px_rgba(129,140,248,0.15)] border-y border-indigo-200/40">
+                    <Marquee reverse repeat={8} className="[--duration:30s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                      <span>BHARATBHASHA AI</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>REAL-TIME STREAMING</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>HACKATHON WINNER</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>DISRUPT & DEPLOY</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span>QUANTUM ARCHITECTURE</span>
+                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                    </Marquee>
+                  </div>
+                </div>
+
+                {/* Concentric Marvel Arc Reactor & Avengers Orbit (Mathematically Centered Behind Avatar) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] sm:w-[560px] sm:h-[560px] md:w-[620px] md:h-[620px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-35 dark:opacity-40 transition-opacity duration-500">
+                  <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
+                    <svg
+                      viewBox="0 0 400 400"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-full h-full text-cyan-400/60 dark:text-cyan-400/65 drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]"
+                    >
+                      {/* Outer Tech Coordinate Rings */}
+                      <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1.2" strokeDasharray="6 8" />
+                      <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.5" opacity="0.75" />
+                      <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1.2" strokeDasharray="16 6" />
+                      <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" opacity="0.8" />
+                      <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1.2" strokeDasharray="8 12" />
+                      <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
+
+                      {/* Radial Arc Reactor Notches */}
+                      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+                        <line
+                          key={deg}
+                          x1="200"
+                          y1="8"
+                          x2="200"
+                          y2="26"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          transform={`rotate(${deg} 200 200)`}
+                        />
+                      ))}
+
+                      {/* Iconic Avengers 'A' Logo Embedded at Center */}
+                      <g transform="translate(100, 100) scale(1)">
+                        <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3" strokeDasharray="140 30" opacity="0.85" />
+                        <path
+                          d="M30 115 L160 115 L145 95 L25 95 Z"
+                          fill="currentColor"
+                          opacity="0.8"
+                        />
+                        <polygon
+                          points="155,90 185,105 155,120"
+                          fill="currentColor"
+                        />
+                        <polygon
+                          points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145"
+                          fill="currentColor"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  {/* Ambient Marvel Core Glow */}
+                  <div className="absolute inset-14 rounded-full bg-cyan-500/10 dark:bg-cyan-400/12 blur-xl pointer-events-none" />
+                </div>
+
+                {/* 3D Hanging ID Card Lanyard Badge */}
+                <IdLanyardBadge />
+              </div>
+
+              <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-2.5">
+                <div className="z-50 relative flex items-center justify-center">
+                  <div
+                    className={`absolute h-1.5 w-1.5 rounded-full border-1 ${
+                      dotColor === "green"
+                        ? "border-green-600/80 bg-green-500 animate-ping"
+                        : "border-orange-600/80 bg-orange-500 animate-ping"
+                    } mr-2`}
+                  ></div>
+                  <div
+                    className={`relative h-1 w-1 rounded-full border-1 ${
+                      dotColor === "green"
+                        ? "border-green-600/80 bg-green-500 animate-pulse"
+                        : "border-orange-600/80 bg-orange-500 animate-pulse"
+                    } mr-2`}
+                  ></div>
+                </div>
+                <span className="whitespace-pre-wrap text-center font-semibold leading-none text-muted-foreground text-xs sm:text-sm py-[0.5]">
+                  {status}
+                </span>
+              </ShimmerButton>
+              <div className="mt-2 flex justify-center">
+                <VisitorBadge />
+              </div>
+            </div>
+
+            <div className="w-full space-y-3 sm:space-y-4 pt-1 sm:pt-2">
+              <div className="z-50 text-center px-2">
+                <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight break-words sm:whitespace-nowrap select-none">
                   <span className="text-foreground">Hi, I&#39;m </span>
                   <AnimatedName className="inline-block" />
                 </h1>
-              </BlurFade>
+              </div>
 
-              {/* Subtitle */}
-              <BlurFade delay={0.03} inView>
-                <p className="text-base sm:text-lg lg:text-xl font-medium tracking-tight text-muted-foreground max-w-xl">
-                  AI/ML Engineer & Full-Stack Developer specializing in{" "}
-                  <span className="text-sky-400 font-semibold underline decoration-sky-500/40 underline-offset-4">
-                    autonomous agents
-                  </span>
-                  , neural systems, and high-performance intelligent software.
-                </p>
-              </BlurFade>
+              <p className="mt-1 text-sm sm:text-xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
+                AI & ML Engineer building{" "}
+                <span className="text-cyan-400 font-semibold underline decoration-cyan-500/40 underline-offset-4">
+                  intelligent software
+                </span>
+                .
+              </p>
 
-              {/* Action Buttons & Contact Icons */}
-              <BlurFade delay={0.04} inView>
-                <div className="flex flex-col sm:flex-row items-center gap-3 pt-2 w-full sm:w-auto">
-                  {/* View Projects CTA */}
-                  <a
-                    ref={ctaRef}
-                    onMouseMove={handleCtaMove}
-                    onClick={() => playTapSound("pop")}
-                    href="#projects"
-                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-sky-400/40 bg-sky-500/10 hover:bg-sky-500/20 backdrop-blur-md px-5 py-2.5 text-xs sm:text-sm font-bold text-foreground transition-all hover:border-sky-400 hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] w-full sm:w-auto"
-                  >
-                    <span className="relative">View Projects</span>
-                    <IconArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 text-sky-400" />
-                    <ShimmerBorder />
-                  </a>
-
-                  {/* Resume Modal CTA */}
-                  <button
-                    ref={resumeBtnRef}
-                    onMouseMove={handleResumeMove}
-                    onClick={() => {
-                      playTapSound("chime");
-                      setIsResumeOpen(true);
-                    }}
-                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-border/70 bg-background/60 hover:bg-background backdrop-blur-md px-5 py-2.5 text-xs sm:text-sm font-bold text-foreground transition-all hover:border-border hover:shadow-lg w-full sm:w-auto"
-                  >
-                    <IconFileText className="relative h-4 w-4 text-sky-400 group-hover:scale-110 transition-transform duration-300" />
-                    <span className="relative">Download Resume</span>
-                    <ShimmerBorder />
-                  </button>
-
-                  {/* Social / Contact Icons */}
+              <BlurFade delay={0.005 * 2} direction="down" inView>
+                <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-1 sm:pt-2">
                   <div
                     ref={contactRef}
                     onMouseMove={handleContactMove}
-                    className="group relative inline-flex items-center overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-3.5 py-2 transition-all hover:border-border hover:shadow-lg mt-1 sm:mt-0"
+                    className="group relative inline-flex items-center overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-3.5 py-1.5 transition-all hover:border-border hover:shadow-lg"
                   >
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                      style={{
+                        background:
+                          "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                      }}
+                    />
                     <div className="relative z-10">
                       <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
                     </div>
                     <ShimmerBorder />
                   </div>
-                </div>
-              </BlurFade>
-
-              {/* Visitor Counter */}
-              <BlurFade delay={0.05} inView>
-                <div className="pt-0.5">
-                  <VisitorBadge />
-                </div>
-              </BlurFade>
-            </div>
-
-            {/* RIGHT COLUMN: 3D Physics Lanyard ID Badge */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center relative pt-4 lg:pt-0">
-              <BlurFade delay={0.03} inView>
-                <div className="relative flex items-center justify-center">
-                  {/* Subtle Concentric Tech Rings Behind Badge */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] pointer-events-none select-none flex items-center justify-center opacity-20">
-                    <div className="relative w-full h-full animate-[spin_90s_linear_infinite]">
-                      <svg
-                        viewBox="0 0 400 400"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-full h-full text-sky-400/60 drop-shadow-[0_0_8px_rgba(56,189,248,0.2)]"
-                      >
-                        <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1.2" strokeDasharray="6 8" />
-                        <circle cx="200" cy="200" r="160" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
-                        <circle cx="200" cy="200" r="130" stroke="currentColor" strokeWidth="1.2" strokeDasharray="16 6" />
-                      </svg>
-                    </div>
+                  <span className="hidden sm:inline-block h-4 w-px bg-border/60" aria-hidden />
+                  <div className="flex items-center gap-2.5 sm:gap-3">
+                    <a
+                      ref={ctaRef}
+                      onMouseMove={handleCtaMove}
+                      onClick={() => playTapSound("pop")}
+                      href="#projects"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
+                    >
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                        style={{
+                          background:
+                            "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                        }}
+                      />
+                      <span className="relative">View my work</span>
+                      <IconArrowRight className="relative h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                      <ShimmerBorder />
+                    </a>
+                    <button
+                      ref={resumeBtnRef}
+                      onMouseMove={handleResumeMove}
+                      onClick={() => {
+                        playTapSound("chime");
+                        setIsResumeOpen(true);
+                      }}
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
+                    >
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                        style={{
+                          background:
+                            "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                        }}
+                      />
+                      <IconFileText className="relative h-3.5 w-3.5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
+                      <span className="relative font-bold">Resume</span>
+                      <ShimmerBorder />
+                    </button>
                   </div>
-
-                  {/* 3D Draggable Lanyard ID Card */}
-                  <IdLanyardBadge />
                 </div>
               </BlurFade>
             </div>
           </div>
-        </div>
+        </BlurFade>
       </TooltipProvider>
-
-      {/* BOTTOM DEDICATED MARQUEE RIBBON (Zero overlapping, single direction, no half-cut words!) */}
-      <div className="w-full mt-6 sm:mt-10 pointer-events-none select-none z-10 border-y border-sky-400/20 bg-gradient-to-r from-sky-950/40 via-background/90 to-sky-950/40 backdrop-blur-md py-2.5 shadow-sm">
-        <Marquee repeat={6} className="[--duration:32s] py-0 text-xs sm:text-sm font-bold font-mono tracking-[0.2em] text-sky-300/80 uppercase">
-          <span>AI & ML ENGINEER</span>
-          <span className="mx-4 text-sky-400 font-black">•</span>
-          <span>AUTONOMOUS AGENTS</span>
-          <span className="mx-4 text-sky-400 font-black">•</span>
-          <span>BHARATBHASHA AI</span>
-          <span className="mx-4 text-sky-400 font-black">•</span>
-          <span>NEURAL NETWORKS & LLMS</span>
-          <span className="mx-4 text-sky-400 font-black">•</span>
-          <span>FULL-STACK DEVELOPMENT</span>
-          <span className="mx-4 text-sky-400 font-black">•</span>
-          <span>REAL-TIME STREAMING</span>
-          <span className="mx-4 text-sky-400 font-black">•</span>
-          <span>HACKATHON WINNER</span>
-          <span className="mx-4 text-sky-400 font-black">•</span>
-        </Marquee>
-      </div>
 
       <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </div>
