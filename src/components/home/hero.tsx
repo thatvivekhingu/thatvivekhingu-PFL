@@ -11,6 +11,8 @@ import { AnimatedName } from "@/components/ui/animated-name";
 import { VisitorBadge } from "@/components/ui/visitor-badge";
 import { ResumeModal } from "@/components/ui/resume-modal";
 import { Marquee } from "@/components/ui/marquee";
+import { SpiderClock } from "@/components/ui/spider-clock";
+import { IdLanyardBadge } from "@/components/ui/id-lanyard-badge";
 import {
   Tooltip,
   TooltipContent,
@@ -19,14 +21,6 @@ import {
 } from "@/components/ui/tooltip";
 import { data } from "@/data/data";
 
-const HERO_AVATAR = {
-  name: "Vivek Hingu",
-  badge: "AI & ML",
-  src: "/avatars/vivek-avatar.png",
-  borderColor: "border-cyan-400/50",
-  shadowColor: "shadow-[0_0_24px_rgba(34,211,238,0.25)]",
-  haloGradient: "from-cyan-500/40 via-sky-400/30 to-indigo-500/30",
-};
 
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
@@ -74,6 +68,11 @@ export default function Hero() {
 
   return (
     <div className="w-full pt-12 pb-6 sm:min-h-screen sm:pt-28 sm:pb-16 relative flex flex-col items-center justify-center overflow-hidden">
+      {/* Spider Clock (Hanging from top silk thread on the left as requested) */}
+      <div className="absolute top-0 left-3 sm:left-8 md:left-14 lg:left-20 z-30 pointer-events-auto">
+        <SpiderClock />
+      </div>
+
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative flex-col space-y-3 sm:space-y-4 z-20">
@@ -169,38 +168,8 @@ export default function Hero() {
                   <div className="absolute inset-14 rounded-full bg-cyan-500/10 dark:bg-cyan-400/12 blur-xl pointer-events-none" />
                 </div>
 
-                {/* Modern Illustrated Profile Avatar */}
-                <div
-                  className="group relative z-50 select-none transition-transform duration-300 hover:scale-105"
-                  aria-label="Vivek Hingu"
-                >
-                  {/* Dynamic Ambient Glowing Halo */}
-                  <div
-                    className={`absolute -inset-3 rounded-full bg-gradient-to-tr ${HERO_AVATAR.haloGradient} opacity-25 blur-lg group-hover:opacity-50 transition-all duration-500 animate-pulse`}
-                  />
-
-                  {/* Avatar Border Ring */}
-                  <div
-                    className={`relative h-48 w-48 sm:h-56 sm:w-56 md:h-60 md:w-60 overflow-hidden rounded-full border-2 transition-all duration-500 bg-[#081b3b] ${HERO_AVATAR.borderColor} ${HERO_AVATAR.shadowColor}`}
-                  >
-                    <Image
-                      src={HERO_AVATAR.src}
-                      alt="Vivek Hingu"
-                      priority
-                      fill
-                      className="object-cover scale-[1.02]"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Profile Identity Pill */}
-              <div
-                className="mt-1.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-background/80 backdrop-blur-md border border-cyan-500/30 shadow-sm z-50 select-none"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                <span className="text-cyan-400 font-semibold">Vivek Hingu</span>
-                <span className="text-[10px] text-muted-foreground/80">• AI & ML Engineer</span>
+                {/* 3D Hanging ID Card Lanyard Badge */}
+                <IdLanyardBadge />
               </div>
 
               <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-2.5">
