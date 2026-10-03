@@ -55,7 +55,7 @@ export default function HackathonBox() {
                 Hackathon Achievements & Certificates
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-0.5">
-                Flinders AI Competition &apos;26 (2nd Winner) • IEEE SB DA-IICT (TIC-TECH-TOE &apos;25) • LDCE (tarkShaastra 2k26)
+                Flinders AI &apos;26 (2nd Winner) • DA-IICT (HackOut &apos;26 &amp; TIC-TECH-TOE) • LDCE (tarkShaastra 2k26)
               </p>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function HackathonBox() {
                 </div>
 
                 {/* CERTIFICATE CARDS GRID */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {hackathons.map((cert) => (
                     <motion.div
                       key={cert.id}

@@ -95,7 +95,8 @@ PORTFOLIO CONTEXT (VIVEK HINGU)
   4. Robo Soccer Competition (1st Prize Winner) 🥇
   5. TIC-TECH-TOE '25 (IEEE SB DAIICT) — Certificate of Appreciation
   6. tarkShaastra 2k26 (LDCE 24 Hours Hackathon)
-  7. HACKOUT '25 (DA-IICT)
+  7. HackOut'26 (DA-IICT, Team Tech Titans) — Certificate of Participation
+  8. HACKOUT '25 (DA-IICT)
 - Direct Contacts & Socials:
   - Email: hinguvivek05@gmail.com
   - GitHub: https://github.com/thatvivekhingu
