@@ -38,40 +38,26 @@ export function IdLanyardBadge() {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center select-none pt-2 sm:pt-4">
-      {/* 4 AMBIENT ROLE KEYWORDS FRAMING THE BADGE (Matching the Reference Screenshot) */}
-      <div className="absolute inset-0 -top-8 -bottom-8 pointer-events-none z-10 flex flex-col justify-between hidden sm:flex">
-        {/* Top Row: DESIGNER & DEVELOPER */}
-        <div className="flex justify-between items-center w-full px-4 md:px-12 lg:px-20 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black font-sans tracking-tight text-white/10 dark:text-cyan-400/[0.12] uppercase">
-          <span className="hover:text-cyan-400/30 transition-colors">DESIGNER</span>
-          <span className="hover:text-cyan-400/30 transition-colors">DEVELOPER</span>
-        </div>
-        {/* Bottom Row: CREATOR & ENGINEER */}
-        <div className="flex justify-between items-center w-full px-4 md:px-12 lg:px-20 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black font-sans tracking-tight text-white/10 dark:text-cyan-400/[0.12] uppercase">
-          <span className="hover:text-cyan-400/30 transition-colors">CREATOR</span>
-          <span className="hover:text-cyan-400/30 transition-colors">ENGINEER</span>
-        </div>
-      </div>
-
-      {/* Lanyard Strap Coming from Top */}
+    <div className="relative flex flex-col items-center justify-center select-none pt-0">
+      {/* Lanyard Strap Coming from Top (Compact & realistic) */}
       <div className="relative z-40 flex flex-col items-center -mb-2">
         {/* Woven Lanyard Ribbon */}
-        <div className="w-5 sm:w-6 h-16 sm:h-24 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 border-x border-white/20 shadow-md flex items-center justify-center overflow-hidden">
-          <div className="w-[2px] h-full bg-cyan-400/60 shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
+        <div className="w-5 sm:w-6 h-6 sm:h-8 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 border-x border-white/20 shadow-md flex items-center justify-center overflow-hidden">
+          <div className="w-[2px] h-full bg-cyan-400/70 shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
         </div>
 
         {/* Metallic Clip Ring & Carabiner Hook */}
-        <div className="relative flex flex-col items-center -mt-1">
+        <div className="relative flex flex-col items-center -mt-0.5">
           {/* Chrome Swivel Ring */}
-          <div className="w-6 h-3.5 rounded-full border-2 border-slate-300 bg-gradient-to-b from-slate-200 via-slate-400 to-slate-600 shadow-sm" />
+          <div className="w-5 sm:w-5.5 h-2.5 rounded-full border-2 border-slate-300 bg-gradient-to-b from-slate-200 via-slate-400 to-slate-600 shadow-sm" />
           {/* Metallic Clip Hook */}
-          <div className="w-4 h-6 rounded-sm bg-gradient-to-b from-slate-300 via-slate-400 to-slate-500 shadow-md border border-slate-400/60 flex items-center justify-center">
-            <div className="w-1.5 h-3 bg-zinc-800 rounded-sm" />
+          <div className="w-3.5 sm:w-4 h-4.5 rounded-sm bg-gradient-to-b from-slate-300 via-slate-400 to-slate-500 shadow-md border border-slate-400/60 flex items-center justify-center">
+            <div className="w-1.5 h-2 bg-zinc-800 rounded-sm" />
           </div>
         </div>
       </div>
 
-      {/* 3D TILT HANGING BADGE CARD */}
+      {/* 3D TILT HANGING BADGE CARD (Ergonomically scaled to fit viewport perfectly) */}
       <motion.div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -83,100 +69,107 @@ export function IdLanyardBadge() {
           transformStyle: "preserve-3d",
         }}
         animate={{
-          y: isHovered ? 0 : [0, 5, -2, 0],
-          rotateZ: isHovered ? 0 : [0, 0.8, -0.8, 0],
+          y: isHovered ? 0 : [0, 4, -2, 0],
+          rotateZ: isHovered ? 0 : [0, 0.6, -0.6, 0],
         }}
         transition={{
           y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
           rotateZ: { duration: 5.5, repeat: Infinity, ease: "easeInOut" },
         }}
-        className="relative z-50 w-[240px] sm:w-[270px] md:w-[290px] aspect-[1/1.55] rounded-3xl p-2.5 sm:p-3 bg-gradient-to-b from-white/15 via-white/[0.05] to-black/60 backdrop-blur-2xl border-2 border-white/25 dark:border-cyan-400/40 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_35px_rgba(6,182,212,0.25)] cursor-grab active:cursor-grabbing transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_50px_rgba(6,182,212,0.4)]"
+        className="relative z-50 w-[260px] sm:w-[280px] md:w-[295px] aspect-[1/1.48] rounded-3xl p-2.5 sm:p-3 bg-[#060a12] border-2 border-white/25 dark:border-cyan-400/40 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(6,182,212,0.25)] cursor-grab active:cursor-grabbing transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_50px_rgba(6,182,212,0.4)]"
       >
         {/* Badge Hole Punch Slot at Top for Clip */}
-        <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-10 sm:w-12 h-2.5 rounded-full bg-zinc-950 border border-white/30 shadow-inner z-30" />
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 sm:w-11 h-2 rounded-full bg-zinc-950 border border-white/30 shadow-inner z-30" />
 
         {/* Glass Holographic Sheen Layer */}
-        <div className="absolute inset-0 rounded-3xl pointer-events-none overflow-hidden">
-          <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-br from-white/10 via-transparent to-cyan-400/10 rotate-12 opacity-70 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute inset-0 rounded-3xl pointer-events-none overflow-hidden z-20">
+          <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-br from-white/10 via-transparent to-cyan-400/10 rotate-12 opacity-60 group-hover:opacity-100 transition-opacity" />
         </div>
 
-        {/* INNER PRINTED ID BADGE */}
-        <div className="relative w-full h-full rounded-2xl bg-gradient-to-b from-[#0f172a] via-[#090d16] to-[#020617] border border-white/10 p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden shadow-inner text-white">
+        {/* INNER PRINTED ID BADGE (Opaque dark background) */}
+        <div className="relative w-full h-full rounded-2xl bg-gradient-to-b from-[#0f172a] via-[#090d16] to-[#030712] border border-white/10 p-3 sm:p-3.5 flex flex-col justify-between overflow-hidden shadow-inner text-white">
           {/* Subtle Cyber Circuit Background */}
           <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:14px_14px] opacity-15 pointer-events-none" />
 
           {/* Card Header Strip: ID & Verified Chip */}
-          <div className="relative z-10 flex items-center justify-between pt-2">
+          <div className="relative z-10 flex items-center justify-between pt-0.5">
             <div className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-cyan-300 font-bold uppercase">
+              <span className="text-[9px] sm:text-[9.5px] font-mono tracking-widest text-cyan-300 font-bold uppercase">
                 ALL ACCESS • 2026
               </span>
             </div>
-            <div className="flex items-center gap-1 text-[9px] font-mono text-zinc-400 bg-white/[0.06] px-2 py-0.5 rounded-md border border-white/10">
+            <div className="flex items-center gap-1 text-[8.5px] font-mono text-zinc-300 bg-white/[0.08] px-2 py-0.5 rounded-md border border-white/15">
               <IconCpu className="w-3 h-3 text-cyan-400" />
-              <span>AI_ENG</span>
+              <span className="font-semibold tracking-wider">AI_ENG</span>
             </div>
           </div>
 
-          {/* Photo Frame Container (Matching Reference Lanyard Photo) */}
-          <div className="relative z-10 my-auto py-1">
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 mx-auto rounded-2xl overflow-hidden border-2 border-cyan-400/50 shadow-[0_0_20px_rgba(6,182,212,0.3)] bg-[#081b3b]">
+          {/* Photo Frame Container (Balanced 112px-128px for sharp, complete badge visibility) */}
+          <div className="relative z-10 my-auto py-0.5">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 mx-auto rounded-2xl overflow-hidden border-2 border-cyan-400/60 shadow-[0_0_20px_rgba(6,182,212,0.3)] bg-[#081b3b]">
               <Image
                 src="/avatars/vivek-avatar.png"
                 alt="Vivek Hingu"
                 fill
                 priority
-                className="object-cover scale-[1.03]"
+                className="object-cover scale-[1.02]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
             </div>
           </div>
 
           {/* Name & Title Section */}
-          <div className="relative z-10 space-y-1 text-center">
+          <div className="relative z-10 space-y-0.5 text-center">
             {/* Bold Headline Name */}
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-1.5">
               <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase font-sans">
                 VIVEK
               </h2>
               {/* Cursive Handwriting Signature Accent */}
-              <span className="font-serif italic text-base sm:text-lg text-cyan-300 tracking-normal opacity-90 select-none">
+              <span className="font-serif italic text-lg sm:text-xl text-cyan-300 tracking-normal select-none">
                 Hingu
               </span>
             </div>
 
-            {/* Role & Specialization */}
-            <p className="text-[11px] sm:text-xs font-semibold text-zinc-300 tracking-wide">
-              AI Engineer & Full-Stack Architect
-            </p>
-            <p className="text-[9px] font-mono text-cyan-400/80">
+            {/* Primary Role & Specialization */}
+            <div className="space-y-0.5">
+              <p className="text-[11.5px] sm:text-xs font-bold text-zinc-100 tracking-wider uppercase">
+                AI/ML Engineer
+              </p>
+              <p className="text-[9.5px] sm:text-[10px] font-medium text-cyan-300/90 tracking-wide">
+                Generative AI • Computer Vision • Full Stack
+              </p>
+            </div>
+
+            {/* Secondary: College Information */}
+            <p className="text-[8.5px] sm:text-[9px] font-mono text-zinc-400 pt-0.5">
               SAL College of Engineering • Ahmedabad
             </p>
           </div>
 
-          {/* Card Footer: Barcode & Status Badge */}
-          <div className="relative z-10 pt-2 border-t border-white/10 flex items-center justify-between">
-            {/* Barcode Graphic */}
+          {/* Card Footer: Barcode & Status Badge (Clean & 100% Fully Visible) */}
+          <div className="relative z-10 pt-1.5 pb-0.5 border-t border-white/10 flex items-center justify-between mt-auto">
+            {/* Barcode Graphic & ID */}
             <div className="flex flex-col items-start gap-0.5">
-              <div className="flex items-center gap-[2px] h-5 opacity-75">
-                {[2, 4, 1, 3, 2, 5, 1, 2, 4, 1, 3, 2, 1, 4, 2].map((w, i) => (
-                  <div key={i} style={{ width: `${w}px` }} className="h-full bg-white" />
+              <div className="flex items-center gap-[2px] h-4 opacity-85">
+                {[2, 4, 1, 3, 2, 5, 1, 2, 4, 1, 3, 2, 1, 4, 2, 3, 1, 4].map((w, i) => (
+                  <div key={i} style={{ width: `${w}px` }} className="h-full bg-white rounded-[0.5px]" />
                 ))}
               </div>
-              <span className="text-[8px] font-mono tracking-widest text-zinc-400">
-                ID: VH-0504-2026
+              <span className="text-[8px] font-mono tracking-wider text-zinc-300 font-semibold">
+                ID: VIVEK-2026
               </span>
             </div>
 
             {/* Available Worldwide Badge */}
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-end gap-0.5">
               <span className="text-[8px] font-mono font-bold text-emerald-400 flex items-center gap-1 uppercase tracking-wider">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                Available Worldwide
+                Available
               </span>
-              <span className="text-[8px] font-mono text-zinc-400">
-                Full-time / Remote
+              <span className="text-[7.5px] font-mono text-zinc-400">
+                Remote • Full-time
               </span>
             </div>
           </div>

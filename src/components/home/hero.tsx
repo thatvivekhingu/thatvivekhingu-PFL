@@ -67,9 +67,9 @@ export default function Hero() {
   };
 
   return (
-    <div className="w-full pt-12 pb-6 sm:min-h-screen sm:pt-28 sm:pb-16 relative flex flex-col items-center justify-center overflow-hidden">
-      {/* Spider Clock (Hanging from top silk thread on the left as requested) */}
-      <div className="absolute top-0 left-3 sm:left-8 md:left-14 lg:left-20 z-30 pointer-events-auto">
+    <div className="w-full pt-4 pb-6 sm:min-h-screen sm:pt-8 md:pt-12 sm:pb-12 relative flex flex-col items-center justify-center overflow-hidden">
+      {/* Smart Watch HUD Widget (Positioned cleanly on the left below navbar) */}
+      <div className="absolute top-16 sm:top-20 md:top-24 left-3 sm:left-6 md:left-10 lg:left-16 z-30 pointer-events-auto opacity-90 hover:opacity-100 transition-all duration-300 hidden md:flex flex-col items-center">
         <SpiderClock />
       </div>
 
@@ -78,44 +78,44 @@ export default function Hero() {
           <div className="relative flex-col space-y-3 sm:space-y-4 z-20">
             <div className="relative flex flex-col items-center justify-center">
               {/* Avatar Center Wrapper with Concentric Marvel Arc Reactor Orbit & Angled Ribbons Perfectly Aligned */}
-              <div className="relative flex items-center justify-center my-2 sm:my-3 z-30">
-                {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer - Centered Directly Behind Avatar */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[5] flex items-center justify-center select-none opacity-80">
+              <div className="relative flex items-center justify-center my-1 sm:my-2 z-30">
+                {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer - Masked Behind ID Card Area */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none opacity-35 dark:opacity-30 transition-opacity [mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)] [-webkit-mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)]">
                   {/* Cyan/Teal Angled Ribbon (-3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-4 shadow-[0_0_15px_rgba(6,182,212,0.15)] border-y border-cyan-200/40">
-                    <Marquee repeat={8} className="[--duration:26s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-                      <span>VIVEK HINGU // AI & ML ENGINEER</span>
+                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-2 sm:py-2.5 shadow-[0_0_15px_rgba(6,182,212,0.1)] border-y border-cyan-200/30">
+                    <Marquee repeat={10} className="[--duration:28s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                      <span>AI/ML</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>JARVIS & AGENTIC AI</span>
+                      <span>GENAI</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>AUTONOMOUS AGENTS</span>
+                      <span>COMPUTER VISION</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>NEURAL NETWORKS</span>
+                      <span>PYTHON</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>DATA SCIENCE & PYTHON</span>
+                      <span>FULL STACK</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
                     </Marquee>
                   </div>
 
                   {/* Violet/Indigo Angled Ribbon (+3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-4 shadow-[0_0_15px_rgba(129,140,248,0.15)] border-y border-indigo-200/40">
-                    <Marquee reverse repeat={8} className="[--duration:30s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-                      <span>BHARATBHASHA AI</span>
+                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-2 sm:py-2.5 shadow-[0_0_15px_rgba(129,140,248,0.1)] border-y border-indigo-200/30">
+                    <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                      <span>AI/ML</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>REAL-TIME STREAMING</span>
+                      <span>GENAI</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>HACKATHON WINNER</span>
+                      <span>COMPUTER VISION</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>DISRUPT & DEPLOY</span>
+                      <span>PYTHON</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>QUANTUM ARCHITECTURE</span>
+                      <span>FULL STACK</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
                     </Marquee>
                   </div>
                 </div>
 
-                {/* Concentric Marvel Arc Reactor & Avengers Orbit (Mathematically Centered Behind Avatar) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] sm:w-[560px] sm:h-[560px] md:w-[620px] md:h-[620px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-35 dark:opacity-40 transition-opacity duration-500">
+                {/* Concentric Marvel Arc Reactor & Avengers Orbit (Subtle & Non-intrusive) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] sm:w-[560px] sm:h-[560px] md:w-[620px] md:h-[620px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-15 dark:opacity-20 transition-opacity duration-500">
                   <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
                     <svg
                       viewBox="0 0 400 400"
@@ -207,7 +207,7 @@ export default function Hero() {
               </div>
 
               <p className="mt-1 text-sm sm:text-xl font-medium tracking-tight text-center text-muted-foreground px-4 max-w-2xl mx-auto">
-                AI & ML Engineer building{" "}
+                AI/ML Engineer building{" "}
                 <span className="text-cyan-400 font-semibold underline decoration-cyan-500/40 underline-offset-4">
                   intelligent software
                 </span>

@@ -32,8 +32,7 @@ export function SpiderClock({ className = "" }: { className?: string }) {
   if (!mounted || !time) {
     return (
       <div className={`relative flex flex-col items-center pointer-events-none select-none ${className}`}>
-        <div className="w-[1.5px] h-16 bg-gradient-to-b from-cyan-400/30 to-white/70" />
-        <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-cyan-950/20 border border-cyan-500/20 animate-pulse" />
+        <div className="w-[156px] h-[190px] rounded-[28px] bg-zinc-900/40 border border-cyan-500/20 animate-pulse" />
       </div>
     );
   }
@@ -46,181 +45,241 @@ export function SpiderClock({ className = "" }: { className?: string }) {
   const minRotation = minutes * 6 + (seconds / 60) * 6;
   const hrRotation = (hours % 12) * 30 + (minutes / 60) * 30;
 
-  const formattedTime = time.toLocaleTimeString([], {
+  const formattedDigitalTime = time.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
   });
 
+  const formattedDate = time
+    .toLocaleDateString([], { day: "2-digit", month: "short" })
+    .toUpperCase();
+
+  const handleWatchClick = () => {
+    setIsSwinging(true);
+  };
+
   return (
     <div
       className={`relative flex flex-col items-center select-none group cursor-pointer ${className}`}
-      onClick={() => setIsSwinging(true)}
-      title={`Spider Clock • ${formattedTime}`}
+      onClick={handleWatchClick}
+      title={`Smart Watch • ${formattedDigitalTime} IST`}
     >
-      {/* Spider Silk Thread hanging from top */}
-      <div className="relative flex flex-col items-center w-full">
-        <div className="w-[1.5px] h-12 sm:h-16 md:h-20 bg-gradient-to-b from-cyan-400/20 via-cyan-400/60 to-white shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
-        {/* Tiny Dewdrop on thread */}
-        <div className="absolute top-1/2 w-1.5 h-1.5 rounded-full bg-cyan-300 shadow-[0_0_6px_rgba(34,211,238,0.9)] animate-ping" />
-      </div>
+      {/* Top Integrated Smartwatch Strap Lug */}
+      <div className="w-14 h-2 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 rounded-t-md border-t border-x border-white/20 shadow-sm" />
 
-      {/* Spider Clock Body with gentle hover swing */}
+      {/* 3D SMART WATCH CHASSIS (Rounded Squircle Case) */}
       <motion.div
         animate={{
-          y: isSwinging ? [0, 8, -4, 0] : [0, 3, 0],
-          rotate: isSwinging ? [0, 5, -5, 0] : 0,
+          y: isSwinging ? [0, -4, 2, 0] : [0, 2, 0],
+          rotate: isSwinging ? [0, 2, -2, 0] : 0,
         }}
         transition={{
-          duration: isSwinging ? 1.2 : 4,
+          duration: isSwinging ? 0.8 : 4,
           repeat: isSwinging ? 0 : Infinity,
           ease: "easeInOut",
         }}
         onAnimationComplete={() => setIsSwinging(false)}
-        className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 -mt-1"
+        className="relative w-[156px] sm:w-[168px] p-2.5 rounded-[26px] bg-gradient-to-b from-zinc-800/95 via-zinc-900/95 to-zinc-950/95 border-2 border-slate-600/70 dark:border-cyan-500/35 shadow-[0_16px_36px_rgba(0,0,0,0.85),0_0_24px_rgba(6,182,212,0.22)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_20px_45px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.35)]"
       >
-        {/* Ambient Web Glow Behind Clock */}
-        <div className="absolute inset-1 rounded-full bg-gradient-to-tr from-amber-500/10 via-cyan-500/20 to-sky-400/10 blur-xl pointer-events-none group-hover:opacity-100 opacity-60 transition-opacity" />
+        {/* Right-Side Metallic Digital Crown */}
+        <div className="absolute -right-2 top-8 w-2 h-5 rounded-r-md bg-gradient-to-r from-slate-400 to-slate-200 border border-slate-300/80 shadow-md flex items-center justify-center">
+          <div className="w-0.5 h-3 bg-zinc-900/70 rounded-full" />
+        </div>
 
-        <svg
-          viewBox="0 0 300 300"
-          className="w-full h-full overflow-visible drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
-        >
-          <defs>
-            <filter id="spiderShadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="0" floodColor="#06b6d4" floodOpacity="0.4" stdDeviation="1.5" />
-            </filter>
-            <filter id="bodyShadow" x="-25%" y="-25%" width="150%" height="150%">
-              <feDropShadow dx="0" dy="1" floodColor="#000000" floodOpacity="0.8" stdDeviation="2" />
-            </filter>
-            <filter id="gearBlur1">
-              <feGaussianBlur stdDeviation="0.6" />
-            </filter>
-            <filter id="gearBlur2">
-              <feGaussianBlur stdDeviation="0.8" />
-            </filter>
+        {/* Right-Side Secondary Action Button */}
+        <div className="absolute -right-1.5 top-16 w-1.5 h-3.5 rounded-r-sm bg-gradient-to-r from-slate-500 to-slate-400 border border-slate-300/60 shadow-sm" />
 
-            {/* Path Definitions */}
-            <path id="cog1" fill="#FFFFFF" d={COG1_PATH} />
-            <path id="cog2" fill="#FFFFFF" d={COG2_PATH} />
-            <path id="cog5" fill="#FFFFFF" d={COG5_PATH} />
-            <path id="arabic" d={ARABIC_PATH} />
-          </defs>
+        {/* Smartwatch Screen Glass Sheen */}
+        <div className="absolute inset-0 rounded-[26px] pointer-events-none overflow-hidden z-20">
+          <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-br from-white/10 via-transparent to-cyan-400/10 rotate-12 opacity-60 group-hover:opacity-100 transition-opacity" />
+        </div>
 
-          {/* BACKGROUND GEARS / COGS */}
-          <g className="opacity-40 transition-opacity group-hover:opacity-75">
-            {/* Gear 1 - Slow Clockwise */}
-            <g
-              transform="matrix(0.97,0.02,-0.02,0.97,19.19,-6.07)"
-              className="animate-[spin_45s_linear_infinite]"
-              style={{ transformOrigin: "150px 150px" }}
-            >
-              <use fill="#38bdf8" fillOpacity="0.35" href="#cog1" />
+        {/* Top Telemetry Header Bar */}
+        <div className="relative z-10 flex items-center justify-between px-1 mb-1.5">
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[8px] font-mono tracking-wider text-cyan-300 font-bold uppercase">
+              LIVE • IST
+            </span>
+          </div>
+          <span className="text-[9px] font-mono font-bold text-zinc-200 tabular-nums tracking-tight">
+            {formattedDigitalTime}
+          </span>
+        </div>
+
+        {/* Circular OLED Watch Dial (Cleanly clipped inside) */}
+        <div className="relative z-10 w-[128px] h-[128px] sm:w-[138px] sm:h-[138px] mx-auto rounded-full bg-[#050914] border border-cyan-500/40 shadow-inner flex items-center justify-center overflow-hidden">
+          {/* Subtle Radial Hologram Glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.15)_0%,transparent_70%)] pointer-events-none" />
+
+          <svg
+            viewBox="0 0 300 300"
+            className="w-full h-full overflow-hidden drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+          >
+            <defs>
+              <filter id="spiderShadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="0" floodColor="#06b6d4" floodOpacity="0.5" stdDeviation="1.5" />
+              </filter>
+              <filter id="bodyShadow" x="-25%" y="-25%" width="150%" height="150%">
+                <feDropShadow dx="0" dy="1" floodColor="#000000" floodOpacity="0.8" stdDeviation="2" />
+              </filter>
+              <filter id="gearBlur1">
+                <feGaussianBlur stdDeviation="0.6" />
+              </filter>
+              <filter id="gearBlur2">
+                <feGaussianBlur stdDeviation="0.8" />
+              </filter>
+
+              {/* Clip dial inside border */}
+              <clipPath id="dialClip">
+                <circle cx="150" cy="150" r="144" />
+              </clipPath>
+
+              {/* Path Definitions */}
+              <path id="cog1" fill="#FFFFFF" d={COG1_PATH} />
+              <path id="cog2" fill="#FFFFFF" d={COG2_PATH} />
+              <path id="cog5" fill="#FFFFFF" d={COG5_PATH} />
+            </defs>
+
+            <g clipPath="url(#dialClip)">
+              {/* DIAL RADIAL TICKS */}
+              {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+                <line
+                  key={deg}
+                  x1="150"
+                  y1={deg % 90 === 0 ? "18" : "24"}
+                  x2="150"
+                  y2="30"
+                  stroke={deg % 90 === 0 ? "#38bdf8" : "#94a3b8"}
+                  strokeWidth={deg % 90 === 0 ? "3" : "1.5"}
+                  strokeLinecap="round"
+                  opacity={deg % 90 === 0 ? "0.95" : "0.5"}
+                  transform={`rotate(${deg} 150 150)`}
+                />
+              ))}
+
+              {/* CLEAN CARDINAL NUMERALS (12, 3, 6, 9) */}
+              <text x="150" y="47" textAnchor="middle" fill="#38bdf8" fontSize="13" fontWeight="bold" fontFamily="monospace" opacity="0.95">12</text>
+              <text x="256" y="154" textAnchor="middle" fill="#94a3b8" fontSize="12" fontWeight="bold" fontFamily="monospace" opacity="0.8">3</text>
+              <text x="150" y="262" textAnchor="middle" fill="#94a3b8" fontSize="12" fontWeight="bold" fontFamily="monospace" opacity="0.8">6</text>
+              <text x="44" y="154" textAnchor="middle" fill="#94a3b8" fontSize="12" fontWeight="bold" fontFamily="monospace" opacity="0.8">9</text>
+
+              {/* BACKGROUND GEARS / COGS */}
+              <g className="opacity-45 transition-opacity group-hover:opacity-75">
+                {/* Gear 1 - Slow Clockwise */}
+                <g
+                  transform="matrix(0.97,0.02,-0.02,0.97,19.19,-6.07)"
+                  className="animate-[spin_45s_linear_infinite]"
+                  style={{ transformOrigin: "150px 150px" }}
+                >
+                  <use fill="#38bdf8" fillOpacity="0.35" href="#cog1" />
+                </g>
+
+                {/* Gear 2 - Counter-Clockwise */}
+                <g
+                  className="animate-[spin_30s_linear_infinite_reverse]"
+                  style={{ transformOrigin: "85px 185px" }}
+                >
+                  <use fill="#fbbf24" fillOpacity="0.4" href="#cog2" />
+                </g>
+
+                {/* Gear 3 - Rotating Cog 5 */}
+                <g
+                  transform="rotate(-3.76,160.78,349.22)"
+                  className="animate-[spin_55s_linear_infinite]"
+                  style={{ transformOrigin: "160px 220px" }}
+                >
+                  <use fill="#22d3ee" fillOpacity="0.35" href="#cog5" />
+                </g>
+
+                {/* Subtle Outer Blurred Gear Atmospheres */}
+                <use
+                  fill="#38bdf8"
+                  fillOpacity="0.08"
+                  href="#cog5"
+                  filter="url(#gearBlur1)"
+                  transform="matrix(1.75,-0.11,0.11,1.75,-258,-151)"
+                />
+                <use
+                  fill="#fbbf24"
+                  fillOpacity="0.05"
+                  href="#cog1"
+                  filter="url(#gearBlur2)"
+                  transform="matrix(2.28,0.04,-0.04,2.28,58,-235)"
+                />
+              </g>
+
+              {/* SPIDER BODY & REAL-TIME ROTATING LEGS */}
+              <g transform="matrix(3.7795276,0,0,3.7795276,0,-3.295e-6)">
+                {/* Small Decorative Legs */}
+                <path
+                  fill="#FFFFFF"
+                  stroke="none"
+                  filter="url(#spiderShadow)"
+                  d={HANDS_SMALL_PATH}
+                  className="text-white"
+                />
+
+                {/* HOUR HAND LEG */}
+                <g
+                  style={{
+                    transformOrigin: "39.75px 39.14px",
+                    transform: `rotate(${hrRotation}deg)`,
+                    transition: "transform 0.5s ease-out",
+                  }}
+                >
+                  <circle fill="#FFFFFF" fillOpacity="0" stroke="none" cx="39.75" cy="39.14" r="56.37" />
+                  <path fill="#38bdf8" stroke="none" filter="url(#spiderShadow)" d={HAND_HR_PATH} />
+                </g>
+
+                {/* MINUTE HAND LEG */}
+                <g
+                  style={{
+                    transformOrigin: "39.75px 39.14px",
+                    transform: `rotate(${minRotation}deg)`,
+                    transition: "transform 0.5s ease-out",
+                  }}
+                >
+                  <circle fill="#FFFFFF" fillOpacity="0" stroke="none" cx="39.75" cy="39.14" r="56.37" />
+                  <path fill="#22d3ee" stroke="none" filter="url(#spiderShadow)" d={HAND_MIN_PATH} />
+                </g>
+
+                {/* SECOND HAND LEG */}
+                <g
+                  style={{
+                    transformOrigin: "39.75px 39.14px",
+                    transform: `rotate(${secRotation}deg)`,
+                    transition: "transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44)",
+                  }}
+                >
+                  <circle fill="#FFFFFF" fillOpacity="0" stroke="none" cx="39.75" cy="39.14" r="56.37" />
+                  <path fill="#f59e0b" stroke="none" filter="url(#spiderShadow)" d={HAND_SEC_PATH} />
+                </g>
+
+                {/* SPIDER ABDOMEN BODY & HEAD */}
+                <path fill="#FFFFFF" stroke="none" filter="url(#bodyShadow)" d={BODY_PATH} />
+                <path fill="#FFFFFF" stroke="none" filter="url(#bodyShadow)" d={FACE_PATH} />
+                <path fill="#FFFFFF" stroke="none" d={HIDE_SHADOW_PATH} />
+              </g>
             </g>
+          </svg>
+        </div>
 
-            {/* Gear 2 - Counter-Clockwise */}
-            <g
-              className="animate-[spin_30s_linear_infinite_reverse]"
-              style={{ transformOrigin: "85px 185px" }}
-            >
-              <use fill="#fbbf24" fillOpacity="0.4" href="#cog2" />
-            </g>
-
-            {/* Gear 3 - Rotating Cog 5 */}
-            <g
-              transform="rotate(-3.76,160.78,349.22)"
-              className="animate-[spin_55s_linear_infinite]"
-              style={{ transformOrigin: "160px 220px" }}
-            >
-              <use fill="#22d3ee" fillOpacity="0.35" href="#cog5" />
-            </g>
-
-            {/* Subtle Outer Blurred Gear Atmospheres */}
-            <use
-              fill="#38bdf8"
-              fillOpacity="0.08"
-              href="#cog5"
-              filter="url(#gearBlur1)"
-              transform="matrix(1.75,-0.11,0.11,1.75,-258,-151)"
-            />
-            <use
-              fill="#fbbf24"
-              fillOpacity="0.05"
-              href="#cog1"
-              filter="url(#gearBlur2)"
-              transform="matrix(2.28,0.04,-0.04,2.28,58,-235)"
-            />
-          </g>
-
-          {/* ARABIC CLOCK NUMERALS (1 to 12) */}
-          <use
-            fill="#e2e8f0"
-            fillOpacity="0.45"
-            stroke="none"
-            href="#arabic"
-            filter="url(#spiderShadow)"
-            className="group-hover:fill-opacity-80 transition-all duration-300"
-          />
-
-          {/* SPIDER BODY & REAL-TIME ROTATING LEGS */}
-          <g transform="matrix(3.7795276,0,0,3.7795276,0,-3.295e-6)">
-            {/* Small Decorative Legs */}
-            <path
-              fill="#FFFFFF"
-              stroke="none"
-              filter="url(#spiderShadow)"
-              d={HANDS_SMALL_PATH}
-              className="text-white"
-            />
-
-            {/* HOUR HAND LEG */}
-            <g
-              style={{
-                transformOrigin: "39.75px 39.14px",
-                transform: `rotate(${hrRotation}deg)`,
-                transition: "transform 0.5s ease-out",
-              }}
-            >
-              <circle fill="#FFFFFF" fillOpacity="0" stroke="none" cx="39.75" cy="39.14" r="56.37" />
-              <path fill="#38bdf8" stroke="none" filter="url(#spiderShadow)" d={HAND_HR_PATH} />
-            </g>
-
-            {/* MINUTE HAND LEG */}
-            <g
-              style={{
-                transformOrigin: "39.75px 39.14px",
-                transform: `rotate(${minRotation}deg)`,
-                transition: "transform 0.5s ease-out",
-              }}
-            >
-              <circle fill="#FFFFFF" fillOpacity="0" stroke="none" cx="39.75" cy="39.14" r="56.37" />
-              <path fill="#22d3ee" stroke="none" filter="url(#spiderShadow)" d={HAND_MIN_PATH} />
-            </g>
-
-            {/* SECOND HAND LEG */}
-            <g
-              style={{
-                transformOrigin: "39.75px 39.14px",
-                transform: `rotate(${secRotation}deg)`,
-                transition: "transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44)",
-              }}
-            >
-              <circle fill="#FFFFFF" fillOpacity="0" stroke="none" cx="39.75" cy="39.14" r="56.37" />
-              <path fill="#f59e0b" stroke="none" filter="url(#spiderShadow)" d={HAND_SEC_PATH} />
-            </g>
-
-            {/* SPIDER ABDOMEN BODY & HEAD */}
-            <path fill="#FFFFFF" stroke="none" filter="url(#bodyShadow)" d={BODY_PATH} />
-            <path fill="#FFFFFF" stroke="none" filter="url(#bodyShadow)" d={FACE_PATH} />
-            <path fill="#FFFFFF" stroke="none" d={HIDE_SHADOW_PATH} />
-          </g>
-        </svg>
-
-        {/* Floating Mini Time Badge on Hover */}
-        <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-zinc-950/90 border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap shadow-lg backdrop-blur-md">
-          {formattedTime}
+        {/* Bottom Telemetry Footer */}
+        <div className="relative z-10 flex items-center justify-between px-1 mt-1.5 pt-1 border-t border-white/10 text-[8px] font-mono text-zinc-400">
+          <span className="text-zinc-300 font-medium tracking-tight">
+            {formattedDate}
+          </span>
+          <span className="text-cyan-400 font-bold flex items-center gap-1">
+            <span className="w-1 h-1 rounded-full bg-cyan-400 animate-ping" />
+            AI_SYNC
+          </span>
         </div>
       </motion.div>
+
+      {/* Bottom Integrated Smartwatch Strap Lug */}
+      <div className="w-14 h-2 bg-gradient-to-t from-zinc-700 via-zinc-800 to-zinc-900 rounded-b-md border-b border-x border-white/20 shadow-sm" />
     </div>
   );
 }
