@@ -61,7 +61,7 @@ export const SocialBentoBoard: React.FC<{ className?: string }> = ({ className =
     {
       name: "AI_Startup_Success_Predictor",
       href: "https://github.com/thatvivekhingu/Startup-Success-Predictor",
-      desc: "AI Startup Success Predictor & Business Intelligence Dashboard — A full-stack machine learning application built with FastAPI, React, and Scikit-Learn.",
+      desc: "AI Startup Success Predictor & Business Intelligence Dashboard — An end-to-end machine learning application built with FastAPI, React, and Scikit-Learn.",
       lang: "JavaScript",
       langColor: "#f1e05a",
       stars: 3,

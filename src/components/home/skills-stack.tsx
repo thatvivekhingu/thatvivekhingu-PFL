@@ -40,7 +40,7 @@ export default function SkillsStack() {
     },
     {
       id: "web",
-      title: "Full-Stack AI Web Architecture",
+      title: "AI Systems & Cloud Architecture",
       icon: <IconServer className="h-6 w-6 text-emerald-400" />,
       description: "Building production REST backends, reactive UI platforms, and Docker containerized web applications.",
       proficiency: 88,
@@ -61,7 +61,7 @@ export default function SkillsStack() {
       <SectionHeading
         badge="TECH MATRIX & TOOLS"
         icon={<IconCpu className={headingIconClass} />}
-        subtitle="Generative AI, LLMs, RAG Architecture, Machine Learning pipelines, and full-stack software development"
+        subtitle="Generative AI, LLMs, RAG Architecture, Machine Learning pipelines, and intelligent software systems"
       >
         Core Engineering & AI Stack
       </SectionHeading>
@@ -73,7 +73,7 @@ export default function SkillsStack() {
           { id: "agentic", label: "Agentic AI & RAG" },
           { id: "ml", label: "Machine Learning" },
           { id: "analytics", label: "Data Science" },
-          { id: "web", label: "Full-Stack & DevOps" },
+          { id: "web", label: "Systems & Cloud" },
         ].map((tab) => (
           <button
             key={tab.id}

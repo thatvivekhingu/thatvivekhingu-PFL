@@ -92,7 +92,7 @@ export default function Hero() {
                       <span className="mx-3 text-zinc-950 font-black">•</span>
                       <span>PYTHON</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>FULL STACK</span>
+                      <span>AGENTIC AI</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
                     </Marquee>
                   </div>
@@ -108,7 +108,7 @@ export default function Hero() {
                       <span className="mx-3 text-zinc-950 font-black">•</span>
                       <span>PYTHON</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>FULL STACK</span>
+                      <span>AGENTIC AI</span>
                       <span className="mx-3 text-zinc-950 font-black">•</span>
                     </Marquee>
                   </div>

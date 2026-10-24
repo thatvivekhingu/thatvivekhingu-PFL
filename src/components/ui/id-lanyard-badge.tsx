@@ -138,7 +138,7 @@ export function IdLanyardBadge() {
                 AI/ML Engineer
               </p>
               <p className="text-[9.5px] sm:text-[10px] font-medium text-cyan-300/90 tracking-wide">
-                Generative AI • Computer Vision • Full Stack
+                Generative AI • Computer Vision • Deep Learning
               </p>
             </div>
 
