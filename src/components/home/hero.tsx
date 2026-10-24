@@ -11,6 +11,7 @@ import { AnimatedName } from "@/components/ui/animated-name";
 import { VisitorBadge } from "@/components/ui/visitor-badge";
 import { ResumeModal } from "@/components/ui/resume-modal";
 import { Marquee } from "@/components/ui/marquee";
+import { OpenCvAirPaintHud } from "@/components/home/opencv-air-paint-hud";
 import { OpenCvVisionHud } from "@/components/home/opencv-vision-hud";
 import {
   Tooltip,
@@ -24,6 +25,7 @@ import { data } from "@/data/data";
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [mobileActiveHud, setMobileActiveHud] = useState<"airpaint" | "vision">("airpaint");
 
   const { status, dotColor } = getStatus();
 
@@ -70,11 +72,13 @@ export default function Hero() {
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative w-full max-w-7xl mx-auto px-4 flex flex-col items-center z-20">
-            {/* Command Center: Center Avatar Showcase & Right OpenCV HUD */}
+            {/* Dual OpenCV Command Center: Left Air-Paint HUD, Center Avatar, Right Vision HUD */}
             <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-6 lg:gap-4 my-1 sm:my-2">
               
-              {/* Left Column Spacer for Symmetric Desktop Centering */}
-              <div className="hidden lg:block" />
+              {/* Left Flank: OpenCV Virtual Air-Paint HUD (Desktop) */}
+              <div className="hidden lg:flex flex-col items-start justify-center shrink-0 z-30">
+                <OpenCvAirPaintHud />
+              </div>
 
               {/* Center Avatar & Arc Reactor Showcase */}
               <div className="relative flex flex-col items-center justify-center z-30 mx-auto">
@@ -206,9 +210,38 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Mobile/Tablet Interactive OpenCV Vision HUD (< lg screens) */}
+            {/* Mobile/Tablet Interactive OpenCV Dual-HUD Switcher (< lg screens) */}
             <div className="lg:hidden w-full max-w-sm mt-6 mb-2 px-2 flex flex-col items-center z-30">
-              <OpenCvVisionHud />
+              <div className="flex p-1 rounded-full bg-black/60 border border-white/10 mb-3 text-xs font-mono">
+                <button
+                  type="button"
+                  onClick={() => setMobileActiveHud("airpaint")}
+                  className={`px-3 py-1 rounded-full font-semibold transition-all cursor-pointer ${
+                    mobileActiveHud === "airpaint"
+                      ? "bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 shadow-sm"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                >
+                  🎨 Air Paint
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileActiveHud("vision")}
+                  className={`px-3 py-1 rounded-full font-semibold transition-all cursor-pointer ${
+                    mobileActiveHud === "vision"
+                      ? "bg-purple-500/30 text-purple-300 border border-purple-400/50 shadow-sm"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                >
+                  👁️ Vision Matrix
+                </button>
+              </div>
+
+              {mobileActiveHud === "airpaint" ? (
+                <OpenCvAirPaintHud />
+              ) : (
+                <OpenCvVisionHud />
+              )}
             </div>
 
             <div className="w-full space-y-3 sm:space-y-4 pt-1 sm:pt-2">

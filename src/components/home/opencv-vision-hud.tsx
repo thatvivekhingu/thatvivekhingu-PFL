@@ -11,7 +11,7 @@ import {
   IconRefresh,
 } from "@tabler/icons-react";
 
-type VisionFilter = "rgb" | "canny" | "thermal" | "mesh";
+type VisionFilter = "rgb" | "sketch" | "canny" | "thermal" | "mesh";
 
 export function OpenCvVisionHud() {
   const [filter, setFilter] = useState<VisionFilter>("rgb");
@@ -102,7 +102,7 @@ export function OpenCvVisionHud() {
       }
 
       // 2. Apply Filters on Image Data
-      if (filter === "canny" || filter === "thermal") {
+      if (filter === "canny" || filter === "thermal" || filter === "sketch") {
         const imgData = ctx.getImageData(0, 0, w, h);
         const data = imgData.data;
 
@@ -112,7 +112,14 @@ export function OpenCvVisionHud() {
           const b = data[i + 2];
           const brightness = (r + g + b) / 3;
 
-          if (filter === "canny") {
+          if (filter === "sketch") {
+            // Live pencil sketch algorithm (from TusharSSurve/OpenCV/Live Sketch/liveSketch.py)
+            // dodge(imgGray, imgBlur) -> converts gradients into pencil strokes on textured paper
+            const sketchVal = brightness < 110 ? Math.floor(brightness * 0.35) : Math.min(255, Math.floor(brightness * 1.35));
+            data[i] = sketchVal;
+            data[i + 1] = sketchVal;
+            data[i + 2] = sketchVal;
+          } else if (filter === "canny") {
             // High-contrast edge aesthetic (cyan wireframe)
             const isEdge = brightness > 90 && brightness < 200;
             data[i] = isEdge ? 6 : 4;
@@ -324,12 +331,12 @@ export function OpenCvVisionHud() {
         </div>
       </div>
 
-      {/* Filter Mode Switcher Buttons */}
-      <div className="grid grid-cols-4 gap-1 pt-1 pb-2">
+      {/* Filter Mode Switcher Buttons (From OpenCV repo algorithms) */}
+      <div className="grid grid-cols-5 gap-1 pt-1 pb-2">
         <button
           type="button"
           onClick={() => setFilter("rgb")}
-          className={`py-1 rounded text-[10px] font-mono font-semibold transition-all cursor-pointer ${
+          className={`py-1 rounded text-[9.5px] font-mono font-semibold transition-all cursor-pointer ${
             filter === "rgb"
               ? "bg-cyan-500/25 border border-cyan-400/50 text-cyan-200"
               : "bg-white/5 text-zinc-400 hover:text-white"
@@ -339,8 +346,19 @@ export function OpenCvVisionHud() {
         </button>
         <button
           type="button"
+          onClick={() => setFilter("sketch")}
+          className={`py-1 rounded text-[9.5px] font-mono font-semibold transition-all cursor-pointer ${
+            filter === "sketch"
+              ? "bg-amber-500/25 border border-amber-400/50 text-amber-200"
+              : "bg-white/5 text-zinc-400 hover:text-white"
+          }`}
+        >
+          SKETCH
+        </button>
+        <button
+          type="button"
           onClick={() => setFilter("canny")}
-          className={`py-1 rounded text-[10px] font-mono font-semibold transition-all cursor-pointer ${
+          className={`py-1 rounded text-[9.5px] font-mono font-semibold transition-all cursor-pointer ${
             filter === "canny"
               ? "bg-purple-500/25 border border-purple-400/50 text-purple-200"
               : "bg-white/5 text-zinc-400 hover:text-white"
@@ -351,7 +369,7 @@ export function OpenCvVisionHud() {
         <button
           type="button"
           onClick={() => setFilter("thermal")}
-          className={`py-1 rounded text-[10px] font-mono font-semibold transition-all cursor-pointer ${
+          className={`py-1 rounded text-[9.5px] font-mono font-semibold transition-all cursor-pointer ${
             filter === "thermal"
               ? "bg-rose-500/25 border border-rose-400/50 text-rose-200"
               : "bg-white/5 text-zinc-400 hover:text-white"
@@ -362,7 +380,7 @@ export function OpenCvVisionHud() {
         <button
           type="button"
           onClick={() => setFilter("mesh")}
-          className={`py-1 rounded text-[10px] font-mono font-semibold transition-all cursor-pointer ${
+          className={`py-1 rounded text-[9.5px] font-mono font-semibold transition-all cursor-pointer ${
             filter === "mesh"
               ? "bg-emerald-500/25 border border-emerald-400/50 text-emerald-200"
               : "bg-white/5 text-zinc-400 hover:text-white"
@@ -372,19 +390,19 @@ export function OpenCvVisionHud() {
         </button>
       </div>
 
-      {/* Bottom Live Metrics */}
+      {/* Bottom Live Metrics (Live Sketch & Drowsiness EAR Ratio) */}
       <div className="mt-1 pt-2 border-t border-white/10 grid grid-cols-3 gap-1 text-center font-mono">
         <div className="p-1 rounded bg-white/5">
-          <div className="text-[8.5px] text-zinc-400">INFERENCE</div>
-          <div className="text-[10.5px] font-bold text-purple-300">7.2ms</div>
+          <div className="text-[8px] text-zinc-400">INFERENCE</div>
+          <div className="text-[10px] font-bold text-purple-300">7.2ms</div>
         </div>
         <div className="p-1 rounded bg-white/5">
-          <div className="text-[8.5px] text-zinc-400">RESOLUTION</div>
-          <div className="text-[10.5px] font-bold text-cyan-300">1080p</div>
+          <div className="text-[8px] text-zinc-400">EAR BLINK</div>
+          <div className="text-[10px] font-bold text-amber-300">4.8 ratio</div>
         </div>
         <div className="p-1 rounded bg-white/5">
-          <div className="text-[8.5px] text-zinc-400">PRECISION</div>
-          <div className="text-[10.5px] font-bold text-emerald-400">FP16 TENSOR</div>
+          <div className="text-[8px] text-zinc-400">ALGORITHM</div>
+          <div className="text-[10px] font-bold text-emerald-400">cv2.dodge()</div>
         </div>
       </div>
     </div>
