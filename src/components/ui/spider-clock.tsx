@@ -68,8 +68,12 @@ export function SpiderClock({ className = "" }: { className?: string }) {
       {/* Top Integrated Smartwatch Strap Lug */}
       <div className="w-14 h-2 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 rounded-t-md border-t border-x border-white/20 shadow-sm" />
 
-      {/* 3D SMART WATCH CHASSIS (Rounded Squircle Case) */}
+      {/* 3D SMART WATCH CHASSIS (Rounded Squircle Case - Draggable & Interactive) */}
       <motion.div
+        drag
+        dragConstraints={{ left: -40, right: 260, top: -200, bottom: 200 }}
+        dragElastic={0.12}
+        whileDrag={{ scale: 1.05 }}
         animate={{
           y: isSwinging ? [0, -4, 2, 0] : [0, 2, 0],
           rotate: isSwinging ? [0, 2, -2, 0] : 0,
@@ -80,7 +84,7 @@ export function SpiderClock({ className = "" }: { className?: string }) {
           ease: "easeInOut",
         }}
         onAnimationComplete={() => setIsSwinging(false)}
-        className="relative w-[156px] sm:w-[168px] p-2.5 rounded-[26px] bg-gradient-to-b from-zinc-800/95 via-zinc-900/95 to-zinc-950/95 border-2 border-slate-600/70 dark:border-cyan-500/35 shadow-[0_16px_36px_rgba(0,0,0,0.85),0_0_24px_rgba(6,182,212,0.22)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_20px_45px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.35)]"
+        className="relative w-[156px] sm:w-[168px] p-2.5 rounded-[26px] bg-gradient-to-b from-zinc-800/95 via-zinc-900/95 to-zinc-950/95 border-2 border-slate-600/70 dark:border-cyan-500/35 shadow-[0_16px_36px_rgba(0,0,0,0.85),0_0_24px_rgba(6,182,212,0.22)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_20px_45px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.35)] cursor-grab active:cursor-grabbing"
       >
         {/* Right-Side Metallic Digital Crown */}
         <div className="absolute -right-2 top-8 w-2 h-5 rounded-r-md bg-gradient-to-r from-slate-400 to-slate-200 border border-slate-300/80 shadow-md flex items-center justify-center">

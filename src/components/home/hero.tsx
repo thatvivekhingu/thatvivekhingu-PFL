@@ -68,8 +68,8 @@ export default function Hero() {
 
   return (
     <div className="w-full pt-4 pb-6 sm:min-h-screen sm:pt-8 md:pt-12 sm:pb-12 relative flex flex-col items-center justify-center overflow-hidden">
-      {/* Smart Watch HUD Widget (Positioned cleanly on the left below navbar) */}
-      <div className="absolute top-16 sm:top-20 md:top-24 left-3 sm:left-6 md:left-10 lg:left-16 z-30 pointer-events-auto opacity-90 hover:opacity-100 transition-all duration-300 hidden md:flex flex-col items-center">
+      {/* Smart Watch HUD Widget (Centered vertically on the left, completely clear of navbar) */}
+      <div className="absolute top-1/2 -translate-y-1/2 left-4 sm:left-8 md:left-12 lg:left-16 xl:left-24 z-30 pointer-events-auto opacity-95 hover:opacity-100 transition-all duration-300 hidden md:flex flex-col items-center">
         <SpiderClock />
       </div>
 
