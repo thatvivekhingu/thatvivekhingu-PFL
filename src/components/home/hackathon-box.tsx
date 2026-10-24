@@ -117,8 +117,6 @@ export default function HackathonBox() {
                             alt={cert.title}
                             fill
                             sizes="(max-width: 768px) 100vw, 33vw"
-                            priority={true}
-                            loading="eager"
                             className="object-cover object-center group-hover/card:scale-105 transition-transform duration-500"
                           />
                         </div>
@@ -246,8 +244,6 @@ export default function HackathonBox() {
                     alt={activeCertificate.title}
                     fill
                     sizes="100vw"
-                    priority={true}
-                    loading="eager"
                     className="object-contain"
                   />
                 </div>

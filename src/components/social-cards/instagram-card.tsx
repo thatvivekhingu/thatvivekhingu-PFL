@@ -159,7 +159,6 @@ export const InstagramCard: React.FC<InstagramCardProps> = ({
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           sizes="(max-width: 768px) 100vw, 360px"
-          priority
         />
 
         {/* Top Badges / Location Overlay */}

@@ -234,7 +234,6 @@ export const Footer = () => {
                 height={900}
                 className="absolute bottom-0 blur-md left-1/2 transform -translate-x-1/2 translate-y-3/5 w-auto z-0 pointer-events-none select-none"
                 aria-hidden="true"
-                priority
             />
         </footer>
     );

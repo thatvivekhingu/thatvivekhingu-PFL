@@ -133,7 +133,6 @@ export const SocialBentoBoard: React.FC<{ className?: string }> = ({ className =
                       fill
                       className="object-cover"
                       sizes="56px"
-                      priority
                     />
                   </div>
                 </div>

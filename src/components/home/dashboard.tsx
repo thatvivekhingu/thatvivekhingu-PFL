@@ -479,8 +479,6 @@ const Tool = ({ name, icon }: { name: string; icon: string }) => {
               width={30}
               height={30}
               className="h-8 w-8"
-              loading="eager"
-
             />
           </div>
         </TooltipTrigger>

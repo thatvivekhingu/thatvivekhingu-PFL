@@ -112,6 +112,7 @@ export function IdLanyardBadge() {
                 src="/avatars/vivek-avatar.png"
                 alt="Vivek Hingu"
                 fill
+                sizes="(max-width: 640px) 112px, 128px"
                 priority
                 className="object-cover scale-[1.02]"
               />

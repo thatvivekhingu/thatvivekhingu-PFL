@@ -66,6 +66,8 @@ export default function Achievements() {
                 src="/achievements/google-cloud-arcade.jpg"
                 alt=""
                 fill
+                sizes="40px"
+                quality={15}
                 className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
                 aria-hidden
               />
@@ -117,6 +119,8 @@ export default function Achievements() {
                 src="/achievements/flinders-ai.jpg"
                 alt=""
                 fill
+                sizes="40px"
+                quality={15}
                 className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
                 aria-hidden
               />
@@ -168,6 +172,8 @@ export default function Achievements() {
                 src="/achievements/ait-hackathon.jpg"
                 alt=""
                 fill
+                sizes="40px"
+                quality={15}
                 className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
                 aria-hidden
               />
@@ -219,6 +225,8 @@ export default function Achievements() {
                 src="/achievements/robo-soccer.jpg"
                 alt=""
                 fill
+                sizes="40px"
+                quality={15}
                 className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
                 aria-hidden
               />
