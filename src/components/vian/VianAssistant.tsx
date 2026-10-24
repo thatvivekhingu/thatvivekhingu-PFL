@@ -11,7 +11,6 @@ import { IconWifi } from "@tabler/icons-react";
 import { VianHeader } from "./VianHeader";
 import { VianHistory } from "./VianHistory";
 import { VianMemoryModal } from "./VianMemoryModal";
-import { VianEmptyState } from "./VianEmptyState";
 import { VianMessageList } from "./VianMessageList";
 import { VianInput } from "./VianInput";
 import { VianVoiceEngine } from "@/lib/vian/voice-engine";
@@ -313,16 +312,13 @@ export function VianAssistant() {
                   />
 
                   <div className="relative z-10 flex flex-1 flex-col overflow-hidden">
-                    {messages.length === 0 ? (
-                      <VianEmptyState onSelectPrompt={handleSendPrompt} />
-                    ) : (
-                      <VianMessageList
-                        messages={messages}
-                        isGenerating={isGenerating}
-                        endRef={endRef}
-                        onRegenerate={regenerateLastMessage}
-                      />
-                    )}
+                    <VianMessageList
+                      messages={messages}
+                      isGenerating={isGenerating}
+                      endRef={endRef}
+                      onRegenerate={regenerateLastMessage}
+                      onSelectPrompt={handleSendPrompt}
+                    />
                   </div>
                 </div>
 

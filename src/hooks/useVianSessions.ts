@@ -39,6 +39,13 @@ const getDateGroup = (timestamp: number): DateGroup => {
   return "Earlier";
 };
 
+export const createWelcomeMessage = (): VianMessageItem => ({
+  id: `welcome-${Date.now()}`,
+  role: "assistant",
+  content: "Hey! 👋 Vivek here. Kaise ho? Welcome to my chat! Ask me anything about my AI models, agentic systems, hackathons, or let's collaborate on an idea.",
+  timestamp: Date.now() - 1000 * 60,
+});
+
 export function useVianSessions() {
   const [sessions, setSessions] = useState<VianSession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string>("");
@@ -51,8 +58,13 @@ export function useVianSessions() {
       if (saved) {
         const parsed: VianSession[] = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          setSessions(parsed);
-          setActiveSessionId(parsed[0].id);
+          // Ensure every session has at least the welcome message
+          const cleaned = parsed.map((s) => ({
+            ...s,
+            messages: (!s.messages || s.messages.length === 0) ? [createWelcomeMessage()] : s.messages,
+          }));
+          setSessions(cleaned);
+          setActiveSessionId(cleaned[0].id);
           return;
         }
       }
@@ -67,7 +79,7 @@ export function useVianSessions() {
       title: "New Conversation",
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      messages: [],
+      messages: [createWelcomeMessage()],
     };
     setSessions([defaultSession]);
     setActiveSessionId(initId);
@@ -89,7 +101,7 @@ export function useVianSessions() {
       title: "New Conversation",
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      messages: [],
+      messages: [createWelcomeMessage()],
     };
 
     setSessions((prev) => {

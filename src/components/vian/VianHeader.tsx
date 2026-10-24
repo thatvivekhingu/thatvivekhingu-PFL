@@ -90,7 +90,7 @@ export function VianHeader({
             {/* Contact Name & Status */}
             <div className="flex flex-col min-w-0">
               <span className="text-[13px] font-bold text-slate-900 dark:text-[#e9edef] truncate tracking-tight font-sans leading-tight">
-                Vivek Hingu 🧠
+                Vivek Hingu
               </span>
               {isGenerating ? (
                 <span className="text-[10.5px] font-medium text-[#00a884] dark:text-[#25d366] italic tracking-wide animate-pulse leading-none mt-0.5">
@@ -165,7 +165,7 @@ export function VianHeader({
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-sm text-slate-900 dark:text-white truncate">Vivek Hingu 🧠</h4>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white truncate">Vivek Hingu</h4>
                   <p className="text-xs text-slate-500 dark:text-[#8696a0]">AI & ML Engineer • Always Active</p>
                 </div>
                 <button
