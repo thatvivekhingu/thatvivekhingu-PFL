@@ -11,7 +11,6 @@ import { AnimatedName } from "@/components/ui/animated-name";
 import { VisitorBadge } from "@/components/ui/visitor-badge";
 import { ResumeModal } from "@/components/ui/resume-modal";
 import { Marquee } from "@/components/ui/marquee";
-import { AgenticAutomationHud } from "@/components/home/agentic-automation-hud";
 import { OpenCvVisionHud } from "@/components/home/opencv-vision-hud";
 import {
   Tooltip,
@@ -25,7 +24,6 @@ import { data } from "@/data/data";
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [mobileActiveHud, setMobileActiveHud] = useState<"agentic" | "opencv">("agentic");
 
   const { status, dotColor } = getStatus();
 
@@ -72,13 +70,11 @@ export default function Hero() {
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative w-full max-w-7xl mx-auto px-4 flex flex-col items-center z-20">
-            {/* Desktop Command Center (Left: Agentic HUD, Center: Avatar Core, Right: OpenCV HUD) */}
-            <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4 my-1 sm:my-2">
+            {/* Command Center: Center Avatar Showcase & Right OpenCV HUD */}
+            <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-6 lg:gap-4 my-1 sm:my-2">
               
-              {/* Left Flank: Live Agentic AI Automation HUD (Desktop) */}
-              <div className="hidden lg:flex flex-col items-center justify-center shrink-0 z-30">
-                <AgenticAutomationHud />
-              </div>
+              {/* Left Column Spacer for Symmetric Desktop Centering */}
+              <div className="hidden lg:block" />
 
               {/* Center Avatar & Arc Reactor Showcase */}
               <div className="relative flex flex-col items-center justify-center z-30 mx-auto">
@@ -205,43 +201,14 @@ export default function Hero() {
               </div>
 
               {/* Right Flank: Real-Time OpenCV Vision Matrix HUD (Desktop) */}
-              <div className="hidden lg:flex flex-col items-center justify-center shrink-0 z-30">
+              <div className="hidden lg:flex flex-col items-end justify-center shrink-0 z-30">
                 <OpenCvVisionHud />
               </div>
             </div>
 
-            {/* Mobile/Tablet Interactive HUD Switcher (Below hero on < lg screens) */}
+            {/* Mobile/Tablet Interactive OpenCV Vision HUD (< lg screens) */}
             <div className="lg:hidden w-full max-w-sm mt-6 mb-2 px-2 flex flex-col items-center z-30">
-              <div className="flex p-1 rounded-full bg-black/60 border border-white/10 mb-3 text-xs font-mono">
-                <button
-                  type="button"
-                  onClick={() => setMobileActiveHud("agentic")}
-                  className={`px-3 py-1 rounded-full font-semibold transition-all cursor-pointer ${
-                    mobileActiveHud === "agentic"
-                      ? "bg-cyan-500/30 text-cyan-300 border border-cyan-400/50 shadow-sm"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  🤖 Agent Automation
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMobileActiveHud("opencv")}
-                  className={`px-3 py-1 rounded-full font-semibold transition-all cursor-pointer ${
-                    mobileActiveHud === "opencv"
-                      ? "bg-purple-500/30 text-purple-300 border border-purple-400/50 shadow-sm"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  👁️ OpenCV Vision
-                </button>
-              </div>
-
-              {mobileActiveHud === "agentic" ? (
-                <AgenticAutomationHud />
-              ) : (
-                <OpenCvVisionHud />
-              )}
+              <OpenCvVisionHud />
             </div>
 
             <div className="w-full space-y-3 sm:space-y-4 pt-1 sm:pt-2">
