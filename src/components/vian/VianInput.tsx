@@ -6,6 +6,7 @@ import {
   IconMicrophoneOff,
   IconMoodSmile,
   IconPaperclip,
+  IconCamera,
 } from "@tabler/icons-react";
 
 interface VianInputProps {
@@ -110,19 +111,19 @@ export function VianInput({
 
       <form
         onSubmit={handleSubmit}
-        className="relative flex w-full items-end gap-2 p-2 sm:p-2.5"
+        className="relative flex w-full items-center gap-1.5 p-2 sm:p-2.5 bg-transparent"
       >
-        {/* WhatsApp Rounded Capsule Input Pill */}
-        <div className="relative flex flex-1 items-center rounded-[24px] bg-white dark:bg-[#2a3942] border border-slate-200/80 dark:border-white/5 px-2.5 shadow-xs transition-all focus-within:ring-1 focus-within:ring-[#00a884]/40">
+        {/* WhatsApp iOS Rounded Capsule Input Pill */}
+        <div className="relative flex flex-1 items-center rounded-full bg-white dark:bg-[#2a3942] border border-black/[0.06] dark:border-white/5 px-2 py-0.5 shadow-[0_1px_1px_rgba(0,0,0,0.06)]">
           {/* Emoji Toggle Icon */}
           <button
             type="button"
             onClick={() => setShowEmojiPicker((prev) => !prev)}
             aria-label="Add Emoji"
             title="Add Emoji"
-            className="p-1.5 text-slate-400 dark:text-[#8696a0] hover:text-slate-600 dark:hover:text-[#e9edef] transition-colors cursor-pointer shrink-0"
+            className="p-1.5 text-[#54656f] dark:text-[#8696a0] hover:text-slate-800 dark:hover:text-[#e9edef] transition-colors cursor-pointer shrink-0"
           >
-            <IconMoodSmile className="h-5 w-5" />
+            <IconMoodSmile className="h-5 w-5 stroke-[1.8]" />
           </button>
 
           {/* Textarea */}
@@ -132,33 +133,47 @@ export function VianInput({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={isListening ? "Listening to your voice..." : "Message Vivek..."}
-            className="w-full resize-none bg-transparent px-2 py-2.5 text-xs text-slate-900 dark:text-[#e9edef] placeholder-slate-400 dark:placeholder-[#8696a0] focus:outline-none max-h-28 font-sans leading-relaxed"
+            placeholder={isListening ? "Listening to voice..." : "Type a message"}
+            className="w-full resize-none bg-transparent px-1.5 py-2 text-[13px] text-slate-900 dark:text-[#e9edef] placeholder-[#8696a0] focus:outline-none max-h-24 font-sans leading-relaxed"
           />
 
-          {/* Attachment Paperclip Icon */}
+          {/* Paperclip Attachment Icon */}
           <button
             type="button"
             onClick={() => {
-              setInput((prev) => prev ? `${prev} [Sharing code/project idea]` : "Hey Vivek, I want to share a project idea with you: ");
+              setInput((prev) => prev ? `${prev} [Sharing project idea]` : "Hey Vivek, check out this idea: ");
               textareaRef.current?.focus();
             }}
-            aria-label="Attach File / Code"
-            title="Attach Project / Code"
-            className="p-1.5 text-slate-400 dark:text-[#8696a0] hover:text-slate-600 dark:hover:text-[#e9edef] transition-colors cursor-pointer shrink-0"
+            aria-label="Attach"
+            title="Attach"
+            className="p-1 text-[#54656f] dark:text-[#8696a0] hover:text-slate-800 dark:hover:text-[#e9edef] transition-colors cursor-pointer shrink-0"
           >
-            <IconPaperclip className="h-5 w-5" />
+            <IconPaperclip className="h-5 w-5 stroke-[1.8] rotate-45" />
+          </button>
+
+          {/* Camera Icon (from reference screenshot!) */}
+          <button
+            type="button"
+            onClick={() => {
+              setInput((prev) => prev ? `${prev} 📸` : "📸 Sending photo to Vivek: ");
+              textareaRef.current?.focus();
+            }}
+            aria-label="Camera"
+            title="Camera"
+            className="p-1 text-[#54656f] dark:text-[#8696a0] hover:text-slate-800 dark:hover:text-[#e9edef] transition-colors cursor-pointer shrink-0 mr-1"
+          >
+            <IconCamera className="h-5 w-5 stroke-[1.8]" />
           </button>
         </div>
 
-        {/* WhatsApp Signature Floating Green Action Button */}
+        {/* External Voice Microphone / Send Action Icon */}
         {isGenerating ? (
           <button
             type="button"
             onClick={onStop}
             aria-label="Stop Generating"
             title="Stop Generating"
-            className="h-10 w-10 shrink-0 rounded-full bg-rose-600 hover:bg-rose-500 text-white shadow-md flex items-center justify-center transition-transform active:scale-90 cursor-pointer"
+            className="h-9 w-9 shrink-0 rounded-full bg-rose-600 text-white shadow-sm flex items-center justify-center transition-transform active:scale-90 cursor-pointer"
           >
             <IconPlayerStop className="h-4.5 w-4.5" />
           </button>
@@ -167,9 +182,9 @@ export function VianInput({
             type="submit"
             aria-label="Send Message"
             title="Send"
-            className="h-10 w-10 shrink-0 rounded-full bg-[#00a884] hover:bg-[#06cf9c] text-white shadow-md flex items-center justify-center transition-transform active:scale-90 cursor-pointer"
+            className="h-9 w-9 shrink-0 rounded-full bg-[#00a884] text-white shadow-sm flex items-center justify-center transition-transform active:scale-90 cursor-pointer hover:bg-[#06cf9c]"
           >
-            <IconSend className="h-4.5 w-4.5 ml-0.5" />
+            <IconSend className="h-4 w-4 ml-0.5" />
           </button>
         ) : (
           <button
@@ -177,16 +192,16 @@ export function VianInput({
             onClick={onToggleVoice}
             aria-label={isListening ? "Stop listening" : "Voice message"}
             title={isListening ? "Stop listening" : "Voice message"}
-            className={`h-10 w-10 shrink-0 rounded-full text-white shadow-md flex items-center justify-center transition-transform active:scale-90 cursor-pointer ${
+            className={`h-9 w-9 shrink-0 rounded-full flex items-center justify-center transition-transform active:scale-90 cursor-pointer ${
               isListening
-                ? "bg-rose-500 animate-pulse"
-                : "bg-[#00a884] hover:bg-[#06cf9c]"
+                ? "bg-rose-500 text-white animate-pulse"
+                : "text-[#54656f] dark:text-[#8696a0] hover:text-[#00a884] dark:hover:text-[#25d366]"
             }`}
           >
             {isListening ? (
-              <IconMicrophoneOff className="h-4.5 w-4.5" />
+              <IconMicrophoneOff className="h-5 w-5" />
             ) : (
-              <IconMicrophone className="h-4.5 w-4.5" />
+              <IconMicrophone className="h-5.5 w-5.5 stroke-[1.8]" />
             )}
           </button>
         )}

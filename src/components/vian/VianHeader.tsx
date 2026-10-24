@@ -46,52 +46,47 @@ export function VianHeader({
   };
 
   return (
-    <header className="relative flex h-15 w-full shrink-0 items-center justify-between border-b border-slate-200 dark:border-zinc-800/80 bg-[#f0f2f5] dark:bg-[#202c33] px-2.5 sm:px-3 text-slate-800 dark:text-zinc-100 z-30 shadow-xs">
+    <header className="relative flex h-14 w-full shrink-0 items-center justify-between border-b border-black/[0.06] dark:border-white/5 bg-[#f6f4f0]/95 dark:bg-[#1f2c34] px-2.5 sm:px-3 text-slate-800 dark:text-zinc-100 z-30 shadow-[0_1px_1px_rgba(0,0,0,0.03)]">
       {/* Fun Call Notice Toast */}
       {callToast && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50 px-3.5 py-1.5 rounded-full bg-black/90 text-white text-[11px] font-sans font-medium border border-white/20 shadow-xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200 whitespace-nowrap">
+        <div className="absolute top-15 left-1/2 -translate-x-1/2 z-50 px-3.5 py-1.5 rounded-full bg-black/90 text-white text-[11px] font-sans font-medium border border-white/20 shadow-xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200 whitespace-nowrap">
           {callToast}
         </div>
       )}
 
-      {/* WhatsApp Left Bar: Back Button + DP + Contact Name & Status */}
+      {/* WhatsApp Left Bar: Back Chevron + DP + Contact Name & Online */}
       <div className="flex items-center gap-1.5 min-w-0 flex-1">
-        {/* Back Arrow */}
+        {/* iOS Back Chevron */}
         <button
           type="button"
           onClick={onClose}
           aria-label="Back"
           title="Back"
-          className="p-1 -ml-1 text-slate-600 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+          className="p-1 -ml-1 text-slate-800 dark:text-zinc-200 hover:opacity-70 transition-opacity cursor-pointer"
         >
-          <IconChevronLeft className="h-6 w-6" />
+          <IconChevronLeft className="h-6 w-6 stroke-[2.5]" />
         </button>
 
-        {/* Profile Avatar with Online Ring */}
+        {/* Profile Avatar */}
         <div
           onClick={onNewChat}
           title="Start fresh chat with Vivek"
-          className="relative h-9.5 w-9.5 shrink-0 rounded-full overflow-hidden border border-emerald-500/50 cursor-pointer shadow-sm hover:scale-105 transition-transform"
+          className="relative h-9 w-9 shrink-0 rounded-full overflow-hidden border border-slate-300 dark:border-zinc-700 cursor-pointer shadow-xs hover:scale-105 transition-transform"
         >
           <Image
             src="/avatars/vivek.jpg"
             alt="Vivek Hingu"
             fill
-            sizes="38px"
+            sizes="36px"
             className="object-cover"
           />
-          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-[#f0f2f5] dark:ring-[#202c33]" />
         </div>
 
-        {/* Name and Online / Typing status */}
+        {/* Contact Name & Status */}
         <div className="flex flex-col min-w-0 ml-1">
-          <div className="flex items-center gap-1">
-            <span className="text-sm font-semibold text-slate-900 dark:text-[#e9edef] truncate tracking-tight">
-              Vivek Hingu
-            </span>
-            {/* Verified Green Badge */}
-            <span className="inline-flex items-center justify-center h-3.5 w-3.5 rounded-full bg-[#00a884] text-white text-[9px] shrink-0" title="Verified AI Engineer">
-              ✓
+          <div className="flex items-center gap-1 leading-tight">
+            <span className="text-sm font-semibold text-slate-900 dark:text-[#e9edef] truncate tracking-tight font-sans">
+              Vivek Hingu 🧠
             </span>
           </div>
           {isGenerating ? (
@@ -100,34 +95,34 @@ export function VianHeader({
             </span>
           ) : (
             <span className="text-[11px] text-slate-500 dark:text-[#8696a0] font-sans">
-              online
+              Online
             </span>
           )}
         </div>
       </div>
 
-      {/* WhatsApp Right Action Icons */}
-      <div className="flex items-center gap-1 sm:gap-1.5 text-slate-600 dark:text-[#aebac1]">
+      {/* WhatsApp Right Action Icons: Video Camera & Phone Receiver */}
+      <div className="flex items-center gap-2 sm:gap-3 text-slate-800 dark:text-[#e9edef] pr-1">
         {/* Video Call */}
         <button
           type="button"
-          onClick={() => triggerCallToast("Vivek is currently training neural networks on GPU ☕")}
+          onClick={() => triggerCallToast("Vivek is currently coding models ☕")}
           aria-label="Video call"
           title="Video call"
-          className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+          className="p-1 text-slate-800 dark:text-zinc-200 hover:opacity-70 transition-opacity cursor-pointer"
         >
-          <IconVideo className="h-5 w-5" />
+          <IconVideo className="h-6 w-6 stroke-[1.8]" />
         </button>
 
         {/* Audio Call */}
         <button
           type="button"
-          onClick={() => triggerCallToast("Busy writing Agentic AI pipelines 🤖")}
+          onClick={() => triggerCallToast("Busy training neural nets on GPU 🤖")}
           aria-label="Audio call"
           title="Audio call"
-          className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+          className="p-1 text-slate-800 dark:text-zinc-200 hover:opacity-70 transition-opacity cursor-pointer"
         >
-          <IconPhone className="h-4.5 w-4.5" />
+          <IconPhone className="h-5.5 w-5.5 stroke-[1.8]" />
         </button>
 
         {/* New Chat */}

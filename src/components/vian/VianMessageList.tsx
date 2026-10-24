@@ -21,17 +21,11 @@ export function VianMessageList({
   const actualLastAssistantIdx = lastAssistantIdx !== -1 ? messages.length - 1 - lastAssistantIdx : -1;
 
   return (
-    <div className="flex flex-1 flex-col overflow-y-auto px-3 py-3 sm:px-4 sm:py-3.5 space-y-3">
-      {/* WhatsApp Encryption Security Banner */}
-      <div className="mx-auto my-1 max-w-[92%] text-center px-3 py-1.5 rounded-lg bg-[#ffeecd] dark:bg-[#182229] border border-[#f5c344]/30 dark:border-white/5 text-[10px] text-amber-950 dark:text-[#ffd279] shadow-xs flex items-center justify-center gap-1.5 leading-tight select-none">
-        <IconLock className="w-3 h-3 text-[#d97706] dark:text-[#ffd279] shrink-0" />
-        <span>Messages are end-to-end encrypted • Tap to verify profile</span>
-      </div>
-
-      {/* WhatsApp Centered Date Pill */}
+    <div className="flex flex-1 flex-col overflow-y-auto px-2.5 py-2.5 sm:px-3 sm:py-3 space-y-2">
+      {/* Centered WhatsApp Date Pill (Exact replica from reference screenshot) */}
       <div className="flex justify-center my-1 select-none">
-        <span className="px-3 py-0.5 rounded-md bg-white/80 dark:bg-[#182229] text-slate-600 dark:text-[#8696a0] text-[10px] font-medium uppercase tracking-wider shadow-xs border border-slate-200/40 dark:border-white/5">
-          TODAY
+        <span className="px-3.5 py-0.5 rounded-lg bg-white/90 dark:bg-[#182229] text-[#54656f] dark:text-[#8696a0] text-xs font-semibold shadow-[0_1px_0.5px_rgba(0,0,0,0.06)] border border-black/[0.04] dark:border-white/5">
+          Yesterday
         </span>
       </div>
 

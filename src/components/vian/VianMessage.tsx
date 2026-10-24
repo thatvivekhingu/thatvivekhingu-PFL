@@ -49,14 +49,12 @@ export function VianMessage({
         isUser ? "items-end" : "items-start"
       }`}
     >
-      {/* User Message (WhatsApp Outgoing Green Bubble) */}
+      {/* User Message (WhatsApp Outgoing Soft Green Bubble) */}
       {isUser ? (
-        <div className="relative max-w-[85%] rounded-[18px] rounded-tr-[3px] bg-[#d9fdd3] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] px-3.5 pt-2 pb-1.5 shadow-[0_1px_1px_rgba(0,0,0,0.15)] leading-relaxed font-sans text-xs">
-          <div className="whitespace-pre-wrap break-words pr-2">{message.content}</div>
-          <div className="flex items-center justify-end gap-1 mt-0.5 select-none">
-            <span className="text-[10px] text-emerald-800/80 dark:text-[#8696a0] font-sans">
-              {timeString}
-            </span>
+        <div className="relative max-w-[82%] sm:max-w-[78%] rounded-2xl rounded-tr-xs bg-[#d9fdd3] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] px-3.5 pt-2 pb-1.5 shadow-[0_1px_0.5px_rgba(0,0,0,0.12)] leading-relaxed font-sans text-[12.5px]">
+          <div className="whitespace-pre-wrap break-words">{message.content}</div>
+          <div className="flex items-center justify-end gap-1 mt-0.5 select-none text-[10px] text-[#667781] dark:text-[#8696a0]">
+            <span>{timeString}</span>
             {/* WhatsApp Double Blue Ticks */}
             <span
               className="text-[#53bdeb] text-[12px] font-bold leading-none tracking-tighter"
@@ -67,31 +65,26 @@ export function VianMessage({
           </div>
         </div>
       ) : (
-        /* Assistant Message (WhatsApp Incoming Slate Bubble) */
-        <div className="flex w-full items-start gap-2 max-w-[92%] sm:max-w-[88%]">
-          {/* Contact DP */}
-          <div className="mt-0.5 relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-emerald-500/40 shadow-xs">
+        /* Assistant Message (WhatsApp Incoming Pure White Bubble) */
+        <div className="flex w-full items-start gap-2 max-w-[90%] sm:max-w-[85%]">
+          {/* Contact Avatar */}
+          <div className="mt-0.5 relative h-7.5 w-7.5 shrink-0 overflow-hidden rounded-full border border-black/10 dark:border-white/10 shadow-xs">
             <Image
               src="/avatars/vivek.jpg"
               alt="Vivek Hingu"
               fill
-              sizes="28px"
+              sizes="30px"
               className="object-cover"
             />
           </div>
 
           <div className="flex flex-1 flex-col items-start min-w-0">
-            {/* WhatsApp Incoming Bubble Container */}
-            <div className="w-full rounded-[18px] rounded-tl-[3px] bg-white dark:bg-[#202c33] text-[#111b21] dark:text-[#e9edef] border border-slate-200/60 dark:border-white/5 px-3.5 pt-2.5 pb-2 shadow-[0_1px_1px_rgba(0,0,0,0.15)] text-xs leading-relaxed">
-              {/* WhatsApp Sender Tag */}
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <span className="text-[11px] font-bold text-[#00a884] dark:text-[#25d366] tracking-tight">
-                  ~ Vivek Hingu
-                </span>
-                <span className="text-[9px] font-mono text-slate-400 dark:text-[#8696a0] bg-slate-100 dark:bg-black/30 px-1.5 py-0.2 rounded">
-                  AI Engineer
-                </span>
-              </div>
+            {/* White WhatsApp Incoming Bubble */}
+            <div className="w-full rounded-2xl rounded-tl-xs bg-white dark:bg-[#202c33] text-[#111b21] dark:text-[#e9edef] px-3.5 pt-2 pb-2 shadow-[0_1px_0.5px_rgba(0,0,0,0.12)] border border-black/[0.04] dark:border-white/5 text-[12.5px] leading-relaxed">
+              {/* Bold Colored Sender Name (Matching Maya/Theo/Priya style in screenshot) */}
+              <span className="font-bold text-[12px] text-[#00a884] dark:text-[#25d366] font-sans block mb-1 tracking-tight">
+                Vivek Hingu
+              </span>
 
               {/* Render Agentic Workflow Trace if present */}
               {message.trace && message.trace.length > 1 && (
@@ -102,15 +95,15 @@ export function VianMessage({
 
               {/* Render Tool Action Cards if any */}
               {message.actions && message.actions.length > 0 && (
-                <div className="mt-3 space-y-2 border-t border-slate-100 dark:border-white/10 pt-2.5">
+                <div className="mt-2.5 space-y-2 border-t border-slate-100 dark:border-white/10 pt-2">
                   {message.actions.map((act) => (
                     <VianActionCard key={act.id} action={act} />
                   ))}
                 </div>
               )}
 
-              {/* WhatsApp Bubble Timestamp */}
-              <div className="flex items-center justify-end mt-1 text-[10px] text-slate-400 dark:text-[#8696a0] select-none">
+              {/* Timestamp Right-Aligned */}
+              <div className="flex items-center justify-end mt-1 text-[10px] text-[#8696a0] select-none">
                 <span>{timeString}</span>
               </div>
             </div>
