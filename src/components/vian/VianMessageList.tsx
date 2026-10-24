@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { IconLock } from "@tabler/icons-react";
 import { VianMessageItem } from "@/hooks/useVianSessions";
 import { VianMessage } from "./VianMessage";
 

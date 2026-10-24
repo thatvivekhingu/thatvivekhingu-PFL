@@ -6,7 +6,7 @@ import { playTapSound } from "@/lib/sound";
 import { useVianSessions } from "@/hooks/useVianSessions";
 import { useVianChat } from "@/hooks/useVianChat";
 import { useAutoScroll } from "@/hooks/useAutoScroll";
-import { IconWifi, IconBattery4 } from "@tabler/icons-react";
+import { IconWifi } from "@tabler/icons-react";
 
 import { VianHeader } from "./VianHeader";
 import { VianHistory } from "./VianHistory";
@@ -213,34 +213,44 @@ export function VianAssistant() {
               className="fixed inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-md cursor-pointer"
             />
 
-            {/* iPhone 17 Pro Max Device Frame Container */}
+            {/* iPhone Pro Sleek Device Frame Container (Exact slim proportions matching screenshot) */}
             <motion.div
               ref={phoneContainerRef}
-              initial={{ opacity: 0, scale: 0.85, y: 30 }}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.85, y: 30 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative z-10 flex flex-col overflow-hidden rounded-[46px] sm:rounded-[54px] border-[7px] sm:border-[9px] border-slate-300 dark:border-neutral-700 bg-slate-900 dark:bg-neutral-950 p-2 sm:p-2.5 shadow-2xl ring-1 ring-black/10 dark:ring-white/15 w-full max-w-[400px] sm:max-w-[420px] h-[85vh] max-h-[780px] min-h-[580px]"
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 26, stiffness: 320 }}
+              className="relative z-10 flex flex-col overflow-hidden rounded-[48px] sm:rounded-[52px] border-[4px] sm:border-[5px] border-[#18181b] bg-[#0c0c0e] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.12)] w-full max-w-[360px] sm:max-w-[372px] h-[86vh] max-h-[770px] min-h-[560px]"
             >
-              {/* Phone Inner Screen Display */}
-              <div className="relative flex flex-col flex-1 w-full h-full overflow-hidden rounded-[36px] sm:rounded-[44px] bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 shadow-inner">
+              {/* Phone Inner Screen Display (Seamless Edge-to-Edge) */}
+              <div className="relative flex flex-col flex-1 w-full h-full overflow-hidden rounded-[44px] sm:rounded-[47px] bg-[#f0ede6] dark:bg-[#0b141a] text-slate-900 dark:text-zinc-100 shadow-inner">
                 
-                {/* iPhone Status Bar & Dynamic Island */}
-                <div className="relative shrink-0 w-full pt-1.5 px-6 flex items-center justify-between text-[11px] font-semibold text-slate-800 dark:text-zinc-200 z-30 select-none">
+                {/* iPhone Status Bar & Dynamic Island (Matching WhatsApp Header) */}
+                <div className="relative shrink-0 w-full pt-2.5 pb-1 px-5 flex items-center justify-between text-[11px] font-semibold text-slate-900 dark:text-zinc-200 z-30 select-none bg-[#f6f4f0]/95 dark:bg-[#1f2c34]">
                   {/* Left Clock */}
-                  <span className="font-mono tracking-tight text-slate-800 dark:text-zinc-200">9:41</span>
+                  <span className="font-semibold tracking-tight text-slate-900 dark:text-zinc-100 pl-1 font-sans">09:41</span>
 
                   {/* Dynamic Island Notch Center */}
-                  <div className="h-5 sm:h-5.5 w-24 sm:w-26 rounded-full bg-black flex items-center justify-between px-2 mx-auto shadow-sm">
-                    <span className="h-2.5 w-2.5 rounded-full bg-neutral-900 ring-1 ring-neutral-800" />
+                  <div className="h-5.5 w-24 sm:w-26 rounded-full bg-black flex items-center justify-between px-2.5 shadow-sm">
+                    <span className="h-2 w-2 rounded-full bg-[#18181b] ring-1 ring-neutral-800" />
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/80 animate-pulse" />
                   </div>
 
-                  {/* Right Status Icons */}
-                  <div className="flex items-center gap-1.5 text-slate-700 dark:text-zinc-300">
-                    <span className="text-[9px] font-mono font-bold">5G</span>
-                    <IconWifi className="h-3 w-3" />
-                    <IconBattery4 className="h-3.5 w-3.5" />
+                  {/* Right Status Icons (4 Signal Bars, Wifi, Battery) */}
+                  <div className="flex items-center gap-1.5 text-slate-900 dark:text-zinc-100 pr-1">
+                    <div className="flex items-end gap-[1.5px] h-2.5">
+                      <span className="w-[2px] h-[3px] bg-current rounded-[0.5px]" />
+                      <span className="w-[2px] h-[5px] bg-current rounded-[0.5px]" />
+                      <span className="w-[2px] h-[7px] bg-current rounded-[0.5px]" />
+                      <span className="w-[2px] h-[9.5px] bg-current rounded-[0.5px]" />
+                    </div>
+                    <IconWifi className="h-3 w-3 stroke-[2.4]" />
+                    <div className="flex items-center">
+                      <div className="w-4.5 h-2.5 rounded-[3px] border border-current p-[1.5px] flex items-center">
+                        <div className="h-full w-full bg-current rounded-[1px]" />
+                      </div>
+                      <div className="w-[1.5px] h-1 bg-current rounded-r-[0.5px] ml-[0.5px]" />
+                    </div>
                   </div>
                 </div>
 
