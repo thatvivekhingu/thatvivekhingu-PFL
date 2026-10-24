@@ -261,6 +261,7 @@ export function VianAssistant() {
                     setIsHistoryOpen(false);
                   }}
                   isMemoryOpen={isMemoryOpen}
+                  isGenerating={isGenerating}
                 />
 
                 {/* History Drawer Sidebar Overlay */}
@@ -290,18 +291,29 @@ export function VianAssistant() {
                   onRemoveMemory={removeUserMemory}
                 />
 
-                {/* Main Chat Screen View */}
-                <div className="relative flex flex-1 flex-col overflow-hidden bg-slate-50 dark:bg-zinc-950">
-                  {messages.length === 0 ? (
-                    <VianEmptyState onSelectPrompt={handleSendPrompt} />
-                  ) : (
-                    <VianMessageList
-                      messages={messages}
-                      isGenerating={isGenerating}
-                      endRef={endRef}
-                      onRegenerate={regenerateLastMessage}
-                    />
-                  )}
+                {/* Main Chat Screen View (Authentic WhatsApp Chat Wallpaper) */}
+                <div className="relative flex flex-1 flex-col overflow-hidden bg-[#efeae2] dark:bg-[#0b141a]">
+                  {/* WhatsApp Iconic Doodle Wallpaper Overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-[0.06] dark:opacity-[0.045] z-0"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140' fill='none' stroke='%238696a0' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 20h22v14H28l-8 8z'/><circle cx='105' cy='30' r='9'/><path d='M90 95h22a4 4 0 0 1 4 4v14l-8-5h-18a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4z'/><path d='M25 85h14v12H25z'/><path d='M20 97h24'/><circle cx='60' cy='60' r='3.5'/><path d='M100 60l5 10-10 5z'/><path d='M50 115a6 6 0 0 0 6-6 6 6 0 0 0-6-6 6 6 0 0 0-6 6c0 5 6 9 6 9z'/><circle cx='60' cy='20' r='2'/><circle cx='125' cy='115' r='2.5'/><path d='M115 15l10 10m0-10l-10 10'/></svg>")`,
+                      backgroundSize: '140px 140px',
+                    }}
+                  />
+
+                  <div className="relative z-10 flex flex-1 flex-col overflow-hidden">
+                    {messages.length === 0 ? (
+                      <VianEmptyState onSelectPrompt={handleSendPrompt} />
+                    ) : (
+                      <VianMessageList
+                        messages={messages}
+                        isGenerating={isGenerating}
+                        endRef={endRef}
+                        onRegenerate={regenerateLastMessage}
+                      />
+                    )}
+                  </div>
                 </div>
 
                 {/* Input Footer */}
@@ -315,8 +327,8 @@ export function VianAssistant() {
                 />
 
                 {/* iPhone Bottom Home Indicator Bar */}
-                <div className="shrink-0 pt-1 pb-1 flex justify-center bg-slate-50 dark:bg-zinc-950">
-                  <div className="w-32 h-1 bg-slate-400 dark:bg-neutral-700 rounded-full" />
+                <div className="shrink-0 pt-1 pb-1 flex justify-center bg-[#f0f2f5] dark:bg-[#202c33]">
+                  <div className="w-32 h-1 bg-slate-400 dark:bg-neutral-600 rounded-full" />
                 </div>
               </div>
             </motion.div>

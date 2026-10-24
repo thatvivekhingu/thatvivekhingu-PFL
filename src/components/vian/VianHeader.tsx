@@ -1,11 +1,16 @@
 import Image from "next/image";
+import React, { useState } from "react";
 import {
+  IconChevronLeft,
+  IconVideo,
+  IconPhone,
+  IconDotsVertical,
   IconPlus,
   IconHistory,
-  IconX,
   IconVolume,
   IconVolumeOff,
   IconBrain,
+  IconCheck,
 } from "@tabler/icons-react";
 
 interface VianHeaderProps {
@@ -18,6 +23,7 @@ interface VianHeaderProps {
   memoryCount?: number;
   onToggleMemory?: () => void;
   isMemoryOpen?: boolean;
+  isGenerating?: boolean;
 }
 
 export function VianHeader({
@@ -30,103 +36,161 @@ export function VianHeader({
   memoryCount = 0,
   onToggleMemory,
   isMemoryOpen = false,
+  isGenerating = false,
 }: VianHeaderProps) {
+  const [callToast, setCallToast] = useState<string | null>(null);
+
+  const triggerCallToast = (msg: string) => {
+    setCallToast(msg);
+    setTimeout(() => setCallToast(null), 3000);
+  };
+
   return (
-    <header className="flex h-14 w-full shrink-0 items-center justify-between border-b border-slate-200 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-950/80 px-4 backdrop-blur-md">
-      {/* Title & Avatar */}
-      <div className="flex items-center gap-2.5">
-        <div className="relative h-8 w-8 overflow-hidden rounded-full border border-cyan-500/40 shadow-sm shrink-0">
+    <header className="relative flex h-15 w-full shrink-0 items-center justify-between border-b border-slate-200 dark:border-zinc-800/80 bg-[#f0f2f5] dark:bg-[#202c33] px-2.5 sm:px-3 text-slate-800 dark:text-zinc-100 z-30 shadow-xs">
+      {/* Fun Call Notice Toast */}
+      {callToast && (
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50 px-3.5 py-1.5 rounded-full bg-black/90 text-white text-[11px] font-sans font-medium border border-white/20 shadow-xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200 whitespace-nowrap">
+          {callToast}
+        </div>
+      )}
+
+      {/* WhatsApp Left Bar: Back Button + DP + Contact Name & Status */}
+      <div className="flex items-center gap-1.5 min-w-0 flex-1">
+        {/* Back Arrow */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Back"
+          title="Back"
+          className="p-1 -ml-1 text-slate-600 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+        >
+          <IconChevronLeft className="h-6 w-6" />
+        </button>
+
+        {/* Profile Avatar with Online Ring */}
+        <div
+          onClick={onNewChat}
+          title="Start fresh chat with Vivek"
+          className="relative h-9.5 w-9.5 shrink-0 rounded-full overflow-hidden border border-emerald-500/50 cursor-pointer shadow-sm hover:scale-105 transition-transform"
+        >
           <Image
-            src="/vian-avatar.jpg"
-            alt="VIAN Logo"
+            src="/avatars/vivek.jpg"
+            alt="Vivek Hingu"
             fill
-            sizes="32px"
+            sizes="38px"
             className="object-cover"
           />
+          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-[#f0f2f5] dark:ring-[#202c33]" />
         </div>
-        <div className="flex flex-col">
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs font-bold text-slate-900 dark:text-zinc-100 tracking-wide">VIAN</span>
-            <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500" title="Online" />
+
+        {/* Name and Online / Typing status */}
+        <div className="flex flex-col min-w-0 ml-1">
+          <div className="flex items-center gap-1">
+            <span className="text-sm font-semibold text-slate-900 dark:text-[#e9edef] truncate tracking-tight">
+              Vivek Hingu
+            </span>
+            {/* Verified Green Badge */}
+            <span className="inline-flex items-center justify-center h-3.5 w-3.5 rounded-full bg-[#00a884] text-white text-[9px] shrink-0" title="Verified AI Engineer">
+              ✓
+            </span>
           </div>
-          <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-mono">Vivek&#39;s AI Assistant</span>
+          {isGenerating ? (
+            <span className="text-[11px] font-medium text-[#00a884] dark:text-[#25d366] italic tracking-wide animate-pulse">
+              typing...
+            </span>
+          ) : (
+            <span className="text-[11px] text-slate-500 dark:text-[#8696a0] font-sans">
+              online
+            </span>
+          )}
         </div>
       </div>
 
-      {/* Header Actions */}
-      <div className="flex items-center gap-1">
+      {/* WhatsApp Right Action Icons */}
+      <div className="flex items-center gap-1 sm:gap-1.5 text-slate-600 dark:text-[#aebac1]">
+        {/* Video Call */}
+        <button
+          type="button"
+          onClick={() => triggerCallToast("Vivek is currently training neural networks on GPU ☕")}
+          aria-label="Video call"
+          title="Video call"
+          className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+        >
+          <IconVideo className="h-5 w-5" />
+        </button>
+
+        {/* Audio Call */}
+        <button
+          type="button"
+          onClick={() => triggerCallToast("Busy writing Agentic AI pipelines 🤖")}
+          aria-label="Audio call"
+          title="Audio call"
+          className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+        >
+          <IconPhone className="h-4.5 w-4.5" />
+        </button>
+
         {/* New Chat */}
         <button
           type="button"
           onClick={onNewChat}
           aria-label="New Chat"
           title="New Chat"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-transparent text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100 transition-all cursor-pointer"
+          className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
         >
-          <IconPlus className="h-4 w-4" />
+          <IconPlus className="h-5 w-5" />
         </button>
 
-        {/* Toggle History */}
+        {/* Chat History */}
         <button
           type="button"
           onClick={onToggleHistory}
           aria-label="Chat History"
           title="Chat History"
-          className={`inline-flex h-8 w-8 items-center justify-center rounded-md border transition-all cursor-pointer ${
+          className={`p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer ${
             isHistoryOpen
-              ? "border-cyan-500/40 bg-cyan-500/10 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300"
-              : "border-slate-200 dark:border-transparent text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100"
+              ? "text-emerald-600 dark:text-[#25d366] bg-emerald-500/10"
+              : "hover:text-slate-900 dark:hover:text-white"
           }`}
         >
-          <IconHistory className="h-4 w-4" />
+          <IconHistory className="h-4.5 w-4.5" />
         </button>
 
-        {/* Toggle Memory Bank */}
+        {/* Memory Bank */}
         {onToggleMemory && (
           <button
             type="button"
             onClick={onToggleMemory}
-            aria-label="Jarvis Memory Bank"
-            title={`Jarvis Memory Bank (${memoryCount} remembered facts)`}
-            className={`relative inline-flex h-8 w-8 items-center justify-center rounded-md border transition-all cursor-pointer ${
+            aria-label="Memory Bank"
+            title={`Memory Bank (${memoryCount} remembered facts)`}
+            className={`relative p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer ${
               isMemoryOpen
-                ? "border-purple-500/40 bg-purple-500/10 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300"
-                : "border-slate-200 dark:border-transparent text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100"
+                ? "text-purple-600 dark:text-purple-400 bg-purple-500/10"
+                : "hover:text-slate-900 dark:hover:text-white"
             }`}
           >
-            <IconBrain className="h-4 w-4" />
+            <IconBrain className="h-4.5 w-4.5" />
             {memoryCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-purple-500 text-[9px] font-bold text-white shadow-xs">
+              <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-purple-500 text-[8.5px] font-bold text-white shadow-xs">
                 {memoryCount > 9 ? "9+" : memoryCount}
               </span>
             )}
           </button>
         )}
 
-        {/* Toggle Sound */}
+        {/* Sound Toggle */}
         <button
           type="button"
           onClick={onToggleSound}
           aria-label={soundEnabled ? "Mute sound" : "Enable sound"}
           title={soundEnabled ? "Mute sound" : "Enable sound"}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-transparent text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100 transition-all cursor-pointer"
+          className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
         >
           {soundEnabled ? (
-            <IconVolume className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+            <IconVolume className="h-4.5 w-4.5 text-emerald-600 dark:text-[#25d366]" />
           ) : (
-            <IconVolumeOff className="h-4 w-4 text-slate-400 dark:text-zinc-500" />
+            <IconVolumeOff className="h-4.5 w-4.5 text-slate-400 dark:text-zinc-500" />
           )}
-        </button>
-
-        {/* Close Button */}
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close Assistant"
-          title="Close (Esc)"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-transparent text-slate-600 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-zinc-100 transition-all cursor-pointer"
-        >
-          <IconX className="h-4 w-4" />
         </button>
       </div>
     </header>

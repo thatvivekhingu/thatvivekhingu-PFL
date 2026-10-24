@@ -37,25 +37,43 @@ export function VianMessage({
     }
   };
 
+  const timeString = new Date(message.timestamp || Date.now()).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
   return (
     <div
       className={`group relative flex w-full flex-col ${
         isUser ? "items-end" : "items-start"
       }`}
     >
-      {/* User Message */}
+      {/* User Message (WhatsApp Outgoing Green Bubble) */}
       {isUser ? (
-        <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-cyan-600 dark:bg-cyan-950/70 border border-cyan-500/30 px-3.5 py-2.5 text-xs text-white dark:text-cyan-100 shadow-sm leading-relaxed font-sans font-medium">
-          {message.content}
+        <div className="relative max-w-[85%] rounded-[18px] rounded-tr-[3px] bg-[#d9fdd3] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] px-3.5 pt-2 pb-1.5 shadow-[0_1px_1px_rgba(0,0,0,0.15)] leading-relaxed font-sans text-xs">
+          <div className="whitespace-pre-wrap break-words pr-2">{message.content}</div>
+          <div className="flex items-center justify-end gap-1 mt-0.5 select-none">
+            <span className="text-[10px] text-emerald-800/80 dark:text-[#8696a0] font-sans">
+              {timeString}
+            </span>
+            {/* WhatsApp Double Blue Ticks */}
+            <span
+              className="text-[#53bdeb] text-[12px] font-bold leading-none tracking-tighter"
+              title="Delivered & Read"
+            >
+              ✓✓
+            </span>
+          </div>
         </div>
       ) : (
-        /* Assistant Message */
-        <div className="flex w-full items-start gap-2.5">
-          {/* Assistant Avatar */}
-          <div className="mt-0.5 relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-cyan-500/40 shadow-sm">
+        /* Assistant Message (WhatsApp Incoming Slate Bubble) */
+        <div className="flex w-full items-start gap-2 max-w-[92%] sm:max-w-[88%]">
+          {/* Contact DP */}
+          <div className="mt-0.5 relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-emerald-500/40 shadow-xs">
             <Image
-              src="/vian-avatar.jpg"
-              alt="VIAN Avatar"
+              src="/avatars/vivek.jpg"
+              alt="Vivek Hingu"
               fill
               sizes="28px"
               className="object-cover"
@@ -63,8 +81,18 @@ export function VianMessage({
           </div>
 
           <div className="flex flex-1 flex-col items-start min-w-0">
-            {/* Assistant Body Container */}
-            <div className="w-full rounded-2xl rounded-tl-sm border border-slate-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 px-4 py-3 text-xs text-slate-900 dark:text-zinc-200 leading-relaxed shadow-sm">
+            {/* WhatsApp Incoming Bubble Container */}
+            <div className="w-full rounded-[18px] rounded-tl-[3px] bg-white dark:bg-[#202c33] text-[#111b21] dark:text-[#e9edef] border border-slate-200/60 dark:border-white/5 px-3.5 pt-2.5 pb-2 shadow-[0_1px_1px_rgba(0,0,0,0.15)] text-xs leading-relaxed">
+              {/* WhatsApp Sender Tag */}
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <span className="text-[11px] font-bold text-[#00a884] dark:text-[#25d366] tracking-tight">
+                  ~ Vivek Hingu
+                </span>
+                <span className="text-[9px] font-mono text-slate-400 dark:text-[#8696a0] bg-slate-100 dark:bg-black/30 px-1.5 py-0.2 rounded">
+                  AI Engineer
+                </span>
+              </div>
+
               {/* Render Agentic Workflow Trace if present */}
               {message.trace && message.trace.length > 1 && (
                 <VianAgentWorkflowTrace trace={message.trace} />
@@ -74,27 +102,32 @@ export function VianMessage({
 
               {/* Render Tool Action Cards if any */}
               {message.actions && message.actions.length > 0 && (
-                <div className="mt-3 space-y-2 border-t border-slate-100 dark:border-zinc-800/60 pt-2.5">
+                <div className="mt-3 space-y-2 border-t border-slate-100 dark:border-white/10 pt-2.5">
                   {message.actions.map((act) => (
                     <VianActionCard key={act.id} action={act} />
                   ))}
                 </div>
               )}
+
+              {/* WhatsApp Bubble Timestamp */}
+              <div className="flex items-center justify-end mt-1 text-[10px] text-slate-400 dark:text-[#8696a0] select-none">
+                <span>{timeString}</span>
+              </div>
             </div>
 
             {/* Assistant Action Buttons */}
             {message.content && !message.isError && (
-              <div className="mt-1.5 flex items-center gap-1.5 text-[11px] text-zinc-500 opacity-80 group-hover:opacity-100 transition-opacity">
+              <div className="mt-1 flex items-center gap-1.5 text-[10.5px] text-slate-500 dark:text-zinc-400 opacity-70 group-hover:opacity-100 transition-opacity">
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-zinc-800 hover:text-zinc-200 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
                   title="Copy response"
                 >
                   {copied ? (
                     <>
-                      <IconCheck className="h-3 w-3 text-emerald-400" />
-                      <span className="text-emerald-400">Copied</span>
+                      <IconCheck className="h-3 w-3 text-emerald-500" />
+                      <span className="text-emerald-500 font-medium">Copied</span>
                     </>
                   ) : (
                     <>
@@ -108,7 +141,7 @@ export function VianMessage({
                   <button
                     type="button"
                     onClick={onRegenerate}
-                    className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-zinc-800 hover:text-zinc-200 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
                     title="Regenerate response"
                   >
                     <IconRefresh className="h-3 w-3" />

@@ -1,33 +1,31 @@
-"use client";
-
 import React, { useMemo } from "react";
 import Image from "next/image";
-import { IconArrowUpRight, IconSparkles } from "@tabler/icons-react";
+import { IconSparkles, IconMessageCircle2 } from "@tabler/icons-react";
 
 interface VianEmptyStateProps {
   onSelectPrompt: (prompt: string) => void;
 }
 
-const PROMPT_SUGGESTIONS = [
+const WHATSAPP_PROMPT_CHIPS = [
   {
-    title: "Schedule a Meeting",
-    query: "Schedule a 30-minute sync with Vivek tomorrow at 4 PM to discuss AI collaboration.",
-    category: "Jarvis Action",
+    label: "👋 Hey Vivek! Kya chal raha hai?",
+    query: "Hey Vivek! Kaise ho bhai? Kya chal raha hai aaj kal?",
   },
   {
-    title: "Draft an Email to Vivek",
-    query: "Draft a concise email to Vivek proposing an AI hackathon partnership.",
-    category: "Jarvis Action",
+    label: "🚀 Flinders AI Hackathon Win",
+    query: "Tell me about your 2nd place win at Flinders University AI Hackathon!",
   },
   {
-    title: "Explore AI Projects",
-    query: "What are Vivek's top AI projects like BharatBhasha and Recipe Engine?",
-    category: "Portfolio",
+    label: "💡 Top AI Projects",
+    query: "What are your top AI builds like BharatBhasha AI and Reverse Recipe Engine?",
   },
   {
-    title: "Search AI Trends",
-    query: "Search latest trends in agentic AI and multi-agent systems.",
-    category: "Web Search",
+    label: "💼 Let's Collaborate on AI",
+    query: "I'd love to collaborate with you on an AI/ML project. How can we connect?",
+  },
+  {
+    label: "🍵 Chai & Tech Sync",
+    query: "Are you free for a quick chat about agentic AI and multi-agent systems?",
   },
 ];
 
@@ -40,51 +38,61 @@ export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
-      {/* Product Avatar Badge */}
-      <div className="mb-3 relative h-14 w-14 overflow-hidden rounded-full border-2 border-cyan-500/40 p-0.5 shadow-xl">
-        <Image
-          src="/vian-avatar.jpg"
-          alt="VIAN Avatar Logo"
-          fill
-          sizes="56px"
-          className="object-cover rounded-full"
-        />
+    <div className="flex flex-1 flex-col items-center justify-center p-4 sm:p-6 text-center select-none">
+      {/* WhatsApp Profile Avatar Card */}
+      <div className="relative mb-2.5">
+        <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-emerald-500/60 shadow-xl p-0.5">
+          <Image
+            src="/avatars/vivek.jpg"
+            alt="Vivek Hingu"
+            fill
+            sizes="80px"
+            className="object-cover rounded-full"
+            priority
+          />
+        </div>
+        {/* WhatsApp Online Indicator Badge */}
+        <span className="absolute bottom-1 right-1 h-4.5 w-4.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#202c33] flex items-center justify-center text-[10px] text-white">
+          ●
+        </span>
       </div>
 
-      <div className="flex items-center gap-1.5 text-xs font-semibold text-cyan-600 dark:text-cyan-400 font-mono mb-0.5">
-        <IconSparkles className="h-3.5 w-3.5" />
-        <span>{greeting}!</span>
+      {/* Name and Status */}
+      <div className="flex items-center gap-1.5 mb-0.5">
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[#e9edef] tracking-tight">
+          Vivek Hingu
+        </h3>
+        <span className="inline-flex items-center justify-center h-4 w-4 rounded-full bg-[#00a884] text-white text-[10px] shrink-0" title="Verified AI Engineer">
+          ✓
+        </span>
       </div>
 
-      <h3 className="text-base font-bold text-slate-900 dark:text-zinc-100 tracking-tight">
-        I&#39;m VIAN, your Autonomous Agent.
-      </h3>
-
-      <p className="mt-1 text-xs text-slate-600 dark:text-zinc-400 max-w-xs leading-relaxed font-sans">
-        I can search live facts, draft emails, schedule meetings, write code, or explore Vivek&#39;s AI portfolio.
+      <p className="text-xs font-mono font-medium text-emerald-600 dark:text-[#25d366]">
+        AI & Machine Learning Engineer
       </p>
 
-      {/* Suggested Questions Matrix */}
-      <div className="mt-5 grid w-full max-w-sm grid-cols-1 gap-2 sm:grid-cols-2">
-        {PROMPT_SUGGESTIONS.map((item) => (
-          <button
-            key={item.title}
-            type="button"
-            onClick={() => onSelectPrompt(item.query)}
-            className="group flex flex-col items-start justify-between rounded-xl border border-slate-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 p-3 text-left transition-all hover:border-cyan-500/50 hover:bg-slate-50 dark:hover:bg-zinc-900 shadow-sm hover:shadow-md cursor-pointer"
-          >
-            <div className="flex w-full items-center justify-between">
-              <span className="text-[10px] font-mono font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">
-                {item.category}
-              </span>
-              <IconArrowUpRight className="h-3.5 w-3.5 text-slate-400 dark:text-zinc-500 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cyan-600 dark:group-hover:text-cyan-300" />
-            </div>
-            <span className="mt-1.5 text-xs font-semibold text-slate-800 dark:text-zinc-200 group-hover:text-slate-950 dark:group-hover:text-white line-clamp-2">
-              {item.title}
-            </span>
-          </button>
-        ))}
+      {/* WhatsApp Status Quote */}
+      <div className="mt-2.5 max-w-xs px-3.5 py-1.5 rounded-xl bg-white/70 dark:bg-[#182229]/80 border border-slate-200/60 dark:border-white/5 text-[11px] text-slate-600 dark:text-[#8696a0] italic leading-relaxed">
+        &ldquo;Hey there! I am using WhatsApp • Building agentic AI systems & training neural nets in Ahmedabad 🇮🇳&rdquo;
+      </div>
+
+      {/* Quick WhatsApp Tap-to-Chat Chips */}
+      <div className="mt-4 w-full max-w-sm flex flex-col gap-2">
+        <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400 dark:text-[#8696a0]">
+          Tap to start chatting:
+        </span>
+        <div className="flex flex-wrap gap-1.5 justify-center">
+          {WHATSAPP_PROMPT_CHIPS.map((chip) => (
+            <button
+              key={chip.label}
+              type="button"
+              onClick={() => onSelectPrompt(chip.query)}
+              className="px-3 py-1.5 rounded-full bg-white dark:bg-[#202c33] border border-slate-200/80 dark:border-white/10 hover:border-[#00a884] dark:hover:border-[#25d366] text-xs font-medium text-slate-800 dark:text-[#e9edef] hover:text-[#00a884] dark:hover:text-[#25d366] shadow-2xs hover:shadow-sm transition-all hover:scale-[1.02] active:scale-95 cursor-pointer text-left"
+            >
+              {chip.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
