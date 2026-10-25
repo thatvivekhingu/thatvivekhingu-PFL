@@ -68,22 +68,22 @@ export default function Hero() {
   };
 
   return (
-    <div className="w-full pt-4 pb-8 sm:min-h-screen sm:pt-8 md:pt-12 sm:pb-12 relative flex flex-col items-center justify-center overflow-hidden">
+    <div className="w-full relative flex flex-col items-center justify-center overflow-hidden">
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative w-full max-w-7xl mx-auto px-4 flex flex-col items-center z-20">
             {/* Dual OpenCV Command Center: Left Air-Paint HUD, Center Avatar, Right Vision HUD */}
-            <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-6 lg:gap-4 my-1 sm:my-2">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-6 lg:gap-8 my-2">
               
               {/* Left Flank: OpenCV Virtual Air-Paint HUD (Desktop) */}
-              <div className="hidden lg:flex flex-col items-start justify-center shrink-0 z-30">
+              <div className="hidden lg:flex flex-col items-end justify-center shrink-0 z-30">
                 <OpenCvAirPaintHud />
               </div>
 
               {/* Center Avatar & Arc Reactor Showcase */}
               <div className="relative flex flex-col items-center justify-center z-30 mx-auto">
                 {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none opacity-35 dark:opacity-30 transition-opacity [mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)] [-webkit-mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)]">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none opacity-30 dark:opacity-25 transition-opacity [mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)] [-webkit-mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)]">
                   {/* Cyan/Teal Angled Ribbon (-3.5deg) */}
                   <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-2 sm:py-2.5 shadow-[0_0_15px_rgba(6,182,212,0.1)] border-y border-cyan-200/30">
                     <Marquee repeat={10} className="[--duration:28s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
@@ -157,15 +157,15 @@ export default function Hero() {
                   <div className="absolute inset-14 rounded-full bg-cyan-500/10 dark:bg-cyan-400/12 blur-xl pointer-events-none" />
                 </div>
 
-                {/* Ultra-Sleek Avatar Core (Replaces ID Card) */}
-                <div className="relative group cursor-pointer z-30 my-3">
+                {/* Ultra-Sleek Avatar Core */}
+                <div className="relative group cursor-pointer z-30 my-2">
                   <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 opacity-70 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse" />
-                  <div className="relative h-32 w-32 sm:h-38 sm:w-38 md:h-42 md:w-42 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_25px_rgba(6,182,212,0.35)] bg-slate-950">
+                  <div className="relative h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_25px_rgba(6,182,212,0.35)] bg-slate-950">
                     <Image
                       src="/avatars/vivek.jpg"
                       alt="Vivek Hingu"
                       fill
-                      sizes="(max-width: 640px) 128px, 168px"
+                      sizes="(max-width: 640px) 112px, 160px"
                       className="object-cover group-hover:scale-108 transition-transform duration-500"
                       priority
                     />
@@ -199,19 +199,20 @@ export default function Hero() {
                   </span>
                 </ShimmerButton>
 
+                {/* Visitor Badge below avatar */}
                 <div className="mt-2 flex justify-center">
                   <VisitorBadge />
                 </div>
               </div>
 
               {/* Right Flank: Real-Time OpenCV Vision Matrix HUD (Desktop) */}
-              <div className="hidden lg:flex flex-col items-end justify-center shrink-0 z-30">
+              <div className="hidden lg:flex flex-col items-start justify-center shrink-0 z-30">
                 <OpenCvVisionHud />
               </div>
             </div>
 
             {/* Mobile/Tablet Interactive OpenCV Dual-HUD Switcher (< lg screens) */}
-            <div className="lg:hidden w-full max-w-sm mt-6 mb-2 px-2 flex flex-col items-center z-30">
+            <div className="lg:hidden w-full max-w-sm mt-4 mb-2 px-2 flex flex-col items-center z-30">
               <div className="flex p-1 rounded-full bg-black/60 border border-white/10 mb-3 text-xs font-mono">
                 <button
                   type="button"
@@ -244,7 +245,8 @@ export default function Hero() {
               )}
             </div>
 
-            <div className="w-full space-y-3 sm:space-y-4 pt-1 sm:pt-2">
+            {/* Identity & Actions directly below Image */}
+            <div className="w-full space-y-3 sm:space-y-4 pt-4 sm:pt-6 text-center z-30">
               <div className="z-50 text-center px-2">
                 <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight break-words sm:whitespace-nowrap select-none">
                   <span className="text-foreground">Hi, I&#39;m </span>
