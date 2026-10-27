@@ -11,8 +11,6 @@ import { AnimatedName } from "@/components/ui/animated-name";
 import { VisitorBadge } from "@/components/ui/visitor-badge";
 import { ResumeModal } from "@/components/ui/resume-modal";
 import { Marquee } from "@/components/ui/marquee";
-import { OpenCvHandDrawHud } from "@/components/home/opencv-hand-draw-hud";
-import { OpenCvFaceDetectionHud } from "@/components/home/opencv-face-detection-hud";
 import {
   Tooltip,
   TooltipContent,
@@ -25,7 +23,6 @@ import { data } from "@/data/data";
 export default function Hero() {
   const [wiggleIcon, setWiggleIcon] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [mobileActiveHud, setMobileActiveHud] = useState<"handdraw" | "facedetect">("handdraw");
 
   const { status, dotColor } = getStatus();
 
@@ -72,178 +69,130 @@ export default function Hero() {
       <TooltipProvider>
         <BlurFade delay={0.005} inView>
           <div className="relative w-full max-w-7xl mx-auto px-4 flex flex-col items-center z-20">
-            {/* Dual Computer Vision Command Center: Left Hand-Draw HUD, Center Avatar & Concentric Orbit, Right Face-Detect HUD */}
-            <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-6 lg:gap-8 my-2">
-              
-              {/* Left Flank: AI Hand Detection & Air Draw HUD (Desktop) */}
-              <div className="hidden lg:flex flex-col items-end justify-center shrink-0 z-30">
-                <OpenCvHandDrawHud />
-              </div>
-
-              {/* Center Avatar & Arc Reactor Showcase */}
-              <div className="relative flex flex-col items-center justify-center z-30 mx-auto">
-                {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none opacity-30 dark:opacity-25 transition-opacity [mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)] [-webkit-mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)]">
-                  {/* Cyan/Teal Angled Ribbon (-3.5deg) */}
-                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-2 sm:py-2.5 shadow-[0_0_15px_rgba(6,182,212,0.1)] border-y border-cyan-200/30">
-                    <Marquee repeat={10} className="[--duration:28s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-                      <span>AI/ML</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>GENAI</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>COMPUTER VISION</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>PYTHON</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>AGENTIC AI</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                    </Marquee>
-                  </div>
-
-                  {/* Violet/Indigo Angled Ribbon (+3.5deg) */}
-                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-2 sm:py-2.5 shadow-[0_0_15px_rgba(129,140,248,0.1)] border-y border-indigo-200/30">
-                    <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
-                      <span>AI/ML</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>GENAI</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>COMPUTER VISION</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>PYTHON</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                      <span>AGENTIC AI</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
-                    </Marquee>
-                  </div>
+            {/* Center Avatar & Arc Reactor Showcase */}
+            <div className="relative flex flex-col items-center justify-center z-30 mx-auto my-3">
+              {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none opacity-30 dark:opacity-25 transition-opacity [mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)] [-webkit-mask-image:radial-gradient(ellipse_460px_600px_at_center,transparent_45%,black_75%)]">
+                {/* Cyan/Teal Angled Ribbon (-3.5deg) */}
+                <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-2 sm:py-2.5 shadow-[0_0_15px_rgba(6,182,212,0.1)] border-y border-cyan-200/30">
+                  <Marquee repeat={10} className="[--duration:28s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                    <span>AI/ML</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>GENAI</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>COMPUTER VISION</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>PYTHON</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>AGENTIC AI</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                  </Marquee>
                 </div>
 
-                {/* Ultra-Sleek Avatar Core & Concentric Marvel Arc Reactor Orbit */}
-                <div className="relative group cursor-pointer z-30 my-3 flex items-center justify-center">
-                  {/* Concentric Marvel Arc Reactor & Avengers Orbit - Centered mathematically on Avatar Image */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] md:w-[470px] md:h-[470px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-25 dark:opacity-30 transition-opacity duration-500">
-                    <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
-                      <svg
-                        viewBox="0 0 400 400"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-full h-full text-cyan-400/60 dark:text-cyan-400/70 drop-shadow-[0_0_10px_rgba(34,211,238,0.25)]"
-                      >
-                        <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1.2" strokeDasharray="6 8" />
-                        <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.5" opacity="0.75" />
-                        <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1.2" strokeDasharray="16 6" />
-                        <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" opacity="0.8" />
-                        <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1.2" strokeDasharray="8 12" />
-                        <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
-
-                        {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
-                          <line
-                            key={deg}
-                            x1="200"
-                            y1="8"
-                            x2="200"
-                            y2="26"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            transform={`rotate(${deg} 200 200)`}
-                          />
-                        ))}
-
-                        <g transform="translate(100, 100) scale(1)">
-                          <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3" strokeDasharray="140 30" opacity="0.85" />
-                          <path d="M30 115 L160 115 L145 95 L25 95 Z" fill="currentColor" opacity="0.8" />
-                          <polygon points="155,90 185,105 155,120" fill="currentColor" />
-                          <polygon points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145" fill="currentColor" />
-                        </g>
-                      </svg>
-                    </div>
-                    <div className="absolute inset-10 rounded-full bg-cyan-500/10 dark:bg-cyan-400/12 blur-xl pointer-events-none" />
-                  </div>
-
-                  {/* Gradient Ring & Photo */}
-                  <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 opacity-70 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse" />
-                  <div className="relative h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_25px_rgba(6,182,212,0.35)] bg-slate-950 z-20">
-                    <Image
-                      src="/avatars/vivek.jpg"
-                      alt="Vivek Hingu"
-                      fill
-                      sizes="(max-width: 640px) 112px, 160px"
-                      className="object-cover group-hover:scale-108 transition-transform duration-500"
-                      priority
-                    />
-                  </div>
-                  {/* Verified AI Pulse Indicator */}
-                  <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 rounded-full bg-slate-950 border-2 border-cyan-400 shadow-md z-30">
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                  </div>
-                </div>
-
-                {/* Status Shimmer Button */}
-                <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-1">
-                  <div className="z-50 relative flex items-center justify-center">
-                    <div
-                      className={`absolute h-1.5 w-1.5 rounded-full border-1 ${
-                        dotColor === "green"
-                          ? "border-green-600/80 bg-green-500 animate-ping"
-                          : "border-orange-600/80 bg-orange-500 animate-ping"
-                      } mr-2`}
-                    />
-                    <div
-                      className={`relative h-1 w-1 rounded-full border-1 ${
-                        dotColor === "green"
-                          ? "border-green-600/80 bg-green-500 animate-pulse"
-                          : "border-orange-600/80 bg-orange-500 animate-pulse"
-                      } mr-2`}
-                    />
-                  </div>
-                  <span className="whitespace-pre-wrap text-center font-semibold leading-none text-muted-foreground text-xs sm:text-sm py-[0.5]">
-                    {status}
-                  </span>
-                </ShimmerButton>
-
-                {/* Visitor Badge below avatar */}
-                <div className="mt-2 flex justify-center">
-                  <VisitorBadge />
+                {/* Violet/Indigo Angled Ribbon (+3.5deg) */}
+                <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-2 sm:py-2.5 shadow-[0_0_15px_rgba(129,140,248,0.1)] border-y border-indigo-200/30">
+                  <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                    <span>AI/ML</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>GENAI</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>COMPUTER VISION</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>PYTHON</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                    <span>AGENTIC AI</span>
+                    <span className="mx-3 text-zinc-950 font-black">•</span>
+                  </Marquee>
                 </div>
               </div>
 
-              {/* Right Flank: AI Neural Face Detection & Mesh HUD (Desktop) */}
-              <div className="hidden lg:flex flex-col items-start justify-center shrink-0 z-30">
-                <OpenCvFaceDetectionHud />
-              </div>
-            </div>
+              {/* Ultra-Sleek Avatar Core & Concentric Marvel Arc Reactor Orbit */}
+              <div className="relative group cursor-pointer z-30 my-3 flex items-center justify-center">
+                {/* Concentric Marvel Arc Reactor & Avengers Orbit - Centered mathematically on Avatar Image */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] md:w-[480px] md:h-[480px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-25 dark:opacity-30 transition-opacity duration-500">
+                  <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
+                    <svg
+                      viewBox="0 0 400 400"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-full h-full text-cyan-400/60 dark:text-cyan-400/70 drop-shadow-[0_0_10px_rgba(34,211,238,0.25)]"
+                    >
+                      <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1.2" strokeDasharray="6 8" />
+                      <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.5" opacity="0.75" />
+                      <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1.2" strokeDasharray="16 6" />
+                      <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" opacity="0.8" />
+                      <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1.2" strokeDasharray="8 12" />
+                      <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
 
-            {/* Mobile/Tablet Interactive Dual-HUD Switcher (< lg screens) */}
-            <div className="lg:hidden w-full max-w-sm mt-4 mb-2 px-2 flex flex-col items-center z-30">
-              <div className="flex p-1 rounded-full bg-black/60 border border-white/10 mb-3 text-xs font-mono">
-                <button
-                  type="button"
-                  onClick={() => setMobileActiveHud("handdraw")}
-                  className={`px-3 py-1 rounded-full font-semibold transition-all cursor-pointer ${
-                    mobileActiveHud === "handdraw"
-                      ? "bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 shadow-sm"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  ✋ Hand Draw
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMobileActiveHud("facedetect")}
-                  className={`px-3 py-1 rounded-full font-semibold transition-all cursor-pointer ${
-                    mobileActiveHud === "facedetect"
-                      ? "bg-purple-500/30 text-purple-300 border border-purple-400/50 shadow-sm"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  👤 Face Detect
-                </button>
+                      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+                        <line
+                          key={deg}
+                          x1="200"
+                          y1="8"
+                          x2="200"
+                          y2="26"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          transform={`rotate(${deg} 200 200)`}
+                        />
+                      ))}
+
+                      <g transform="translate(100, 100) scale(1)">
+                        <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3" strokeDasharray="140 30" opacity="0.85" />
+                        <path d="M30 115 L160 115 L145 95 L25 95 Z" fill="currentColor" opacity="0.8" />
+                        <polygon points="155,90 185,105 155,120" fill="currentColor" />
+                        <polygon points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145" fill="currentColor" />
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="absolute inset-10 rounded-full bg-cyan-500/10 dark:bg-cyan-400/12 blur-xl pointer-events-none" />
+                </div>
+
+                {/* Gradient Ring & Photo */}
+                <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 opacity-70 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse" />
+                <div className="relative h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_25px_rgba(6,182,212,0.35)] bg-slate-950 z-20">
+                  <Image
+                    src="/avatars/vivek.jpg"
+                    alt="Vivek Hingu"
+                    fill
+                    sizes="(max-width: 640px) 112px, 160px"
+                    className="object-cover group-hover:scale-108 transition-transform duration-500"
+                    priority
+                  />
+                </div>
+                {/* Verified AI Pulse Indicator */}
+                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 rounded-full bg-slate-950 border-2 border-cyan-400 shadow-md z-30">
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                </div>
               </div>
 
-              {mobileActiveHud === "handdraw" ? (
-                <OpenCvHandDrawHud />
-              ) : (
-                <OpenCvFaceDetectionHud />
-              )}
+              {/* Status Shimmer Button */}
+              <ShimmerButton onClick={handleShimmerButtonClick} className="z-50 mt-1">
+                <div className="z-50 relative flex items-center justify-center">
+                  <div
+                    className={`absolute h-1.5 w-1.5 rounded-full border-1 ${
+                      dotColor === "green"
+                        ? "border-green-600/80 bg-green-500 animate-ping"
+                        : "border-orange-600/80 bg-orange-500 animate-ping"
+                    } mr-2`}
+                  />
+                  <div
+                    className={`relative h-1 w-1 rounded-full border-1 ${
+                      dotColor === "green"
+                        ? "border-green-600/80 bg-green-500 animate-pulse"
+                        : "border-orange-600/80 bg-orange-500 animate-pulse"
+                    } mr-2`}
+                  />
+                </div>
+                <span className="whitespace-pre-wrap text-center font-semibold leading-none text-muted-foreground text-xs sm:text-sm py-[0.5]">
+                  {status}
+                </span>
+              </ShimmerButton>
+
+              {/* Visitor Badge below avatar */}
+              <div className="mt-2 flex justify-center">
+                <VisitorBadge />
+              </div>
             </div>
 
             {/* Identity & Actions directly below Image */}
