@@ -259,6 +259,28 @@ export const data = {
       thumbnail: "/projects/startup-predictor.jpg",
       video: "",
     },
+    {
+      title: "AI Hand Gesture Air-Canvas & Virtual Drawing",
+      href: "https://github.com/thatvivekhingu/OpenCV",
+      dates: "2024",
+      active: true,
+      type: "Computer Vision & HCI",
+      technologies: ["OpenCV", "MediaPipe", "Python", "Computer Vision", "Gesture Recognition"],
+      description: "Engineered a touchless air-drawing and gesture control suite using MediaPipe 21-point hand landmark tracking and OpenCV. Enables real-time fingertip trajectory plotting, pinch-to-draw mechanics, dynamic gesture classification, and zero-latency canvas manipulation.",
+      thumbnail: "/projects/ml-vault.svg",
+      video: "",
+    },
+    {
+      title: "Real-Time Neural Face Mesh & Landmark Tracker",
+      href: "https://github.com/thatvivekhingu/OpenCV",
+      dates: "2024",
+      active: true,
+      type: "Computer Vision & Deep Learning",
+      technologies: ["OpenCV", "MediaPipe", "Deep Learning", "Facial Landmark Mesh", "Head Pose Estimation"],
+      description: "Developed a 468-point neural face mesh detector and biometric telemetry system. Tracks 3D head pose orientation (Yaw, Pitch, Roll), real-time facial expressions, eye blink metrics (EAR), and provides cybernetic bounding box diagnostics at 60 FPS.",
+      thumbnail: "/projects/bharat-bhasha.svg",
+      video: "",
+    },
   ] as ProjectItem[],
 
   certificates: [
