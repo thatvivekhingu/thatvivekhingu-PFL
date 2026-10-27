@@ -24,8 +24,8 @@ export const AnimatedLogo = ({
         src="/logo/personal-logo.png"
         alt="Vivek Hingu Logo"
         fill
-        sizes="40px"
-        className="object-cover rounded-full scale-[1.45]"
+        sizes="48px"
+        className="object-cover rounded-full"
         priority
       />
     </motion.div>
