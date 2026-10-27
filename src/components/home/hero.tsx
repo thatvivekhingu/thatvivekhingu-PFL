@@ -8,7 +8,6 @@ import { ShimmerBorder } from "@/components/ui/shimmer-border";
 import { IconArrowRight, IconFileText } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { AnimatedName } from "@/components/ui/animated-name";
-import { VisitorBadge } from "@/components/ui/visitor-badge";
 import { ResumeModal } from "@/components/ui/resume-modal";
 import { Marquee } from "@/components/ui/marquee";
 import {
@@ -192,15 +191,10 @@ export default function Hero() {
                   {status}
                 </span>
               </ShimmerButton>
-
-              {/* Visitor Badge below avatar */}
-              <div className="mt-2 flex justify-center">
-                <VisitorBadge />
-              </div>
             </div>
 
             {/* Identity & Actions directly below Image */}
-            <div className="w-full space-y-3 sm:space-y-4 pt-4 sm:pt-6 text-center z-30">
+            <div className="w-full space-y-2.5 sm:space-y-3 pt-1 sm:pt-2 text-center z-30">
               <div className="z-50 text-center px-2">
                 <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight break-words sm:whitespace-nowrap select-none">
                   <span className="text-foreground">Hi, I&#39;m </span>
