@@ -49,9 +49,9 @@ export const metadata: Metadata = {
   description: "Personal portfolio of Vivek Hingu, AI/ML Engineer specializing in machine learning, voice systems, and modern AI applications.",
   icons: {
     icon: [
-      { url: "/logo/personal-logo.jpg", type: "image/jpeg" },       
-      { url: "/favicon-196.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon.ico" },
+      { url: "/favicon-196.png", sizes: "196x196", type: "image/png" },
+      { url: "/logo/personal-logo.png", type: "image/png" },
     ],
     apple: [{ url: "/apple-icon-180.png", sizes: "180x180" }],
   },
