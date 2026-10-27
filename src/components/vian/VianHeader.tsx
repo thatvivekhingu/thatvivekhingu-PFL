@@ -201,7 +201,11 @@ export function VianHeader({
                     onToggleHistory();
                     setShowOptions(false);
                   }}
-                  className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-left text-xs font-semibold"
+                  className={`flex items-center gap-2.5 p-2.5 rounded-xl transition-colors text-left text-xs font-semibold ${
+                    isHistoryOpen
+                      ? "bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30"
+                      : "bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10"
+                  }`}
                 >
                   <div className="h-7 w-7 rounded-lg bg-blue-500/15 text-blue-500 flex items-center justify-center shrink-0">
                     <IconHistory className="h-4 w-4 stroke-[2.2]" />
@@ -217,7 +221,11 @@ export function VianHeader({
                       onToggleMemory();
                       setShowOptions(false);
                     }}
-                    className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-left text-xs font-semibold relative"
+                    className={`flex items-center gap-2.5 p-2.5 rounded-xl transition-colors text-left text-xs font-semibold relative ${
+                      isMemoryOpen
+                        ? "bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30"
+                        : "bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10"
+                    }`}
                   >
                     <div className="h-7 w-7 rounded-lg bg-purple-500/15 text-purple-500 flex items-center justify-center shrink-0">
                       <IconBrain className="h-4 w-4 stroke-[2.2]" />

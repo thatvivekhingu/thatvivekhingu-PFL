@@ -1,6 +1,5 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Image from "next/image";
-import { IconSparkles, IconMessageCircle2 } from "@tabler/icons-react";
 
 interface VianEmptyStateProps {
   onSelectPrompt: (prompt: string) => void;
@@ -30,13 +29,6 @@ const WHATSAPP_PROMPT_CHIPS = [
 ];
 
 export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
-  const greeting = useMemo(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) return "Good morning";
-    if (hour < 18) return "Good afternoon";
-    return "Good evening";
-  }, []);
-
   return (
     <div className="flex flex-1 flex-col items-center justify-center p-4 sm:p-6 text-center select-none">
       {/* WhatsApp Profile Avatar Card */}

@@ -20,10 +20,8 @@ import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandInstagram,
-  IconFlame,
   IconCoffee,
   IconCrown,
-  IconArrowDown,
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { BlurFade } from "@/components/ui/blur-fade";
