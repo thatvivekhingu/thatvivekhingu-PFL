@@ -11,6 +11,7 @@ import { CommandPalette } from "@/components/command-palette/command-palette";
 import { getAllPosts } from "@/lib/blog";
 import { ViewTransitions } from "next-view-transitions";
 import { VianAssistant } from "@/components/vian/VianAssistant";
+import { HangingMascot } from "@/components/ui/hanging-mascot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -93,6 +94,7 @@ export default function RootLayout({
         >
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <Navbar navItems={data.nav} />
+            <HangingMascot />
             <CommandPalette posts={palettePosts} />
             <Image
               src="/layout/background-ellipse3.svg"
