@@ -73,59 +73,59 @@ export default function Hero() {
               {/* Ultra-Sleek Avatar Core with Concentric Marvel Arc Reactor Orbit & Full-Bleed Angled Ribbons */}
               <div className="relative group cursor-pointer z-30 my-3 flex items-center justify-center">
                 {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer - Centered Mathematically Behind Avatar */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none opacity-80 dark:opacity-75 transition-opacity">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none opacity-85 dark:opacity-80 transition-opacity">
                   {/* Cyan/Teal Angled Ribbon (-3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-3 sm:py-3.5 shadow-[0_0_20px_rgba(6,182,212,0.2)] border-y border-cyan-200/50">
-                    <Marquee repeat={10} className="[--duration:28s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-4 sm:py-5 md:py-5.5 shadow-[0_0_24px_rgba(6,182,212,0.22)] border-y-2 border-cyan-200/60">
+                    <Marquee repeat={10} className="[--duration:28s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.22em] text-zinc-950 uppercase">
                       <span>VIVEK HINGU // AI & ML ENGINEER</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>JARVIS & AGENTIC AI</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>AUTONOMOUS AGENTS</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>NEURAL NETWORKS</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>DATA SCIENCE & PYTHON</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>COMPUTER VISION</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                     </Marquee>
                   </div>
 
                   {/* Violet/Indigo Angled Ribbon (+3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-3 sm:py-3.5 shadow-[0_0_20px_rgba(129,140,248,0.2)] border-y border-indigo-200/50">
-                    <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-xs sm:text-sm font-black font-mono tracking-[0.2em] text-zinc-950 uppercase">
+                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-4 sm:py-5 md:py-5.5 shadow-[0_0_24px_rgba(129,140,248,0.22)] border-y-2 border-indigo-200/60">
+                    <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.22em] text-zinc-950 uppercase">
                       <span>BHARATBHASHA AI</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>REAL-TIME STREAMING</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>HACKATHON WINNER</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>DISRUPT & DEPLOY</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>GENAI ARCHITECT</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                       <span>FLINDERS AI WINNER</span>
-                      <span className="mx-3 text-zinc-950 font-black">•</span>
+                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
                     </Marquee>
                   </div>
                 </div>
 
                 {/* Concentric Marvel Arc Reactor & Avengers Orbit - Centered mathematically on Avatar Image */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] sm:w-[580px] sm:h-[580px] md:w-[660px] md:h-[660px] lg:w-[720px] lg:h-[720px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-40 dark:opacity-45 hover:opacity-60 transition-opacity duration-500">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] sm:w-[580px] sm:h-[580px] md:w-[660px] md:h-[660px] lg:w-[720px] lg:h-[720px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-20 dark:opacity-25 hover:opacity-35 transition-opacity duration-500">
                   <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
                     <svg
                       viewBox="0 0 400 400"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-full h-full text-cyan-400/65 dark:text-cyan-400/75 drop-shadow-[0_0_14px_rgba(34,211,238,0.35)]"
+                      className="w-full h-full text-cyan-400/40 dark:text-cyan-400/45 drop-shadow-[0_0_8px_rgba(34,211,238,0.18)]"
                     >
-                      <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1.2" strokeDasharray="6 8" />
-                      <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.5" opacity="0.8" />
-                      <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1.2" strokeDasharray="16 6" />
-                      <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" opacity="0.85" />
-                      <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1.2" strokeDasharray="8 12" />
-                      <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.5" opacity="0.75" />
+                      <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1" strokeDasharray="6 8" />
+                      <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.2" opacity="0.7" />
+                      <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1" strokeDasharray="16 6" />
+                      <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.75" />
+                      <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1" strokeDasharray="8 12" />
+                      <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.2" opacity="0.65" />
 
                       {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
                         <line
@@ -135,37 +135,37 @@ export default function Hero() {
                           x2="200"
                           y2="26"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           transform={`rotate(${deg} 200 200)`}
                         />
                       ))}
 
                       <g transform="translate(100, 100) scale(1)">
-                        <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="3" strokeDasharray="140 30" opacity="0.85" />
-                        <path d="M30 115 L160 115 L145 95 L25 95 Z" fill="currentColor" opacity="0.8" />
+                        <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="2.5" strokeDasharray="140 30" opacity="0.75" />
+                        <path d="M30 115 L160 115 L145 95 L25 95 Z" fill="currentColor" opacity="0.7" />
                         <polygon points="155,90 185,105 155,120" fill="currentColor" />
                         <polygon points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145" fill="currentColor" />
                       </g>
                     </svg>
                   </div>
-                  <div className="absolute inset-10 rounded-full bg-cyan-500/12 dark:bg-cyan-400/18 blur-2xl pointer-events-none" />
+                  <div className="absolute inset-10 rounded-full bg-cyan-500/8 dark:bg-cyan-400/10 blur-2xl pointer-events-none" />
                 </div>
 
                 {/* Gradient Ring & Photo */}
-                <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 opacity-70 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse" />
-                <div className="relative h-28 w-28 sm:h-36 sm:w-36 md:h-40 md:w-40 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_25px_rgba(6,182,212,0.35)] bg-slate-950 z-20">
+                <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 opacity-70 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse" />
+                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_30px_rgba(6,182,212,0.35)] bg-slate-950 z-20">
                   <Image
                     src="/avatars/vivek.jpg"
                     alt="Vivek Hingu"
                     fill
-                    sizes="(max-width: 640px) 112px, 160px"
+                    sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, 208px"
                     className="object-cover group-hover:scale-108 transition-transform duration-500"
                     priority
                   />
                 </div>
                 {/* Verified AI Pulse Indicator */}
-                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 rounded-full bg-slate-950 border-2 border-cyan-400 shadow-md z-30">
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 md:bottom-2.5 md:right-2.5 flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-full bg-slate-950 border-2 border-cyan-400 shadow-md z-30">
+                  <span className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-emerald-400 animate-pulse" />
                 </div>
               </div>
 
