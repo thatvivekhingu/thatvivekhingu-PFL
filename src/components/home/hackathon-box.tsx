@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { playTapSound } from "@/lib/sound";
 
 export default function HackathonBox() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [activeCertificate, setActiveCertificate] = useState<HackathonCertificateItem | null>(null);
 
   const hackathons = data.hackathons || [];

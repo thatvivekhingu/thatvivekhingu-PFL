@@ -99,30 +99,17 @@ export default function Achievements() {
   };
 
   return (
-    <div className="flex flex-col space-y-12 w-full">
+    <div className="flex flex-col space-y-6 sm:space-y-10 w-full">
       {/* ============================================================== */}
       {/* EDITORIAL MANGA CHAPTER FRAME (EDGE-TO-EDGE)                   */}
       {/* ============================================================== */}
-      <div className="relative w-full border-y-2 border-black bg-[#EAE6DF] text-black shadow-[0_20px_50px_rgba(0,0,0,0.65)] select-none overflow-hidden">
-        {/* EDITORIAL CHAPTER HEADER (AWARDS & ACHIEVEMENTS) */}
-        <div className="relative px-4 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-10 border-b-2 border-black bg-[#EAE6DF] overflow-hidden">
-          {/* Chapter Monospace Tag: 第三章 // CHAPTER 03 - HONORS & RECOGNITION */}
-          <div className="flex items-center gap-2 mb-2 relative z-10">
-            <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#B92B27] uppercase">
-              第三章 {"//"} CHAPTER 03 - HONORS &amp; RECOGNITION
-            </span>
-          </div>
-
-          {/* Massive Display Headline: AWARDS & ACHIEVEMENTS */}
-          <h2 className="font-[family-name:var(--font-anton)] text-4xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight leading-[0.9] uppercase relative z-10">
-            <span className="text-[#1E3A8A]">AWARDS</span>{" "}
-            <span className="text-[#121212]">&amp; ACHIEVEMENTS</span>
+      <div className="relative w-full border-y border-white/10 bg-[#0A0A0A] select-none overflow-hidden">
+        {/* AWARDS & ACHIEVEMENTS HEADLINE (NO BACKGROUND COLOR, CLEAN & BOLD) */}
+        <div className="relative px-3 sm:px-6 md:px-8 lg:px-12 pt-3 sm:pt-6 pb-2 sm:pb-3 overflow-hidden">
+          <h2 className="font-[family-name:var(--font-anton)] text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none uppercase">
+            <span className="text-[#3B82F6]">AWARDS</span>{" "}
+            <span className="text-white">&amp; ACHIEVEMENTS</span>
           </h2>
-
-          {/* Subtitle */}
-          <p className="text-xs sm:text-sm md:text-[15px] text-neutral-800 font-sans font-medium mt-2 max-w-2xl leading-relaxed relative z-10">
-            Celebrating the milestones, victories, and team triumphs that push my engineering boundary.
-          </p>
         </div>
 
         {/* OUTER COMIC CONTAINER (PITCH-BLACK GUTTER FRAME #0A0A0A - BLEEDS EDGE-TO-EDGE) */}
@@ -570,7 +557,7 @@ export default function Achievements() {
       {/* ============================================================== */}
       {/* 3. CERTIFICATIONS & SPECIALIZATIONS MARQUEE */}
       {/* ============================================================== */}
-      <div className="space-y-6 pt-2 mx-auto max-w-5xl px-4 w-full">
+      <div className="space-y-4 sm:space-y-6 pt-2 w-full px-2 sm:px-6 md:px-8 lg:px-12">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
             <IconCertificate className="h-5 w-5 text-amber-400" />
