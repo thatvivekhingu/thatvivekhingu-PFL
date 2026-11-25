@@ -41,7 +41,7 @@ export const Footer = () => {
 
   // 3D tilt tracking for manga book
   const bookCardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 6, y: -14 });
+  const [tilt, setTilt] = useState({ x: 6, y: -22 });
 
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -68,13 +68,16 @@ export const Footer = () => {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotateX = ((y - centerY) / centerY) * -12;
-    const rotateY = ((x - centerX) / centerX) * 12;
+    const normX = (x - centerX) / centerX;
+    const normY = (y - centerY) / centerY;
+
+    const rotateY = Math.max(-32, Math.min(-8, -22 + normX * 12));
+    const rotateX = Math.max(-8, Math.min(12, 6 - normY * 8));
     setTilt({ x: rotateX, y: rotateY });
   };
 
   const handleMouseLeave = () => {
-    setTilt({ x: 6, y: -14 });
+    setTilt({ x: 6, y: -22 });
   };
 
   const handleBookClick = () => {
@@ -426,14 +429,14 @@ export const Footer = () => {
             </h2>
           </div>
 
-          {/* Right Side: Interactive 3D Manga Book Mockup (Click to Flip!) */}
+          {/* Right Side: Realistic 3D Japanese Manga Tankobon Volume Book (Click to Flip!) */}
           <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center">
             <div
               ref={bookCardRef}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               onClick={handleBookClick}
-              className="relative group cursor-pointer [perspective:1400px]"
+              className="relative group cursor-pointer [perspective:1400px] select-none"
               title="Click to flip manga volume!"
             >
               {/* Background 4-pointed silver star sparkle */}
@@ -447,11 +450,12 @@ export const Footer = () => {
                 </svg>
               </div>
 
-              {/* 3D Tilted & Flippable Book Container */}
+              {/* 3D Tilted & Flippable Tankōbon Volume Container */}
               <motion.div
                 animate={{
-                  rotateX: motionEnabled ? tilt.x : 0,
-                  rotateY: isFlipped ? 180 : motionEnabled ? tilt.y : 0,
+                  rotateX: isFlipped ? -6 : motionEnabled ? tilt.x : 6,
+                  rotateY: isFlipped ? 165 : motionEnabled ? tilt.y : -22,
+                  rotateZ: isFlipped ? 3 : -3,
                 }}
                 transition={{
                   duration: isFlipped ? 0.7 : 0.25,
@@ -460,156 +464,168 @@ export const Footer = () => {
                 style={{
                   transformStyle: "preserve-3d",
                 }}
-                className="relative z-10 w-[270px] sm:w-[300px] md:w-[325px] aspect-[1/1.42] rounded-[4px] shadow-[12px_14px_0px_var(--accent-color,#B92B27),18px_22px_0px_#171717,26px_32px_45px_rgba(0,0,0,0.85)] transition-shadow duration-300"
+                className="relative z-10 w-[280px] h-[380px] [filter:drop-shadow(-24px_32px_28px_rgba(0,0,0,0.75))] transition-shadow duration-300"
               >
-                {/* --- FRONT COVER --- */}
+                {/* --- FRONT COVER (translateZ: 18px) --- */}
                 <div
-                  className="absolute inset-0 w-full h-full rounded-[4px] bg-[#FAF9F5] text-black border-2 border-black p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden [backface-visibility:hidden]"
-                  style={{
-                    backgroundColor: "#FAF9F5",
-                  }}
+                  className="absolute inset-0 w-full h-full rounded-[3px] overflow-hidden border border-black/80 [transform:translateZ(18px)] [backface-visibility:hidden] bg-[#121212]"
                 >
-                  {/* Spine Strip on Left Edge (Color bound to active accent) */}
-                  <div
-                    className="absolute left-0 top-0 bottom-0 w-3.5 border-r-2 border-black flex flex-col justify-between py-4 items-center transition-colors duration-300"
-                    style={{ backgroundColor: activeAccent.hex }}
-                  >
-                    <div className="w-1 h-6 bg-white/40 rounded-full" />
-                    <div className="w-1 h-6 bg-white/40 rounded-full" />
-                    <div className="w-1 h-6 bg-white/40 rounded-full" />
-                  </div>
+                  {/* Front Cover Image Artwork */}
+                  <Image
+                    src="/images/manga-cover.png"
+                    alt="Vivek Hingu Manga Volume 01 Cover"
+                    fill
+                    sizes="280px"
+                    priority
+                    className="object-cover w-full h-full"
+                  />
 
-                  {/* Front Cover Inside Content */}
-                  <div className="pl-3.5 flex flex-col justify-between h-full">
-                    {/* Top Header */}
-                    <div className="flex items-start justify-between">
-                      {/* Monogram VH badge */}
-                      <div className="bg-black text-white px-2.5 py-1 text-xs font-black tracking-widest uppercase rounded-[2px] font-sans shadow-sm">
-                        VH
-                      </div>
+                  {/* Paper Grain & Lighting Sheen */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/15 pointer-events-none" />
 
-                      {/* VOL. 01 & Builder Box */}
-                      <div className="flex flex-col items-end">
-                        <span className="font-[family-name:var(--font-anton)] text-sm tracking-wider uppercase text-black">
-                          VOL. 01
-                        </span>
-                        <div className="mt-1 border border-black/80 px-1.5 py-0.5 text-[8px] font-bold leading-tight uppercase tracking-tight text-center bg-white/95 shadow-sm">
-                          AI/ML<br />ENGINEER<br />&amp; BUILDER
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Manga Halftone & Ink Framed Portrait */}
-                    <div className="relative my-2 w-full aspect-square rounded-md border-2 border-black overflow-hidden bg-white shadow-inner flex items-center justify-center">
-                      {/* Halftone Manga Rays Background */}
-                      <div
-                        className="absolute inset-0 opacity-25 pointer-events-none"
-                        style={{
-                          backgroundImage: "radial-gradient(#000 1.5px, transparent 1.5px)",
-                          backgroundSize: "6px 6px",
-                        }}
-                      />
-                      {/* Comic Radial Speed Lines */}
-                      <svg
-                        className="absolute inset-0 w-full h-full opacity-15 pointer-events-none"
-                        viewBox="0 0 100 100"
-                      >
-                        <circle cx="50" cy="50" r="48" fill="none" stroke="#000" strokeWidth="0.5" strokeDasharray="1,2" />
-                        <line x1="0" y1="0" x2="100" y2="100" stroke="#000" strokeWidth="0.5" />
-                        <line x1="100" y1="0" x2="0" y2="100" stroke="#000" strokeWidth="0.5" />
-                        <line x1="50" y1="0" x2="50" y2="100" stroke="#000" strokeWidth="0.5" />
-                        <line x1="0" y1="50" x2="100" y2="50" stroke="#000" strokeWidth="0.5" />
-                      </svg>
-
-                      {/* Vivek Ink Manga Art */}
-                      <div className="relative w-full h-full">
-                        <Image
-                          src="/avatars/vivek.jpg"
-                          alt="Vivek Hingu Manga Illustration"
-                          fill
-                          sizes="320px"
-                          priority
-                          className="object-cover object-center filter grayscale contrast-[185%] brightness-[105%]"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Bottom Full-Width Anton Banner */}
-                    <div className="pt-1 text-center">
-                      <h3 className="font-[family-name:var(--font-anton)] text-3xl sm:text-4xl text-black tracking-tight leading-none uppercase">
-                        VIVEK HINGU
-                      </h3>
-                    </div>
-                  </div>
+                  {/* Vertical Crease Groove (8px from left edge where cover bends at spine) */}
+                  <div className="absolute left-[8px] top-0 bottom-0 w-[2px] bg-gradient-to-r from-black/40 via-white/20 to-transparent pointer-events-none shadow-[1px_0_2px_rgba(0,0,0,0.3)]" />
                 </div>
 
-                {/* --- BACK COVER (SYNOPSIS & SPECS) --- */}
+                {/* --- LEFT SPINE (36px wide x 380px high, rotateY: -90deg) --- */}
                 <div
-                  className="absolute inset-0 w-full h-full rounded-[4px] bg-[#FAF9F5] text-black border-2 border-black p-4 flex flex-col justify-between overflow-hidden [transform:rotateY(180deg)] [backface-visibility:hidden]"
-                  style={{ backgroundColor: "#FAF9F5" }}
+                  className="absolute top-0 -left-[18px] w-[36px] h-full flex flex-col justify-between items-center py-4 border-y border-black/80 [transform:rotateY(-90deg)] [backface-visibility:hidden] overflow-hidden select-none"
+                  style={{ backgroundColor: activeAccent.hex }}
                 >
-                  {/* Spine Strip on Right Edge when flipped */}
-                  <div
-                    className="absolute right-0 top-0 bottom-0 w-3.5 border-l-2 border-black flex flex-col justify-between py-4 items-center transition-colors duration-300"
-                    style={{ backgroundColor: activeAccent.hex }}
-                  >
-                    <div className="w-1 h-6 bg-white/40 rounded-full" />
-                    <div className="w-1 h-6 bg-white/40 rounded-full" />
-                    <div className="w-1 h-6 bg-white/40 rounded-full" />
+                  {/* Top: Small black square VH monogram badge */}
+                  <div className="w-5 h-5 bg-black text-white flex items-center justify-center font-black text-[9px] tracking-widest font-sans rounded-[1px] shadow-sm">
+                    VH
                   </div>
 
-                  {/* Back Cover Inside Content */}
-                  <div className="pr-3.5 flex flex-col justify-between h-full">
-                    <div>
-                      {/* Top Bar */}
-                      <div className="flex items-center justify-between border-b border-black/20 pb-1.5 mb-2">
-                        <span className="font-[family-name:var(--font-anton)] text-xs tracking-wider uppercase text-black">
-                          VIVEK HINGU • VOL. 01
-                        </span>
-                        <span className="font-mono text-[9px] font-bold text-neutral-600">
-                          EDITION 2026
+                  {/* Center: Vertical condensed title */}
+                  <div className="flex-1 flex items-center justify-center py-2">
+                    <span
+                      className="font-[family-name:var(--font-anton)] text-[12px] tracking-[0.22em] uppercase text-white/95 whitespace-nowrap [writing-mode:vertical-rl] rotate-180 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
+                    >
+                      VIVEK HINGU • VOL. 01
+                    </span>
+                  </div>
+
+                  {/* Bottom: 01 volume marker */}
+                  <div className="flex flex-col items-center">
+                    <span className="font-[family-name:var(--font-anton)] text-xs tracking-wider text-black bg-white/95 px-1 py-0.5 rounded-[1px] leading-none font-bold shadow-sm">
+                      01
+                    </span>
+                  </div>
+
+                  {/* Spine curvature 3D shadow gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-black/25 pointer-events-none" />
+                </div>
+
+                {/* --- RIGHT PAGE EDGES (Layered paper texture, recessed 3px) --- */}
+                <div
+                  className="absolute top-[3px] -right-[16px] w-[32px] h-[374px] [transform:rotateY(90deg)] [backface-visibility:hidden] border-y border-neutral-400 select-none overflow-hidden"
+                  style={{
+                    backgroundColor: "#EAE6DF",
+                    backgroundImage: "repeating-linear-gradient(to right, #EAE6DF 0px, #EAE6DF 2px, #D1CBBF 2px, #D1CBBF 3px)",
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 pointer-events-none" />
+                </div>
+
+                {/* --- BOTTOM PAGE EDGES (Layered paper with crimson trim) --- */}
+                <div
+                  className="absolute -bottom-[16px] left-[3px] w-[274px] h-[32px] [transform:rotateX(-90deg)] [backface-visibility:hidden] border-x border-neutral-400 select-none overflow-hidden"
+                  style={{
+                    backgroundColor: "#EAE6DF",
+                    backgroundImage: "repeating-linear-gradient(to bottom, #EAE6DF 0px, #EAE6DF 2px, #D1CBBF 2px, #D1CBBF 3px)",
+                  }}
+                >
+                  {/* Crimson bottom spine edge strip */}
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-2.5 border-r border-black/40"
+                    style={{ backgroundColor: activeAccent.hex }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/25 pointer-events-none" />
+                </div>
+
+                {/* --- TOP PAGE EDGES (Layered paper) --- */}
+                <div
+                  className="absolute -top-[16px] left-[3px] w-[274px] h-[32px] [transform:rotateX(90deg)] [backface-visibility:hidden] border-x border-neutral-400 select-none overflow-hidden"
+                  style={{
+                    backgroundColor: "#EAE6DF",
+                    backgroundImage: "repeating-linear-gradient(to bottom, #EAE6DF 0px, #EAE6DF 2px, #D1CBBF 2px, #D1CBBF 3px)",
+                  }}
+                >
+                  {/* Crimson top spine edge strip */}
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-2.5 border-r border-black/40"
+                    style={{ backgroundColor: activeAccent.hex }}
+                  />
+                </div>
+
+                {/* --- BACK COVER (Cream archival paper, rotateY: 180deg translateZ: 18px) --- */}
+                <div
+                  className="absolute inset-0 w-full h-full rounded-[3px] bg-[#F5F2EB] text-black border-2 border-black p-4 flex flex-col justify-between overflow-hidden [transform:rotateY(180deg)_translateZ(18px)] [backface-visibility:hidden] select-none"
+                  style={{ backgroundColor: "#F5F2EB" }}
+                >
+                  {/* Spine Crease on Right Edge when flipped */}
+                  <div className="absolute right-[8px] top-0 bottom-0 w-[1.5px] bg-gradient-to-l from-black/40 via-white/20 to-transparent pointer-events-none shadow-[-1px_0_2px_rgba(0,0,0,0.2)]" />
+
+                  {/* Top Bar Header */}
+                  <div>
+                    <div className="flex items-center justify-between border-b-2 border-black pb-2 mb-2.5">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: activeAccent.hex }} />
+                        <span className="font-[family-name:var(--font-anton)] text-sm tracking-wider uppercase text-black">
+                          SYNOPSIS // VOL. 01
                         </span>
                       </div>
-
-                      {/* Manga Synopsis */}
-                      <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-black mb-1">
-                        SYNOPSIS: THE AI ARCHITECT
-                      </h4>
-                      <p className="text-[10px] sm:text-[11px] leading-relaxed text-neutral-700 italic border-l-2 border-black/60 pl-2 mb-3">
-                        &quot;From training deep neural networks to engineering real-time voice intelligence, Vivek Hingu documents his journey across the frontier of Applied Artificial Intelligence.&quot;
-                      </p>
-
-                      {/* Specifications Box */}
-                      <div className="bg-black/5 rounded p-2 border border-black/15 text-[9px] sm:text-[10px] font-mono flex flex-col gap-1 text-neutral-800">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-black font-bold">▶ PRODUCTION:</span>
-                          <span>10+ Autonomous AI Systems</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-black font-bold">▶ CORE STACK:</span>
-                          <span>PyTorch, Next.js, LLMs, Voice</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-black font-bold">▶ HONORS:</span>
-                          <span>2x Hackathon Finalist</span>
-                        </div>
-                      </div>
+                      <span className="font-mono text-[9px] font-bold text-neutral-600 bg-black/5 px-1.5 py-0.5 rounded border border-black/15">
+                        EDITION 2026
+                      </span>
                     </div>
 
-                    {/* Bottom Barcode & ISBN */}
-                    <div className="border-t border-black/20 pt-2 flex items-end justify-between">
+                    {/* Manga Synopsis Title & Narrative */}
+                    <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-black mb-1">
+                      THE AI ARCHITECT CHRONICLES
+                    </h4>
+                    <p className="text-[10px] sm:text-[10.5px] leading-relaxed text-neutral-800 italic border-l-2 border-black pl-2 mb-3">
+                      &quot;From training deep neural networks to engineering real-time voice intelligence and winning hackathons, Vivek Hingu documents his journey across the frontier of Applied Artificial Intelligence.&quot;
+                    </p>
+
+                    {/* Specifications Box */}
+                    <div className="bg-black/5 rounded p-2.5 border border-black/15 text-[9.5px] font-mono flex flex-col gap-1.5 text-neutral-900 shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-black">▶ PRODUCTION:</span>
+                        <span className="text-right">10+ Autonomous AI Systems</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-black">▶ CORE STACK:</span>
+                        <span className="text-right">PyTorch • Next.js • LLMs</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-black">▶ HONORS:</span>
+                        <span className="text-right font-semibold text-[#B92B27]">Flinders AI &amp; HackOut Winner</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Barcode, Price & Origin */}
+                  <div className="border-t-2 border-black pt-2.5">
+                    <div className="flex items-end justify-between">
                       <div className="flex flex-col">
-                        {/* Realistic Monospace Barcode */}
-                        <div className="font-mono text-sm tracking-tighter leading-none select-none text-black">
-                          |||| ||| || |||||| | |||| ||
+                        {/* Barcode lines */}
+                        <div className="font-mono text-base tracking-tighter leading-none select-none text-black font-bold">
+                          ||| | ||||| | ||| || |||||| | |||
                         </div>
-                        <span className="font-mono text-[8px] text-neutral-600 mt-0.5">
+                        <span className="font-mono text-[8px] text-neutral-600 tracking-wider mt-0.5">
                           ISBN 978-0-123456-78-9
                         </span>
                       </div>
-                      <span className="text-[9px] font-mono font-bold text-neutral-500 uppercase">
-                        MADE IN GUJARAT
-                      </span>
+                      <div className="flex flex-col items-end">
+                        <span className="text-[9px] font-mono font-black text-black bg-amber-400/30 px-1.5 py-0.5 border border-amber-600/40 rounded-[2px]">
+                          PRICE: 1 CUP OF CHAI ☕
+                        </span>
+                        <span className="text-[8px] font-mono font-semibold text-neutral-500 uppercase mt-0.5">
+                          PRINTED IN GUJARAT
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -627,10 +643,10 @@ export const Footer = () => {
             <button
               type="button"
               onClick={handleBookClick}
-              className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-700/80 text-[10px] font-mono text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer"
+              className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neutral-900 border border-neutral-700/80 text-[11px] font-mono text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer shadow-md"
             >
               <IconRotate className="w-3.5 h-3.5 text-neutral-400" />
-              <span>{isFlipped ? "Click to view Front Cover" : "Click book to flip Synopsis ↺"}</span>
+              <span>{isFlipped ? "Click to view Front Cover" : "↻ Click book to flip synopsis"}</span>
             </button>
           </div>
         </div>
