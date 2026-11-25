@@ -76,8 +76,8 @@ export default function Hero() {
               <div className="relative group cursor-pointer z-30 my-3 flex items-center justify-center">
                 {/* Full-Bleed Edge-to-Edge Editorial Tapes Layer - Centered Mathematically Behind Avatar */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none">
-                  {/* Tape A: Dark / Ink Tape (-7.5deg) - Solid Black with Bold White Typography */}
-                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[7.5deg] bg-black border-y border-white/20 py-4 sm:py-5 md:py-6 shadow-[0_8px_32px_rgba(0,0,0,0.75)] z-[1]">
+                  {/* Tape A: Dark / Ink Tape (-3.2deg) - Solid Black with Bold White Typography */}
+                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.2deg] bg-black border-y border-white/20 py-4 sm:py-5 md:py-6 shadow-[0_8px_32px_rgba(0,0,0,0.75)] z-[1]">
                     <Marquee repeat={8} className="[--duration:30s] py-0 text-2xl sm:text-3xl md:text-[38px] lg:text-[42px] font-[family-name:var(--font-anton)] tracking-wider text-white uppercase leading-none">
                       <span className="mx-3 sm:mx-5 text-zinc-400 font-normal">✦</span>
                       <span>VIVEK HINGU // AI &amp; ML ENGINEER</span>
@@ -94,8 +94,8 @@ export default function Hero() {
                     </Marquee>
                   </div>
 
-                  {/* Tape B: Paper / Cream Tape (+6.5deg) - Crossing in Front with Bold Black Typography */}
-                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[6.5deg] bg-[#ECE7DC] border-y-2 border-black py-4 sm:py-5 md:py-6 shadow-[0_12px_40px_rgba(0,0,0,0.65)] z-[2]">
+                  {/* Tape B: Paper / Cream Tape (+2.8deg) - Crossing in Front with Bold Black Typography */}
+                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[2.8deg] bg-[#ECE7DC] border-y-2 border-black py-4 sm:py-5 md:py-6 shadow-[0_12px_40px_rgba(0,0,0,0.65)] z-[2]">
                     <Marquee reverse repeat={8} className="[--duration:34s] py-0 text-2xl sm:text-3xl md:text-[38px] lg:text-[42px] font-[family-name:var(--font-anton)] tracking-tight text-black uppercase leading-none">
                       <span className="mx-3 sm:mx-5 text-black font-normal">✦</span>
                       <span>BHARATBHASHA AI</span>
@@ -114,7 +114,7 @@ export default function Hero() {
                 </div>
 
                 {/* Concentric Marvel Arc Reactor & Avengers Orbit - Centered mathematically on Avatar Image */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] sm:w-[680px] sm:h-[680px] md:w-[780px] md:h-[780px] lg:w-[860px] lg:h-[860px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-20 dark:opacity-25 hover:opacity-35 transition-opacity duration-500">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] sm:w-[580px] sm:h-[580px] md:w-[660px] md:h-[660px] lg:w-[720px] lg:h-[720px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-20 dark:opacity-25 hover:opacity-35 transition-opacity duration-500">
                   <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
                     <svg
                       viewBox="0 0 400 400"
@@ -154,19 +154,19 @@ export default function Hero() {
                 </div>
 
                 {/* Gradient Ring & Photo */}
-                <div className="absolute -inset-2.5 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 opacity-70 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse" />
-                <div className="relative h-44 w-44 sm:h-56 sm:w-56 md:h-64 md:w-64 lg:h-72 lg:w-72 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_35px_rgba(6,182,212,0.4)] bg-slate-950 z-20">
+                <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 opacity-70 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse" />
+                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52 lg:h-56 lg:w-56 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_30px_rgba(6,182,212,0.35)] bg-slate-950 z-20">
                   <Image
                     src="/avatars/vivek.jpg"
                     alt="Vivek Hingu"
                     fill
-                    sizes="(max-width: 640px) 176px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
+                    sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, (max-width: 1024px) 208px, 224px"
                     className="object-cover group-hover:scale-108 transition-transform duration-500"
                     priority
                   />
                 </div>
                 {/* Verified AI Pulse Indicator */}
-                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 md:bottom-3 md:right-3 flex items-center justify-center h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 rounded-full bg-slate-950 border-2 border-cyan-400 shadow-md z-30">
+                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 md:bottom-2.5 md:right-2.5 flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-full bg-slate-950 border-2 border-cyan-400 shadow-md z-30">
                   <span className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-emerald-400 animate-pulse" />
                 </div>
               </div>

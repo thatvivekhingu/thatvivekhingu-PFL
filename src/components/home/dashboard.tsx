@@ -84,12 +84,7 @@ export default function Dashboard() {
           transitionDuration="100ms"
           cursorEmoji="✈️"
         >
-          <div className="relative min-h-[160px] md:min-h-0 group/globe">
-            {/* Live Orbit Radar Coordinates Badge */}
-            <div className="absolute top-0 right-0 z-20 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-[9.5px] font-mono text-cyan-300 backdrop-blur-md shadow-md pointer-events-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-              <span>23.02°N, 72.57°E</span>
-            </div>
+          <div className="min-h-[160px] md:min-h-0">
             <Globe />
           </div>
         </GridItem>
@@ -170,15 +165,11 @@ export default function Dashboard() {
           icon={<IconHandClick className={dashboardIconClass} />}
           title="Scratch Me"
           transitionDuration="600ms"
-          cursorEmoji="✨"
         >
-          <div className="relative group/scratch" data-cursor="Scratch">
-            {/* Holographic Border Shimmer Glow */}
-            <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-amber-500/20 opacity-60 group-hover/scratch:opacity-100 blur-xs transition-opacity pointer-events-none" />
-
+          <div className="relative">
             <ScratchToReveal
               minScratchPercentage={20}
-              className="flex items-center h-24 sm:h-35 justify-center overflow-hidden rounded-md bg-background relative z-0"
+              className="flex items-center h-24 sm:h-35 justify-center overflow-hidden rounded-md bg-background"
               gradientColors={["#A97CF933", "#F38CB933", "#FDCC9233"]}
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
@@ -189,27 +180,20 @@ export default function Dashboard() {
                   alt="Scratch to reveal"
                   width={100}
                   height={100}
-                  className="h-14 sm:h-16 object-contain transition-transform group-hover/scratch:scale-105"
+                  className="h-14 sm:h-16 object-contain"
                   unoptimized
                 />
               )}
             </ScratchToReveal>
-
-            {/* Sparkle Watermark in bottom corner */}
-            <div className="absolute bottom-1 left-2 pointer-events-none text-[9.5px] font-mono text-amber-400/80 font-bold tracking-wider opacity-60 group-hover/scratch:opacity-100 transition-opacity">
-              ✦ FOIL
-            </div>
-
             <button
               type="button"
               onClick={pickNewGif}
               onMouseDown={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
               aria-label="Refresh scratch"
-              data-cursor="New"
-              className="absolute top-1 right-1 z-10 p-1 rounded-md text-muted-foreground hover:text-amber-400 hover:bg-background/80 transition-all group/btn cursor-pointer"
+              className="absolute top-1 right-1 z-10 p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-background/60 transition-colors group"
             >
-              <IconRefresh className="h-4 w-4 transition-transform group-hover/btn:rotate-180 duration-500" />
+              <IconRefresh className="h-4 w-4 transition-transform group-hover:rotate-180 duration-300" />
             </button>
           </div>
         </GridItem>
@@ -247,13 +231,7 @@ export default function Dashboard() {
           tooltip="Last 7 Weeks"
           cursorEmoji="💻"
         >
-          <div className="flex flex-col gap-[22px] sm:gap-6 h-full relative group/github" data-cursor="Commit">
-            {/* Live Sync Status Tag */}
-            <div className="absolute -top-7 right-0 z-10 hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-[9.5px] font-mono font-bold text-emerald-400 backdrop-blur-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>SYNCED</span>
-            </div>
-
+          <div className="flex flex-col gap-[22px] sm:gap-6 h-full">
             {/* Heatmap */}
             <div className="flex-1">
               <GitHubHeatmap
@@ -459,43 +437,26 @@ const LastPlayed = ({ track }: LastPlayedProps) => {
       href={displayTrack.songUrl}
       target="_blank"
       rel="noopener noreferrer"
-      data-cursor="Play"
-      className="flex flex-row items-center gap-3 w-full overflow-hidden group/music cursor-pointer"
+      className="flex flex-row items-center gap-2 w-full overflow-hidden group"
     >
-      {/* Vinyl record spinning sleeve */}
-      <div className="relative shrink-0 w-10 h-10 sm:w-11 sm:h-11">
-        <Image
-          src={albumImageUrl}
-          alt={`${displayTrack.title} album cover`}
-          width={48}
-          height={48}
-          className="rounded-full shadow-lg w-full h-full object-cover transition-transform duration-1000 ease-in-out group-hover/music:rotate-[360deg] border border-white/25"
-        />
-        {/* Vinyl Center Hole */}
-        <div className="absolute inset-0 m-auto w-2.5 h-2.5 rounded-full bg-black/90 border border-white/60 pointer-events-none" />
-      </div>
-
+      <Image
+        src={albumImageUrl}
+        alt={`${displayTrack.title} album cover`}
+        width={48}
+        height={48}
+        className="rounded-md shadow-lg sm:h-10 sm:w-10 h-8 w-8"
+      />
       <div className="flex-1 min-w-0 max-w-full overflow-hidden relative">
-        {/* Equalizer Frequency Bars */}
-        <div className="flex items-center gap-1.5 mb-0.5">
-          <span className="text-[9.5px] font-mono font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
-            <span className="inline-block w-1 h-2 bg-emerald-400 rounded-full animate-[pulse_0.8s_ease-in-out_infinite]" />
-            <span className="inline-block w-1 h-3 bg-emerald-300 rounded-full animate-[pulse_1.2s_ease-in-out_infinite_0.2s]" />
-            <span className="inline-block w-1 h-1.5 bg-emerald-400 rounded-full animate-[pulse_0.9s_ease-in-out_infinite_0.4s]" />
-            <span>SPOTIFY AUDIO</span>
-          </span>
-        </div>
-
         {isReady ? (
           <Marquee className="[--duration:12s] sm:[--duration:15s] [--gap:0.5rem]" pauseOnHover repeat={5}>
             <p className="text-sm whitespace-nowrap">
-              <span className="text-foreground font-semibold group-hover/music:text-emerald-400 transition-colors">{displayTrack.title}</span>
+              <span className="text-foreground">{displayTrack.title}</span>
               <span className="text-muted-foreground"> • {displayTrack.artist} • {displayTrack.album} •</span>
             </p>
           </Marquee>
         ) : (
           <p className="text-sm whitespace-nowrap">
-            <span className="text-foreground font-semibold group-hover/music:text-emerald-400 transition-colors">{displayTrack.title}</span>
+            <span className="text-foreground">{displayTrack.title}</span>
             <span className="text-muted-foreground"> • {displayTrack.artist} • {displayTrack.album}</span>
           </p>
         )}
@@ -509,18 +470,18 @@ const Tool = ({ name, icon }: { name: string; icon: string }) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <div className="flex items-center group/tool p-1 transition-all duration-300 hover:scale-130 hover:-translate-y-1 hover:drop-shadow-[0_8px_16px_rgba(59,130,246,0.6)] cursor-pointer">
+          <div className="flex items-center">
             <Image
               src={`${icon}`}
               alt={`${name} icon`}
               width={30}
               height={30}
-              className="h-8 w-8 transition-transform duration-300 group-hover/tool:rotate-6"
+              className="h-8 w-8"
             />
           </div>
         </TooltipTrigger>
-        <TooltipContent sideOffset={5} className="bg-black/90 text-cyan-300 border border-cyan-500/30 font-mono text-xs shadow-xl">
-          <p className="text-xs font-semibold">{name}</p>
+        <TooltipContent sideOffset={5}>
+          <p className="text-sm font-semibold text-muted-foreground">{name}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
