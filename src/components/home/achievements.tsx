@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { data } from "@/data/data";
 import { SectionHeading } from "@/components/layout/section-heading";
+import { Marquee } from "@/components/ui/marquee";
 import { playTapSound } from "@/lib/sound";
 import { cn } from "@/lib/utils";
 
@@ -432,10 +433,20 @@ export default function Achievements() {
           <span className="text-white">&amp; SPECIALIZATIONS</span>
         </SectionHeading>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 w-full pt-2">
-          {data.certificates.map((cert, idx) => (
-            <CertFlipCard key={cert.title} cert={cert} index={idx} />
-          ))}
+        <div className="relative w-full overflow-hidden py-2 select-none">
+          {/* Left Edge Gradient Fade */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-r from-black via-black/80 to-transparent z-20" />
+
+          {/* Right Edge Gradient Fade */}
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-l from-black via-black/80 to-transparent z-20" />
+
+          <Marquee pauseOnHover repeat={3} className="[--duration:55s] [--gap:1.5rem] py-3">
+            {data.certificates.map((cert) => (
+              <div key={cert.title} className="shrink-0">
+                <CertFlipCard cert={cert} />
+              </div>
+            ))}
+          </Marquee>
         </div>
       </div>
     </div>
@@ -444,17 +455,14 @@ export default function Achievements() {
 
 function CertFlipCard({
   cert,
-  index,
 }: {
   cert: (typeof data.certificates)[number];
-  index: number;
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const certNumber = `CERT ${String(index + 1).padStart(2, "0")} // ${cert.date}`;
 
   return (
     <div
-      className="w-full h-[470px] shrink-0 group perspective-1000 select-none cursor-pointer"
+      className="w-72 sm:w-80 md:w-[330px] h-[450px] shrink-0 group perspective-1000 select-none cursor-pointer"
       onClick={() => {
         playTapSound("pop");
         setIsFlipped((prev) => !prev);
@@ -468,169 +476,122 @@ function CertFlipCard({
         )}
       >
         {/* ============================================================ */}
-        {/* FRONT SIDE (Exact replica of dossier reference design)      */}
+        {/* FRONT SIDE                                                   */}
         {/* ============================================================ */}
-        <div className="absolute inset-0 w-full h-full backface-hidden flex flex-col">
-          {/* Top Dossier Tab Header */}
-          <div className="flex items-end w-full shrink-0 select-none">
-            <div
-              className="bg-[#FAF9F5] text-black font-mono font-black text-[11px] sm:text-xs tracking-wider uppercase px-4 py-1.5 rounded-tl-md flex items-center"
-              style={{
-                clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%)",
-                paddingRight: "1.75rem",
-              }}
-            >
-              <span>{certNumber}</span>
+        <div className="absolute inset-0 w-full h-full backface-hidden bg-[#0E0E10] border-2 border-[#FAF9F5]/90 rounded-2xl p-4 sm:p-5 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] group-hover:border-amber-400/80 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.95)] transition-all">
+          {/* Upper Halftone / Carbon Texture Frame */}
+          <div
+            className="w-full relative rounded-xl border border-white/10 p-3 sm:p-4 flex items-center justify-center min-h-[175px] sm:min-h-[185px] overflow-hidden"
+            style={{
+              backgroundColor: "#161618",
+              backgroundImage:
+                "radial-gradient(rgba(255, 255, 255, 0.18) 1.2px, transparent 1.2px)",
+              backgroundSize: "6px 6px",
+            }}
+          >
+            {/* 3D FLIP Badge */}
+            <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black/85 text-[#F59E0B] border border-[#F59E0B]/50 font-mono font-bold text-[9.5px] tracking-wider uppercase shadow-md pointer-events-none select-none">
+              <span>3D FLIP</span>
+              <span className="text-xs">⟳</span>
             </div>
-            <div className="flex-1 h-[2px] bg-[#FAF9F5] rounded-tr-md" />
+
+            {/* Framed Certificate Document Image */}
+            <div className="relative w-full aspect-[16/10] max-h-[145px] rounded-xs border-2 border-white/95 shadow-2xl overflow-hidden bg-white">
+              <Image
+                src={cert.image}
+                alt={cert.title}
+                fill
+                className="object-contain p-1"
+                sizes="(max-width: 640px) 280px, 340px"
+              />
+            </div>
           </div>
 
-          {/* Main Dossier Card Body */}
-          <div className="w-full flex-1 bg-[#0E0E10] border-2 border-t-0 border-[#FAF9F5] rounded-b-xl p-3.5 sm:p-4 flex flex-col justify-between overflow-hidden relative shadow-[0_10px_30px_rgba(0,0,0,0.8)] group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.95)] transition-shadow">
-            {/* Upper Halftone / Carbon Texture Frame */}
-            <div
-              className="w-full relative rounded-lg border border-white/10 p-3 sm:p-4 flex items-center justify-center min-h-[160px] sm:min-h-[175px] overflow-hidden"
-              style={{
-                backgroundColor: "#161618",
-                backgroundImage:
-                  "radial-gradient(rgba(255, 255, 255, 0.18) 1.2px, transparent 1.2px)",
-                backgroundSize: "6px 6px",
-              }}
-            >
-              {/* 3D FLIP Badge */}
-              <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black/85 text-[#F59E0B] border border-[#F59E0B]/50 font-mono font-bold text-[9.5px] tracking-wider uppercase shadow-md pointer-events-none select-none">
-                <span>3D FLIP</span>
-                <span className="text-xs">⟳</span>
-              </div>
+          {/* Middle Section: Anton Title & Issuer */}
+          <div className="space-y-1 relative z-10">
+            <h3 className="font-[family-name:var(--font-anton)] text-2xl sm:text-[25px] uppercase tracking-wide text-[#FAF9F5] leading-[1.08] line-clamp-2 min-h-[3.4rem] flex items-center mt-2.5 group-hover:text-amber-300 transition-colors">
+              {cert.title}
+            </h3>
+            <p className="font-sans text-sm sm:text-base text-zinc-400 font-medium tracking-normal">
+              {cert.issuer}
+            </p>
+          </div>
 
-              {/* Framed Certificate Document Image */}
-              <div className="relative w-full aspect-[16/10] max-h-[135px] rounded-xs border-2 border-white/95 shadow-2xl overflow-hidden bg-white">
-                <Image
-                  src={cert.image}
-                  alt={cert.title}
-                  fill
-                  className="object-contain p-1"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-            </div>
-
-            {/* Middle Section: Anton Title & Issuer */}
-            <div className="space-y-1 relative z-10">
-              <h3 className="font-[family-name:var(--font-anton)] text-2xl sm:text-[26px] xl:text-[28px] uppercase tracking-wide text-[#FAF9F5] leading-[1.08] line-clamp-2 min-h-[3.6rem] flex items-center mt-2.5 group-hover:text-amber-300 transition-colors">
-                {cert.title}
-              </h3>
-              <p className="font-sans text-sm sm:text-base text-zinc-400 font-medium tracking-normal">
-                {cert.issuer}
-              </p>
-            </div>
-
-            {/* Sparkle Watermark Accent (matches Card 04 in reference) */}
-            {index === 3 && (
-              <div className="absolute bottom-12 right-4 pointer-events-none opacity-35">
-                <svg
-                  className="w-8 h-8 text-white"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z" />
-                </svg>
-              </div>
-            )}
-
-            {/* Bottom Footer Row */}
-            <div className="border-t border-white/20 mt-3 pt-3 flex items-center justify-between relative z-10">
-              <span className="font-[family-name:var(--font-anton)] text-sm sm:text-base tracking-wider uppercase text-[#FAF9F5] flex items-center gap-1.5 group-hover:text-amber-300 transition-colors">
-                <span>FLIP FOR SKILLS</span>
-                <span className="text-base font-sans">→</span>
-              </span>
-              <span className="text-[#FAF9F5] text-lg font-bold group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </div>
+          {/* Bottom Footer Row */}
+          <div className="border-t border-white/20 mt-3 pt-3 flex items-center justify-between relative z-10">
+            <span className="font-[family-name:var(--font-anton)] text-sm sm:text-base tracking-wider uppercase text-[#FAF9F5] flex items-center gap-1.5 group-hover:text-amber-300 transition-colors">
+              <span>FLIP FOR SKILLS</span>
+              <span className="text-base font-sans">→</span>
+            </span>
+            <span className="text-[#FAF9F5] text-lg font-bold group-hover:translate-x-1 transition-transform">
+              →
+            </span>
           </div>
         </div>
 
         {/* ============================================================ */}
-        {/* BACK SIDE (Dossier Verified Skills & Verification)          */}
+        {/* BACK SIDE                                                    */}
         {/* ============================================================ */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 flex flex-col">
-          {/* Top Tab Header */}
-          <div className="flex items-end w-full shrink-0 select-none">
-            <div
-              className="bg-[#FAF9F5] text-black font-mono font-black text-[11px] sm:text-xs tracking-wider uppercase px-4 py-1.5 rounded-tl-md flex items-center"
-              style={{
-                clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%)",
-                paddingRight: "1.75rem",
-              }}
-            >
-              <span>{`CERT ${String(index + 1).padStart(2, "0")} // SKILLS`}</span>
-            </div>
-            <div className="flex-1 h-[2px] bg-[#FAF9F5] rounded-tr-md" />
-          </div>
-
-          {/* Main Card Frame */}
-          <div className="w-full flex-1 bg-[#0E0E10] border-2 border-t-0 border-[#FAF9F5] rounded-b-xl p-4 sm:p-5 flex flex-col justify-between overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-            <div className="space-y-3">
-              {/* Top Meta Row */}
-              <div className="flex items-center justify-between border-b border-white/15 pb-2">
-                <span className="text-xs font-mono font-black text-[#F59E0B] uppercase tracking-wider">
-                  {cert.issuer}
-                </span>
-                <span className="text-xs font-mono text-zinc-400 font-semibold">
-                  {cert.date}
-                </span>
-              </div>
-
-              {/* Anton Title */}
-              <h4 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl uppercase tracking-wide text-white leading-tight">
-                {cert.title}
-              </h4>
-
-              {/* Verified Skills Pills */}
-              <div className="space-y-2 pt-1">
-                <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block font-bold">
-                  Key Skills Verified:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {cert.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="text-[11px] font-mono font-medium px-2.5 py-1 rounded bg-[#18181C] text-zinc-200 border border-white/15 shadow-sm"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Actions */}
-            <div className="pt-3 border-t border-white/20 flex items-center justify-between">
-              {cert.credentialUrl ? (
-                <a
-                  href={cert.credentialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    playTapSound("pop");
-                  }}
-                  className="font-mono text-xs font-bold text-[#F59E0B] hover:text-amber-300 hover:underline flex items-center gap-1 transition-colors"
-                >
-                  <span>VERIFY CREDENTIAL</span>
-                  <span>↗</span>
-                </a>
-              ) : (
-                <span className="font-mono text-xs text-zinc-400">
-                  VERIFIED CREDENTIAL
-                </span>
-              )}
-              <span className="font-mono text-[11px] text-zinc-400 flex items-center gap-1">
-                <span>FLIP BACK</span>
-                <span>↻</span>
+        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-[#0E0E10] border-2 border-amber-400/80 rounded-2xl p-5 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)]">
+          <div className="space-y-3">
+            {/* Top Meta Row */}
+            <div className="flex items-center justify-between border-b border-white/15 pb-2">
+              <span className="text-xs font-mono font-black text-[#F59E0B] uppercase tracking-wider">
+                {cert.issuer}
+              </span>
+              <span className="text-xs font-mono text-zinc-400 font-semibold">
+                {cert.date}
               </span>
             </div>
+
+            {/* Anton Title */}
+            <h4 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl uppercase tracking-wide text-white leading-tight">
+              {cert.title}
+            </h4>
+
+            {/* Verified Skills Pills */}
+            <div className="space-y-2 pt-1">
+              <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block font-bold">
+                Key Skills Verified:
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {cert.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="text-[11px] font-mono font-medium px-2.5 py-1 rounded bg-[#18181C] text-zinc-200 border border-white/15 shadow-sm"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Actions */}
+          <div className="pt-3 border-t border-white/20 flex items-center justify-between">
+            {cert.credentialUrl ? (
+              <a
+                href={cert.credentialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  playTapSound("pop");
+                }}
+                className="font-mono text-xs font-bold text-[#F59E0B] hover:text-amber-300 hover:underline flex items-center gap-1 transition-colors"
+              >
+                <span>VERIFY CREDENTIAL</span>
+                <span>↗</span>
+              </a>
+            ) : (
+              <span className="font-mono text-xs text-zinc-400">
+                VERIFIED CREDENTIAL
+              </span>
+            )}
+            <span className="font-mono text-[11px] text-zinc-400 flex items-center gap-1">
+              <span>FLIP BACK</span>
+              <span>↻</span>
+            </span>
           </div>
         </div>
       </div>
