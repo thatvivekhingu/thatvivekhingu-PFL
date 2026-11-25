@@ -28,6 +28,7 @@ import { SoundWave } from "@/components/ui/sound-wave";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 import { playTapSound } from "@/lib/sound";
+import { LottiePlayer } from "@/components/ui/lottie-player";
 
 
 export default function Dashboard() {
@@ -70,12 +71,17 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col w-full">
       <CustomCursor />
-      <SectionHeading
-        color="cyan"
-        subtitle="LIVE TELEMETRY MATRIX"
-      >
-        Developer Telemetry & Core Matrix
-      </SectionHeading>
+      <div className="flex items-center justify-between">
+        <SectionHeading
+          color="cyan"
+          subtitle="LIVE TELEMETRY MATRIX"
+        >
+          Developer Telemetry & Core Matrix
+        </SectionHeading>
+        <div className="hidden sm:flex items-center gap-2 -mt-4 drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+          <LottiePlayer src="/lottie/developer.json" className="w-20 h-20 md:w-24 md:h-24" />
+        </div>
+      </div>
 
       <ul
         className={`grid w-full gap-4 ${styles.dashboardGrid}`}>
@@ -214,7 +220,7 @@ export default function Dashboard() {
         </GridItem>
         <GridItem
           area="coffees"
-          icon={<IconCup className={dashboardIconClass} />}
+          icon={<LottiePlayer src="/lottie/chai.json" className="h-6 w-6" fallbackIcon={<IconCup className={dashboardIconClass} />} />}
           title="Teas Drank"
           transitionDuration="700ms"
           tooltip="1 Tea 🍵 = 4 Hours Coding"

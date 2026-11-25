@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
-import { IconRss, IconSend, IconBrandGithub, IconStar } from "@tabler/icons-react";
+import { IconRss, IconSend, IconBrandGithub, IconStar, IconCopy, IconCheck } from "@tabler/icons-react";
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
@@ -11,12 +11,14 @@ import { AnimatedLogo } from "@/components/ui/logo-animation";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
 import { playTapSound } from "@/lib/sound";
 import { data } from "@/data/data";
+import { LottiePlayer } from "@/components/ui/lottie-player";
 
 const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/thatvivekhingu-PFL";
 
 export const Footer = () => {
     const pathname = usePathname();
     const [sent, setSent] = useState(false);
+    const [copied, setCopied] = useState(false);
     const waveRef = useRef<HTMLSpanElement>(null);
     const waveInView = useInView(waveRef, { amount: 0.5 });
     const [waveKey, setWaveKey] = useState(0);
@@ -42,6 +44,15 @@ export const Footer = () => {
         setSent(true);
         // Reset after the full fly-out + rise-in keyframe sequence finishes.
         window.setTimeout(() => setSent(false), 1300);
+    };
+
+    const handleCopyEmail = () => {
+        playTapSound("pop");
+        if (typeof navigator !== "undefined" && navigator.clipboard) {
+            navigator.clipboard.writeText("hinguvivek05@gmail.com");
+            setCopied(true);
+            window.setTimeout(() => setCopied(false), 2200);
+        }
     };
 
     const handleNavClick = (link: string) => {
@@ -85,46 +96,70 @@ export const Footer = () => {
                             </span>
                         </span>
                     </h2>
-                    <a
-                        href="mailto:hinguvivek05@gmail.com"
-                        onClick={handleSendClick}
-                        className="group inline-block active:scale-95 transition-transform duration-150"
-                    >
-                        <RainbowButton
-                            variant="default"
-                            className="overflow-visible pl-5 pr-6 sm:pl-7 sm:pr-8 before:transition-[width,height,bottom,filter] before:duration-300 hover:before:w-4/5 hover:before:h-1/3 hover:before:bottom-[-35%] hover:before:[filter:blur(1.1rem)]"
+                    <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                        <a
+                            href="mailto:hinguvivek05@gmail.com"
+                            onClick={handleSendClick}
+                            className="group inline-block active:scale-95 transition-transform duration-150"
                         >
-                            <motion.span
-                                aria-hidden
-                                className="inline-flex will-change-transform"
-                                animate={
-                                    sent
-                                        ? {
-                                              x: [0, 24, 90, 0, 0],
-                                              y: [0, -38, -64, 30, 0],
-                                              rotate: [0, 25, 45, 0, 0],
-                                              opacity: [1, 1, 0, 0, 1],
-                                          }
-                                        : { x: 0, y: 0, rotate: 0, opacity: 1 }
-                                }
-                                transition={{
-                                    duration: sent ? 1.2 : 0.45,
-                                    ease: sent
-                                        ? [
-                                              [0.22, 1, 0.36, 1],
-                                              [0.22, 1, 0.36, 1],
-                                              "linear",
-                                              [0.22, 1, 0.36, 1],
-                                          ]
-                                        : "easeOut",
-                                    times: sent ? [0, 0.3, 0.5, 0.51, 1] : undefined,
-                                }}
+                            <RainbowButton
+                                variant="default"
+                                className="overflow-visible pl-5 pr-6 sm:pl-7 sm:pr-8 before:transition-[width,height,bottom,filter] before:duration-300 hover:before:w-4/5 hover:before:h-1/3 hover:before:bottom-[-35%] hover:before:[filter:blur(1.1rem)]"
                             >
-                                <IconSend className="transition-transform duration-200 group-hover:-rotate-12 group-hover:-translate-y-0.5" />
-                            </motion.span>
-                            <p className="tracking-tight">Contact Me</p>
-                        </RainbowButton>
-                    </a>
+                                <motion.span
+                                    aria-hidden
+                                    className="inline-flex will-change-transform"
+                                    animate={
+                                        sent
+                                            ? {
+                                                  x: [0, 24, 90, 0, 0],
+                                                  y: [0, -38, -64, 30, 0],
+                                                  rotate: [0, 25, 45, 0, 0],
+                                                  opacity: [1, 1, 0, 0, 1],
+                                              }
+                                            : { x: 0, y: 0, rotate: 0, opacity: 1 }
+                                    }
+                                    transition={{
+                                        duration: sent ? 1.2 : 0.45,
+                                        ease: sent
+                                            ? [
+                                                  [0.22, 1, 0.36, 1],
+                                                  [0.22, 1, 0.36, 1],
+                                                  "linear",
+                                                  [0.22, 1, 0.36, 1],
+                                              ]
+                                            : "easeOut",
+                                        times: sent ? [0, 0.3, 0.5, 0.51, 1] : undefined,
+                                    }}
+                                >
+                                    <LottiePlayer
+                                        src="/lottie/send.json"
+                                        className="w-5 h-5 inline-flex"
+                                        fallbackIcon={<IconSend className="transition-transform duration-200 group-hover:-rotate-12 group-hover:-translate-y-0.5" />}
+                                    />
+                                </motion.span>
+                                <p className="tracking-tight ml-1.5">Contact Me</p>
+                            </RainbowButton>
+                        </a>
+
+                        <button
+                            type="button"
+                            onClick={handleCopyEmail}
+                            className="group relative inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-cyan-500/40 bg-cyan-950/20 hover:bg-cyan-950/50 backdrop-blur-md text-xs sm:text-sm font-mono font-bold text-cyan-300 hover:text-white hover:border-cyan-400 transition-all shadow-md hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] active:scale-95 cursor-pointer h-11"
+                        >
+                            {copied ? (
+                                <>
+                                    <IconCheck className="w-4 h-4 text-emerald-400" />
+                                    <span className="text-emerald-300">Email Copied! 📋</span>
+                                </>
+                            ) : (
+                                <>
+                                    <IconCopy className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+                                    <span>Copy Email</span>
+                                </>
+                            )}
+                        </button>
+                    </div>
                     <a
                         href={repoUrl}
                         target="_blank"
@@ -137,8 +172,9 @@ export const Footer = () => {
                         className="group mt-8 relative inline-flex items-center gap-2.5 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 backdrop-blur-md text-xs sm:text-sm md:text-base font-semibold text-foreground hover:border-amber-500/60 hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                     >
                         <IconBrandGithub className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-                        <span className="tracking-tight whitespace-nowrap">
-                          એક કામ કર, સ્ટાર આપતો જા… બપોરની ચા મારી તરફથી ☕
+                        <span className="tracking-tight whitespace-nowrap inline-flex items-center gap-1.5">
+                          એક કામ કર, સ્ટાર આપતો જા… બપોરની ચા મારી તરફથી
+                          <LottiePlayer src="/lottie/chai.json" className="w-5 h-5 inline-flex shrink-0" fallbackIcon={<span>☕</span>} />
                         </span>
                         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-xs sm:text-sm font-bold text-amber-400 group-hover:bg-amber-500/25 shrink-0 ml-1">
                           <IconStar className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-amber-400 fill-amber-400 group-hover:animate-spin-grow" />

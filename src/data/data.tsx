@@ -10,6 +10,8 @@ export interface ProjectItem {
   description: string;
   thumbnail: string;
   video?: string;
+  myCut?: string[];
+  metricsSnippet?: string;
 }
 
 export interface CertificateItem {
@@ -225,6 +227,12 @@ export const data = {
       description: "Developed an AI-powered multilingual communication platform supporting text and voice interactions across multiple Indian languages. Integrated Grok API to generate context-aware multilingual responses and built a scalable backend using Node.js and Express.js for real-time AI conversations.",
       thumbnail: "/projects/bharat-bhasha.jpg",
       video: "",
+      metricsSnippet: "Sub-50ms token stream · Multilingual voice pipeline",
+      myCut: [
+        "Architected end-to-end multilingual streaming inference pipeline using Grok API and custom prompt templates.",
+        "Engineered real-time Node.js + Express.js backend handling dual text/voice session buffers.",
+        "Designed context retention memory layer to preserve conversational nuances across regional Indian languages."
+      ],
     },
     {
       title: "Reverse Recipe Engine with Local Flavor",
@@ -236,6 +244,12 @@ export const data = {
       description: "Developed an AI-powered application that generates regional recipes from user-provided ingredients. Integrated Gemini API to provide personalized recipe recommendations and cooking instructions, paired with Unsplash API for visual dish presentation.",
       thumbnail: "/projects/reverse-recipe.jpg",
       video: "",
+      metricsSnippet: "Zero-shot recipe synthesis · Dynamic visual pairing",
+      myCut: [
+        "Constructed Gemini prompt orchestration pipeline parsing raw pantry ingredients into verified culinary steps.",
+        "Integrated asynchronous Unsplash API scraper for dynamic recipe hero imagery based on regional tags.",
+        "Built lightweight Python Flask microservice deployed with automated error recovery."
+      ],
     },
     {
       title: "Book Recommender System | Machine Learning Engine",
@@ -247,6 +261,12 @@ export const data = {
       description: "Built a machine learning-based recommendation system using Cosine Similarity algorithms. Performed data cleaning, preprocessing, and exploratory data analysis on large datasets using Pandas to deliver personalized book recommendations based on user reading patterns.",
       thumbnail: "/projects/book-recommender.jpg",
       video: "",
+      metricsSnippet: "Matrix vectorization · Cosine similarity ranking",
+      myCut: [
+        "Vectorized tabular user-book interaction matrices using NumPy and Scikit-learn sparse matrices.",
+        "Built cosine similarity distance calculation engine returning top-N recommendations in real-time.",
+        "Conducted end-to-end EDA and outlier normalization on 100k+ rating records using Pandas."
+      ],
     },
     {
       title: "AI Startup Success Predictor | Machine Learning Engine",
@@ -258,6 +278,12 @@ export const data = {
       description: "Developed a machine learning prediction system designed to evaluate startup growth potential, funding success indicators, and market trends using data-driven classification algorithms.",
       thumbnail: "/projects/startup-predictor.jpg",
       video: "",
+      metricsSnippet: "Multi-factor feature scoring · Classification ensemble",
+      myCut: [
+        "Engineered feature extraction pipeline weighting founder experience, funding stage, and market sector indicators.",
+        "Trained and cross-validated supervised classification models to score startup failure/success probabilities.",
+        "Exported reusable model inference pipeline for instant predictive scoring."
+      ],
     },
   ] as ProjectItem[],
 

@@ -11,10 +11,13 @@ import {
   IconMaximize,
   IconX,
   IconShieldCheck,
+  IconReceipt,
+  IconBarcode,
 } from "@tabler/icons-react";
 import { data, HackathonCertificateItem } from "@/data/data";
 import { cn } from "@/lib/utils";
 import { playTapSound } from "@/lib/sound";
+import { LottiePlayer } from "@/components/ui/lottie-player";
 
 export default function HackathonBox() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,8 +43,8 @@ export default function HackathonBox() {
           className="p-5 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer select-none bg-gradient-to-r from-cyan-50/50 via-transparent to-blue-50/50 dark:from-cyan-950/20 dark:to-blue-950/20 hover:bg-cyan-500/5 transition-colors"
         >
           <div className="flex items-center gap-3.5 sm:gap-4">
-            <div className="p-3 rounded-2xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 shrink-0 group-hover:scale-110 transition-transform">
-              <IconTrophy className="h-6 w-6 sm:h-7 sm:w-7" />
+            <div className="p-1 sm:p-1.5 rounded-2xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 shrink-0 group-hover:scale-110 transition-transform overflow-hidden flex items-center justify-center">
+              <LottiePlayer src="/lottie/trophy.json" className="w-10 h-10 sm:w-12 sm:h-12" fallbackIcon={<IconTrophy className="h-6 w-6 sm:h-7 sm:w-7" />} />
             </div>
 
             <div>
@@ -94,16 +97,40 @@ export default function HackathonBox() {
                   </span>
                 </div>
 
-                {/* CERTIFICATE CARDS GRID */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {hackathons.map((cert) => (
+                {/* CERTIFICATE RECEIPT / BOARDING PASS GRID */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {hackathons.map((cert, idx) => (
                     <motion.div
                       key={cert.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="group/card relative bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-cyan-500/50 rounded-2xl p-3.5 transition-all duration-300 shadow-md hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] flex flex-col justify-between"
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.35, delay: idx * 0.05 }}
+                      className="group/card relative bg-zinc-900/90 hover:bg-zinc-900 border border-zinc-800 hover:border-cyan-500/50 rounded-2xl p-4 transition-all duration-300 shadow-md hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-between overflow-hidden"
                     >
-                      <div className="space-y-2.5">
+                      {/* Ticket Side Cutout Notches */}
+                      <div className="absolute top-1/2 -left-2.5 -translate-y-1/2 w-5 h-5 rounded-full bg-zinc-950 border-r border-zinc-700/60 pointer-events-none z-20" />
+                      <div className="absolute top-1/2 -right-2.5 -translate-y-1/2 w-5 h-5 rounded-full bg-zinc-950 border-l border-zinc-700/60 pointer-events-none z-20" />
+
+                      {/* Dynamic Rubber Stamp Reveal on Scroll / Mount */}
+                      <motion.div
+                        initial={{ scale: 2.2, opacity: 0, rotate: -25 }}
+                        whileInView={{ scale: 1, opacity: 0.95, rotate: cert.badgeType === "Winner" ? -10 : 8 }}
+                        viewport={{ once: true }}
+                        transition={{ type: "spring", stiffness: 350, damping: 20, delay: 0.15 + idx * 0.05 }}
+                        className={cn(
+                          "absolute top-4 right-4 z-20 pointer-events-none select-none px-2.5 py-0.5 rounded border-2 font-mono font-black text-[10px] tracking-widest uppercase shadow-lg backdrop-blur-xs",
+                          cert.badgeType === "Winner"
+                            ? "text-amber-400 border-amber-400/90 bg-amber-950/60 shadow-amber-500/20"
+                            : cert.badgeType === "Appreciation"
+                            ? "text-cyan-400 border-cyan-400/90 bg-cyan-950/60 shadow-cyan-500/20"
+                            : "text-purple-400 border-purple-400/90 bg-purple-950/60 shadow-purple-500/20"
+                        )}
+                      >
+                        {cert.badgeType === "Winner" ? "★ WINNER" : cert.badgeType === "Appreciation" ? "★ VERIFIED" : "★ MERIT"}
+                      </motion.div>
+
+                      <div className="space-y-3">
                         {/* Certificate Image Box */}
                         <div
                           onClick={() => {
@@ -123,15 +150,15 @@ export default function HackathonBox() {
 
                         {/* Metadata */}
                         <div>
-                          <div className="flex items-center justify-between gap-1 mb-1">
+                          <div className="flex items-center justify-between gap-1 mb-1.5">
                             <span
                               className={cn(
                                 "px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase border",
                                 cert.badgeType === "Winner"
-                                  ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
+                                  ? "bg-amber-500/15 text-amber-300 border-amber-500/40"
                                   : cert.badgeType === "Appreciation"
-                                  ? "bg-cyan-500/10 text-cyan-300 border-cyan-500/30"
-                                  : "bg-purple-500/10 text-purple-300 border-purple-500/30"
+                                  ? "bg-cyan-500/15 text-cyan-300 border-cyan-500/40"
+                                  : "bg-purple-500/15 text-purple-300 border-purple-500/40"
                               )}
                             >
                               {cert.award}
@@ -151,30 +178,44 @@ export default function HackathonBox() {
                         </div>
                       </div>
 
-                      {/* Footer Action */}
-                      <div className="pt-2.5 mt-2.5 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono">
-                        <button
-                          onClick={() => {
-                            playTapSound("pop");
-                            setActiveCertificate(cert);
-                          }}
-                          className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 cursor-pointer"
-                        >
-                          <IconMaximize className="h-3.5 w-3.5" />
-                          <span>View</span>
-                        </button>
-
-                        {cert.verificationUrl && (
-                          <a
-                            href={cert.verificationUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-bold"
+                      {/* Ticket Footer Action & Barcode Strip */}
+                      <div className="pt-3 mt-3 border-t border-dashed border-zinc-800 space-y-2">
+                        <div className="flex items-center justify-between text-xs font-mono">
+                          <button
+                            onClick={() => {
+                              playTapSound("pop");
+                              setActiveCertificate(cert);
+                            }}
+                            className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 cursor-pointer"
                           >
-                            <span>Verify</span>
-                            <IconExternalLink className="h-3 w-3" />
-                          </a>
-                        )}
+                            <IconMaximize className="h-3.5 w-3.5" />
+                            <span>View Docket</span>
+                          </button>
+
+                          {cert.verificationUrl && (
+                            <a
+                              href={cert.verificationUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-bold"
+                            >
+                              <span>Verify</span>
+                              <IconExternalLink className="h-3 w-3" />
+                            </a>
+                          )}
+                        </div>
+
+                        {/* Barcode & Serial Stamp Strip */}
+                        <div className="flex items-center justify-between text-[9px] font-mono text-zinc-500 pt-1 border-t border-zinc-800/60">
+                          <div className="flex items-center gap-1 text-cyan-400/80">
+                            <IconReceipt className="h-3 w-3" />
+                            <span>REC-HKT-{String(idx + 1).padStart(2, "0")}</span>
+                          </div>
+                          <div className="flex items-center gap-1 font-mono tracking-tighter text-zinc-500 select-none">
+                            <IconBarcode className="h-3 w-6 text-zinc-400" />
+                            <span>OFFICIAL DOCKET</span>
+                          </div>
+                        </div>
                       </div>
                     </motion.div>
                   ))}

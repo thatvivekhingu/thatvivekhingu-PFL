@@ -5,9 +5,10 @@ import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Badge } from "@/components/ui/badge";
 import { SectionHeading } from "@/components/layout/section-heading";
-import { IconBrandGithub, IconExternalLink, IconSparkles, IconX, IconActivity, IconTopologyRing3 } from "@tabler/icons-react";
+import { IconBrandGithub, IconExternalLink, IconSparkles, IconX, IconActivity, IconTopologyRing3, IconTerminal2 } from "@tabler/icons-react";
 import { data, ProjectItem } from "@/data/data";
 import { playTapSound } from "@/lib/sound";
+import { LottiePlayer } from "@/components/ui/lottie-player";
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
@@ -36,12 +37,17 @@ export default function Projects() {
     <section id="projects" className="py-16 sm:py-24 relative">
       <div className="container px-4 mx-auto max-w-6xl">
         <BlurFade delay={0.1} inView>
-          <SectionHeading
-            color="sky"
-            subtitle="FEATURED AI & WEB BUILDS"
-          >
-            Featured AI & Web Builds
-          </SectionHeading>
+          <div className="flex items-center justify-between">
+            <SectionHeading
+              color="sky"
+              subtitle="FEATURED AI & WEB BUILDS"
+            >
+              Featured AI & Web Builds
+            </SectionHeading>
+            <div className="hidden sm:flex items-center gap-2 -mt-4 drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+              <LottiePlayer src="/lottie/rocket.json" className="w-16 h-16 sm:w-20 sm:h-20" />
+            </div>
+          </div>
         </BlurFade>
 
         {/* Projects Grid */}
@@ -93,6 +99,12 @@ export default function Projects() {
                     <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 leading-relaxed">
                       {project.description}
                     </p>
+                    {project.metricsSnippet && (
+                      <div className="pt-1 flex items-center gap-1.5 text-[11px] font-mono text-cyan-400/90 font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                        <span>{project.metricsSnippet}</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Tech Stack Pills */}
@@ -149,6 +161,29 @@ export default function Projects() {
 
             {/* Modal Description */}
             <p className="text-sm text-slate-300 leading-relaxed">{selectedProject.description}</p>
+
+            {/* My Cut — Core Architectural Contributions */}
+            {selectedProject.myCut && selectedProject.myCut.length > 0 && (
+              <div className="space-y-2.5 pt-2 p-4 rounded-xl border border-cyan-500/30 bg-cyan-950/20">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                    <IconTerminal2 className="w-4 h-4 text-cyan-400" />
+                    <span>My Cut // Core Systems & Shipped By Me</span>
+                  </h4>
+                  <span className="text-[10px] font-mono text-cyan-400/80 px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30">
+                    Lead Contributor
+                  </span>
+                </div>
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-200">
+                  {selectedProject.myCut.map((cutPoint, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5">
+                      <span className="font-mono text-cyan-400 text-xs shrink-0 select-none font-bold">0{idx + 1} ➔</span>
+                      <span className="leading-relaxed text-slate-300">{cutPoint}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Key Engineering Metrics Section */}
             <div className="space-y-3 pt-2">

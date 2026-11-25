@@ -5,6 +5,7 @@ import { IconSparkles } from "@tabler/icons-react";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 import { playTapSound } from "@/lib/sound";
+import { LottiePlayer } from "@/components/ui/lottie-player";
 
 export default function VianSection() {
   const handleOpenVian = () => {
@@ -57,6 +58,10 @@ export default function VianSection() {
 
           {/* --- RIGHT: Let's talk with VIAN Button --- */}
           <div className="flex flex-col items-center justify-center w-full md:w-2/5 text-center px-2 py-4">
+            <div className="relative mb-3 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-xl animate-pulse" />
+              <LottiePlayer src="/lottie/cpu.json" className="w-16 h-16 sm:w-20 sm:h-20 text-cyan-400 relative z-10" />
+            </div>
             <button
               type="button"
               onClick={handleOpenVian}

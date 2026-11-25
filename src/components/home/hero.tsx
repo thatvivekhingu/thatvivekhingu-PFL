@@ -17,6 +17,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { data } from "@/data/data";
+import { LottiePlayer } from "@/components/ui/lottie-player";
 
 
 export default function Hero() {
@@ -72,41 +73,49 @@ export default function Hero() {
             <div className="relative flex flex-col items-center justify-center z-30 mx-auto my-3">
               {/* Ultra-Sleek Avatar Core with Concentric Marvel Arc Reactor Orbit & Full-Bleed Angled Ribbons */}
               <div className="relative group cursor-pointer z-30 my-3 flex items-center justify-center">
-                {/* Full-Bleed Edge-to-Edge Angled Double Marquee Ribbons Layer - Centered Mathematically Behind Avatar */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none opacity-85 dark:opacity-80 transition-opacity">
-                  {/* Cyan/Teal Angled Ribbon (-3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[3.5deg] bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 py-4 sm:py-5 md:py-5.5 shadow-[0_0_24px_rgba(6,182,212,0.22)] border-y-2 border-cyan-200/60">
-                    <Marquee repeat={10} className="[--duration:28s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.22em] text-zinc-950 uppercase">
-                      <span>VIVEK HINGU // AI & ML ENGINEER</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>JARVIS & AGENTIC AI</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>AUTONOMOUS AGENTS</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>NEURAL NETWORKS</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>DATA SCIENCE & PYTHON</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>COMPUTER VISION</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
+                {/* Full-Bleed Edge-to-Edge Editorial Tapes Layer - Centered Mathematically Behind Avatar */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none">
+                  {/* Tape A: Dark / Ink Tape (-2.5deg) - Solid Black with Bold White Typography */}
+                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[2.5deg] bg-zinc-950 border-y border-zinc-700/80 py-2.5 sm:py-3.5 shadow-[0_4px_25px_rgba(0,0,0,0.6)] z-[1]">
+                    <Marquee repeat={10} className="[--duration:28s] py-0 text-base sm:text-xl md:text-2xl font-black font-sans tracking-wide text-white uppercase">
+                      <span>TYPESCRIPT</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>NODE.JS</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>GO</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>REACT</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>NEXT.JS</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>PYTHON</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>PYTORCH</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>MONGODB</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>POSTGRESQL</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>DOCKER</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
                     </Marquee>
                   </div>
 
-                  {/* Violet/Indigo Angled Ribbon (+3.5deg) - 100% Screen Edge-to-Edge Bleed */}
-                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[3.5deg] bg-gradient-to-r from-violet-400 via-indigo-300 to-sky-400 py-4 sm:py-5 md:py-5.5 shadow-[0_0_24px_rgba(129,140,248,0.22)] border-y-2 border-indigo-200/60">
-                    <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-sm sm:text-base font-black font-mono tracking-[0.22em] text-zinc-950 uppercase">
-                      <span>BHARATBHASHA AI</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>REAL-TIME STREAMING</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>HACKATHON WINNER</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>DISRUPT & DEPLOY</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>GENAI ARCHITECT</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
-                      <span>FLINDERS AI WINNER</span>
-                      <span className="mx-3.5 text-zinc-950 font-black">•</span>
+                  {/* Tape B: Paper / Cream Tape (+2deg) - Crossing in Front with Bold Black Typography */}
+                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[2deg] bg-[#ECE7DC] border-y-2 border-black py-2.5 sm:py-3.5 shadow-[0_10px_35px_rgba(0,0,0,0.5)] z-[2]">
+                    <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-lg sm:text-2xl md:text-[26px] font-black font-sans tracking-tight text-black uppercase">
+                      <span>NO FLUFF</span>
+                      <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
+                      <span>REAL SHIP</span>
+                      <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
+                      <span>OPEN TO FREELANCE</span>
+                      <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
+                      <span>FULL STACK</span>
+                      <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
+                      <span>AI THAT SHIPS</span>
+                      <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
+                      <span>SYSTEM ARCHITECT</span>
+                      <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
                     </Marquee>
                   </div>
                 </div>
@@ -187,6 +196,7 @@ export default function Hero() {
                     } mr-2`}
                   />
                 </div>
+                <LottiePlayer src="/lottie/terminal.json" className="w-3.5 h-3.5 mr-1 text-cyan-400" />
                 <span className="whitespace-pre-wrap text-center font-semibold leading-none text-muted-foreground text-xs sm:text-sm py-[0.5]">
                   {status}
                 </span>

@@ -9,6 +9,7 @@ import Earth from "@/components/home/earth"
 import { BlurFade } from "@/components/ui/blur-fade";
 import { getSunsetPhotos } from "@/lib/sunsets";
 import { IntroAnimation } from "@/components/ui/intro-animation";
+import { ReadingRail } from "@/components/layout/reading-rail";
 
 const BLUR_FADE_DELAY = 0.005;
 
@@ -18,6 +19,7 @@ export default async function Home() {
   return (
     <div className="relative min-h-screen w-full bg-background overflow-x-clip">
       <IntroAnimation />
+      <ReadingRail />
 
       {/* Full-width Hero section so ribbons bleed 100% edge-to-edge of viewport */}
       <BlurFade delay={BLUR_FADE_DELAY} offset={0} inView>
