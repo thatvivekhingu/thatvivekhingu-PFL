@@ -5,22 +5,8 @@ import { cn } from "@/lib/utils";
 
 export type SectionHeadingColor = "cyan" | "indigo" | "emerald" | "amber" | "orange" | "sky" | "blue";
 
-const KANJI_MAP: Record<string, string> = {
-  "01": "第一章",
-  "02": "第二章",
-  "03": "第三章",
-  "04": "第四章",
-  "05": "第五章",
-  "06": "第六章",
-  "07": "第七章",
-  "08": "第八章",
-  "09": "第九章",
-  "10": "第十章",
-};
-
 interface SectionHeadingProps {
   number?: string;
-  kanji?: string;
   chapter?: string;
   icon?: React.ReactNode;
   badge?: string;
@@ -38,7 +24,6 @@ export const headingIconClass = "h-5 w-5 sm:h-6 sm:w-6 text-[#3B82F6]";
 
 export function SectionHeading({
   number,
-  kanji,
   chapter,
   children,
   className = "",
@@ -49,7 +34,6 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const isLeft = align === "left";
 
-  const kanjiText = kanji !== undefined ? kanji : (number && KANJI_MAP[number] ? KANJI_MAP[number] : "");
   const chapterText = chapter !== undefined ? chapter : (number ? `CHAPTER ${number}` : "");
 
   // If children is a plain string, automatically style the first word with accent color and the rest in white
@@ -82,11 +66,10 @@ export function SectionHeading({
     >
       {/* Left Column: Chapter Subtitle & Anton Heading */}
       <div className="flex flex-col z-10 max-w-[85%] sm:max-w-[75%] pr-2">
-        {(kanjiText || chapterText) && (
+        {chapterText && (
           <div className="flex items-center gap-2 text-xs sm:text-[13px] font-mono uppercase tracking-wider mb-1 sm:mb-2 select-none">
-            {kanjiText && <span className="text-[#3B82F6] font-bold">{kanjiText}</span>}
-            {kanjiText && chapterText && <span className="text-zinc-400 dark:text-zinc-600 font-normal">{"//"}</span>}
-            {chapterText && <span className="text-zinc-500 dark:text-zinc-400 font-semibold">{chapterText}</span>}
+            <span className="text-[#3B82F6] font-bold">{"//"}</span>
+            <span className="text-zinc-500 dark:text-zinc-400 font-semibold">{chapterText}</span>
           </div>
         )}
         <h2 className="font-[family-name:var(--font-anton)] text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none uppercase">
