@@ -49,8 +49,8 @@ export default function VianSection() {
           {/* Subtle Ambient Dark Gradient Vignette */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
 
-          {/* Apple iPhone Dynamic Island Pill with Magnetic Physics */}
-          <div className="absolute bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center pointer-events-auto">
+          {/* Apple iPhone Dynamic Island Pill positioned at TOP of Video with Magnetic Physics */}
+          <div className="absolute top-5 sm:top-7 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center pointer-events-auto">
             <Magnetic strength={0.4}>
               <button
                 type="button"

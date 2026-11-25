@@ -8,6 +8,7 @@ import {
   IconMaximize,
   IconX,
   IconBarcode,
+  IconChevronDown,
 } from "@tabler/icons-react";
 import { data, HackathonCertificateItem } from "@/data/data";
 import { cn } from "@/lib/utils";
@@ -60,30 +61,32 @@ export default function HackathonBox() {
   return (
     <div className="w-full">
       {/* MAIN MANGA ARCHIVE VAULT CONTAINER */}
-      <div className="relative overflow-hidden rounded-2xl border-2 border-black/80 dark:border-white/15 bg-[#121212] text-neutral-200 shadow-[0_12px_36px_rgba(0,0,0,0.7)]">
-        {/* TOP CRIMSON ACCENT RULE */}
-        <div className="h-1.5 w-full bg-[#B92B27]" />
+      <div className="relative overflow-hidden rounded-2xl border border-zinc-800/80 bg-[#0E0E10] text-neutral-200 shadow-[0_12px_40px_rgba(0,0,0,0.85)]">
+        {/* TOP ACCENT RULE */}
+        <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#3B82F6] to-transparent" />
 
         {/* ============================================================== */}
         {/* SECTION HEADER */}
         {/* ============================================================== */}
-        <div className="p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-white/10 bg-[#121212] select-none">
-          <div className="space-y-1.5 max-w-3xl">
-            {/* Top Monospace Tag in Crimson */}
+        <div className="p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-white/10 bg-[#0E0E10] select-none">
+          <div className="space-y-2 max-w-3xl">
+            {/* Top Monospace Tag */}
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold tracking-widest text-[#B92B27] uppercase">
-                ARCHIVE 03 // HACKATHON VAULT
+              <span className="text-[#3B82F6] font-bold font-mono text-xs">{"//"}</span>
+              <span className="font-mono text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                HACKATHON VAULT &amp; SPRINT RECORDS
               </span>
-              <span className="w-2 h-2 rounded-full bg-[#B92B27] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse ml-1" />
             </div>
 
-            {/* Left-Aligned Massive Bold Uppercase Headline in Anton */}
-            <h3 className="font-[family-name:var(--font-anton)] text-2xl sm:text-3xl md:text-4xl text-white tracking-tight uppercase leading-none">
-              HACKATHON ACHIEVEMENTS &amp; CERTIFICATES
+            {/* Left-Aligned Headline in Anton matching Portfolio standards */}
+            <h3 className="font-[family-name:var(--font-anton)] text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase leading-none">
+              <span className="text-[#3B82F6]">HACKATHON ACHIEVEMENTS</span>{" "}
+              <span className="text-white">&amp; CERTIFICATES</span>
             </h3>
 
             {/* Subtitle */}
-            <p className="text-xs sm:text-sm text-neutral-400 font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-400 font-sans leading-relaxed">
               Flinders AI &apos;26 (2nd Winner) • DA-IICT (HackOut &apos;26 &amp; TIC-TECH-TOE) • LDCE (tarkShaastra 2k26)
             </p>
           </div>
@@ -93,9 +96,17 @@ export default function HackathonBox() {
             <button
               type="button"
               onClick={toggleOpen}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EAE6DF] hover:bg-[#F2EFE9] text-black font-mono font-bold text-xs sm:text-sm tracking-wider border-2 border-black shadow-[3px_3px_0px_#B92B27] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer shrink-0"
+              data-cursor="Open"
+              className="inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-[#FAF9F5] hover:bg-white text-black font-mono font-bold text-xs sm:text-sm tracking-wider border-2 border-black shadow-[4px_4px_0px_#3B82F6] hover:shadow-[5px_5px_0px_#3B82F6] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer shrink-0"
             >
-              <span>{isOpen ? "HIDE CERTIFICATES ^" : "VIEW CERTIFICATES v"}</span>
+              <span>{isOpen ? "HIDE CERTIFICATES" : "VIEW CERTIFICATES"}</span>
+              <motion.span
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="inline-flex items-center justify-center"
+              >
+                <IconChevronDown className="w-4 h-4 text-black stroke-[2.5]" />
+              </motion.span>
             </button>
           </Magnetic>
         </div>
@@ -110,7 +121,7 @@ export default function HackathonBox() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="overflow-hidden bg-[#121212] p-5 sm:p-8"
+              className="overflow-hidden bg-[#0A0A0C] p-5 sm:p-8"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
                 {hackathons.map((cert, idx) => {
