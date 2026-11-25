@@ -424,6 +424,29 @@ export default function SpotifyMusicPage() {
   const [showDeviceModal, setShowDeviceModal] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [isLiveSynthesizerActive, setIsLiveSynthesizerActive] = useState(false);
+  const [spotifyEmbedUrl, setSpotifyEmbedUrl] = useState("https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUfTFmZeeg?utm_source=generator&theme=0");
+  const [customSpotifyInput, setCustomSpotifyInput] = useState("");
+
+  const handleApplyEmbed = (rawUrl: string) => {
+    if (!rawUrl.trim()) return;
+    try {
+      const trimmed = rawUrl.trim();
+      if (trimmed.includes("open.spotify.com/embed/")) {
+        setSpotifyEmbedUrl(trimmed);
+        return;
+      }
+      const urlObj = new URL(trimmed);
+      const parts = urlObj.pathname.split("/").filter(Boolean);
+      if (parts.length >= 2) {
+        const type = parts[0];
+        const id = parts[1].split("?")[0];
+        setSpotifyEmbedUrl(`https://open.spotify.com/embed/${type}/${id}?utm_source=generator&theme=0`);
+        return;
+      }
+    } catch {
+      setSpotifyEmbedUrl(`https://open.spotify.com/embed/playlist/${rawUrl.trim()}?utm_source=generator&theme=0`);
+    }
+  };
 
   // Audio References
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -968,29 +991,70 @@ export default function SpotifyMusicPage() {
             {/* View Mode 1: Spotify Embed Mode */}
             {viewMode === "embed" ? (
               <div className="space-y-4">
-                <div className="flex items-center justify-between bg-zinc-900/80 p-4 rounded-xl border border-zinc-800">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-zinc-900/90 p-4 rounded-xl border border-zinc-800 gap-3">
                   <div>
-                    <h3 className="text-base font-semibold text-white flex items-center gap-2">
+                    <h3 className="text-base font-bold text-white flex items-center gap-2">
                       <IconBrandSpotify className="w-5 h-5 text-[#1DB954]" />
                       Official Spotify Player Embed
                     </h3>
                     <p className="text-xs text-zinc-400 mt-0.5">
-                      Stream directly from Vivek Hingu&apos;s heavy rotation on Spotify.
+                      Play real Spotify playlists, albums, and tracks directly on your portfolio.
                     </p>
                   </div>
                   <button
                     onClick={() => setViewMode("list")}
-                    className="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-xs font-semibold transition"
+                    className="self-start sm:self-auto px-3.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-xs font-semibold text-zinc-300 hover:text-white transition"
                   >
                     Switch to Interactive App Player
                   </button>
                 </div>
-                <div className="rounded-2xl overflow-hidden shadow-2xl border border-zinc-800">
+
+                {/* Custom Spotify URL Input */}
+                <div className="bg-[#181818] p-3.5 rounded-xl border border-zinc-800/80 space-y-2.5">
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      type="text"
+                      placeholder="Paste your Spotify playlist, album, or track link here..."
+                      value={customSpotifyInput}
+                      onChange={(e) => setCustomSpotifyInput(e.target.value)}
+                      className="flex-1 bg-black/60 text-xs text-white placeholder-zinc-500 px-3.5 py-2 rounded-lg border border-zinc-700/80 outline-none focus:border-[#1DB954]"
+                    />
+                    <button
+                      onClick={() => handleApplyEmbed(customSpotifyInput)}
+                      className="px-4 py-2 bg-[#1DB954] hover:bg-[#1ed760] text-black text-xs font-bold rounded-lg transition shrink-0"
+                    >
+                      Embed &amp; Play
+                    </button>
+                  </div>
+
+                  {/* Preset quick buttons */}
+                  <div className="flex items-center gap-1.5 flex-wrap text-xs text-zinc-400">
+                    <span className="text-[11px] font-mono text-zinc-500">Presets:</span>
+                    {[
+                      { name: "Top Hits India", url: "https://open.spotify.com/playlist/37i9dQZF1DX0XUfTFmZeeg" },
+                      { name: "Tabaahi (Toxic)", url: "https://open.spotify.com/track/0bRRLtD0Tmfg8ZaP9Qf1Sq" },
+                      { name: "Khalasi", url: "https://open.spotify.com/track/4bH4g1qQo5o4F6y98sO1P9" },
+                      { name: "Starboy", url: "https://open.spotify.com/track/7MXVkk9YM5IZxh0WSlVIk0" },
+                      { name: "Kesariya", url: "https://open.spotify.com/track/6Wz0jZk4jG5Uuh0w3n1q3g" },
+                    ].map((p) => (
+                      <button
+                        key={p.name}
+                        onClick={() => handleApplyEmbed(p.url)}
+                        className="px-2.5 py-1 rounded-md text-[11px] bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white transition"
+                      >
+                        {p.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Spotify Iframe Embed */}
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-zinc-800 bg-[#121212]">
                   <iframe
                     title="Spotify Web Player"
-                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUfTFmZeeg?utm_source=generator&theme=0"
+                    src={spotifyEmbedUrl}
                     width="100%"
-                    height="480"
+                    height="450"
                     frameBorder="0"
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
