@@ -48,29 +48,29 @@ export default function ResumePage() {
 
   const skillsData = [
     {
-      category: "Programming Languages",
-      skills: ["Python", "SQL", "JavaScript", "HTML", "CSS"],
-      color: "from-blue-500/20 to-cyan-500/20 border-cyan-500/30 text-cyan-400",
+      category: "Frontend",
+      skills: ["Next.js (React Framework)", "TypeScript", "Tailwind CSS", "Framer Motion", "GSAP", "Lenis (Smooth Scrolling)"],
+      color: "from-cyan-500/20 to-blue-500/20 border-cyan-500/30 text-cyan-400",
     },
     {
-      category: "Frameworks & Libraries",
-      skills: ["Scikit-learn", "TensorFlow", "PyTorch", "NumPy", "Pandas", "Matplotlib", "FastAPI", "Flask", "React", "Next.js", "Vite", "Tailwind CSS", "Node.js", "Express.js", "LangChain"],
-      color: "from-indigo-500/20 to-purple-500/20 border-indigo-500/30 text-indigo-400",
+      category: "3D & Visual Effects",
+      skills: ["Three.js", "React Three Fiber", "WebGL", "Lottie", "CSS Animations"],
+      color: "from-purple-500/20 to-pink-500/20 border-purple-500/30 text-purple-400",
     },
     {
-      category: "Generative AI & LLMs",
-      skills: ["OpenAI API", "Gemini API", "Grok API", "RAG", "LLM", "Prompt Engineering", "Embeddings", "Vector Databases"],
+      category: "AI Integration",
+      skills: ["Groq API", "Llama Models", "OpenAI API / Gemini API", "Agno Framework", "LangChain", "RAG Architecture"],
       color: "from-amber-500/20 to-orange-500/20 border-amber-500/30 text-amber-500 dark:text-amber-400",
     },
     {
-      category: "Databases & Tools",
-      skills: ["SQLite", "ChromaDB", "Git", "GitHub", "VS Code", "Jupyter Notebook"],
+      category: "Backend & Database",
+      skills: ["Python", "FastAPI", "Node.js", "PostgreSQL", "MongoDB", "Supabase"],
       color: "from-emerald-500/20 to-teal-500/20 border-emerald-500/30 text-emerald-400",
     },
     {
-      category: "Core AI Concepts",
-      skills: ["Machine Learning", "Deep Learning", "NLP", "Computer Vision", "Classification", "Regression", "Feature Engineering", "Model Evaluation"],
-      color: "from-rose-500/20 to-pink-500/20 border-rose-500/30 text-rose-400",
+      category: "Tools & Deployment",
+      skills: ["Git & GitHub", "Vercel", "Docker", "VS Code", "Postman", "Figma"],
+      color: "from-blue-500/20 to-indigo-500/20 border-blue-500/30 text-blue-400",
     },
   ];
 

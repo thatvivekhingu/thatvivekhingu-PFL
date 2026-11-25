@@ -47,9 +47,9 @@ export const PORTFOLIO_KNOWLEDGE: PortfolioChunk[] = [
   {
     id: "skills",
     category: "skills",
-    title: "Technical Skills & Tooling",
-    keywords: ["skill", "skills", "stack", "tools", "python", "pytorch", "tensorflow", "scikitlearn", "pandas", "numpy", "nextjs", "react", "fastapi", "flask", "docker", "git", "nlp", "llm", "rag"],
-    content: `Vivek Hingu's Technical Stack:\n- **Languages**: Python, JavaScript, C++, HTML, CSS\n- **Machine Learning & Data Science**: Scikit-learn, Pandas, NumPy, Cosine Similarity, Predictive Analytics, EDA, Data Preprocessing\n- **AI Architecture**: LLMs, Agentic AI, LangChain, LangGraph, Retrieval-Augmented Generation (RAG), NLP, Computer Vision\n- **Web & Backend**: Next.js 15, React, Node.js, Express.js, Flask, Tailwind CSS\n- **DevTools & Version Control**: Git, GitHub, VS Code, Vercel`,
+    title: "Technical Skills & Tech Stack",
+    keywords: ["skill", "skills", "stack", "tools", "frontend", "3d", "ai", "backend", "nextjs", "react", "typescript", "tailwind", "framer motion", "gsap", "lenis", "threejs", "react three fiber", "webgl", "lottie", "groq", "llama", "openai", "gemini", "agno", "langchain", "rag", "python", "fastapi", "nodejs", "postgresql", "mongodb", "supabase", "docker", "git", "github", "vercel", "postman", "figma"],
+    content: `Vivek Hingu's Core Tech Stack (5 Domains):\n1. **Frontend**: Next.js (React Framework), TypeScript, Tailwind CSS, Framer Motion, GSAP, Lenis (Smooth Scrolling)\n2. **3D & Visual Effects**: Three.js, React Three Fiber, WebGL, Lottie, CSS Animations\n3. **AI Integration**: Groq API, Llama Models, OpenAI API / Gemini API, Agno Framework, LangChain, RAG Architecture\n4. **Backend & Database**: Python, FastAPI, Node.js, PostgreSQL, MongoDB, Supabase\n5. **Tools & Deployment**: Git & GitHub, Vercel, Docker, VS Code, Postman, Figma`,
   },
   {
     id: "achievements",
