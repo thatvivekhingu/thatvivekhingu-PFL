@@ -10,8 +10,11 @@ import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 export default function Experience() {
   return (
     <div className="flex flex-col">
-      <SectionHeading>
-        <span className="text-[#3B82F6]">EDUCATION</span>{" "}
+      <SectionHeading
+        number="03"
+        chapter="CHAPTER 03 — WORK & EXPERIENCE"
+      >
+        <span className="text-[#3B82F6]">WORK</span>{" "}
         <span className="text-white">&amp; EXPERIENCE</span>
       </SectionHeading>
 

@@ -95,7 +95,10 @@ export default function Achievements() {
       <div className="relative w-full select-none overflow-hidden">
         {/* AWARDS & ACHIEVEMENTS HEADLINE */}
         <div className="relative px-3 sm:px-6 md:px-8 lg:px-12 pt-3 sm:pt-6 pb-2 sm:pb-4 overflow-hidden">
-          <SectionHeading>
+          <SectionHeading
+            number="06"
+            chapter="CHAPTER 06 — HONORS & RECOGNITION"
+          >
             <span className="text-[#3B82F6]">AWARDS</span>{" "}
             <span className="text-white">&amp; ACHIEVEMENTS</span>
           </SectionHeading>
@@ -421,7 +424,10 @@ export default function Achievements() {
       {/* 3. CERTIFICATIONS & SPECIALIZATIONS MARQUEE                     */}
       {/* ============================================================== */}
       <div className="space-y-4 sm:space-y-6 pt-4 sm:pt-8 w-full px-2 sm:px-6 md:px-8 lg:px-12">
-        <SectionHeading>
+        <SectionHeading
+          number="07"
+          chapter="CHAPTER 07 — LICENSES & CREDENTIALS"
+        >
           <span className="text-[#3B82F6]">CERTIFICATIONS</span>{" "}
           <span className="text-white">&amp; SPECIALIZATIONS</span>
         </SectionHeading>

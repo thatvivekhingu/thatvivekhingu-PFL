@@ -226,7 +226,10 @@ export default function SkillsStack() {
   return (
     <div className="flex flex-col w-full" id="skills">
       {/* STANDARDIZED ANTON HEADLINE */}
-      <SectionHeading>
+      <SectionHeading
+        number="04"
+        chapter="CHAPTER 04 — TECH ARSENAL"
+      >
         <span className="text-[#3B82F6]">TECH STACK</span>{" "}
         <span className="text-white">&amp; ARSENAL</span>
       </SectionHeading>

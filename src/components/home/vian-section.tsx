@@ -14,7 +14,10 @@ export default function VianSection() {
 
   return (
     <div className="flex flex-col w-full">
-      <SectionHeading>
+      <SectionHeading
+        number="02"
+        chapter="CHAPTER 02 — AUTONOMOUS AGENT"
+      >
         <span className="text-[#3B82F6]">TALK WITH</span>{" "}
         <span className="text-white">VIAN</span>
       </SectionHeading>

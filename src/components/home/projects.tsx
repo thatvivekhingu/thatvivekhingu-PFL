@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { IconBrandGithub, IconExternalLink, IconSparkles, IconX } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
+import { SectionHeading } from "@/components/layout/section-heading";
 
 export interface ProjectVolume {
   id: string;
@@ -275,53 +276,55 @@ export default function Projects() {
       {/* Upper Split Shelf Section */}
       <div className="w-full pt-3 sm:pt-6">
         {/* Top Header & Controls Bar */}
-        <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 sm:pb-6 gap-4">
-          <h2 className="font-[family-name:var(--font-anton)] text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none uppercase">
-            <span className="text-[#3B82F6]">SELECTED</span>{" "}
-            <span className="text-white">PROJECTS &amp; WORK</span>
-          </h2>
+        <SectionHeading
+          number="05"
+          chapter="CHAPTER 05 — SELECTED WORKS"
+          rightElement={
+            <div className="flex items-center gap-5 sm:gap-7 shrink-0">
+              {/* 4 Natural Editorial Accent Swatches */}
+              <div className="flex items-center gap-2.5" role="group" aria-label="Natural Accent Color Swatches">
+                {ACCENTS.map((item) => (
+                  <button
+                    key={item.hex}
+                    type="button"
+                    onClick={() => {
+                      playTapSound("pop");
+                      setAccent(item.hex);
+                    }}
+                    style={{ backgroundColor: item.hex }}
+                    title={`${item.name} (${item.hex})`}
+                    aria-label={`${item.name} Theme`}
+                    className={`w-3 h-3 rounded-full transition-transform hover:scale-125 cursor-pointer ${
+                      accent === item.hex
+                        ? "ring-2 ring-offset-2 ring-offset-[#121211] ring-[#C88A55]"
+                        : "opacity-80 hover:opacity-100"
+                    }`}
+                  />
+                ))}
+              </div>
 
-          <div className="flex items-center gap-5 sm:gap-7 self-end sm:self-auto shrink-0">
-            {/* 4 Natural Editorial Accent Swatches */}
-            <div className="flex items-center gap-2.5" role="group" aria-label="Natural Accent Color Swatches">
-              {ACCENTS.map((item) => (
-                <button
-                  key={item.hex}
-                  type="button"
-                  onClick={() => {
-                    playTapSound("pop");
-                    setAccent(item.hex);
-                  }}
-                  style={{ backgroundColor: item.hex }}
-                  title={`${item.name} (${item.hex})`}
-                  aria-label={`${item.name} Theme`}
-                  className={`w-3 h-3 rounded-full transition-transform hover:scale-125 cursor-pointer ${
-                    accent === item.hex
-                      ? "ring-2 ring-offset-2 ring-offset-[#121211] ring-[#C88A55]"
-                      : "opacity-80 hover:opacity-100"
-                  }`}
+              {/* Functional MOTION ON / OFF Toggle */}
+              <button
+                type="button"
+                onClick={() => {
+                  playTapSound("pop");
+                  setMotionOn((prev) => !prev);
+                }}
+                aria-pressed={motionOn}
+                className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.16em] uppercase text-[#ECE7DD]/85 hover:text-[#ECE7DD] transition-colors cursor-pointer"
+              >
+                <span
+                  style={{ backgroundColor: accent }}
+                  className={`w-2 h-2 rounded-full inline-block ${motionOn ? "animate-pulse" : ""}`}
                 />
-              ))}
+                <span>{motionOn ? "MOTION ON" : "MOTION OFF"}</span>
+              </button>
             </div>
-
-            {/* Functional MOTION ON / OFF Toggle */}
-            <button
-              type="button"
-              onClick={() => {
-                playTapSound("pop");
-                setMotionOn((prev) => !prev);
-              }}
-              aria-pressed={motionOn}
-              className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.16em] uppercase text-[#ECE7DD]/85 hover:text-[#ECE7DD] transition-colors cursor-pointer"
-            >
-              <span
-                style={{ backgroundColor: accent }}
-                className={`w-2 h-2 rounded-full inline-block ${motionOn ? "animate-pulse" : ""}`}
-              />
-              <span>{motionOn ? "MOTION ON" : "MOTION OFF"}</span>
-            </button>
-          </div>
-        </div>
+          }
+        >
+          <span className="text-[#3B82F6]">SELECTED</span>{" "}
+          <span className="text-white">PROJECTS &amp; WORK</span>
+        </SectionHeading>
 
         {/* Shelf Split Container Resting on Warm Charcoal Line */}
         <div className="w-full border-b border-[#282725] flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-6 relative pb-0">

@@ -168,7 +168,10 @@ export default function Education() {
 
   return (
     <div className="flex flex-col space-y-6 sm:space-y-10 w-full select-none">
-      <SectionHeading>
+      <SectionHeading
+        number="03"
+        chapter="CHAPTER 03 — ACADEMIC ARCHIVE"
+      >
         <span className="text-[#3B82F6]">ACADEMIC</span>{" "}
         <span className="text-white">&amp; EDUCATION</span>
       </SectionHeading>

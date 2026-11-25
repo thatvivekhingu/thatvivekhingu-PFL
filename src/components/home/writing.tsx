@@ -21,7 +21,10 @@ export default function Writing({ posts }: { posts: HomeWritingPost[] }) {
 
     return (
         <div className="flex flex-col">
-            <SectionHeading>
+            <SectionHeading
+              number="09"
+              chapter="CHAPTER 09 — WRITING & ESSAYS"
+            >
               <span className="text-[#3B82F6]">WRITING</span>{" "}
               <span className="text-white">&amp; ESSAYS</span>
             </SectionHeading>

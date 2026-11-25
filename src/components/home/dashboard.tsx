@@ -62,15 +62,18 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col w-full">
       <CustomCursor />
-      <div className="flex items-center justify-between pb-2 sm:pb-4">
-        <SectionHeading className="pt-0 pb-0 w-auto">
-          <span className="text-[#3B82F6]">DEVELOPER</span>{" "}
-          <span className="text-white">TELEMETRY &amp; MATRIX</span>
-        </SectionHeading>
-        <div className="hidden sm:flex items-center gap-2 -mt-2 drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-          <LottiePlayer src="/lottie/developer.json" className="w-20 h-20 md:w-24 md:h-24" />
-        </div>
-      </div>
+      <SectionHeading 
+        number="01" 
+        chapter="CHAPTER 01 — TELEMETRY & MATRIX"
+        rightElement={
+          <div className="hidden sm:flex items-center gap-2 drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+            <LottiePlayer src="/lottie/developer.json" className="w-16 h-16 md:w-20 md:h-20" />
+          </div>
+        }
+      >
+        <span className="text-[#3B82F6]">DEVELOPER</span>{" "}
+        <span className="text-white">TELEMETRY &amp; MATRIX</span>
+      </SectionHeading>
 
       <ul
         className={`grid w-full gap-4 ${styles.dashboardGrid}`}>
