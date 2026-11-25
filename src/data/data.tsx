@@ -289,14 +289,6 @@ export const data = {
 
   certificates: [
     {
-      title: "Machine Learning",
-      issuer: "NPTEL",
-      date: "2026",
-      skills: ["Supervised Learning", "Regression", "Classification", "Model Evaluation"],
-      image: "/certificates/nptel-ml.jpg",
-      credentialUrl: "https://linkedin.com/in/vivekhingu",
-    },
-    {
       title: "Build RAG Chatbot with Python",
       issuer: "LetsUpgrade",
       date: "2025",
@@ -318,6 +310,14 @@ export const data = {
       date: "2025",
       skills: ["Python", "Data Science", "Data Cleaning", "Data Visualization"],
       image: "/certificates/ibm-python.jpg",
+      credentialUrl: "https://linkedin.com/in/vivekhingu",
+    },
+    {
+      title: "Machine Learning",
+      issuer: "NPTEL",
+      date: "2026",
+      skills: ["Supervised Learning", "Regression", "Classification", "Model Evaluation"],
+      image: "/certificates/nptel-ml.jpg",
       credentialUrl: "https://linkedin.com/in/vivekhingu",
     },
   ] as CertificateItem[],
