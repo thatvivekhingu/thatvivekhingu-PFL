@@ -44,7 +44,7 @@ export default function VianSection() {
     <div className="flex flex-col w-full">
       <SectionHeading>
         <span className="text-[#3B82F6]">TALK WITH</span>{" "}
-        <span className="text-white">VIAN COPILOT</span>
+        <span className="text-white">VIAN</span>
       </SectionHeading>
 
       {/* Main Container - Compact, zero wasted empty padding, naturally sized */}
@@ -78,7 +78,7 @@ export default function VianSection() {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                <span className="font-semibold">Autonomous Copilot Live</span>
+                <span className="font-semibold">Autonomous Agent Live</span>
               </div>
               <span className="hidden sm:inline-flex text-[10px] font-mono uppercase tracking-wider text-white/70 bg-black/60 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded-full">
                 LLaMA 3.3 Core
@@ -96,7 +96,7 @@ export default function VianSection() {
             </div>
           </div>
 
-          {/* --- RIGHT: Interactive Copilot Command Center (Fills the space smartly) --- */}
+          {/* --- RIGHT: Interactive Command Center (Fills the space smartly) --- */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4 py-1">
             {/* Header: Agent Identity & Status */}
             <div className="flex items-center justify-between">
@@ -106,7 +106,7 @@ export default function VianSection() {
                 </div>
                 <div>
                   <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
-                    <span>VIAN Copilot</span>
+                    <span>VIAN Assistant</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded-sm bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/30">
                       AI
                     </span>
