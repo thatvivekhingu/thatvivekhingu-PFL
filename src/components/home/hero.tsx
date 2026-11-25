@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tooltip";
 import { data } from "@/data/data";
 import { LottiePlayer } from "@/components/ui/lottie-player";
+import { Magnetic } from "@/components/ui/magnetic";
 
 
 export default function Hero() {
@@ -214,66 +215,74 @@ export default function Hero() {
 
               <BlurFade delay={0.005 * 2} direction="down" inView>
                 <div className="z-50 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-1 sm:pt-2">
-                  <div
-                    ref={contactRef}
-                    onMouseMove={handleContactMove}
-                    className="group relative inline-flex items-center overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-3.5 py-1.5 transition-all hover:border-border hover:shadow-lg"
-                  >
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
-                      style={{
-                        background:
-                          "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
-                      }}
-                    />
-                    <div className="relative z-10">
-                      <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
+                  <Magnetic strength={0.25}>
+                    <div
+                      ref={contactRef}
+                      onMouseMove={handleContactMove}
+                      className="group relative inline-flex items-center overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-3.5 py-1.5 transition-all hover:border-border hover:shadow-lg active:scale-95"
+                    >
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                        style={{
+                          background:
+                            "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                        }}
+                      />
+                      <div className="relative z-10">
+                        <ContactIcons wiggleIcon={wiggleIcon} handleIconClick={handleIconClick} />
+                      </div>
+                      <ShimmerBorder />
                     </div>
-                    <ShimmerBorder />
-                  </div>
+                  </Magnetic>
                   <span className="hidden sm:inline-block h-4 w-px bg-border/60" aria-hidden />
                   <div className="flex items-center gap-2.5 sm:gap-3">
-                    <a
-                      ref={ctaRef}
-                      onMouseMove={handleCtaMove}
-                      onClick={() => playTapSound("pop")}
-                      href="#projects"
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
-                    >
-                      <span
-                        aria-hidden
-                        className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
-                        style={{
-                          background:
-                            "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                    <Magnetic strength={0.35}>
+                      <a
+                        ref={ctaRef}
+                        onMouseMove={handleCtaMove}
+                        onClick={() => playTapSound("pop")}
+                        href="#projects"
+                        data-cursor="View"
+                        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg active:scale-95"
+                      >
+                        <span
+                          aria-hidden
+                          className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                          style={{
+                            background:
+                              "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                          }}
+                        />
+                        <span className="relative">View my work</span>
+                        <IconArrowRight className="relative h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                        <ShimmerBorder />
+                      </a>
+                    </Magnetic>
+                    <Magnetic strength={0.35}>
+                      <button
+                        ref={resumeBtnRef}
+                        onMouseMove={handleResumeMove}
+                        onClick={() => {
+                          playTapSound("chime");
+                          setIsResumeOpen(true);
                         }}
-                      />
-                      <span className="relative">View my work</span>
-                      <IconArrowRight className="relative h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                      <ShimmerBorder />
-                    </a>
-                    <button
-                      ref={resumeBtnRef}
-                      onMouseMove={handleResumeMove}
-                      onClick={() => {
-                        playTapSound("chime");
-                        setIsResumeOpen(true);
-                      }}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg"
-                    >
-                      <span
-                        aria-hidden
-                        className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
-                        style={{
-                          background:
-                            "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
-                        }}
-                      />
-                      <IconFileText className="relative h-3.5 w-3.5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
-                      <span className="relative font-bold">Resume</span>
-                      <ShimmerBorder />
-                    </button>
+                        data-cursor="Open"
+                        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg active:scale-95 cursor-pointer"
+                      >
+                        <span
+                          aria-hidden
+                          className="pointer-events-none absolute inset-0 rounded-full text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-20"
+                          style={{
+                            background:
+                              "radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), currentColor, transparent 60%)",
+                          }}
+                        />
+                        <IconFileText className="relative h-3.5 w-3.5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
+                        <span className="relative font-bold">Resume</span>
+                        <ShimmerBorder />
+                      </button>
+                    </Magnetic>
                   </div>
                 </div>
               </BlurFade>

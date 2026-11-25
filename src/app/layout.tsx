@@ -11,6 +11,8 @@ import { CommandPalette } from "@/components/command-palette/command-palette";
 import { getAllPosts } from "@/lib/blog";
 import { ViewTransitions } from "next-view-transitions";
 import { VianAssistant } from "@/components/vian/VianAssistant";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { InteractiveCursor } from "@/components/ui/interactive-cursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -110,9 +112,12 @@ export default function RootLayout({
               aria-hidden="true"
               priority
             />
-            {children}
+            <SmoothScroll>
+              {children}
+            </SmoothScroll>
             <Footer />
             <VianAssistant />
+            <InteractiveCursor />
           </ThemeProvider>
 
           <Analytics />

@@ -83,7 +83,8 @@ export default function Earth({ photos }: { photos: SunsetPhoto[] }) {
                         {photos.map((photo) => (
                             <div
                                 key={photo.src}
-                                className="group/card relative shrink-0 cursor-pointer"
+                                className="group/card relative shrink-0 cursor-pointer transition-transform duration-300 hover:scale-[1.03]"
+                                data-cursor="Zoom"
                                 role="button"
                                 tabIndex={0}
                                 aria-label={`View photo: ${photo.alt}`}

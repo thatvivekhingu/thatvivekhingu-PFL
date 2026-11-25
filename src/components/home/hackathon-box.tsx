@@ -12,6 +12,8 @@ import {
 import { data, HackathonCertificateItem } from "@/data/data";
 import { cn } from "@/lib/utils";
 import { playTapSound } from "@/lib/sound";
+import { Magnetic } from "@/components/ui/magnetic";
+import { TiltCard } from "@/components/ui/tilt-card";
 
 export default function HackathonBox() {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,14 +88,16 @@ export default function HackathonBox() {
             </p>
           </div>
 
-          {/* Right-Aligned Cream Pill Toggle Button */}
-          <button
-            type="button"
-            onClick={toggleOpen}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EAE6DF] hover:bg-[#F2EFE9] text-black font-mono font-bold text-xs sm:text-sm tracking-wider border-2 border-black shadow-[3px_3px_0px_#B92B27] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer shrink-0"
-          >
-            <span>{isOpen ? "HIDE CERTIFICATES ^" : "VIEW CERTIFICATES v"}</span>
-          </button>
+          {/* Right-Aligned Cream Pill Toggle Button with Magnetic Physics */}
+          <Magnetic strength={0.35}>
+            <button
+              type="button"
+              onClick={toggleOpen}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EAE6DF] hover:bg-[#F2EFE9] text-black font-mono font-bold text-xs sm:text-sm tracking-wider border-2 border-black shadow-[3px_3px_0px_#B92B27] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer shrink-0"
+            >
+              <span>{isOpen ? "HIDE CERTIFICATES ^" : "VIEW CERTIFICATES v"}</span>
+            </button>
+          </Magnetic>
         </div>
 
         {/* ============================================================== */}
@@ -120,8 +124,10 @@ export default function HackathonBox() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.35, delay: idx * 0.05 }}
-                      className="group/card relative bg-[#FAF9F5] text-black rounded-xl border-2 border-black p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 shadow-[5px_5px_0px_#000] hover:-translate-y-1.5 hover:shadow-[7px_7px_0px_#B92B27] select-none overflow-hidden"
+                      className="h-full"
                     >
+                      <TiltCard maxTilt={5} glareOpacity={0.06} dataCursor="Inspect" className="h-full">
+                        <div className="group/card relative bg-[#FAF9F5] text-black rounded-xl border-2 border-black p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 shadow-[5px_5px_0px_#000] hover:-translate-y-1.5 hover:shadow-[7px_7px_0px_#B92B27] select-none overflow-hidden h-full">
                       {/* Subtle Manga Halftone Corner Accent */}
                       <div
                         className="absolute top-0 right-0 w-20 h-20 pointer-events-none opacity-20"
@@ -218,6 +224,8 @@ export default function HackathonBox() {
                           </a>
                         )}
                       </div>
+                        </div>
+                      </TiltCard>
                     </motion.div>
                   );
                 })}

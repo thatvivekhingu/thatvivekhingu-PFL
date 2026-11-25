@@ -386,6 +386,7 @@ export default function Projects() {
                     tabIndex={0}
                     style={{ "--book-h": `${vol.heightPx}px` } as React.CSSProperties}
                     className={`book-slot ${leaningClass} ${pulledClass}`}
+                    data-cursor="Open"
                     aria-label={`Volume ${vol.code}: ${vol.title}`}
                     onMouseEnter={() => {
                       playTapSound("pop");
@@ -490,6 +491,7 @@ export default function Projects() {
               className={`work-row py-5 sm:py-7 lg:py-8 px-2 sm:px-4 grid grid-cols-12 items-center gap-y-3 gap-x-4 ${
                 isActive ? "is-active" : ""
               }`}
+              data-cursor="Open"
               aria-label={`${proj.code} ${proj.title}`}
               onMouseEnter={() => {
                 setActiveId(proj.id);
