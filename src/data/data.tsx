@@ -1,4 +1,4 @@
-import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconBrandInstagram, IconMail, IconAward, IconFileText, IconSparkles } from "@tabler/icons-react"
+import { IconHome, IconBrandGithub, IconBrush, IconBriefcase2, IconBrandLinkedin, IconBrandInstagram, IconMail, IconAward, IconFileText, IconBrandSpotify } from "@tabler/icons-react"
 
 export interface ProjectItem {
   title: string;
@@ -505,9 +505,9 @@ export const data = {
       icon: <IconFileText className="subpixel-antialiased h-5 w-5 text-zinc-500 hover:text-zinc-950 dark:text-zinc-300 hover:dark:text-zinc-50 hover:animate-wiggle animate-wiggle transition-colors duration-100" />,
     },
     {
-      name: "GujjuVerse",
-      link: "/gujjuverse",
-      icon: <IconSparkles className="subpixel-antialiased h-5 w-5 text-amber-500 hover:text-amber-400 dark:text-amber-400 hover:dark:text-amber-300 hover:animate-wiggle animate-wiggle transition-colors duration-100" />,
+      name: "Music",
+      link: "/music",
+      icon: <IconBrandSpotify className="subpixel-antialiased h-5 w-5 text-emerald-500 hover:text-emerald-400 dark:text-emerald-400 hover:dark:text-emerald-300 hover:animate-wiggle animate-wiggle transition-colors duration-100" />,
     },
   ],
 

@@ -90,7 +90,7 @@ export const Footer = () => {
 
   const handleLogoClick = () => router.push("/");
 
-  if (pathname === "/gujjuverse") {
+  if (pathname === "/gujjuverse" || pathname === "/music") {
     return null;
   }
 
@@ -100,7 +100,7 @@ export const Footer = () => {
     { name: "Achievements", link: "achievements" },
     { name: "Education", link: "experience" },
     { name: "Resume", link: "/resume" },
-    { name: "GujjuVerse", link: "/gujjuverse" },
+    { name: "Music", link: "/music" },
   ];
 
   const connectLinks = [

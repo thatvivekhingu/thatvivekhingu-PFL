@@ -19,8 +19,8 @@ import {
     IconRss,
     IconSearch,
     IconSun,
-    IconSparkles,
     IconFileText,
+    IconBrandSpotify,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
@@ -196,11 +196,11 @@ export function CommandPalette({ posts }: CommandPaletteProps) {
                                 onSelect={() => run(() => router.push("/resume"))}
                             />
                             <Item
-                                icon={<IconSparkles className="h-4 w-4 text-amber-400" />}
-                                label="GujjuVerse"
-                                sublabel="Gujarati Dev & Meme Culture"
-                                keywords={["gujju", "gujjuverse", "gujarati", "chai", "fafda", "meme", "jokes"]}
-                                onSelect={() => run(() => router.push("/gujjuverse"))}
+                                icon={<IconBrandSpotify className="h-4 w-4 text-emerald-500" />}
+                                label="Music"
+                                sublabel="Spotify Player & Curated Tracks"
+                                keywords={["music", "spotify", "songs", "playlist", "audio", "player", "vivek"]}
+                                onSelect={() => run(() => router.push("/music"))}
                             />
                             <Item
                                 icon={<IconPencil className="h-4 w-4" />}
