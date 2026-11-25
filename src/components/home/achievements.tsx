@@ -103,9 +103,9 @@ export default function Achievements() {
       {/* ============================================================== */}
       {/* EDITORIAL MANGA CHAPTER FRAME (EDGE-TO-EDGE)                   */}
       {/* ============================================================== */}
-      <div className="relative w-full border-y border-white/10 bg-[#0A0A0A] select-none overflow-hidden">
+      <div className="relative w-full select-none overflow-hidden">
         {/* AWARDS & ACHIEVEMENTS HEADLINE (NO BACKGROUND COLOR, CLEAN & BOLD) */}
-        <div className="relative px-3 sm:px-6 md:px-8 lg:px-12 pt-3 sm:pt-6 pb-2 sm:pb-3 overflow-hidden">
+        <div className="relative px-3 sm:px-6 md:px-8 lg:px-12 pt-3 sm:pt-6 pb-2 sm:pb-4 overflow-hidden">
           <h2 className="font-[family-name:var(--font-anton)] text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none uppercase">
             <span className="text-[#3B82F6]">AWARDS</span>{" "}
             <span className="text-white">&amp; ACHIEVEMENTS</span>
@@ -114,7 +114,7 @@ export default function Achievements() {
 
         {/* OUTER COMIC CONTAINER (PITCH-BLACK GUTTER FRAME #0A0A0A - BLEEDS EDGE-TO-EDGE) */}
         <div className="w-full bg-[#0A0A0A] px-0 pb-3 sm:pb-4 lg:pb-[32px] pt-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.22fr_1fr_1fr] gap-[10px] items-stretch lg:min-h-[570px] w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.22fr_1fr_1fr] gap-[10px] items-stretch lg:min-h-[640px] w-full">
             {/* ============================================================== */}
             {/* COLUMN 1: LEFT COLUMN WRAPPER (PANEL 01 & PANEL 02 WITH SLASH) */}
             {/* ============================================================== */}
@@ -126,14 +126,14 @@ export default function Achievements() {
                 style={{
                   flex: 1.15,
                   background: "#F3F0E8",
-                  padding: "12px 14px 26px 14px",
+                  padding: "12px 14px 22px 14px",
                   clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 26px), 0 100%)",
                 }}
               >
-                {/* Photo Box: width: 100%, height: 135px, border: 2px solid #0A0A0A */}
+                {/* Photo Box: width: 100%, height: 165px, border: 2px solid #0A0A0A */}
                 <div
                   className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "135px", border: "2px solid #0A0A0A" }}
+                  style={{ height: "165px", border: "2px solid #0A0A0A" }}
                 >
                   <Image
                     src={PANELS[0].image}
@@ -144,7 +144,7 @@ export default function Achievements() {
                     className="object-cover w-full h-full group-hover/panel:scale-105 transition-transform duration-500"
                   />
 
-                  {/* 01 Badge: background: #0A0A0A; color: #F3F0E8; padding: 3px 8px; font-size: 18px; font-family: Anton */}
+                  {/* 01 Badge */}
                   <div
                     className="absolute top-2 left-2 z-20 font-[family-name:var(--font-anton)] font-bold text-[#F3F0E8] bg-[#0A0A0A] leading-none select-none"
                     style={{ padding: "3px 8px", fontSize: "18px" }}
@@ -218,14 +218,14 @@ export default function Achievements() {
                 style={{
                   flex: 1,
                   background: "#F3F0E8",
-                  padding: "28px 14px 12px 14px",
+                  padding: "26px 14px 12px 14px",
                   clipPath: "polygon(0 26px, 100% 0, 100% 100%, 0 100%)",
                 }}
               >
-                {/* Photo Box: width: 100%, height: 115px, border: 2px solid #0A0A0A */}
+                {/* Photo Box: width: 100%, height: 145px, border: 2px solid #0A0A0A */}
                 <div
                   className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "115px", border: "2px solid #0A0A0A" }}
+                  style={{ height: "145px", border: "2px solid #0A0A0A" }}
                 >
                   <Image
                     src={PANELS[1].image}
@@ -316,10 +316,10 @@ export default function Achievements() {
                   padding: "12px 14px 14px 14px",
                 }}
               >
-                {/* Photo Box: width: 100%, height: 57% (~320px), border: 2px solid #0A0A0A */}
+                {/* Photo Box: width: 100%, height: 67% (~410px), border: 2px solid #0A0A0A */}
                 <div
                   className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "57%", minHeight: "310px", border: "2px solid #0A0A0A" }}
+                  style={{ height: "67%", minHeight: "410px", border: "2px solid #0A0A0A" }}
                 >
                   <Image
                     src={PANELS[2].image}
@@ -347,15 +347,6 @@ export default function Achievements() {
                     <span>INTERNATIONAL AWARD</span>
                   </div>
 
-                  {/* Bottom-Right of Photo: Secondary INTERNATIONAL AWARD Pill */}
-                  <div
-                    className="absolute bottom-2 right-2 z-20 hidden sm:flex items-center gap-1.5 rounded-full text-emerald-400 font-mono font-bold uppercase tracking-wider"
-                    style={{ padding: "4px 10px", background: "#141A18", fontSize: "9px" }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-                    <span>INTERNATIONAL AWARD</span>
-                  </div>
-
                   {/* Hover Inspect Overlay */}
                   <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
                     <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
@@ -366,28 +357,11 @@ export default function Achievements() {
                 </div>
 
                 {/* Content Below Photo */}
-                <div className="flex flex-col flex-1 justify-between">
+                <div className="flex flex-col flex-1 justify-between pt-2.5">
                   <div>
-                    {/* 03 Badge + INTERNATIONAL AWARD Pill Row */}
-                    <div className="flex items-center gap-2" style={{ marginTop: "10px" }}>
-                      <div
-                        className="font-[family-name:var(--font-anton)] font-bold text-[#F3F0E8] bg-[#0A0A0A] leading-none select-none"
-                        style={{ padding: "3px 8px", fontSize: "18px" }}
-                      >
-                        03
-                      </div>
-                      <div
-                        className="flex items-center gap-1.5 rounded-full text-emerald-400 font-mono font-bold uppercase tracking-wider"
-                        style={{ padding: "4px 10px", background: "#141A18", fontSize: "9px" }}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span>INTERNATIONAL AWARD</span>
-                      </div>
-                    </div>
-
                     <h3
                       className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#B92B27] transition-colors"
-                      style={{ fontSize: "28px", lineHeight: 0.95, marginTop: "8px" }}
+                      style={{ fontSize: "28px", lineHeight: 0.95 }}
                     >
                       FLINDERS INTERNATIONAL<br />AI HACKATHON
                     </h3>
@@ -436,65 +410,48 @@ export default function Achievements() {
                   padding: "12px 14px 14px 14px",
                 }}
               >
-                {/* Photo Box: width: 100%, height: 55% (~305px), border: 2px solid #0A0A0A */}
+                {/* Photo Box: width: 100%, height: 67% (~410px), border: 2px solid #0A0A0A */}
                 <div
-                  className="relative w-full shrink-0"
-                  style={{ height: "55%", minHeight: "295px", border: "2px solid #0A0A0A" }}
+                  className="relative w-full overflow-hidden shrink-0"
+                  style={{ height: "67%", minHeight: "410px", border: "2px solid #0A0A0A" }}
                 >
-                  <div className="relative w-full h-full overflow-hidden">
-                    <Image
-                      src={PANELS[3].image}
-                      alt={PANELS[3].alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 35vw"
-                      priority
-                      className="object-cover w-full h-full group-hover/panel:scale-105 transition-transform duration-500"
-                    />
+                  <Image
+                    src={PANELS[3].image}
+                    alt={PANELS[3].alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 35vw"
+                    priority
+                    className="object-cover w-full h-full group-hover/panel:scale-105 transition-transform duration-500"
+                  />
 
-                    {/* Status Pill: ● FINALIST */}
-                    <div
-                      className="absolute top-2 right-2 z-20 flex items-center gap-1.5 rounded-full text-emerald-400 font-mono font-bold uppercase tracking-wider"
-                      style={{ padding: "4px 10px", background: "#141A18", fontSize: "9px" }}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
-                      <span>FINALIST</span>
-                    </div>
-
-                    {/* Hover Inspect Overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
-                      <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
-                        <IconMaximize className="w-3.5 h-3.5" />
-                        <span>EXPAND DOSSIER</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Overlapping 04 Badge: bottom: -14px, left: 10px, z-index: 10 */}
+                  {/* Top-Left: 04 Badge */}
                   <div
-                    className="absolute font-[family-name:var(--font-anton)] font-bold text-[#F3F0E8] bg-[#0A0A0A] leading-none select-none z-10"
-                    style={{
-                      bottom: "-14px",
-                      left: "10px",
-                      padding: "3px 8px",
-                      fontSize: "18px",
-                    }}
+                    className="absolute top-2 left-2 z-20 font-[family-name:var(--font-anton)] font-bold text-[#F3F0E8] bg-[#0A0A0A] leading-none select-none"
+                    style={{ padding: "3px 8px", fontSize: "18px" }}
                   >
                     04
                   </div>
-                </div>
 
-                {/* Content Below Photo: padding-top: 22px */}
-                <div
-                  className="flex flex-col flex-1 justify-between relative"
-                  style={{ paddingTop: "22px" }}
-                >
-                  {/* Subtle 4-pointed silver star sparkle decoration */}
-                  <div className="absolute bottom-2 right-2 pointer-events-none opacity-20 select-none text-neutral-600">
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-12 h-12">
-                      <path d="M12 0 C12 6.5 17.5 12 24 12 C17.5 12 12 17.5 12 24 C12 17.5 6.5 12 0 12 C6.5 12 12 6.5 12 0 Z" />
-                    </svg>
+                  {/* Top-Right: FINALIST Pill */}
+                  <div
+                    className="absolute top-2 right-2 z-20 flex items-center gap-1.5 rounded-full text-emerald-400 font-mono font-bold uppercase tracking-wider"
+                    style={{ padding: "4px 10px", background: "#141A18", fontSize: "9px" }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
+                    <span>FINALIST</span>
                   </div>
 
+                  {/* Hover Inspect Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
+                    <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
+                      <IconMaximize className="w-3.5 h-3.5" />
+                      <span>EXPAND DOSSIER</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content Below Photo */}
+                <div className="flex flex-col flex-1 justify-between pt-2.5">
                   <div>
                     <h3
                       className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#B92B27] transition-colors"
@@ -520,7 +477,7 @@ export default function Achievements() {
 
                   {/* Bottom Row */}
                   <div
-                    className="flex items-center justify-between font-mono border-t border-black/15 pt-2 relative z-10"
+                    className="flex items-center justify-between font-mono border-t border-black/15 pt-2"
                     style={{ marginTop: "auto" }}
                   >
                     <span
