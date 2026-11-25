@@ -198,46 +198,46 @@ export default function Achievements() {
         </div>
 
         {/* ============================================================== */}
-        {/* 2. ASYMMETRIC MANGA BENTO PANEL GRID (Dark Ink Gutter #121212) */}
+        {/* 2. JAPANESE MANGA COMIC STRIP PANEL GRID (#121212 Ink Gutter) */}
         {/* ============================================================== */}
-        <div className="bg-[#121212] p-4 sm:p-6 lg:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {PANELS.map((panel) => (
+        <div className="bg-[#121212] p-2.5 sm:p-3.5 lg:p-4 border-2 border-black">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 lg:gap-3.5 items-stretch">
+            {/* COLUMN 1: PANELS 01 & 02 STACKED (lg:col-span-5) */}
+            <div className="lg:col-span-5 flex flex-col gap-3 justify-between">
+              {/* --- PANEL 01 --- */}
               <motion.div
-                key={panel.id}
-                onClick={() => handleOpenPanel(panel)}
-                className={`group/panel relative rounded-xl border-2 border-black bg-[#FAF9F5] text-black overflow-hidden flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[8px_8px_0px_#B92B27] hover:-translate-y-1 transition-all duration-300 cursor-pointer ${panel.gridClass}`}
+                onClick={() => handleOpenPanel(PANELS[0])}
+                className="group/panel relative rounded-[3px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(0_0,100%_0,97.5%_98%,0_100%)]"
               >
-                {/* Image Section */}
-                <div className="relative w-full h-52 sm:h-60 md:h-64 bg-neutral-950 overflow-hidden flex items-center justify-center">
-                  {/* Subtle Background Halftone Dots */}
+                {/* Photo Area */}
+                <div className="relative w-full h-44 sm:h-48 md:h-52 bg-[#0c0c0c] overflow-hidden flex items-center justify-center">
+                  {/* Manga Halftone Dots */}
                   <div
-                    className="absolute inset-0 opacity-15 pointer-events-none"
+                    className="absolute inset-0 opacity-25 pointer-events-none"
                     style={{
-                      backgroundImage: "radial-gradient(#fff 1px, transparent 1px)",
+                      backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
                       backgroundSize: "6px 6px",
                     }}
                   />
-
-                  {/* Main High-Contrast Achievement Photo */}
                   <Image
-                    src={panel.image}
-                    alt={panel.alt}
+                    src={PANELS[0].image}
+                    alt={PANELS[0].alt}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-contain p-2.5 group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.08] brightness-[0.98]"
+                    sizes="(max-width: 768px) 100vw, 42vw"
+                    priority
+                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.1] brightness-[0.98]"
                   />
 
                   {/* Square Black Index Number Badge (Top-Left) */}
-                  <div className="absolute top-3 left-3 z-20 bg-black text-[#FAF9F5] font-mono font-black text-xs sm:text-sm px-2.5 py-1 rounded-[2px] shadow-md border border-white/20">
-                    {panel.num}
+                  <div className="absolute top-2.5 left-2.5 z-20 bg-black text-[#FAF9F5] font-mono font-black text-sm sm:text-base px-2.5 py-0.5 border border-white/20 shadow-md">
+                    01
                   </div>
 
-                  {/* Category Pill Badge (Top-Right) */}
-                  <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 bg-black/85 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 shadow-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                    <span className="text-[10px] font-mono font-bold text-white uppercase tracking-wider">
-                      {panel.badge}
+                  {/* Dark Pill Badge (Top-Right): CLOUD MILESTONE */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-blue-500/50 text-blue-400 shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_#60a5fa] animate-pulse" />
+                    <span className="text-[9.5px] font-mono font-bold tracking-wider uppercase">
+                      CLOUD MILESTONE
                     </span>
                   </div>
 
@@ -250,38 +250,274 @@ export default function Achievements() {
                   </div>
                 </div>
 
-                {/* Cream Paper Info Block at the Bottom */}
-                <div className="p-3.5 sm:p-4 bg-[#FAF9F5] border-t-2 border-black flex flex-col justify-between">
+                {/* Cream Text Area */}
+                <div className="p-3 sm:p-3.5 bg-[#ECE7DC] border-t-2 border-black flex flex-col justify-between">
                   <div>
-                    {/* Bold Title */}
-                    <h3 className="font-[family-name:var(--font-anton)] text-lg sm:text-xl text-black tracking-tight uppercase leading-snug group-hover/panel:text-[#B92B27] transition-colors line-clamp-1">
-                      {panel.title}
+                    <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black tracking-tight uppercase leading-none group-hover/panel:text-[#B92B27] transition-colors">
+                      GOOGLE CLOUD ARCADE 2025
                     </h3>
-
-                    {/* Monospace Subtitle */}
-                    <p className="text-[11px] sm:text-xs font-mono font-bold text-neutral-700 tracking-wider mt-0.5 line-clamp-1">
-                      {panel.subtitle}
-                    </p>
-
-                    {/* Tags */}
-                    <p className="text-[10px] font-mono font-semibold text-neutral-500 uppercase tracking-tight mt-1 line-clamp-1">
-                      {panel.tags}
+                    <p className="text-[11px] sm:text-xs font-mono font-bold text-neutral-800 tracking-tight mt-1 flex items-center gap-1">
+                      <span>{"//"}</span>
+                      <span className="text-[#B92B27] text-sm leading-none">★</span>
+                      <span>GOOGLE CLOUD ARCADE CHAMPION</span>
                     </p>
                   </div>
 
-                  {/* Action Link: READ → */}
-                  <div className="pt-2.5 mt-2.5 border-t border-dashed border-black/25 flex items-center justify-between font-mono text-xs font-extrabold text-black">
-                    <span className="text-[#B92B27] text-[10px] tracking-wider uppercase">
-                      {panel.date} RECORD
+                  <div className="pt-2.5 mt-2 border-t border-black/20 flex items-center justify-between font-mono">
+                    <span className="text-[9.5px] sm:text-[10px] font-bold text-neutral-600 uppercase tracking-tight">
+                      CLOUD • ARCADES • HANDS-ON LABS
                     </span>
-                    <span className="group-hover/panel:translate-x-1 transition-transform inline-flex items-center gap-1 text-black group-hover/panel:text-[#B92B27]">
+                    <span className="bg-black text-white text-[10px] sm:text-[11px] font-black px-2.5 py-1 uppercase tracking-wider flex items-center gap-1 group-hover/panel:bg-[#B92B27] transition-colors shadow-sm rounded-[1px]">
                       <span>READ</span>
                       <span>→</span>
                     </span>
                   </div>
                 </div>
               </motion.div>
-            ))}
+
+              {/* --- PANEL 02 --- */}
+              <motion.div
+                onClick={() => handleOpenPanel(PANELS[1])}
+                className="group/panel relative rounded-[3px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(0_2%,100%_0,95%_100%,0_100%)]"
+              >
+                {/* Photo Area */}
+                <div className="relative w-full h-44 sm:h-48 md:h-52 bg-[#0c0c0c] overflow-hidden flex items-center justify-center">
+                  <div
+                    className="absolute inset-0 opacity-25 pointer-events-none"
+                    style={{
+                      backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
+                      backgroundSize: "6px 6px",
+                    }}
+                  />
+                  <Image
+                    src={PANELS[1].image}
+                    alt={PANELS[1].alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 42vw"
+                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.1] brightness-[0.98]"
+                  />
+
+                  {/* Square Black Index Number Badge (Top-Left) */}
+                  <div className="absolute top-2.5 left-2.5 z-20 bg-black text-[#FAF9F5] font-mono font-black text-sm sm:text-base px-2.5 py-0.5 border border-white/20 shadow-md">
+                    02
+                  </div>
+
+                  {/* Amber Pill Badge (Top-Right): CHAMPION */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-500/50 text-amber-400 shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24] animate-pulse" />
+                    <span className="text-[9.5px] font-mono font-bold tracking-wider uppercase">
+                      CHAMPION
+                    </span>
+                  </div>
+
+                  {/* Hover Inspect Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
+                    <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
+                      <IconMaximize className="w-3.5 h-3.5" />
+                      <span>EXPAND DOSSIER</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Cream Text Area */}
+                <div className="p-3 sm:p-3.5 bg-[#ECE7DC] border-t-2 border-black flex flex-col justify-between">
+                  <div>
+                    <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black tracking-tight uppercase leading-none group-hover/panel:text-[#B92B27] transition-colors">
+                      ROBO SOCCER CHAMPIONSHIP
+                    </h3>
+                    <p className="text-[11px] sm:text-xs font-mono font-bold text-neutral-800 tracking-tight mt-1 flex items-center gap-1">
+                      <span>{"//"}</span>
+                      <span className="text-base leading-none">🏆</span>
+                      <span>1ST PRIZE WINNER</span>
+                    </p>
+                  </div>
+
+                  <div className="pt-2.5 mt-2 border-t border-black/20 flex items-center justify-between font-mono">
+                    <span className="text-[9.5px] sm:text-[10px] font-bold text-neutral-600 uppercase tracking-tight">
+                      EMBEDDED SYSTEMS • IOT • ROBOTICS
+                    </span>
+                    <span className="bg-black text-white text-[10px] sm:text-[11px] font-black px-2.5 py-1 uppercase tracking-wider flex items-center gap-1 group-hover/panel:bg-[#B92B27] transition-colors shadow-sm rounded-[1px]">
+                      <span>READ</span>
+                      <span>→</span>
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* COLUMN 2: PANEL 03 TALL (lg:col-span-3) */}
+            <div className="lg:col-span-3 flex flex-col">
+              <motion.div
+                onClick={() => handleOpenPanel(PANELS[2])}
+                className="group/panel relative h-full rounded-[3px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(5%_0,100%_0,100%_100%,0_100%)]"
+              >
+                {/* Tall Photo Area */}
+                <div className="relative w-full h-64 sm:h-72 md:h-80 lg:flex-1 min-h-[260px] bg-[#0c0c0c] overflow-hidden flex items-center justify-center">
+                  <div
+                    className="absolute inset-0 opacity-25 pointer-events-none"
+                    style={{
+                      backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
+                      backgroundSize: "6px 6px",
+                    }}
+                  />
+                  <Image
+                    src={PANELS[2].image}
+                    alt={PANELS[2].alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                    priority
+                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.1] brightness-[0.98]"
+                  />
+
+                  {/* Square Black Index Number Badge (Top-Left) */}
+                  <div className="absolute top-2.5 left-2.5 z-20 bg-black text-[#FAF9F5] font-mono font-black text-sm sm:text-base px-2.5 py-0.5 border border-white/20 shadow-md">
+                    03
+                  </div>
+
+                  {/* Green Pill Badge (Top-Right): INTERNATIONAL AWARD */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/50 text-emerald-400 shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
+                    <span className="text-[9.5px] font-mono font-bold tracking-wider uppercase">
+                      INTERNATIONAL AWARD
+                    </span>
+                  </div>
+
+                  {/* Secondary Green Pill Badge (Bottom-Right of Photo) */}
+                  <div className="absolute bottom-2.5 right-2.5 z-20 hidden sm:flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/50 text-emerald-400 shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
+                    <span className="text-[9px] font-mono font-bold tracking-wider uppercase">
+                      INTERNATIONAL AWARD
+                    </span>
+                  </div>
+
+                  {/* Hover Inspect Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
+                    <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
+                      <IconMaximize className="w-3.5 h-3.5" />
+                      <span>EXPAND DOSSIER</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Cream Text Area */}
+                <div className="p-3 sm:p-3.5 bg-[#ECE7DC] border-t-2 border-black flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start gap-2">
+                      <div className="bg-black text-[#FAF9F5] font-mono font-black text-xs sm:text-sm px-2 py-0.5 border border-white/20 shrink-0 mt-0.5">
+                        03
+                      </div>
+                      <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black tracking-tight uppercase leading-[0.95] group-hover/panel:text-[#B92B27] transition-colors">
+                        FLINDERS INTERNATIONAL<br />AI HACKATHON
+                      </h3>
+                    </div>
+                    <p className="text-[11px] sm:text-xs font-mono font-bold text-neutral-800 tracking-tight mt-1.5 flex items-center gap-1">
+                      <span>{"//"}</span>
+                      <span className="text-base leading-none">🥈</span>
+                      <span>2ND PLACE | AUD 300 CASH PRIZE</span>
+                    </p>
+                  </div>
+
+                  <div className="pt-2.5 mt-2 border-t border-black/20 flex flex-wrap items-center justify-between gap-1.5 font-mono">
+                    <span className="text-[9px] sm:text-[9.5px] font-bold text-neutral-600 uppercase tracking-tight">
+                      ARTIFICIAL INTELLIGENCE • PITCHING • PYTHON
+                    </span>
+                    <span className="bg-black text-white text-[10px] sm:text-[11px] font-black px-2.5 py-1 uppercase tracking-wider flex items-center gap-1 group-hover/panel:bg-[#B92B27] transition-colors shadow-sm rounded-[1px]">
+                      <span>READ</span>
+                      <span>→</span>
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* COLUMN 3: PANEL 04 TALL (lg:col-span-4) */}
+            <div className="lg:col-span-4 flex flex-col">
+              <motion.div
+                onClick={() => handleOpenPanel(PANELS[3])}
+                className="group/panel relative h-full rounded-[3px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
+              >
+                {/* Photo Area */}
+                <div className="relative w-full h-64 sm:h-72 md:h-80 lg:flex-1 min-h-[260px] bg-[#0c0c0c] overflow-hidden flex items-center justify-center">
+                  <div
+                    className="absolute inset-0 opacity-25 pointer-events-none"
+                    style={{
+                      backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
+                      backgroundSize: "6px 6px",
+                    }}
+                  />
+                  <Image
+                    src={PANELS[3].image}
+                    alt={PANELS[3].alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 35vw"
+                    priority
+                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.1] brightness-[0.98]"
+                  />
+
+                  {/* Square Black Index Number Badge (Top-Left) */}
+                  <div className="absolute top-2.5 left-2.5 z-20 bg-black text-[#FAF9F5] font-mono font-black text-sm sm:text-base px-2.5 py-0.5 border border-white/20 shadow-md">
+                    04
+                  </div>
+
+                  {/* Green Pill Badge (Top-Right): FINALIST */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/50 text-emerald-400 shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
+                    <span className="text-[9.5px] font-mono font-bold tracking-wider uppercase">
+                      FINALIST
+                    </span>
+                  </div>
+
+                  {/* Hover Inspect Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
+                    <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
+                      <IconMaximize className="w-3.5 h-3.5" />
+                      <span>EXPAND DOSSIER</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Cream Text Area */}
+                <div className="p-3 sm:p-3.5 bg-[#ECE7DC] border-t-2 border-black flex flex-col justify-between relative">
+                  {/* Subtle 4-pointed silver star sparkle decoration */}
+                  <div className="absolute bottom-1 right-2 pointer-events-none opacity-20 select-none text-neutral-500">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+                      <path d="M12 0 C12 6.5 17.5 12 24 12 C17.5 12 12 17.5 12 24 C12 17.5 6.5 12 0 12 C6.5 12 12 6.5 12 0 Z" />
+                    </svg>
+                  </div>
+
+                  <div>
+                    <div className="flex items-start gap-2">
+                      <div className="bg-black text-[#FAF9F5] font-mono font-black text-xs sm:text-sm px-2 py-0.5 border border-white/20 shrink-0 mt-0.5">
+                        04
+                      </div>
+                      <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black tracking-tight uppercase leading-[0.95] group-hover/panel:text-[#B92B27] transition-colors">
+                        AIT HACKATHON<br />2K25
+                      </h3>
+                    </div>
+                    <div className="mt-1.5 text-[11px] sm:text-xs font-mono font-bold text-neutral-800 tracking-tight leading-snug">
+                      <p className="flex items-center gap-1">
+                        <span>{"//"}</span>
+                        <span className="text-base leading-none">🎖️</span>
+                        <span>TOP 10 FINALIST</span>
+                      </p>
+                      <p className="pl-5 text-neutral-700">
+                        OUT OF 500+ TEAMS
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-2.5 mt-2 border-t border-black/20 flex items-center justify-between font-mono relative z-10">
+                    <span className="text-[9.5px] sm:text-[10px] font-bold text-neutral-600 uppercase tracking-tight">
+                      HACKATHON • PROTOTYPING • APPS
+                    </span>
+                    <span className="bg-black text-white text-[10px] sm:text-[11px] font-black px-2.5 py-1 uppercase tracking-wider flex items-center gap-1 group-hover/panel:bg-[#B92B27] transition-colors shadow-sm rounded-[1px]">
+                      <span>READ</span>
+                      <span>→</span>
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
