@@ -65,11 +65,9 @@ export default function Earth({ photos }: { photos: SunsetPhoto[] }) {
 
     return (
         <div className="flex flex-col gap-6">
-            <SectionHeading
-                color="orange"
-                subtitle="VISUAL JOURNAL"
-            >
-                Moments & Horizons
+            <SectionHeading>
+              <span className="text-[#3B82F6]">MOMENTS</span>{" "}
+              <span className="text-white">&amp; HORIZONS</span>
             </SectionHeading>
 
             {photos.length > 0 && (

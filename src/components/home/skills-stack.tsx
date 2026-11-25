@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { SectionHeading, headingIconClass } from "@/components/layout/section-heading";
+import { SectionHeading } from "@/components/layout/section-heading";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Badge } from "@/components/ui/badge";
 import {
-  IconCpu,
   IconSparkles,
   IconLayout,
   IconCube,
@@ -151,12 +150,9 @@ export default function SkillsStack() {
 
   return (
     <div className="flex flex-col space-y-8" id="skills">
-      <SectionHeading
-        badge="TECH MATRIX & TOOLS"
-        icon={<IconCpu className={headingIconClass} />}
-        subtitle="Modern frontend, real-time 3D graphics, generative AI agents, resilient backends, and cloud deployment pipelines"
-      >
-        Core Engineering & Tech Stack
+      <SectionHeading>
+        <span className="text-[#3B82F6]">CORE</span>{" "}
+        <span className="text-white">TECH STACK &amp; ARSENAL</span>
       </SectionHeading>
 
       {/* Filter Tabs */}

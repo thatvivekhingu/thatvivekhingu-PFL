@@ -15,11 +15,9 @@ export default function VianSection() {
 
   return (
     <div className="flex flex-col">
-      <SectionHeading
-        color="indigo"
-        subtitle="AUTONOMOUS COPILOT"
-      >
-        Let&apos;s talk with VIAN
+      <SectionHeading>
+        <span className="text-[#3B82F6]">TALK WITH</span>{" "}
+        <span className="text-white">VIAN COPILOT</span>
       </SectionHeading>
 
       {/* 16:9 Rectangular Frame Container */}

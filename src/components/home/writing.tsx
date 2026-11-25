@@ -1,11 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { IconArrowUpRight, IconPencil } from "@tabler/icons-react";
-import {
-    SectionHeading,
-    headingIconClass,
-} from "@/components/layout/section-heading";
+import { IconArrowUpRight } from "@tabler/icons-react";
+import { SectionHeading } from "@/components/layout/section-heading";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { TransitionLink } from "@/components/ui/transition-link";
 
@@ -24,8 +21,9 @@ export default function Writing({ posts }: { posts: HomeWritingPost[] }) {
 
     return (
         <div className="flex flex-col">
-            <SectionHeading icon={<IconPencil className={headingIconClass} />}>
-                Writing
+            <SectionHeading>
+              <span className="text-[#3B82F6]">WRITING</span>{" "}
+              <span className="text-white">&amp; ESSAYS</span>
             </SectionHeading>
 
             <ul className="flex flex-col gap-6 sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
