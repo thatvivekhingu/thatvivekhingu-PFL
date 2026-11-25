@@ -10,7 +10,6 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { getSunsetPhotos } from "@/lib/sunsets";
 import { IntroAnimation } from "@/components/ui/intro-animation";
 import { ReadingRail } from "@/components/layout/reading-rail";
-import { EditorialTapes } from "@/components/home/editorial-tapes";
 
 const BLUR_FADE_DELAY = 0.005;
 
@@ -29,8 +28,6 @@ export default async function Home() {
         </section>
       </BlurFade>
 
-      {/* Full-bleed Editorial Tapes Divider Band matching manga/newspaper print aesthetic */}
-      <EditorialTapes />
 
       {/* Main Content Sections */}
       <div className="mx-auto flex max-w-5xl flex-col space-y-12 sm:space-y-20 px-4 pt-8 sm:pt-16">
