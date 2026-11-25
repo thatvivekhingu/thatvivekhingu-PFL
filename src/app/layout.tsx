@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Geist, Geist_Mono, Pacifico, Noto_Sans_Gujarati, Anek_Gujarati } from "next/font/google";
+import { Geist, Geist_Mono, Pacifico, Noto_Sans_Gujarati, Anek_Gujarati, Anton } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -41,6 +41,12 @@ const anekGujarati = Anek_Gujarati({
   subsets: ["gujarati"],
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
+});
+
+const anton = Anton({
+  variable: "--font-anton",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -90,7 +96,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" className="dark" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} ${notoSansGujarati.variable} ${anekGujarati.variable} antialiased relative`}
+          className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} ${notoSansGujarati.variable} ${anekGujarati.variable} ${anton.variable} antialiased relative`}
         >
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <Navbar navItems={data.nav} />

@@ -75,9 +75,10 @@ export default function Hero() {
               <div className="relative group cursor-pointer z-30 my-3 flex items-center justify-center">
                 {/* Full-Bleed Edge-to-Edge Editorial Tapes Layer - Centered Mathematically Behind Avatar */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none">
-                  {/* Tape A: Dark / Ink Tape (-2.5deg) - Solid Black with Bold White Typography */}
-                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[2.5deg] bg-zinc-950 border-y border-zinc-700/80 py-2.5 sm:py-3.5 shadow-[0_4px_25px_rgba(0,0,0,0.6)] z-[1]">
-                    <Marquee repeat={10} className="[--duration:28s] py-0 text-base sm:text-xl md:text-2xl font-black font-sans tracking-wide text-white uppercase">
+                  {/* Tape A: Dark / Ink Tape (-2.4deg) - Solid Black with Bold White Typography */}
+                  <div className="absolute w-[250vw] min-w-[2200px] -rotate-[2.4deg] bg-black border-y border-white/20 py-2.5 sm:py-3 shadow-[0_4px_25px_rgba(0,0,0,0.6)] z-[1]">
+                    <Marquee repeat={10} className="[--duration:28s] py-0 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-anton)] tracking-wider text-white uppercase leading-none">
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
                       <span>TYPESCRIPT</span>
                       <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
                       <span>NODE.JS</span>
@@ -86,24 +87,24 @@ export default function Hero() {
                       <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
                       <span>REACT</span>
                       <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
-                      <span>NEXT.JS</span>
-                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
-                      <span>PYTHON</span>
-                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
-                      <span>PYTORCH</span>
-                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
                       <span>MONGODB</span>
                       <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
                       <span>POSTGRESQL</span>
                       <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
                       <span>DOCKER</span>
                       <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>NEXT.JS</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>PYTHON</span>
+                      <span className="mx-3 sm:mx-4.5 text-zinc-400 font-normal">✦</span>
+                      <span>PYTORCH</span>
                     </Marquee>
                   </div>
 
-                  {/* Tape B: Paper / Cream Tape (+2deg) - Crossing in Front with Bold Black Typography */}
-                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[2deg] bg-[#ECE7DC] border-y-2 border-black py-2.5 sm:py-3.5 shadow-[0_10px_35px_rgba(0,0,0,0.5)] z-[2]">
-                    <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-lg sm:text-2xl md:text-[26px] font-black font-sans tracking-tight text-black uppercase">
+                  {/* Tape B: Paper / Cream Tape (+1.8deg) - Crossing in Front with Bold Black Typography */}
+                  <div className="absolute w-[250vw] min-w-[2200px] rotate-[1.8deg] bg-[#ECE7DC] border-y-2 border-black py-2.5 sm:py-3 shadow-[0_8px_30px_rgba(0,0,0,0.5)] z-[2]">
+                    <Marquee reverse repeat={10} className="[--duration:32s] py-0 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-anton)] tracking-tight text-black uppercase leading-none">
+                      <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
                       <span>NO FLUFF</span>
                       <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
                       <span>REAL SHIP</span>
@@ -115,7 +116,6 @@ export default function Hero() {
                       <span>AI THAT SHIPS</span>
                       <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
                       <span>SYSTEM ARCHITECT</span>
-                      <span className="mx-3 sm:mx-4.5 text-black font-normal">✦</span>
                     </Marquee>
                   </div>
                 </div>
