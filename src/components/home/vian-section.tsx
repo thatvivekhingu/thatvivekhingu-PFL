@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { IconSparkles } from "@tabler/icons-react";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 import { playTapSound } from "@/lib/sound";
@@ -42,24 +41,37 @@ export default function VianSection() {
         {/* Subtle Ambient Dark Gradient Vignette */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
 
-        {/* Corner Circular Action Button: TALK WITH VIAN */}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleOpenVian();
-          }}
-          aria-label="Talk with VIAN"
-          className="group/btn absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-20 flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-full border-2 border-cyan-400/80 bg-black/85 hover:bg-black backdrop-blur-xl shadow-[0_0_30px_rgba(34,211,238,0.45)] hover:shadow-[0_0_55px_rgba(34,211,238,0.8)] transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer p-2 text-center"
-        >
-          <IconSparkles className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400 transition-transform duration-300 group-hover/btn:rotate-12 group-hover/btn:scale-125 mb-0.5 sm:mb-1" />
-          <span className="font-[family-name:var(--font-anton)] text-[9.5px] sm:text-[11px] uppercase tracking-wider text-white leading-tight">
-            TALK WITH<br />VIAN
-          </span>
-          <span className="mt-1 rounded border border-cyan-500/40 bg-cyan-500/20 px-1.5 py-0.2 text-[8px] sm:text-[9px] font-mono text-cyan-300 font-bold">
-            ⌘K
-          </span>
-        </button>
+        {/* Apple iPhone Dynamic Island Pill: lets talk with vian */}
+        <div className="absolute bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center pointer-events-auto">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpenVian();
+            }}
+            aria-label="lets talk with vian"
+            className="group/island relative flex items-center gap-3 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-black/90 hover:bg-black backdrop-blur-2xl border border-white/20 hover:border-cyan-400/60 shadow-[0_12px_40px_rgba(0,0,0,0.85),0_0_25px_rgba(34,211,238,0.25)] hover:shadow-[0_16px_50px_rgba(34,211,238,0.45)] transition-all duration-300 ease-out hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            {/* Dynamic Island Pulsing AI Sensor Dot */}
+            <span className="relative flex h-2.5 w-2.5 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
+            </span>
+
+            {/* Exact User Text: lets talk with vian */}
+            <span className="text-xs sm:text-sm font-medium tracking-wide text-white/95 group-hover/island:text-white transition-colors capitalize font-sans">
+              lets talk with vian
+            </span>
+
+            {/* Apple Dynamic Island Live Audio Waveform Bars */}
+            <div className="flex items-center gap-0.5 pl-1 shrink-0">
+              <span className="w-0.5 h-3 bg-cyan-400/90 rounded-full animate-[pulse_1s_ease-in-out_infinite]" />
+              <span className="w-0.5 h-4.5 bg-cyan-300 rounded-full animate-[pulse_1.4s_ease-in-out_infinite_0.2s]" />
+              <span className="w-0.5 h-2.5 bg-cyan-400/90 rounded-full animate-[pulse_0.9s_ease-in-out_infinite_0.4s]" />
+              <span className="w-0.5 h-3.5 bg-cyan-300 rounded-full animate-[pulse_1.2s_ease-in-out_infinite_0.1s]" />
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   );
