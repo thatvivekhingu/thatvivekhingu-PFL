@@ -11,7 +11,6 @@ import {
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { Marquee } from "@/components/ui/marquee";
-import { useRouter } from "next/navigation";
 
 interface AchievementPanelItem {
   id: string;
@@ -93,154 +92,20 @@ const PANELS: AchievementPanelItem[] = [
 
 export default function Achievements() {
   const [selectedPanel, setSelectedPanel] = useState<AchievementPanelItem | null>(null);
-  const [isSpideyHovered, setIsSpideyHovered] = useState(false);
-  const router = useRouter();
 
   const handleOpenPanel = (panel: AchievementPanelItem) => {
     playTapSound("pop");
     setSelectedPanel(panel);
   };
 
-  const handleNavClick = (link: string) => {
-    playTapSound("pop");
-    if (link.startsWith("/")) {
-      router.push(link);
-      return;
-    }
-    const section = document.getElementById(link);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <div className="flex flex-col space-y-12 w-full">
       {/* ============================================================== */}
-      {/* EDITORIAL MANGA CHAPTER FRAME (EXACT REPLICA OF REFERENCE)     */}
+      {/* EDITORIAL MANGA CHAPTER FRAME (EDGE-TO-EDGE)                   */}
       {/* ============================================================== */}
-      <div className="relative w-full rounded-xl sm:rounded-2xl border-2 sm:border-[3px] border-black bg-[#EAE6DF] text-black shadow-[0_20px_50px_rgba(0,0,0,0.65)] select-none overflow-hidden">
-        {/* 1. TOP EDITORIAL CREAM BAR WITH MONOGRAM, NAV & SPIDER-MAN */}
-        <div className="w-full bg-[#EAE6DF] border-b-2 border-black px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between z-20 relative">
-          {/* Left: Square Black "VH" Monogram Badge */}
-          <div
-            onClick={() => handleNavClick("hero")}
-            className="w-8 h-8 bg-black text-[#FAF9F5] flex items-center justify-center font-black text-xs tracking-widest font-sans cursor-pointer hover:scale-105 transition-transform shadow-sm rounded-[2px]"
-            title="Vivek Hingu"
-          >
-            VH
-          </div>
-
-          {/* Right: Monospace Nav Links + Color Dots + Gujjuverse */}
-          <div className="flex items-center gap-4 sm:gap-6 lg:gap-8 font-mono text-[11px] font-bold text-black/80">
-            <nav className="hidden sm:flex items-center gap-5 lg:gap-7">
-              <button
-                type="button"
-                onClick={() => handleNavClick("projects")}
-                className="hover:text-black hover:underline underline-offset-4 transition-all"
-              >
-                02 WORK
-              </button>
-              <button
-                type="button"
-                onClick={() => handleNavClick("skills")}
-                className="hover:text-black hover:underline underline-offset-4 transition-all"
-              >
-                03 STACK
-              </button>
-              <button
-                type="button"
-                onClick={() => handleNavClick("hero")}
-                className="hover:text-black hover:underline underline-offset-4 transition-all"
-              >
-                04 ABOUT
-              </button>
-              <a
-                href="mailto:hinguvivek05@gmail.com"
-                className="hover:text-black hover:underline underline-offset-4 transition-all"
-              >
-                05 CONTACT
-              </a>
-            </nav>
-
-            {/* Theme Switcher Dots */}
-            <div className="flex items-center gap-1.5 px-1.5 py-1">
-              <span className="w-3 h-3 rounded-full bg-[#B92B27] ring-1 ring-black/40" />
-              <span className="w-3 h-3 rounded-full bg-[#2563EB] ring-1 ring-black/40" />
-              <span className="w-3 h-3 rounded-full bg-[#10B981] ring-1 ring-black/40" />
-              <span className="w-3 h-3 rounded-full bg-[#F59E0B] ring-1 ring-black/40" />
-            </div>
-
-            {/* GujjuVerse Link */}
-            <button
-              type="button"
-              onClick={() => handleNavClick("/gujjuverse")}
-              className="flex items-center gap-1.5 hover:text-black transition-colors"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-              <span className="tracking-wider">GUJJUVERSE</span>
-            </button>
-          </div>
-
-          {/* Hanging Spider-Man Suspended from the Top-Right of the Frame */}
-          <div
-            className="absolute -top-1 right-6 sm:right-10 lg:right-12 z-30 pointer-events-auto cursor-pointer"
-            onMouseEnter={() => setIsSpideyHovered(true)}
-            onMouseLeave={() => setIsSpideyHovered(false)}
-            onClick={() => playTapSound("chime")}
-            title="Friendly Neighborhood Spidey"
-          >
-            {/* Ceiling Anchor */}
-            <div className="w-3 h-1 bg-neutral-800 rounded-b-sm mx-auto shadow-sm" />
-
-            {/* Swinging Web Line & Spider-Man */}
-            <motion.div
-              animate={{
-                rotate: [-3.5, 3.5, -3.5],
-                transition: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
-              }}
-              style={{ transformOrigin: "top center" }}
-              className="flex flex-col items-center"
-            >
-              <div className="w-0.5 h-10 sm:h-12 bg-gradient-to-b from-neutral-600 via-neutral-300 to-white shadow-[0_0_3px_rgba(255,255,255,0.8)] relative" />
-
-              {/* Spider-Man Character Illustration */}
-              <div className="relative -mt-1 w-11 h-13 sm:w-13 sm:h-15 drop-shadow-[0_8px_14px_rgba(0,0,0,0.85)]">
-                <svg viewBox="0 0 120 150" className="w-full h-full overflow-visible">
-                  <defs>
-                    <linearGradient id="frameSpideyRed" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#f43f5e" />
-                      <stop offset="50%" stopColor="#e11d48" />
-                      <stop offset="100%" stopColor="#881337" />
-                    </linearGradient>
-                    <linearGradient id="frameSpideyNavy" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#1e3a8a" />
-                      <stop offset="100%" stopColor="#090d16" />
-                    </linearGradient>
-                  </defs>
-                  {/* Legs */}
-                  <path d="M 42 36 C 22 22 28 6 44 14 Z" fill="url(#frameSpideyNavy)" stroke="#0f172a" strokeWidth="1.2" />
-                  <path d="M 78 36 C 98 22 92 6 76 14 Z" fill="url(#frameSpideyNavy)" stroke="#0f172a" strokeWidth="1.2" />
-                  {/* Arms */}
-                  <path d="M 44 48 C 36 34 46 16 54 8 L 57 11 Z" fill="url(#frameSpideyRed)" stroke="#881337" strokeWidth="1.2" />
-                  <path d="M 76 48 C 84 34 74 16 66 8 L 63 11 Z" fill="url(#frameSpideyRed)" stroke="#881337" strokeWidth="1.2" />
-                  {/* Torso */}
-                  <path d="M 44 36 Q 60 30 76 36 L 79 72 Q 60 78 41 72 Z" fill="url(#frameSpideyRed)" stroke="#881337" strokeWidth="1.2" />
-                  {/* Inverted Head Mask */}
-                  <path d="M 34 72 C 30 92 37 132 60 142 C 83 132 90 92 86 72 C 77 66 43 66 34 72 Z" fill="url(#frameSpideyRed)" stroke="#881337" strokeWidth="1.8" />
-                  <path d="M 60 98 L 60 142 M 60 98 L 38 126 M 60 98 L 82 126 M 60 98 L 33 96 M 60 98 L 87 96" stroke="#4c0519" strokeWidth="1" opacity="0.65" />
-                  {/* Eyes */}
-                  <path d={isSpideyHovered ? "M 37 93 Q 51 86 58 103 Q 48 111 37 93 Z" : "M 38 94 Q 51 88 57 103 Q 48 110 38 94 Z"} fill="#020617" stroke="#020617" strokeWidth="2" />
-                  <path d={isSpideyHovered ? "M 39 94 Q 50 88 56 102 Q 48 109 39 94 Z" : "M 40 95 Q 50 89 55 102 Q 48 108 40 95 Z"} fill="#ffffff" />
-                  <path d={isSpideyHovered ? "M 83 93 Q 69 86 62 103 Q 72 111 83 93 Z" : "M 82 94 Q 69 88 63 103 Q 72 110 82 94 Z"} fill="#020617" stroke="#020617" strokeWidth="2" />
-                  <path d={isSpideyHovered ? "M 81 94 Q 70 88 64 102 Q 72 109 81 94 Z" : "M 80 95 Q 70 89 65 102 Q 72 108 80 95 Z"} fill="#ffffff" />
-                </svg>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* 2. EDITORIAL CHAPTER HEADER */}
-        <div className="relative p-6 sm:p-8 lg:px-10 lg:pt-8 lg:pb-7 border-b-2 border-black bg-[#EAE6DF] overflow-hidden">
+      <div className="relative w-full border-y-2 border-black bg-[#EAE6DF] text-black shadow-[0_20px_50px_rgba(0,0,0,0.65)] select-none overflow-hidden">
+        {/* EDITORIAL CHAPTER HEADER (AWARDS & ACHIEVEMENTS) */}
+        <div className="relative px-4 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-10 border-b-2 border-black bg-[#EAE6DF] overflow-hidden">
           {/* Chapter Monospace Tag: 第三章 // CHAPTER 03 - HONORS & RECOGNITION */}
           <div className="flex items-center gap-2 mb-2 relative z-10">
             <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#B92B27] uppercase">
@@ -260,9 +125,9 @@ export default function Achievements() {
           </p>
         </div>
 
-        {/* 3. OUTER COMIC CONTAINER (BLACK GUTTER FRAME #0A0A0A) */}
-        <div className="w-full bg-[#0A0A0A] px-2 sm:px-4 lg:px-[36px] pb-3 sm:pb-4 lg:pb-[32px] pt-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.22fr_1fr_1fr] gap-[10px] items-stretch lg:min-h-[570px]">
+        {/* OUTER COMIC CONTAINER (PITCH-BLACK GUTTER FRAME #0A0A0A - BLEEDS EDGE-TO-EDGE) */}
+        <div className="w-full bg-[#0A0A0A] px-0 pb-3 sm:pb-4 lg:pb-[32px] pt-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.22fr_1fr_1fr] gap-[10px] items-stretch lg:min-h-[570px] w-full">
             {/* ============================================================== */}
             {/* COLUMN 1: LEFT COLUMN WRAPPER (PANEL 01 & PANEL 02 WITH SLASH) */}
             {/* ============================================================== */}
@@ -692,10 +557,7 @@ export default function Achievements() {
         </div>
 
         {/* 4. FRAME BOTTOM INK BAR WITH COPYRIGHT */}
-        <div
-          className="w-full bg-[#0A0A0A] flex items-center justify-between text-neutral-400 font-mono text-[11px]"
-          style={{ padding: "8px 36px" }}
-        >
+        <div className="w-full bg-[#0A0A0A] flex items-center justify-between text-neutral-400 font-mono text-[11px] px-4 sm:px-8 lg:px-12 py-3 border-t border-white/10">
           <span className="flex items-center gap-1.5">
             <span>&copy; {new Date().getFullYear()} Vivek Hingu</span>
           </span>
@@ -708,7 +570,7 @@ export default function Achievements() {
       {/* ============================================================== */}
       {/* 3. CERTIFICATIONS & SPECIALIZATIONS MARQUEE */}
       {/* ============================================================== */}
-      <div className="space-y-6 pt-2">
+      <div className="space-y-6 pt-2 mx-auto max-w-5xl px-4 w-full">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
             <IconCertificate className="h-5 w-5 text-amber-400" />

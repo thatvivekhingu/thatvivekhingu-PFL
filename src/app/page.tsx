@@ -57,13 +57,20 @@ export default async function Home() {
             <Projects />
           </section>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 6} offset={0} inView>
-          <section id="achievements" className="scroll-mt-24 sm:scroll-mt-28 space-y-8">
-            <Achievements />
-            <HackathonBox />
-          </section>
-        </BlurFade>
+      </div>
 
+      {/* Full-width Achievements Section - Comic Frames Bleed Edge-to-Edge */}
+      <BlurFade delay={BLUR_FADE_DELAY * 6} offset={0} inView>
+        <section id="achievements" className="scroll-mt-24 sm:scroll-mt-28 w-full relative overflow-x-clip my-8 sm:my-16">
+          <Achievements />
+          <div className="mx-auto max-w-5xl px-4 mt-8 sm:mt-12">
+            <HackathonBox />
+          </div>
+        </section>
+      </BlurFade>
+
+      {/* Main Content Sections Continued */}
+      <div className="mx-auto flex max-w-5xl flex-col space-y-12 sm:space-y-20 px-4 pb-12 sm:pb-20">
         <BlurFade delay={BLUR_FADE_DELAY * 7} offset={0} inView>
           <section id="earth" className="scroll-mt-24 sm:scroll-mt-28">
             <Earth photos={sunsetPhotos} />
