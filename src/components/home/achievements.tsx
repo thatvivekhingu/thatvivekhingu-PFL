@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 import { Marquee } from "@/components/ui/marquee";
+import { useRouter } from "next/navigation";
 
 interface AchievementPanelItem {
   id: string;
@@ -24,7 +25,6 @@ interface AchievementPanelItem {
   date: string;
   description: string;
   metrics: string;
-  gridClass: string;
   accentColor: string;
 }
 
@@ -32,7 +32,7 @@ const PANELS: AchievementPanelItem[] = [
   {
     id: "google-cloud-arcade",
     num: "01",
-    badge: "• CLOUD MILESTONE",
+    badge: "CLOUD MILESTONE",
     title: "GOOGLE CLOUD ARCADE 2025",
     subtitle: "// ★ GOOGLE CLOUD ARCADE CHAMPION",
     tags: "CLOUD • ARCADES • HANDS-ON LABS",
@@ -42,13 +42,12 @@ const PANELS: AchievementPanelItem[] = [
     description:
       "Achieved Champion status in Google Cloud Arcade 2025 by completing intensive hands-on cloud labs, DevOps automation workflows, and production AI infrastructure challenges across Google Cloud Platform.",
     metrics: "🏆 Google Cloud Arcade Champion",
-    gridClass: "lg:col-span-2 lg:row-span-1 min-h-[300px] sm:min-h-[320px]",
-    accentColor: "text-cyan-600 bg-cyan-950/20 border-cyan-500/40",
+    accentColor: "text-blue-400 bg-blue-950/40 border-blue-500/50",
   },
   {
     id: "robo-soccer",
     num: "02",
-    badge: "• CHAMPION",
+    badge: "CHAMPION",
     title: "ROBO SOCCER CHAMPIONSHIP",
     subtitle: "// 🏆 1ST PRIZE WINNER",
     tags: "EMBEDDED SYSTEMS • IOT • ROBOTICS",
@@ -58,13 +57,12 @@ const PANELS: AchievementPanelItem[] = [
     description:
       "Engineered and piloted high-torque robotics hardware in real-time competitive matches, winning 1st Prize in the university-wide Robo Soccer engineering championship.",
     metrics: "🥇 1st Prize Winner",
-    gridClass: "lg:col-span-2 lg:row-span-1 min-h-[300px] sm:min-h-[320px]",
-    accentColor: "text-amber-600 bg-amber-950/20 border-amber-500/40",
+    accentColor: "text-amber-400 bg-amber-950/40 border-amber-500/50",
   },
   {
     id: "flinders-ai",
     num: "03",
-    badge: "• INTERNATIONAL AWARD",
+    badge: "INTERNATIONAL AWARD",
     title: "FLINDERS INTERNATIONAL AI HACKATHON",
     subtitle: "// 🥈 2ND PLACE | AUD 300 CASH PRIZE",
     tags: "ARTIFICIAL INTELLIGENCE • PITCHING • PYTHON",
@@ -74,13 +72,12 @@ const PANELS: AchievementPanelItem[] = [
     description:
       "Secured 2nd Place in the prestigious International AI Hackathon hosted by Flinders University, recognized for creating high-impact predictive AI models and delivering an executive pitch.",
     metrics: "🥈 2nd Place | AUD 300 Cash Prize",
-    gridClass: "lg:col-span-1 lg:row-span-2 min-h-[460px] sm:min-h-[520px]",
-    accentColor: "text-[#B92B27] bg-red-950/20 border-red-500/40",
+    accentColor: "text-emerald-400 bg-emerald-950/40 border-emerald-500/50",
   },
   {
     id: "ait-hackathon",
     num: "04",
-    badge: "• FINALIST",
+    badge: "FINALIST",
     title: "AIT HACKATHON 2K25",
     subtitle: "// 🏅 TOP 10 FINALIST OUT OF 500+ TEAMS",
     tags: "HACKATHON • PROTOTYPING • APPS",
@@ -90,84 +87,148 @@ const PANELS: AchievementPanelItem[] = [
     description:
       "Selected as Top 10 Finalist out of 500+ competing engineering teams at AIT Hackathon 2K25 after developing an end-to-end full-stack prototype in a 36-hour sprint.",
     metrics: "🏅 Top 10 Finalist Out of 500+ Teams",
-    gridClass: "lg:col-span-1 lg:row-span-2 min-h-[460px] sm:min-h-[520px]",
-    accentColor: "text-emerald-600 bg-emerald-950/20 border-emerald-500/40",
+    accentColor: "text-emerald-400 bg-emerald-950/40 border-emerald-500/50",
   },
 ];
 
 export default function Achievements() {
   const [selectedPanel, setSelectedPanel] = useState<AchievementPanelItem | null>(null);
   const [isSpideyHovered, setIsSpideyHovered] = useState(false);
-  const [motionEnabled] = useState(true);
+  const router = useRouter();
 
   const handleOpenPanel = (panel: AchievementPanelItem) => {
     playTapSound("pop");
     setSelectedPanel(panel);
   };
 
+  const handleNavClick = (link: string) => {
+    playTapSound("pop");
+    if (link.startsWith("/")) {
+      router.push(link);
+      return;
+    }
+    const section = document.getElementById(link);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="flex flex-col space-y-12 w-full">
       {/* ============================================================== */}
-      {/* 1. EDITORIAL MANGA CHAPTER HEADER & BENTO PANEL CONTAINER */}
+      {/* EDITORIAL MANGA CHAPTER FRAME (EXACT REPLICA OF REFERENCE)     */}
       {/* ============================================================== */}
-      <div className="relative w-full rounded-2xl sm:rounded-3xl border-2 border-black/85 bg-[#EAE6DF] text-black shadow-[0_16px_40px_rgba(0,0,0,0.6)] select-none overflow-hidden">
-        {/* Top Header Surface on Warm Archival Cream Paper (#EAE6DF) */}
-        <div className="relative p-6 sm:p-8 lg:p-10 border-b-2 border-[#121212] bg-[#EAE6DF] overflow-hidden">
-          {/* Large Outlined Background Chapter Numeral "03" */}
-          <span className="absolute right-4 sm:right-12 top-1/2 -translate-y-1/2 font-[family-name:var(--font-anton)] text-8xl sm:text-9xl md:text-[140px] lg:text-[170px] text-black/5 pointer-events-none select-none leading-none tracking-tight">
-            03
-          </span>
-
-          {/* Top-Right Hanging Spider-Man Suspended by Web Line */}
+      <div className="relative w-full rounded-xl sm:rounded-2xl border-2 sm:border-[3px] border-black bg-[#EAE6DF] text-black shadow-[0_20px_50px_rgba(0,0,0,0.65)] select-none overflow-hidden">
+        {/* 1. TOP EDITORIAL CREAM BAR WITH MONOGRAM, NAV & SPIDER-MAN */}
+        <div className="w-full bg-[#EAE6DF] border-b-2 border-black px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between z-20 relative">
+          {/* Left: Square Black "VH" Monogram Badge */}
           <div
-            className="absolute top-0 right-4 sm:right-12 z-20 pointer-events-auto cursor-pointer"
+            onClick={() => handleNavClick("hero")}
+            className="w-8 h-8 bg-black text-[#FAF9F5] flex items-center justify-center font-black text-xs tracking-widest font-sans cursor-pointer hover:scale-105 transition-transform shadow-sm rounded-[2px]"
+            title="Vivek Hingu"
+          >
+            VH
+          </div>
+
+          {/* Right: Monospace Nav Links + Color Dots + Gujjuverse */}
+          <div className="flex items-center gap-4 sm:gap-6 lg:gap-8 font-mono text-[11px] font-bold text-black/80">
+            <nav className="hidden sm:flex items-center gap-5 lg:gap-7">
+              <button
+                type="button"
+                onClick={() => handleNavClick("projects")}
+                className="hover:text-black hover:underline underline-offset-4 transition-all"
+              >
+                02 WORK
+              </button>
+              <button
+                type="button"
+                onClick={() => handleNavClick("skills")}
+                className="hover:text-black hover:underline underline-offset-4 transition-all"
+              >
+                03 STACK
+              </button>
+              <button
+                type="button"
+                onClick={() => handleNavClick("hero")}
+                className="hover:text-black hover:underline underline-offset-4 transition-all"
+              >
+                04 ABOUT
+              </button>
+              <a
+                href="mailto:hinguvivek05@gmail.com"
+                className="hover:text-black hover:underline underline-offset-4 transition-all"
+              >
+                05 CONTACT
+              </a>
+            </nav>
+
+            {/* Theme Switcher Dots */}
+            <div className="flex items-center gap-1.5 px-1.5 py-1">
+              <span className="w-3 h-3 rounded-full bg-[#B92B27] ring-1 ring-black/40" />
+              <span className="w-3 h-3 rounded-full bg-[#2563EB] ring-1 ring-black/40" />
+              <span className="w-3 h-3 rounded-full bg-[#10B981] ring-1 ring-black/40" />
+              <span className="w-3 h-3 rounded-full bg-[#F59E0B] ring-1 ring-black/40" />
+            </div>
+
+            {/* GujjuVerse Link */}
+            <button
+              type="button"
+              onClick={() => handleNavClick("/gujjuverse")}
+              className="flex items-center gap-1.5 hover:text-black transition-colors"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+              <span className="tracking-wider">GUJJUVERSE</span>
+            </button>
+          </div>
+
+          {/* Hanging Spider-Man Suspended from the Top-Right of the Frame */}
+          <div
+            className="absolute -top-1 right-6 sm:right-10 lg:right-12 z-30 pointer-events-auto cursor-pointer"
             onMouseEnter={() => setIsSpideyHovered(true)}
             onMouseLeave={() => setIsSpideyHovered(false)}
             onClick={() => playTapSound("chime")}
             title="Friendly Neighborhood Spidey"
           >
-            <div className="w-3 h-1.5 bg-neutral-700 rounded-b-sm mx-auto shadow-sm" />
+            {/* Ceiling Anchor */}
+            <div className="w-3 h-1 bg-neutral-800 rounded-b-sm mx-auto shadow-sm" />
+
+            {/* Swinging Web Line & Spider-Man */}
             <motion.div
-              animate={
-                motionEnabled
-                  ? {
-                      rotate: [-3.5, 3.5, -3.5],
-                      transition: { duration: 3.6, repeat: Infinity, ease: "easeInOut" },
-                    }
-                  : { rotate: 0 }
-              }
+              animate={{
+                rotate: [-3.5, 3.5, -3.5],
+                transition: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
+              }}
               style={{ transformOrigin: "top center" }}
               className="flex flex-col items-center"
             >
-              {/* Web line */}
-              <div className="w-0.5 h-12 sm:h-14 bg-gradient-to-b from-neutral-500 via-neutral-300 to-white shadow-[0_0_3px_rgba(255,255,255,0.8)] relative" />
+              <div className="w-0.5 h-10 sm:h-12 bg-gradient-to-b from-neutral-600 via-neutral-300 to-white shadow-[0_0_3px_rgba(255,255,255,0.8)] relative" />
 
-              {/* Spider-Man Hanging Mask */}
-              <div className="relative -mt-1 w-12 h-14 sm:w-14 sm:h-16 drop-shadow-[0_6px_12px_rgba(0,0,0,0.7)]">
+              {/* Spider-Man Character Illustration */}
+              <div className="relative -mt-1 w-11 h-13 sm:w-13 sm:h-15 drop-shadow-[0_8px_14px_rgba(0,0,0,0.85)]">
                 <svg viewBox="0 0 120 150" className="w-full h-full overflow-visible">
                   <defs>
-                    <linearGradient id="achieveSpideyRed" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="frameSpideyRed" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#f43f5e" />
                       <stop offset="50%" stopColor="#e11d48" />
                       <stop offset="100%" stopColor="#881337" />
                     </linearGradient>
-                    <linearGradient id="achieveSpideyNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="frameSpideyNavy" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#1e3a8a" />
                       <stop offset="100%" stopColor="#090d16" />
                     </linearGradient>
                   </defs>
                   {/* Legs */}
-                  <path d="M 42 36 C 22 22 28 6 44 14 Z" fill="url(#achieveSpideyNavy)" stroke="#0f172a" strokeWidth="1.2" />
-                  <path d="M 78 36 C 98 22 92 6 76 14 Z" fill="url(#achieveSpideyNavy)" stroke="#0f172a" strokeWidth="1.2" />
+                  <path d="M 42 36 C 22 22 28 6 44 14 Z" fill="url(#frameSpideyNavy)" stroke="#0f172a" strokeWidth="1.2" />
+                  <path d="M 78 36 C 98 22 92 6 76 14 Z" fill="url(#frameSpideyNavy)" stroke="#0f172a" strokeWidth="1.2" />
                   {/* Arms */}
-                  <path d="M 44 48 C 36 34 46 16 54 8 L 57 11 Z" fill="url(#achieveSpideyRed)" stroke="#881337" strokeWidth="1.2" />
-                  <path d="M 76 48 C 84 34 74 16 66 8 L 63 11 Z" fill="url(#achieveSpideyRed)" stroke="#881337" strokeWidth="1.2" />
+                  <path d="M 44 48 C 36 34 46 16 54 8 L 57 11 Z" fill="url(#frameSpideyRed)" stroke="#881337" strokeWidth="1.2" />
+                  <path d="M 76 48 C 84 34 74 16 66 8 L 63 11 Z" fill="url(#frameSpideyRed)" stroke="#881337" strokeWidth="1.2" />
                   {/* Torso */}
-                  <path d="M 44 36 Q 60 30 76 36 L 79 72 Q 60 78 41 72 Z" fill="url(#achieveSpideyRed)" stroke="#881337" strokeWidth="1.2" />
+                  <path d="M 44 36 Q 60 30 76 36 L 79 72 Q 60 78 41 72 Z" fill="url(#frameSpideyRed)" stroke="#881337" strokeWidth="1.2" />
                   {/* Inverted Head Mask */}
-                  <path d="M 34 72 C 30 92 37 132 60 142 C 83 132 90 92 86 72 C 77 66 43 66 34 72 Z" fill="url(#achieveSpideyRed)" stroke="#881337" strokeWidth="1.8" />
+                  <path d="M 34 72 C 30 92 37 132 60 142 C 83 132 90 92 86 72 C 77 66 43 66 34 72 Z" fill="url(#frameSpideyRed)" stroke="#881337" strokeWidth="1.8" />
                   <path d="M 60 98 L 60 142 M 60 98 L 38 126 M 60 98 L 82 126 M 60 98 L 33 96 M 60 98 L 87 96" stroke="#4c0519" strokeWidth="1" opacity="0.65" />
-                  {/* Eyes (animate on hover) */}
+                  {/* Eyes */}
                   <path d={isSpideyHovered ? "M 37 93 Q 51 86 58 103 Q 48 111 37 93 Z" : "M 38 94 Q 51 88 57 103 Q 48 110 38 94 Z"} fill="#020617" stroke="#020617" strokeWidth="2" />
                   <path d={isSpideyHovered ? "M 39 94 Q 50 88 56 102 Q 48 109 39 94 Z" : "M 40 95 Q 50 89 55 102 Q 48 108 40 95 Z"} fill="#ffffff" />
                   <path d={isSpideyHovered ? "M 83 93 Q 69 86 62 103 Q 72 111 83 93 Z" : "M 82 94 Q 69 88 63 103 Q 72 110 82 94 Z"} fill="#020617" stroke="#020617" strokeWidth="2" />
@@ -176,65 +237,69 @@ export default function Achievements() {
               </div>
             </motion.div>
           </div>
+        </div>
 
-          {/* Chapter Monospace Tag */}
+        {/* 2. EDITORIAL CHAPTER HEADER */}
+        <div className="relative p-6 sm:p-8 lg:px-10 lg:pt-8 lg:pb-7 border-b-2 border-black bg-[#EAE6DF] overflow-hidden">
+          {/* Chapter Monospace Tag: 第三章 // CHAPTER 03 - HONORS & RECOGNITION */}
           <div className="flex items-center gap-2 mb-2 relative z-10">
             <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#B92B27] uppercase">
-              CHAPTER 03 // HONORS &amp; RECOGNITION
+              第三章 {"//"} CHAPTER 03 - HONORS &amp; RECOGNITION
             </span>
-            <span className="w-2 h-2 rounded-full bg-[#B92B27] animate-pulse" />
           </div>
 
-          {/* Massive Display Headline */}
-          <h2 className="font-[family-name:var(--font-anton)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[0.92] uppercase relative z-10">
+          {/* Massive Display Headline: AWARDS & ACHIEVEMENTS */}
+          <h2 className="font-[family-name:var(--font-anton)] text-4xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight leading-[0.9] uppercase relative z-10">
             <span className="text-[#1E3A8A]">AWARDS</span>{" "}
             <span className="text-[#121212]">&amp; ACHIEVEMENTS</span>
           </h2>
 
           {/* Subtitle */}
-          <p className="text-xs sm:text-sm text-neutral-700 font-sans font-medium mt-2 max-w-2xl leading-relaxed relative z-10">
+          <p className="text-xs sm:text-sm md:text-[15px] text-neutral-800 font-sans font-medium mt-2 max-w-2xl leading-relaxed relative z-10">
             Celebrating the milestones, victories, and team triumphs that push my engineering boundary.
           </p>
         </div>
 
-        {/* ============================================================== */}
-        {/* 2. JAPANESE MANGA COMIC STRIP PANEL GRID (#121212 Ink Gutter) */}
-        {/* ============================================================== */}
-        <div className="bg-[#121212] p-2.5 sm:p-3.5 lg:p-4 border-2 border-black">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 lg:gap-3.5 items-stretch">
-            {/* COLUMN 1: PANELS 01 & 02 STACKED (lg:col-span-5) */}
-            <div className="lg:col-span-5 flex flex-col gap-3 justify-between">
-              {/* --- PANEL 01 --- */}
+        {/* 3. ASYMMETRIC MANGA BENTO COMIC STRIP GRID (Matte Black #121212 Gutter) */}
+        <div className="bg-[#121212] p-2 sm:p-3 lg:p-3.5 border-t-2 border-black">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-2.5 sm:gap-3 items-stretch">
+            {/* ============================================================== */}
+            {/* COLUMN 1: PANEL 01 & PANEL 02 STACKED (lg:col-span-5)          */}
+            {/* ============================================================== */}
+            <div className="lg:col-span-5 flex flex-col gap-2.5 sm:gap-3 justify-between">
+              {/* --- PANEL 01: GOOGLE CLOUD ARCADE 2025 --- */}
               <motion.div
                 onClick={() => handleOpenPanel(PANELS[0])}
-                className="group/panel relative rounded-[3px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(0_0,100%_0,97.5%_98%,0_100%)]"
+                className="group/panel relative rounded-[2px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(0_0,100%_0,97.5%_98%,0_100%)]"
               >
                 {/* Photo Area */}
                 <div className="relative w-full h-44 sm:h-48 md:h-52 bg-[#0c0c0c] overflow-hidden flex items-center justify-center">
-                  {/* Manga Halftone Dots */}
+                  {/* Halftone Comic Screen Texture */}
                   <div
-                    className="absolute inset-0 opacity-25 pointer-events-none"
+                    className="absolute inset-0 opacity-30 pointer-events-none"
                     style={{
                       backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
                       backgroundSize: "6px 6px",
                     }}
                   />
+
+                  {/* Swag Kit Photo */}
                   <Image
                     src={PANELS[0].image}
                     alt={PANELS[0].alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 42vw"
                     priority
-                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.1] brightness-[0.98]"
+                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.08] brightness-[0.98]"
                   />
 
-                  {/* Square Black Index Number Badge (Top-Left) */}
+                  {/* Top-Left: Black Square 01 Badge */}
                   <div className="absolute top-2.5 left-2.5 z-20 bg-black text-[#FAF9F5] font-mono font-black text-sm sm:text-base px-2.5 py-0.5 border border-white/20 shadow-md">
                     01
                   </div>
 
-                  {/* Dark Pill Badge (Top-Right): CLOUD MILESTONE */}
-                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-blue-500/50 text-blue-400 shadow-md">
+                  {/* Top-Right: Blue Pill Badge (CLOUD MILESTONE) */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-blue-500/60 text-blue-400 shadow-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_#60a5fa] animate-pulse" />
                     <span className="text-[9.5px] font-mono font-bold tracking-wider uppercase">
                       CLOUD MILESTONE
@@ -250,7 +315,7 @@ export default function Achievements() {
                   </div>
                 </div>
 
-                {/* Cream Text Area */}
+                {/* Content Area */}
                 <div className="p-3 sm:p-3.5 bg-[#ECE7DC] border-t-2 border-black flex flex-col justify-between">
                   <div>
                     <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black tracking-tight uppercase leading-none group-hover/panel:text-[#B92B27] transition-colors">
@@ -263,7 +328,7 @@ export default function Achievements() {
                     </p>
                   </div>
 
-                  <div className="pt-2.5 mt-2 border-t border-black/20 flex items-center justify-between font-mono">
+                  <div className="pt-2 mt-2 border-t border-black/20 flex items-center justify-between font-mono">
                     <span className="text-[9.5px] sm:text-[10px] font-bold text-neutral-600 uppercase tracking-tight">
                       CLOUD • ARCADES • HANDS-ON LABS
                     </span>
@@ -275,35 +340,38 @@ export default function Achievements() {
                 </div>
               </motion.div>
 
-              {/* --- PANEL 02 --- */}
+              {/* --- PANEL 02: ROBO SOCCER CHAMPIONSHIP --- */}
               <motion.div
                 onClick={() => handleOpenPanel(PANELS[1])}
-                className="group/panel relative rounded-[3px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(0_2%,100%_0,95%_100%,0_100%)]"
+                className="group/panel relative rounded-[2px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(0_2.5%,100%_0,95%_100%,0_100%)]"
               >
                 {/* Photo Area */}
                 <div className="relative w-full h-44 sm:h-48 md:h-52 bg-[#0c0c0c] overflow-hidden flex items-center justify-center">
                   <div
-                    className="absolute inset-0 opacity-25 pointer-events-none"
+                    className="absolute inset-0 opacity-30 pointer-events-none"
                     style={{
                       backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
                       backgroundSize: "6px 6px",
                     }}
                   />
+
+                  {/* Team Photo */}
                   <Image
                     src={PANELS[1].image}
                     alt={PANELS[1].alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 42vw"
-                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.1] brightness-[0.98]"
+                    priority
+                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.08] brightness-[0.98]"
                   />
 
-                  {/* Square Black Index Number Badge (Top-Left) */}
+                  {/* Top-Left: Black Square 02 Badge */}
                   <div className="absolute top-2.5 left-2.5 z-20 bg-black text-[#FAF9F5] font-mono font-black text-sm sm:text-base px-2.5 py-0.5 border border-white/20 shadow-md">
                     02
                   </div>
 
-                  {/* Amber Pill Badge (Top-Right): CHAMPION */}
-                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-500/50 text-amber-400 shadow-md">
+                  {/* Top-Right: Amber Pill Badge (CHAMPION) */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-500/60 text-amber-400 shadow-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24] animate-pulse" />
                     <span className="text-[9.5px] font-mono font-bold tracking-wider uppercase">
                       CHAMPION
@@ -319,7 +387,7 @@ export default function Achievements() {
                   </div>
                 </div>
 
-                {/* Cream Text Area */}
+                {/* Content Area */}
                 <div className="p-3 sm:p-3.5 bg-[#ECE7DC] border-t-2 border-black flex flex-col justify-between">
                   <div>
                     <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black tracking-tight uppercase leading-none group-hover/panel:text-[#B92B27] transition-colors">
@@ -332,7 +400,7 @@ export default function Achievements() {
                     </p>
                   </div>
 
-                  <div className="pt-2.5 mt-2 border-t border-black/20 flex items-center justify-between font-mono">
+                  <div className="pt-2 mt-2 border-t border-black/20 flex items-center justify-between font-mono">
                     <span className="text-[9.5px] sm:text-[10px] font-bold text-neutral-600 uppercase tracking-tight">
                       EMBEDDED SYSTEMS • IOT • ROBOTICS
                     </span>
@@ -345,45 +413,49 @@ export default function Achievements() {
               </motion.div>
             </div>
 
-            {/* COLUMN 2: PANEL 03 TALL (lg:col-span-3) */}
+            {/* ============================================================== */}
+            {/* COLUMN 2: PANEL 03 TALL HERO (lg:col-span-3 or 3.5)            */}
+            {/* ============================================================== */}
             <div className="lg:col-span-3 flex flex-col">
               <motion.div
                 onClick={() => handleOpenPanel(PANELS[2])}
-                className="group/panel relative h-full rounded-[3px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(5%_0,100%_0,100%_100%,0_100%)]"
+                className="group/panel relative h-full rounded-[2px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer lg:[clip-path:polygon(4%_0,100%_0,100%_100%,0_100%)]"
               >
-                {/* Tall Photo Area */}
+                {/* Photo Area */}
                 <div className="relative w-full h-64 sm:h-72 md:h-80 lg:flex-1 min-h-[260px] bg-[#0c0c0c] overflow-hidden flex items-center justify-center">
                   <div
-                    className="absolute inset-0 opacity-25 pointer-events-none"
+                    className="absolute inset-0 opacity-30 pointer-events-none"
                     style={{
                       backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
                       backgroundSize: "6px 6px",
                     }}
                   />
+
+                  {/* Stage Photo */}
                   <Image
                     src={PANELS[2].image}
                     alt={PANELS[2].alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 30vw"
                     priority
-                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.1] brightness-[0.98]"
+                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.08] brightness-[0.98]"
                   />
 
-                  {/* Square Black Index Number Badge (Top-Left) */}
+                  {/* Top-Left: Black Square 03 Badge */}
                   <div className="absolute top-2.5 left-2.5 z-20 bg-black text-[#FAF9F5] font-mono font-black text-sm sm:text-base px-2.5 py-0.5 border border-white/20 shadow-md">
                     03
                   </div>
 
-                  {/* Green Pill Badge (Top-Right): INTERNATIONAL AWARD */}
-                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/50 text-emerald-400 shadow-md">
+                  {/* Top-Right: Green Pill Badge (INTERNATIONAL AWARD) */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/60 text-emerald-400 shadow-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
                     <span className="text-[9.5px] font-mono font-bold tracking-wider uppercase">
                       INTERNATIONAL AWARD
                     </span>
                   </div>
 
-                  {/* Secondary Green Pill Badge (Bottom-Right of Photo) */}
-                  <div className="absolute bottom-2.5 right-2.5 z-20 hidden sm:flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/50 text-emerald-400 shadow-md">
+                  {/* Bottom-Right of Photo: Secondary Green Pill Badge */}
+                  <div className="absolute bottom-2.5 right-2.5 z-20 hidden sm:flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/60 text-emerald-400 shadow-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
                     <span className="text-[9px] font-mono font-bold tracking-wider uppercase">
                       INTERNATIONAL AWARD
@@ -399,25 +471,30 @@ export default function Achievements() {
                   </div>
                 </div>
 
-                {/* Cream Text Area */}
+                {/* Content Area */}
                 <div className="p-3 sm:p-3.5 bg-[#ECE7DC] border-t-2 border-black flex flex-col justify-between">
                   <div>
-                    <div className="flex items-start gap-2">
-                      <div className="bg-black text-[#FAF9F5] font-mono font-black text-xs sm:text-sm px-2 py-0.5 border border-white/20 shrink-0 mt-0.5">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <div className="bg-black text-[#FAF9F5] font-mono font-black text-xs sm:text-sm px-2 py-0.5 border border-white/20 shrink-0">
                         03
                       </div>
-                      <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black tracking-tight uppercase leading-[0.95] group-hover/panel:text-[#B92B27] transition-colors">
-                        FLINDERS INTERNATIONAL<br />AI HACKATHON
-                      </h3>
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-500/50 text-emerald-600 text-[9px] font-mono font-bold tracking-wider uppercase flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        INTERNATIONAL AWARD
+                      </span>
                     </div>
-                    <p className="text-[11px] sm:text-xs font-mono font-bold text-neutral-800 tracking-tight mt-1.5 flex items-center gap-1">
+
+                    <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black tracking-tight uppercase leading-[0.95] group-hover/panel:text-[#B92B27] transition-colors">
+                      FLINDERS INTERNATIONAL<br />AI HACKATHON
+                    </h3>
+                    <p className="text-[11px] sm:text-xs font-mono font-bold text-neutral-800 tracking-tight mt-1 flex items-center gap-1">
                       <span>{"//"}</span>
                       <span className="text-base leading-none">🥈</span>
                       <span>2ND PLACE | AUD 300 CASH PRIZE</span>
                     </p>
                   </div>
 
-                  <div className="pt-2.5 mt-2 border-t border-black/20 flex flex-wrap items-center justify-between gap-1.5 font-mono">
+                  <div className="pt-2 mt-2 border-t border-black/20 flex flex-wrap items-center justify-between gap-1.5 font-mono">
                     <span className="text-[9px] sm:text-[9.5px] font-bold text-neutral-600 uppercase tracking-tight">
                       ARTIFICIAL INTELLIGENCE • PITCHING • PYTHON
                     </span>
@@ -430,37 +507,41 @@ export default function Achievements() {
               </motion.div>
             </div>
 
-            {/* COLUMN 3: PANEL 04 TALL (lg:col-span-4) */}
+            {/* ============================================================== */}
+            {/* COLUMN 3: PANEL 04 TALL (lg:col-span-4)                         */}
+            {/* ============================================================== */}
             <div className="lg:col-span-4 flex flex-col">
               <motion.div
                 onClick={() => handleOpenPanel(PANELS[3])}
-                className="group/panel relative h-full rounded-[3px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
+                className="group/panel relative h-full rounded-[2px] border-2 border-black bg-[#ECE7DC] text-black overflow-hidden flex flex-col justify-between shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#B92B27] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
               >
                 {/* Photo Area */}
                 <div className="relative w-full h-64 sm:h-72 md:h-80 lg:flex-1 min-h-[260px] bg-[#0c0c0c] overflow-hidden flex items-center justify-center">
                   <div
-                    className="absolute inset-0 opacity-25 pointer-events-none"
+                    className="absolute inset-0 opacity-30 pointer-events-none"
                     style={{
                       backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
                       backgroundSize: "6px 6px",
                     }}
                   />
+
+                  {/* Team around Laptop Photo */}
                   <Image
                     src={PANELS[3].image}
                     alt={PANELS[3].alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 35vw"
                     priority
-                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.1] brightness-[0.98]"
+                    className="object-cover group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.08] brightness-[0.98]"
                   />
 
-                  {/* Square Black Index Number Badge (Top-Left) */}
+                  {/* Top-Left: Black Square 04 Badge */}
                   <div className="absolute top-2.5 left-2.5 z-20 bg-black text-[#FAF9F5] font-mono font-black text-sm sm:text-base px-2.5 py-0.5 border border-white/20 shadow-md">
                     04
                   </div>
 
-                  {/* Green Pill Badge (Top-Right): FINALIST */}
-                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/50 text-emerald-400 shadow-md">
+                  {/* Top-Right: Green Pill Badge (FINALIST) */}
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-black/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/60 text-emerald-400 shadow-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
                     <span className="text-[9.5px] font-mono font-bold tracking-wider uppercase">
                       FINALIST
@@ -476,11 +557,11 @@ export default function Achievements() {
                   </div>
                 </div>
 
-                {/* Cream Text Area */}
+                {/* Content Area */}
                 <div className="p-3 sm:p-3.5 bg-[#ECE7DC] border-t-2 border-black flex flex-col justify-between relative">
                   {/* Subtle 4-pointed silver star sparkle decoration */}
-                  <div className="absolute bottom-1 right-2 pointer-events-none opacity-20 select-none text-neutral-500">
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+                  <div className="absolute bottom-2 right-2 pointer-events-none opacity-20 select-none text-neutral-600">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-12 h-12">
                       <path d="M12 0 C12 6.5 17.5 12 24 12 C17.5 12 12 17.5 12 24 C12 17.5 6.5 12 0 12 C6.5 12 12 6.5 12 0 Z" />
                     </svg>
                   </div>
@@ -494,6 +575,7 @@ export default function Achievements() {
                         AIT HACKATHON<br />2K25
                       </h3>
                     </div>
+
                     <div className="mt-1.5 text-[11px] sm:text-xs font-mono font-bold text-neutral-800 tracking-tight leading-snug">
                       <p className="flex items-center gap-1">
                         <span>{"//"}</span>
@@ -506,7 +588,7 @@ export default function Achievements() {
                     </div>
                   </div>
 
-                  <div className="pt-2.5 mt-2 border-t border-black/20 flex items-center justify-between font-mono relative z-10">
+                  <div className="pt-2 mt-2 border-t border-black/20 flex items-center justify-between font-mono relative z-10">
                     <span className="text-[9.5px] sm:text-[10px] font-bold text-neutral-600 uppercase tracking-tight">
                       HACKATHON • PROTOTYPING • APPS
                     </span>
@@ -519,6 +601,16 @@ export default function Achievements() {
               </motion.div>
             </div>
           </div>
+        </div>
+
+        {/* 4. FRAME BOTTOM INK BAR WITH COPYRIGHT */}
+        <div className="w-full bg-[#121212] border-t-2 border-black px-4 py-2 flex items-center justify-between text-neutral-400 font-mono text-[11px]">
+          <span className="flex items-center gap-1.5">
+            <span>&copy; {new Date().getFullYear()} Vivek Hingu</span>
+          </span>
+          <span className="text-[10px] uppercase tracking-widest text-neutral-500 hidden sm:inline-block">
+            HONORS &amp; RECOGNITION VAULT
+          </span>
         </div>
       </div>
 
