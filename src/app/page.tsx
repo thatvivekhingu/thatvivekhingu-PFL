@@ -11,6 +11,7 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { getSunsetPhotos } from "@/lib/sunsets";
 import { IntroAnimation } from "@/components/ui/intro-animation";
 import { ReadingRail } from "@/components/layout/reading-rail";
+import FrequencyLoungeSection from "@/components/home/frequency-lounge-section";
 
 const BLUR_FADE_DELAY = 0.005;
 
@@ -30,7 +31,7 @@ export default async function Home() {
       </BlurFade>
 
       {/* Main Content Sections - Edge-to-Edge Fluid Layout */}
-      <div className="w-full flex flex-col space-y-6 sm:space-y-12 md:space-y-16 px-2 sm:px-6 md:px-8 lg:px-12 pt-2 sm:pt-6">
+      <div className="w-full flex flex-col space-y-12 sm:space-y-16 md:space-y-20 px-3 sm:px-6 md:px-8 lg:px-12 pt-3 sm:pt-6">
         <BlurFade delay={BLUR_FADE_DELAY * 2} offset={0} inView>
           <section id="dashboard" className="scroll-mt-16 sm:scroll-mt-24 w-full">
             <Dashboard />
@@ -62,19 +63,24 @@ export default async function Home() {
 
       {/* Full-width Achievements Section - Comic Frames Bleed Edge-to-Edge */}
       <BlurFade delay={BLUR_FADE_DELAY * 6} offset={0} inView>
-        <section id="achievements" className="scroll-mt-16 sm:scroll-mt-24 w-full relative overflow-x-clip my-4 sm:my-10">
+        <section id="achievements" className="scroll-mt-16 sm:scroll-mt-24 w-full relative overflow-x-clip my-8 sm:my-14">
           <Achievements />
-          <div className="w-full px-2 sm:px-6 md:px-8 lg:px-12 mt-4 sm:mt-8">
+          <div className="w-full px-3 sm:px-6 md:px-8 lg:px-12 mt-6 sm:mt-10">
             <HackathonBox />
           </div>
         </section>
       </BlurFade>
 
       {/* Main Content Sections Continued - Edge-to-Edge */}
-      <div className="w-full flex flex-col space-y-6 sm:space-y-12 md:space-y-16 px-2 sm:px-6 md:px-8 lg:px-12 pb-6 sm:pb-16">
+      <div className="w-full flex flex-col space-y-12 sm:space-y-16 md:space-y-20 px-3 sm:px-6 md:px-8 lg:px-12 pb-12 sm:pb-20">
         <BlurFade delay={BLUR_FADE_DELAY * 7} offset={0} inView>
           <section id="earth" className="scroll-mt-16 sm:scroll-mt-24 w-full">
             <Earth photos={sunsetPhotos} />
+          </section>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 7.5} offset={0} inView>
+          <section id="music-space" className="scroll-mt-16 sm:scroll-mt-24 w-full">
+            <FrequencyLoungeSection />
           </section>
         </BlurFade>
       </div>
