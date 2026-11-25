@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="pandas-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#18152B"/>
+      <stop offset="100%" stop-color="#0A0814"/>
+    </linearGradient>
+    <radialGradient id="pandas-glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#818CF8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#818CF8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pandas-shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="35%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="pandas-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- Full Bleed Squircle App Canvas (ZERO PADDING) -->
+  <rect width="512" height="512" rx="114" fill="url(#pandas-bg)"/>
+  <rect width="512" height="512" rx="114" fill="url(#pandas-glow)"/>
+  <rect width="512" height="512" rx="114" fill="url(#pandas-shine)"/>
+  <rect x="1.5" y="1.5" width="509" height="509" rx="113" fill="none" stroke="rgba(129,140,248,0.3)" stroke-width="2.5"/>
+
+  <!-- Official Brand Mark (Substantial App Icon Scaling) -->
+  <g transform="translate(101, 101) scale(2.421875)" filter="url(#pandas-shadow)">
+    <path fill="#130754" d="M46.236 7.567h13.99v29.047h-13.99Zm0 59.668h13.99V96.28h-13.99Z"/><path fill="#ffca00" d="M46.236 45.092h13.99v13.705h-13.99Z"/><path fill="#130754" d="M23.763 31.446h13.989V128h-13.99ZM68.245 91.2h13.99v29.046h-13.99Zm0-59.72h13.99v29.047h-13.99Z"/><path fill="#e70488" d="M68.245 69.011h13.99v13.705h-13.99Z"/><path fill="#130754" d="M90.248 0h13.99v96.554h-13.99Z"/>
+
+  </g>
+</svg>
