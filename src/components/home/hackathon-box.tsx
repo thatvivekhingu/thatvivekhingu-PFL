@@ -4,79 +4,101 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
-  IconTrophy,
-  IconChevronDown,
-  IconChevronUp,
   IconExternalLink,
   IconMaximize,
   IconX,
-  IconShieldCheck,
-  IconReceipt,
   IconBarcode,
 } from "@tabler/icons-react";
 import { data, HackathonCertificateItem } from "@/data/data";
 import { cn } from "@/lib/utils";
 import { playTapSound } from "@/lib/sound";
-import { LottiePlayer } from "@/components/ui/lottie-player";
 
 export default function HackathonBox() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [activeCertificate, setActiveCertificate] = useState<HackathonCertificateItem | null>(null);
 
   const hackathons = data.hackathons || [];
 
   const toggleOpen = () => {
-    playTapSound("access_granted");
+    playTapSound("pop");
     setIsOpen(!isOpen);
+  };
+
+  const getStampConfig = (cert: HackathonCertificateItem) => {
+    if (cert.badgeType === "Winner" || cert.award.toLowerCase().includes("winner") || cert.award.toLowerCase().includes("prize")) {
+      return {
+        label: "2ND PRIZE ★ WINNER",
+        border: "border-[#B92B27]",
+        text: "text-[#B92B27]",
+        bg: "bg-[#B92B27]/10",
+        shadow: "shadow-red-900/20",
+        rotation: -7,
+      };
+    }
+    if (cert.badgeType === "Appreciation" || cert.award.toLowerCase().includes("appreciation")) {
+      return {
+        label: "APPRECIATION VERIFIED",
+        border: "border-teal-700",
+        text: "text-teal-700",
+        bg: "bg-teal-700/10",
+        shadow: "shadow-teal-900/20",
+        rotation: 6,
+      };
+    }
+    return {
+      label: "PARTICIPATION MERIT",
+      border: "border-purple-700",
+      text: "text-purple-700",
+      bg: "bg-purple-700/10",
+      shadow: "shadow-purple-900/20",
+      rotation: -5,
+    };
   };
 
   return (
     <div className="w-full">
-      {/* MAIN EXPANDABLE HORIZONTAL BOX */}
-      <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-cyan-500/40 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl shadow-lg hover:shadow-xl dark:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all duration-300">
-        {/* TOP ACCENT LINE */}
-        <div className="h-1 w-full bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-600" />
+      {/* MAIN MANGA ARCHIVE VAULT CONTAINER */}
+      <div className="relative overflow-hidden rounded-2xl border-2 border-black/80 dark:border-white/15 bg-[#121212] text-neutral-200 shadow-[0_12px_36px_rgba(0,0,0,0.7)]">
+        {/* TOP CRIMSON ACCENT RULE */}
+        <div className="h-1.5 w-full bg-[#B92B27]" />
 
-        {/* CLICKABLE HEADER BAR (TOGGLE BOX) */}
-        <div
-          onClick={toggleOpen}
-          className="p-5 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer select-none bg-gradient-to-r from-cyan-50/50 via-transparent to-blue-50/50 dark:from-cyan-950/20 dark:to-blue-950/20 hover:bg-cyan-500/5 transition-colors"
-        >
-          <div className="flex items-center gap-3.5 sm:gap-4">
-            <div className="p-1 sm:p-1.5 rounded-2xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 shrink-0 group-hover:scale-110 transition-transform overflow-hidden flex items-center justify-center">
-              <LottiePlayer src="/lottie/trophy.json" className="w-10 h-10 sm:w-12 sm:h-12" fallbackIcon={<IconTrophy className="h-6 w-6 sm:h-7 sm:w-7" />} />
+        {/* ============================================================== */}
+        {/* SECTION HEADER */}
+        {/* ============================================================== */}
+        <div className="p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-white/10 bg-[#121212] select-none">
+          <div className="space-y-1.5 max-w-3xl">
+            {/* Top Monospace Tag in Crimson */}
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-xs font-bold tracking-widest text-[#B92B27] uppercase">
+                ARCHIVE 03 // HACKATHON VAULT
+              </span>
+              <span className="w-2 h-2 rounded-full bg-[#B92B27] animate-pulse" />
             </div>
 
-            <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400 bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/30">
-                  Hackathon Vault • {hackathons.length} Certificates
-                </span>
-                <span className="flex h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
-              </div>
-              <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
-                Hackathon Achievements & Certificates
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-0.5">
-                Flinders AI &apos;26 (2nd Winner) • DA-IICT (HackOut &apos;26 &amp; TIC-TECH-TOE) • LDCE (tarkShaastra 2k26)
-              </p>
-            </div>
+            {/* Left-Aligned Massive Bold Uppercase Headline in Anton */}
+            <h3 className="font-[family-name:var(--font-anton)] text-2xl sm:text-3xl md:text-4xl text-white tracking-tight uppercase leading-none">
+              HACKATHON ACHIEVEMENTS &amp; CERTIFICATES
+            </h3>
+
+            {/* Subtitle */}
+            <p className="text-xs sm:text-sm text-neutral-400 font-sans leading-relaxed">
+              Flinders AI &apos;26 (2nd Winner) • DA-IICT (HackOut &apos;26 &amp; TIC-TECH-TOE) • LDCE (tarkShaastra 2k26)
+            </p>
           </div>
 
-          {/* TOGGLE BUTTON */}
+          {/* Right-Aligned Cream Pill Toggle Button */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleOpen();
-            }}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-extrabold text-xs sm:text-sm font-mono tracking-wide shadow-lg shadow-cyan-500/20 transition-all shrink-0 cursor-pointer"
+            type="button"
+            onClick={toggleOpen}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EAE6DF] hover:bg-[#F2EFE9] text-black font-mono font-bold text-xs sm:text-sm tracking-wider border-2 border-black shadow-[3px_3px_0px_#B92B27] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer shrink-0"
           >
-            <span>{isOpen ? "HIDE CERTIFICATES" : "VIEW CERTIFICATES"}</span>
-            {isOpen ? <IconChevronUp className="h-4 w-4" /> : <IconChevronDown className="h-4 w-4" />}
+            <span>{isOpen ? "HIDE CERTIFICATES ^" : "VIEW CERTIFICATES v"}</span>
           </button>
         </div>
 
-        {/* EXPANDABLE CERTIFICATES GRID CONTENT */}
+        {/* ============================================================== */}
+        {/* 3-COLUMN MANGA DOSSIER CARD GRID */}
+        {/* ============================================================== */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -84,221 +106,234 @@ export default function HackathonBox() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="overflow-hidden border-t border-zinc-800/80 bg-zinc-950/60"
+              className="overflow-hidden bg-[#121212] p-5 sm:p-8"
             >
-              <div className="p-5 sm:p-8 space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
-                    <IconShieldCheck className="h-4 w-4" />
-                    <span>Digitally Verified Participation & Awards</span>
-                  </div>
-                  <span className="text-xs font-mono text-zinc-500 hidden sm:inline">
-                    Click certificate image for full-screen view
-                  </span>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+                {hackathons.map((cert, idx) => {
+                  const stamp = getStampConfig(cert);
+                  const recordCode = `REC HKT ${String(idx + 1).padStart(2, "0")}`;
 
-                {/* CERTIFICATE RECEIPT / BOARDING PASS GRID */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {hackathons.map((cert, idx) => (
+                  return (
                     <motion.div
                       key={cert.id}
-                      initial={{ opacity: 0, y: 15 }}
+                      initial={{ opacity: 0, y: 18 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.35, delay: idx * 0.05 }}
-                      className="group/card relative bg-zinc-900/90 hover:bg-zinc-900 border border-zinc-800 hover:border-cyan-500/50 rounded-2xl p-4 transition-all duration-300 shadow-md hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-between overflow-hidden"
+                      className="group/card relative bg-[#FAF9F5] text-black rounded-xl border-2 border-black p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 shadow-[5px_5px_0px_#000] hover:-translate-y-1.5 hover:shadow-[7px_7px_0px_#B92B27] select-none overflow-hidden"
                     >
-                      {/* Ticket Side Cutout Notches */}
-                      <div className="absolute top-1/2 -left-2.5 -translate-y-1/2 w-5 h-5 rounded-full bg-zinc-950 border-r border-zinc-700/60 pointer-events-none z-20" />
-                      <div className="absolute top-1/2 -right-2.5 -translate-y-1/2 w-5 h-5 rounded-full bg-zinc-950 border-l border-zinc-700/60 pointer-events-none z-20" />
+                      {/* Subtle Manga Halftone Corner Accent */}
+                      <div
+                        className="absolute top-0 right-0 w-20 h-20 pointer-events-none opacity-20"
+                        style={{
+                          backgroundImage: "radial-gradient(#000 1.5px, transparent 1.5px)",
+                          backgroundSize: "5px 5px",
+                        }}
+                      />
 
-                      {/* Dynamic Rubber Stamp Reveal on Scroll / Mount */}
-                      <motion.div
-                        initial={{ scale: 2.2, opacity: 0, rotate: -25 }}
-                        whileInView={{ scale: 1, opacity: 0.95, rotate: cert.badgeType === "Winner" ? -10 : 8 }}
-                        viewport={{ once: true }}
-                        transition={{ type: "spring", stiffness: 350, damping: 20, delay: 0.15 + idx * 0.05 }}
+                      {/* Angled Rubber Stamp Badge in Top-Right Corner */}
+                      <div
                         className={cn(
-                          "absolute top-4 right-4 z-20 pointer-events-none select-none px-2.5 py-0.5 rounded border-2 font-mono font-black text-[10px] tracking-widest uppercase shadow-lg backdrop-blur-xs",
-                          cert.badgeType === "Winner"
-                            ? "text-amber-400 border-amber-400/90 bg-amber-950/60 shadow-amber-500/20"
-                            : cert.badgeType === "Appreciation"
-                            ? "text-cyan-400 border-cyan-400/90 bg-cyan-950/60 shadow-cyan-500/20"
-                            : "text-purple-400 border-purple-400/90 bg-purple-950/60 shadow-purple-500/20"
+                          "absolute top-12 right-2 z-20 pointer-events-none select-none px-2.5 py-0.5 rounded border-2 font-mono font-black text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-xs shadow-md transition-transform duration-300 group-hover/card:scale-105",
+                          stamp.border,
+                          stamp.text,
+                          stamp.bg,
+                          stamp.shadow
                         )}
+                        style={{ transform: `rotate(${stamp.rotation}deg)` }}
                       >
-                        {cert.badgeType === "Winner" ? "★ WINNER" : cert.badgeType === "Appreciation" ? "★ VERIFIED" : "★ MERIT"}
-                      </motion.div>
+                        {stamp.label}
+                      </div>
 
-                      <div className="space-y-3">
-                        {/* Certificate Image Box */}
+                      <div className="space-y-3 relative z-10">
+                        {/* Top Meta Row */}
+                        <div className="flex items-center justify-between font-mono text-[11px] font-bold border-b-2 border-black/15 pb-2 mb-2">
+                          <span className="text-[#B92B27] tracking-wider">
+                            {recordCode}
+                          </span>
+                          <span className="text-black/80 font-black">
+                            {cert.date}
+                          </span>
+                        </div>
+
+                        {/* Certificate Thumbnail Preview (Click opens lightbox) */}
                         <div
                           onClick={() => {
                             playTapSound("pop");
                             setActiveCertificate(cert);
                           }}
-                          className="relative w-full aspect-[1.41/1] rounded-xl overflow-hidden bg-zinc-950 border border-zinc-800 group-hover/card:border-cyan-500/40 cursor-pointer transition-all"
+                          className="relative w-full aspect-[1.42/1] rounded-lg overflow-hidden bg-neutral-900 border-2 border-black cursor-pointer group/thumb shadow-sm"
+                          title="Click to view full docket certificate"
                         >
                           <Image
                             src={cert.image}
                             alt={cert.title}
                             fill
                             sizes="(max-width: 768px) 100vw, 33vw"
-                            className="object-cover object-center group-hover/card:scale-105 transition-transform duration-500"
+                            className="object-cover object-center group-hover/thumb:scale-105 transition-transform duration-500"
                           />
-                        </div>
-
-                        {/* Metadata */}
-                        <div>
-                          <div className="flex items-center justify-between gap-1 mb-1.5">
-                            <span
-                              className={cn(
-                                "px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase border",
-                                cert.badgeType === "Winner"
-                                  ? "bg-amber-500/15 text-amber-300 border-amber-500/40"
-                                  : cert.badgeType === "Appreciation"
-                                  ? "bg-cyan-500/15 text-cyan-300 border-cyan-500/40"
-                                  : "bg-purple-500/15 text-purple-300 border-purple-500/40"
-                              )}
-                            >
-                              {cert.award}
-                            </span>
-                            <span className="text-[11px] font-mono text-zinc-400">
-                              {cert.date}
+                          {/* Hover Overlay */}
+                          <div className="absolute inset-0 bg-black/0 group-hover/thumb:bg-black/30 transition-colors flex items-center justify-center opacity-0 group-hover/thumb:opacity-100">
+                            <span className="px-3 py-1 rounded bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                              <IconMaximize className="w-3.5 h-3.5" />
+                              <span>INSPECT DOCKET</span>
                             </span>
                           </div>
+                        </div>
 
-                          <h4 className="text-sm font-bold text-white group-hover/card:text-cyan-300 transition-colors line-clamp-1">
+                        {/* Title & Organization */}
+                        <div className="pt-1">
+                          <h4 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-black uppercase tracking-tight line-clamp-1 group-hover/card:text-[#B92B27] transition-colors">
                             {cert.title}
                           </h4>
-
-                          <p className="text-xs text-zinc-400 mt-0.5 line-clamp-1">
+                          <p className="text-xs font-mono text-neutral-600 font-semibold mt-0.5 line-clamp-1">
                             {cert.organizer}
                           </p>
                         </div>
                       </div>
 
-                      {/* Ticket Footer Action & Barcode Strip */}
-                      <div className="pt-3 mt-3 border-t border-dashed border-zinc-800 space-y-2">
-                        <div className="flex items-center justify-between text-xs font-mono">
-                          <button
-                            onClick={() => {
-                              playTapSound("pop");
-                              setActiveCertificate(cert);
-                            }}
-                            className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 cursor-pointer"
+                      {/* Footer Action Row */}
+                      <div className="pt-3 mt-3 border-t-2 border-dashed border-black/20 flex items-center justify-between font-mono text-xs font-bold relative z-10">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            playTapSound("pop");
+                            setActiveCertificate(cert);
+                          }}
+                          className="text-black hover:text-[#B92B27] inline-flex items-center gap-1 transition-colors cursor-pointer"
+                        >
+                          <span>VIEW DOCKET</span>
+                          <span>↗</span>
+                        </button>
+
+                        {cert.verificationUrl && (
+                          <a
+                            href={cert.verificationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#B92B27] hover:underline inline-flex items-center gap-1 transition-colors"
                           >
-                            <IconMaximize className="h-3.5 w-3.5" />
-                            <span>View Docket</span>
-                          </button>
-
-                          {cert.verificationUrl && (
-                            <a
-                              href={cert.verificationUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-bold"
-                            >
-                              <span>Verify</span>
-                              <IconExternalLink className="h-3 w-3" />
-                            </a>
-                          )}
-                        </div>
-
-                        {/* Barcode & Serial Stamp Strip */}
-                        <div className="flex items-center justify-between text-[9px] font-mono text-zinc-500 pt-1 border-t border-zinc-800/60">
-                          <div className="flex items-center gap-1 text-cyan-400/80">
-                            <IconReceipt className="h-3 w-3" />
-                            <span>REC-HKT-{String(idx + 1).padStart(2, "0")}</span>
-                          </div>
-                          <div className="flex items-center gap-1 font-mono tracking-tighter text-zinc-500 select-none">
-                            <IconBarcode className="h-3 w-6 text-zinc-400" />
-                            <span>OFFICIAL DOCKET</span>
-                          </div>
-                        </div>
+                            <span>VERIFY</span>
+                            <span>↗</span>
+                          </a>
+                        )}
                       </div>
                     </motion.div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* FULLSCREEN LIGHTBOX MODAL */}
+      {/* ============================================================== */}
+      {/* 4. INTERACTIVE DOCKET LIGHTBOX MODAL */}
+      {/* ============================================================== */}
       <AnimatePresence>
         {activeCertificate && (
-          <div className="fixed inset-0 z-[9000] flex items-center justify-center p-4 sm:p-8">
+          <div className="fixed inset-0 z-[9000] flex items-center justify-center p-3 sm:p-6 lg:p-8 select-none">
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveCertificate(null)}
-              className="fixed inset-0 bg-black/90 backdrop-blur-xl"
+              className="fixed inset-0 bg-black/90 backdrop-blur-md"
             />
 
+            {/* Modal Card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.92, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-4xl bg-zinc-950 border border-cyan-500/40 rounded-3xl overflow-hidden shadow-[0_0_80px_rgba(6,182,212,0.3)] z-10 flex flex-col max-h-[90vh]"
+              exit={{ opacity: 0, scale: 0.92, y: 15 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="relative w-full max-w-4xl bg-[#FAF9F5] text-black border-2 border-black rounded-2xl overflow-hidden shadow-[12px_14px_0px_#B92B27,18px_22px_40px_rgba(0,0,0,0.8)] z-10 flex flex-col max-h-[92vh]"
             >
-              {/* Lightbox Header */}
-              <div className="p-4 sm:p-6 bg-zinc-900/90 border-b border-zinc-800 flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-white">
+              {/* Modal Crimson Header Banner */}
+              <div className="p-4 sm:p-5 bg-black text-[#FAF9F5] flex items-center justify-between border-b-2 border-black">
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-[10px] sm:text-xs font-bold text-[#B92B27] tracking-widest uppercase">
+                      OFFICIAL DOSSIER RECORD
+                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#B92B27] animate-pulse" />
+                  </div>
+                  <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-white uppercase tracking-tight">
                     {activeCertificate.title}
                   </h3>
-                  <p className="text-xs font-mono text-cyan-400 mt-0.5">
-                    {activeCertificate.organizer} • {activeCertificate.date}
+                  <p className="text-xs font-mono text-neutral-400">
+                    {activeCertificate.organizer} • {activeCertificate.date} • {activeCertificate.location}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 sm:gap-3">
                   {activeCertificate.verificationUrl && (
                     <a
                       href={activeCertificate.verificationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition-all"
+                      className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#B92B27] hover:bg-[#9E2420] text-white text-xs font-mono font-bold shadow transition-colors"
                     >
+                      <span>Verify Official Record</span>
                       <IconExternalLink className="h-3.5 w-3.5" />
-                      <span>Verify Certificate</span>
                     </a>
                   )}
 
                   <button
+                    type="button"
                     onClick={() => setActiveCertificate(null)}
-                    className="p-2 text-zinc-400 hover:text-white rounded-full bg-zinc-800 hover:bg-zinc-700 transition-colors"
+                    className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white transition-colors cursor-pointer"
+                    title="Close Docket"
                   >
                     <IconX className="h-5 w-5" />
                   </button>
                 </div>
               </div>
 
-              {/* Lightbox Image */}
-              <div className="relative flex-1 bg-black p-2 sm:p-4 min-h-[350px] sm:min-h-[500px] flex items-center justify-center overflow-auto">
-                <div className="relative w-full h-full max-h-[70vh] aspect-[1.41/1]">
+              {/* Modal Certificate Image Frame */}
+              <div className="relative flex-1 bg-neutral-950 p-3 sm:p-6 flex items-center justify-center overflow-auto min-h-[300px] sm:min-h-[420px]">
+                <div className="relative w-full h-full max-h-[60vh] aspect-[1.42/1] rounded-lg overflow-hidden border-2 border-neutral-700 shadow-2xl">
                   <Image
                     src={activeCertificate.image}
                     alt={activeCertificate.title}
                     fill
                     sizes="100vw"
+                    priority
                     className="object-contain"
                   />
                 </div>
               </div>
 
-              {/* Lightbox Footer */}
-              <div className="p-4 bg-zinc-900/90 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-zinc-400">
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-400">● Digitally Verified</span>
-                  {activeCertificate.team && (
-                    <span>• Team: <strong className="text-white">{activeCertificate.team}</strong></span>
-                  )}
+              {/* Modal Information & Metadata Footer */}
+              <div className="p-4 sm:p-5 bg-[#FAF9F5] border-t-2 border-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono">
+                <div className="space-y-1 text-xs">
+                  <p className="text-neutral-800 leading-relaxed font-sans max-w-xl">
+                    {activeCertificate.description}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                    {activeCertificate.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-200 text-neutral-800 border border-neutral-300"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                    {activeCertificate.team && (
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#B92B27]/15 text-[#B92B27] border border-[#B92B27]/30">
+                        Team: {activeCertificate.team}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <span>Click outside to close</span>
+
+                <div className="flex items-center gap-2 text-xs font-mono text-neutral-600 shrink-0 select-none">
+                  <IconBarcode className="h-4 w-7 text-neutral-700" />
+                  <span className="font-bold text-black uppercase">
+                    ★ ARCHIVED RECORD
+                  </span>
+                </div>
               </div>
             </motion.div>
           </div>
