@@ -18,7 +18,7 @@ export default async function Home() {
   const sunsetPhotos = await getSunsetPhotos();
 
   return (
-    <div className="relative min-h-screen w-full bg-background overflow-x-clip">
+    <div className="relative min-h-screen w-full bg-black overflow-x-clip">
       <IntroAnimation />
       <ReadingRail />
 

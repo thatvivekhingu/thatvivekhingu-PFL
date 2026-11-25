@@ -96,7 +96,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" className="dark" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} ${notoSansGujarati.variable} ${anekGujarati.variable} ${anton.variable} antialiased relative`}
+          className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} ${notoSansGujarati.variable} ${anekGujarati.variable} ${anton.variable} antialiased relative bg-black text-white selection:bg-blue-500/30 selection:text-white`}
         >
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <Navbar navItems={data.nav} />
