@@ -132,9 +132,9 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="relative w-full bg-[#121212] text-neutral-200 overflow-hidden border-t border-white/5 select-none">
+    <footer className="relative w-full bg-background text-neutral-200 overflow-hidden select-none">
       {/* ============================================================== */}
-      {/* 1. UPPER CTA & SIGNATURE ELEMENTS (Dark Matte Background #121212) */}
+      {/* 1. UPPER CTA & SIGNATURE ELEMENTS (Seamless bg-background)      */}
       {/* ============================================================== */}
       <div className="relative pt-12 pb-6 sm:pt-16 sm:pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         {/* Centered Contact Button & Gujarati Star Banner */}
