@@ -100,8 +100,8 @@ export function GitHubHeatmap({ contributions, isLoading }: GitHubHeatmapProps) 
                         className={`
                           block w-3.5 h-3.5 sm:w-3 sm:h-3 rounded-[2px]
                           ${levelColors[displayLevel]}
-                          transition-all duration-300
-                          hover:scale-125
+                          transition-all duration-200
+                          hover:scale-135 hover:z-20 hover:shadow-[0_0_10px_#22c55e]
                           cursor-pointer
                         `}
                       />

@@ -15,6 +15,7 @@ import { CommandPaletteButton } from "../command-palette/command-palette-button"
 import { IconBrandGithub, IconStar } from "@tabler/icons-react";
 import { useGitHubStars } from "@/hooks/useGitHubStars";
 import { playTapSound } from "@/lib/sound";
+import { Magnetic } from "@/components/ui/magnetic";
 
 const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/thatvivekhingu-PFL";
 // import Link from "next/link";
@@ -118,18 +119,20 @@ export const Navbar = ({
           </div>
 
           {/* Links in the center */}
-          <div className="flex items-center gap-0.5 sm:gap-2 ml-auto shrink-0">
+          <div className="flex items-center gap-1 sm:gap-2.5 ml-auto shrink-0">
             {navItems.map((navItem, idx) => (
-              <button
-                key={`link=${idx}`}
-                onClick={() => handleNavClick(navItem.link)}
-                className={cn(
-                  "relative font-extrabold text-zinc-900 dark:text-zinc-50 px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer text-xs sm:text-sm shrink-0"
-                )}
-              >
-                <span className="block sm:hidden">{navItem.icon}</span>
-                <span className="hidden sm:block text-xs sm:text-sm tracking-wide">{navItem.name}</span>
-              </button>
+              <Magnetic key={`link=${idx}`} strength={0.25}>
+                <button
+                  onClick={() => handleNavClick(navItem.link)}
+                  data-cursor="Nav"
+                  className={cn(
+                    "relative font-bold text-zinc-900 dark:text-zinc-50 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer text-sm sm:text-[15.5px] tracking-normal sm:tracking-wide shrink-0"
+                  )}
+                >
+                  <span className="block sm:hidden">{navItem.icon}</span>
+                  <span className="hidden sm:block">{navItem.name}</span>
+                </button>
+              </Magnetic>
             ))}
             <span
               aria-hidden
