@@ -431,6 +431,10 @@ export default function SpotifyMusicPage() {
     if (!rawUrl.trim()) return;
     try {
       const trimmed = rawUrl.trim();
+      if (trimmed.includes("collection/tracks")) {
+        window.open("https://open.spotify.com/collection/tracks", "_blank");
+        return;
+      }
       if (trimmed.includes("open.spotify.com/embed/")) {
         setSpotifyEmbedUrl(trimmed);
         return;
@@ -1031,6 +1035,7 @@ export default function SpotifyMusicPage() {
                   <div className="flex items-center gap-1.5 flex-wrap text-xs text-zinc-400">
                     <span className="text-[11px] font-mono text-zinc-500">Presets:</span>
                     {[
+                      { name: "❤️ Liked Songs (Spotify App)", url: "https://open.spotify.com/collection/tracks" },
                       { name: "Top Hits India", url: "https://open.spotify.com/playlist/37i9dQZF1DX0XUfTFmZeeg" },
                       { name: "Tabaahi (Toxic)", url: "https://open.spotify.com/track/0bRRLtD0Tmfg8ZaP9Qf1Sq" },
                       { name: "Khalasi", url: "https://open.spotify.com/track/4bH4g1qQo5o4F6y98sO1P9" },

@@ -27,6 +27,9 @@ export default function SpotifyPlayer({
   // Generate the clean Spotify embed URL
   const embedSrc = useMemo(() => {
     if (activeUrl) {
+      if (activeUrl.includes("collection/tracks")) {
+        return `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
+      }
       // Parse open.spotify.com links: /playlist/ID, /track/ID, /album/ID
       try {
         const urlObj = new URL(activeUrl);
@@ -117,6 +120,21 @@ export default function SpotifyPlayer({
                   Play
                 </button>
               </form>
+            )}
+
+            {/* If Liked Songs private link is active */}
+            {activeUrl.includes("collection/tracks") && (
+              <div className="px-3 py-1.5 bg-[#1DB954]/15 border-b border-[#1DB954]/20 flex items-center justify-between text-[11px]">
+                <span className="text-[#1DB954] font-medium">❤️ Liked Songs (Private Library)</span>
+                <a
+                  href="https://open.spotify.com/collection/tracks"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#1DB954] underline font-semibold"
+                >
+                  Open in Spotify ↗
+                </a>
+              </div>
             )}
 
             {/* Official Spotify Iframe Embed */}
