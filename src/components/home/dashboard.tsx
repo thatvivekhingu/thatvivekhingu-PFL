@@ -54,15 +54,6 @@ export default function Dashboard() {
     setScratchGif(nextGif);
   };
 
-  useEffect(() => {
-    // Preload all GIF stickers into browser cache for instant lag-free switching
-    if (typeof window !== "undefined" && data.scratchGifs) {
-      data.scratchGifs.forEach((url) => {
-        const img = new window.Image();
-        img.src = url;
-      });
-    }
-  }, []);
 
   const handleScratchComplete = () => {
     // Keep revealed meme visible

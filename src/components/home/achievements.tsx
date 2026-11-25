@@ -209,25 +209,14 @@ export default function Achievements() {
                 className={`group/panel relative rounded-xl border-2 border-black bg-[#FAF9F5] text-black overflow-hidden flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[8px_8px_0px_#B92B27] hover:-translate-y-1 transition-all duration-300 cursor-pointer ${panel.gridClass}`}
               >
                 {/* Image Section */}
-                <div className="relative w-full flex-1 min-h-[190px] sm:min-h-[210px] bg-neutral-900 overflow-hidden flex items-center justify-center">
+                <div className="relative w-full h-52 sm:h-60 md:h-64 bg-neutral-950 overflow-hidden flex items-center justify-center">
                   {/* Subtle Background Halftone Dots */}
                   <div
                     className="absolute inset-0 opacity-15 pointer-events-none"
                     style={{
-                      backgroundImage: "radial-gradient(#000 1.5px, transparent 1.5px)",
+                      backgroundImage: "radial-gradient(#fff 1px, transparent 1px)",
                       backgroundSize: "6px 6px",
                     }}
-                  />
-
-                  {/* Ambient Blurred Fill */}
-                  <Image
-                    src={panel.image}
-                    alt=""
-                    fill
-                    sizes="40px"
-                    quality={15}
-                    className="object-cover blur-2xl opacity-40 scale-125 pointer-events-none"
-                    aria-hidden
                   />
 
                   {/* Main High-Contrast Achievement Photo */}
@@ -236,7 +225,7 @@ export default function Achievements() {
                     alt={panel.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-contain p-2 relative z-10 group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.08] brightness-[0.98]"
+                    className="object-contain p-2.5 group-hover/panel:scale-105 transition-transform duration-500 filter contrast-[1.08] brightness-[0.98]"
                   />
 
                   {/* Square Black Index Number Badge (Top-Left) */}
