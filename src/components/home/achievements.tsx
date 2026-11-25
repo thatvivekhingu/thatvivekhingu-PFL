@@ -2,15 +2,11 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { data } from "@/data/data";
-import {
-  IconCertificate,
-  IconX,
-  IconMaximize,
-} from "@tabler/icons-react";
-import { playTapSound } from "@/lib/sound";
 import { Marquee } from "@/components/ui/marquee";
+import { SectionHeading } from "@/components/layout/section-heading";
+import { playTapSound } from "@/lib/sound";
 
 interface AchievementPanelItem {
   id: string;
@@ -91,49 +87,41 @@ const PANELS: AchievementPanelItem[] = [
 ];
 
 export default function Achievements() {
-  const [selectedPanel, setSelectedPanel] = useState<AchievementPanelItem | null>(null);
-
-  const handleOpenPanel = (panel: AchievementPanelItem) => {
-    playTapSound("pop");
-    setSelectedPanel(panel);
-  };
-
   return (
     <div className="flex flex-col space-y-6 sm:space-y-10 w-full">
       {/* ============================================================== */}
       {/* EDITORIAL MANGA CHAPTER FRAME (EDGE-TO-EDGE)                   */}
       {/* ============================================================== */}
       <div className="relative w-full select-none overflow-hidden">
-        {/* AWARDS & ACHIEVEMENTS HEADLINE (NO BACKGROUND COLOR, CLEAN & BOLD) */}
+        {/* AWARDS & ACHIEVEMENTS HEADLINE */}
         <div className="relative px-3 sm:px-6 md:px-8 lg:px-12 pt-3 sm:pt-6 pb-2 sm:pb-4 overflow-hidden">
-          <h2 className="font-[family-name:var(--font-anton)] text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none uppercase">
+          <SectionHeading>
             <span className="text-[#3B82F6]">AWARDS</span>{" "}
             <span className="text-white">&amp; ACHIEVEMENTS</span>
-          </h2>
+          </SectionHeading>
         </div>
 
-        {/* OUTER COMIC CONTAINER (PITCH-BLACK GUTTER FRAME #0A0A0A - BLEEDS EDGE-TO-EDGE) */}
+        {/* OUTER COMIC CONTAINER */}
         <div className="w-full bg-[#0A0A0A] px-0 pb-3 sm:pb-4 lg:pb-[32px] pt-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.22fr_1fr_1fr] gap-[10px] items-stretch lg:min-h-[640px] w-full">
             {/* ============================================================== */}
-            {/* COLUMN 1: LEFT COLUMN WRAPPER (PANEL 01 & PANEL 02 WITH SLASH) */}
+            {/* COLUMN 1: LEFT COLUMN WRAPPER (PANEL 01 & PANEL 02)            */}
             {/* ============================================================== */}
             <div className="flex flex-col h-full bg-[#0A0A0A] gap-2 lg:gap-0">
-              {/* --- PANEL 01: GOOGLE CLOUD ARCADE (54% height, flex: 1.15) --- */}
+              {/* --- PANEL 01: GOOGLE CLOUD ARCADE --- */}
               <motion.div
-                onClick={() => handleOpenPanel(PANELS[0])}
-                className="group/panel relative flex flex-col justify-between cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
+                className="group/panel relative flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                 style={{
                   flex: 1.15,
                   background: "#F3F0E8",
-                  padding: "12px 14px 22px 14px",
+                  padding: "12px 14px 20px 14px",
                   clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 26px), 0 100%)",
                 }}
               >
-                {/* Photo Box: width: 100%, height: 165px, border: 2px solid #0A0A0A */}
+                {/* Photo Box: Increased height, NO extra tag on image */}
                 <div
                   className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "165px", border: "2px solid #0A0A0A" }}
+                  style={{ height: "235px", border: "2px solid #0A0A0A" }}
                 >
                   <Image
                     src={PANELS[0].image}
@@ -151,30 +139,13 @@ export default function Achievements() {
                   >
                     01
                   </div>
-
-                  {/* Status Pill: ● CLOUD MILESTONE */}
-                  <div
-                    className="absolute top-2 right-2 z-20 flex items-center gap-1.5 rounded-full text-blue-400 font-mono font-bold uppercase tracking-wider"
-                    style={{ padding: "4px 10px", background: "#141A18", fontSize: "9px" }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_#60a5fa] animate-pulse" />
-                    <span>CLOUD MILESTONE</span>
-                  </div>
-
-                  {/* Hover Inspect Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
-                    <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
-                      <IconMaximize className="w-3.5 h-3.5" />
-                      <span>EXPAND DOSSIER</span>
-                    </span>
-                  </div>
                 </div>
 
                 {/* Content Area */}
                 <div className="flex flex-col flex-1 justify-between">
                   <div>
                     <h3
-                      className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#B92B27] transition-colors"
+                      className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#3B82F6] transition-colors"
                       style={{ fontSize: "28px", lineHeight: 0.95, marginTop: "10px" }}
                     >
                       GOOGLE CLOUD ARCADE 2025
@@ -189,7 +160,7 @@ export default function Achievements() {
                     </p>
                   </div>
 
-                  {/* Bottom Row */}
+                  {/* Bottom Row: Clean Tags without expand button */}
                   <div
                     className="flex items-center justify-between font-mono border-t border-black/15 pt-2"
                     style={{ marginTop: "auto" }}
@@ -201,20 +172,17 @@ export default function Achievements() {
                       CLOUD • ARCADES • HANDS-ON LABS
                     </span>
                     <span
-                      className="bg-[#0A0A0A] text-white font-black uppercase tracking-wider flex items-center gap-1 group-hover/panel:bg-[#B92B27] transition-colors rounded-[1px]"
-                      style={{ padding: "6px 12px", fontSize: "10px" }}
+                      className="font-mono font-bold text-neutral-500 uppercase tracking-wider text-[10px]"
                     >
-                      <span>READ</span>
-                      <span>→</span>
+                      2025
                     </span>
                   </div>
                 </div>
               </motion.div>
 
-              {/* --- PANEL 02: ROBO SOCCER (46% height, flex: 1, margin-top: -16px) --- */}
+              {/* --- PANEL 02: ROBO SOCCER --- */}
               <motion.div
-                onClick={() => handleOpenPanel(PANELS[1])}
-                className="group/panel relative flex flex-col justify-between cursor-pointer transition-transform duration-300 hover:-translate-y-0.5 mt-0 lg:-mt-[16px]"
+                className="group/panel relative flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl mt-0 lg:-mt-[16px]"
                 style={{
                   flex: 1,
                   background: "#F3F0E8",
@@ -222,10 +190,10 @@ export default function Achievements() {
                   clipPath: "polygon(0 26px, 100% 0, 100% 100%, 0 100%)",
                 }}
               >
-                {/* Photo Box: width: 100%, height: 145px, border: 2px solid #0A0A0A */}
+                {/* Photo Box: Increased height, NO extra tag on image */}
                 <div
                   className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "145px", border: "2px solid #0A0A0A" }}
+                  style={{ height: "205px", border: "2px solid #0A0A0A" }}
                 >
                   <Image
                     src={PANELS[1].image}
@@ -243,30 +211,13 @@ export default function Achievements() {
                   >
                     02
                   </div>
-
-                  {/* Status Pill: ● CHAMPION */}
-                  <div
-                    className="absolute top-2 right-2 z-20 flex items-center gap-1.5 rounded-full text-amber-400 font-mono font-bold uppercase tracking-wider"
-                    style={{ padding: "4px 10px", background: "#141A18", fontSize: "9px" }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24] animate-pulse" />
-                    <span>CHAMPION</span>
-                  </div>
-
-                  {/* Hover Inspect Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
-                    <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
-                      <IconMaximize className="w-3.5 h-3.5" />
-                      <span>EXPAND DOSSIER</span>
-                    </span>
-                  </div>
                 </div>
 
                 {/* Content Area */}
                 <div className="flex flex-col flex-1 justify-between">
                   <div>
                     <h3
-                      className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#B92B27] transition-colors"
+                      className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#3B82F6] transition-colors"
                       style={{ fontSize: "28px", lineHeight: 0.95, marginTop: "10px" }}
                     >
                       ROBO SOCCER CHAMPIONSHIP
@@ -281,7 +232,7 @@ export default function Achievements() {
                     </p>
                   </div>
 
-                  {/* Bottom Row */}
+                  {/* Bottom Row: Clean Tags without expand button */}
                   <div
                     className="flex items-center justify-between font-mono border-t border-black/15 pt-2"
                     style={{ marginTop: "auto" }}
@@ -293,11 +244,9 @@ export default function Achievements() {
                       EMBEDDED SYSTEMS • IOT • ROBOTICS
                     </span>
                     <span
-                      className="bg-[#0A0A0A] text-white font-black uppercase tracking-wider flex items-center gap-1 group-hover/panel:bg-[#B92B27] transition-colors rounded-[1px]"
-                      style={{ padding: "6px 12px", fontSize: "10px" }}
+                      className="font-mono font-bold text-neutral-500 uppercase tracking-wider text-[10px]"
                     >
-                      <span>READ</span>
-                      <span>→</span>
+                      2024
                     </span>
                   </div>
                 </div>
@@ -305,21 +254,20 @@ export default function Achievements() {
             </div>
 
             {/* ============================================================== */}
-            {/* COLUMN 2: PANEL 03 FLINDERS HACKATHON (100% height)            */}
+            {/* COLUMN 2: PANEL 03 FLINDERS HACKATHON                          */}
             {/* ============================================================== */}
             <div className="flex flex-col h-full">
               <motion.div
-                onClick={() => handleOpenPanel(PANELS[2])}
-                className="group/panel relative flex flex-col justify-between h-full cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
+                className="group/panel relative flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                 style={{
                   background: "#F3F0E8",
                   padding: "12px 14px 14px 14px",
                 }}
               >
-                {/* Photo Box: width: 100%, height: 67% (~410px), border: 2px solid #0A0A0A */}
+                {/* Photo Box: Increased height, NO extra tag on image */}
                 <div
                   className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "67%", minHeight: "410px", border: "2px solid #0A0A0A" }}
+                  style={{ height: "76%", minHeight: "480px", border: "2px solid #0A0A0A" }}
                 >
                   <Image
                     src={PANELS[2].image}
@@ -337,30 +285,13 @@ export default function Achievements() {
                   >
                     03
                   </div>
-
-                  {/* Top-Right: INTERNATIONAL AWARD Pill */}
-                  <div
-                    className="absolute top-2 right-2 z-20 flex items-center gap-1.5 rounded-full text-emerald-400 font-mono font-bold uppercase tracking-wider"
-                    style={{ padding: "4px 10px", background: "#141A18", fontSize: "9px" }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
-                    <span>INTERNATIONAL AWARD</span>
-                  </div>
-
-                  {/* Hover Inspect Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
-                    <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
-                      <IconMaximize className="w-3.5 h-3.5" />
-                      <span>EXPAND DOSSIER</span>
-                    </span>
-                  </div>
                 </div>
 
                 {/* Content Below Photo */}
                 <div className="flex flex-col flex-1 justify-between pt-2.5">
                   <div>
                     <h3
-                      className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#B92B27] transition-colors"
+                      className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#3B82F6] transition-colors"
                       style={{ fontSize: "28px", lineHeight: 0.95 }}
                     >
                       FLINDERS INTERNATIONAL<br />AI HACKATHON
@@ -375,7 +306,7 @@ export default function Achievements() {
                     </p>
                   </div>
 
-                  {/* Bottom Row */}
+                  {/* Bottom Row: Clean Tags without expand button */}
                   <div
                     className="flex items-center justify-between font-mono border-t border-black/15 pt-2"
                     style={{ marginTop: "auto" }}
@@ -384,14 +315,12 @@ export default function Achievements() {
                       className="font-bold text-neutral-600 uppercase tracking-tight"
                       style={{ fontSize: "9px" }}
                     >
-                      ARTIFICIAL INTELLIGENCE • PITCHING • PYTHON
+                      ARTIFICIAL INTELLIGENCE • PITCHING
                     </span>
                     <span
-                      className="bg-[#0A0A0A] text-white font-black uppercase tracking-wider flex items-center gap-1 group-hover/panel:bg-[#B92B27] transition-colors rounded-[1px]"
-                      style={{ padding: "6px 12px", fontSize: "10px" }}
+                      className="font-mono font-bold text-neutral-500 uppercase tracking-wider text-[10px]"
                     >
-                      <span>READ</span>
-                      <span>→</span>
+                      2026
                     </span>
                   </div>
                 </div>
@@ -399,21 +328,20 @@ export default function Achievements() {
             </div>
 
             {/* ============================================================== */}
-            {/* COLUMN 3: PANEL 04 AIT HACKATHON 2K25 (100% height)             */}
+            {/* COLUMN 3: PANEL 04 AIT HACKATHON 2K25                           */}
             {/* ============================================================== */}
             <div className="flex flex-col h-full">
               <motion.div
-                onClick={() => handleOpenPanel(PANELS[3])}
-                className="group/panel relative flex flex-col justify-between h-full cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
+                className="group/panel relative flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                 style={{
                   background: "#F3F0E8",
                   padding: "12px 14px 14px 14px",
                 }}
               >
-                {/* Photo Box: width: 100%, height: 67% (~410px), border: 2px solid #0A0A0A */}
+                {/* Photo Box: Increased height, NO extra tag on image */}
                 <div
                   className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "67%", minHeight: "410px", border: "2px solid #0A0A0A" }}
+                  style={{ height: "76%", minHeight: "480px", border: "2px solid #0A0A0A" }}
                 >
                   <Image
                     src={PANELS[3].image}
@@ -431,30 +359,13 @@ export default function Achievements() {
                   >
                     04
                   </div>
-
-                  {/* Top-Right: FINALIST Pill */}
-                  <div
-                    className="absolute top-2 right-2 z-20 flex items-center gap-1.5 rounded-full text-emerald-400 font-mono font-bold uppercase tracking-wider"
-                    style={{ padding: "4px 10px", background: "#141A18", fontSize: "9px" }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
-                    <span>FINALIST</span>
-                  </div>
-
-                  {/* Hover Inspect Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover/panel:bg-black/25 transition-colors z-20 flex items-center justify-center opacity-0 group-hover/panel:opacity-100">
-                    <span className="px-3.5 py-1.5 rounded-full bg-black/90 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xl border border-white/20">
-                      <IconMaximize className="w-3.5 h-3.5" />
-                      <span>EXPAND DOSSIER</span>
-                    </span>
-                  </div>
                 </div>
 
                 {/* Content Below Photo */}
                 <div className="flex flex-col flex-1 justify-between pt-2.5">
                   <div>
                     <h3
-                      className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#B92B27] transition-colors"
+                      className="font-[family-name:var(--font-anton)] text-black uppercase tracking-tight group-hover/panel:text-[#3B82F6] transition-colors"
                       style={{ fontSize: "28px", lineHeight: 0.95 }}
                     >
                       AIT HACKATHON<br />2K25
@@ -467,15 +378,12 @@ export default function Achievements() {
                       <p className="flex items-center gap-1">
                         <span>{"//"}</span>
                         <span className="text-base leading-none">🎖️</span>
-                        <span>TOP 10 FINALIST</span>
-                      </p>
-                      <p className="pl-5 text-neutral-700">
-                        OUT OF 500+ TEAMS
+                        <span>TOP 10 FINALIST (500+ TEAMS)</span>
                       </p>
                     </div>
                   </div>
 
-                  {/* Bottom Row */}
+                  {/* Bottom Row: Clean Tags without expand button */}
                   <div
                     className="flex items-center justify-between font-mono border-t border-black/15 pt-2"
                     style={{ marginTop: "auto" }}
@@ -487,11 +395,9 @@ export default function Achievements() {
                       HACKATHON • PROTOTYPING • APPS
                     </span>
                     <span
-                      className="bg-[#0A0A0A] text-white font-black uppercase tracking-wider flex items-center gap-1 group-hover/panel:bg-[#B92B27] transition-colors rounded-[1px]"
-                      style={{ padding: "6px 12px", fontSize: "10px" }}
+                      className="font-mono font-bold text-neutral-500 uppercase tracking-wider text-[10px]"
                     >
-                      <span>READ</span>
-                      <span>→</span>
+                      2025
                     </span>
                   </div>
                 </div>
@@ -512,18 +418,13 @@ export default function Achievements() {
       </div>
 
       {/* ============================================================== */}
-      {/* 3. CERTIFICATIONS & SPECIALIZATIONS MARQUEE */}
+      {/* 3. CERTIFICATIONS & SPECIALIZATIONS MARQUEE                     */}
       {/* ============================================================== */}
-      <div className="space-y-4 sm:space-y-6 pt-2 w-full px-2 sm:px-6 md:px-8 lg:px-12">
-        <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
-            <IconCertificate className="h-5 w-5 text-amber-400" />
-            Certifications &amp; Specializations
-          </h3>
-          <span className="text-xs text-muted-foreground hidden sm:inline-block font-mono">
-            {"// Click Card for 3D Flip View"}
-          </span>
-        </div>
+      <div className="space-y-4 sm:space-y-6 pt-4 sm:pt-8 w-full px-2 sm:px-6 md:px-8 lg:px-12">
+        <SectionHeading>
+          <span className="text-[#3B82F6]">CERTIFICATIONS</span>{" "}
+          <span className="text-white">&amp; SPECIALIZATIONS</span>
+        </SectionHeading>
 
         <Marquee reverse pauseOnHover repeat={4} className="[--duration:30s] [--gap:1.5rem] py-2">
           {data.certificates.map((cert) => (
@@ -533,97 +434,6 @@ export default function Achievements() {
           ))}
         </Marquee>
       </div>
-
-      {/* ============================================================== */}
-      {/* 4. INTERACTIVE LIGHTBOX MODAL */}
-      {/* ============================================================== */}
-      <AnimatePresence>
-        {selectedPanel && (
-          <div className="fixed inset-0 z-[9000] flex items-center justify-center p-3 sm:p-6 lg:p-8 select-none">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedPanel(null)}
-              className="fixed inset-0 bg-black/90 backdrop-blur-md"
-            />
-
-            {/* Modal Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 15 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative w-full max-w-4xl bg-[#FAF9F5] text-black border-2 border-black rounded-2xl overflow-hidden shadow-[12px_14px_0px_#B92B27,18px_22px_45px_rgba(0,0,0,0.85)] z-10 flex flex-col max-h-[92vh]"
-            >
-              {/* Header */}
-              <div className="p-4 sm:p-5 bg-black text-[#FAF9F5] flex items-center justify-between border-b-2 border-black">
-                <div className="space-y-0.5">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-[10px] sm:text-xs font-bold text-[#B92B27] tracking-widest uppercase">
-                      CHAPTER 03 DOSSIER // RECORD {selectedPanel.num}
-                    </span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#B92B27] animate-pulse" />
-                  </div>
-                  <h3 className="font-[family-name:var(--font-anton)] text-xl sm:text-2xl text-white uppercase tracking-tight">
-                    {selectedPanel.title}
-                  </h3>
-                  <p className="text-xs font-mono text-neutral-400">
-                    {selectedPanel.subtitle} • {selectedPanel.date}
-                  </p>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setSelectedPanel(null)}
-                  className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white transition-colors cursor-pointer"
-                  title="Close Modal"
-                >
-                  <IconX className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* Full-Resolution Photo Viewer Frame */}
-              <div className="relative flex-1 bg-neutral-950 p-3 sm:p-6 flex items-center justify-center overflow-auto min-h-[320px] sm:min-h-[440px]">
-                <div className="relative w-full h-full max-h-[62vh] aspect-[1.42/1] rounded-lg overflow-hidden border-2 border-neutral-700 shadow-2xl">
-                  <Image
-                    src={selectedPanel.image}
-                    alt={selectedPanel.alt}
-                    fill
-                    sizes="100vw"
-                    priority
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Achievement Story & Details */}
-              <div className="p-4 sm:p-5 bg-[#FAF9F5] border-t-2 border-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono">
-                <div className="space-y-1.5 text-xs max-w-2xl font-sans">
-                  <p className="text-neutral-800 leading-relaxed font-medium">
-                    {selectedPanel.description}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                    <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#B92B27] text-white">
-                      {selectedPanel.metrics}
-                    </span>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-200 text-neutral-800 border border-neutral-300">
-                      {selectedPanel.tags}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="text-xs font-mono text-neutral-600 shrink-0 select-none">
-                  <span className="font-bold text-black uppercase">
-                    ★ VERIFIED MILESTONE
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Hero from "@/components/home/hero"
-import Experience from "@/components/home/experience"
+import Education from "@/components/home/education"
 import Dashboard from "@/components/home/dashboard";
 import Projects from "@/components/home/projects"
 import Achievements from "@/components/home/achievements"
@@ -42,8 +42,10 @@ export default async function Home() {
           </section>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4} offset={0} inView>
-          <section id="experience" className="scroll-mt-16 sm:scroll-mt-24 w-full">
-            <Experience />
+          <section id="education" className="scroll-mt-16 sm:scroll-mt-24 w-full">
+            <div id="experience" className="scroll-mt-16 sm:scroll-mt-24 w-full">
+              <Education />
+            </div>
           </section>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4.5} offset={0} inView>
