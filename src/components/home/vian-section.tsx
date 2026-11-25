@@ -36,64 +36,27 @@ export default function VianSection() {
           className="w-full h-full object-cover scale-[1.12] origin-top-left transition-transform duration-700 group-hover:scale-[1.15] pointer-events-none"
         />
 
-        {/* Ambient Dark Gradient Vignette */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/60" />
+        {/* Subtle Ambient Dark Gradient Vignette */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
 
-        {/* Top Floating Telemetry Badges */}
-        <div className="absolute top-3 left-3 right-3 sm:top-5 sm:left-6 sm:right-6 flex items-center justify-between pointer-events-none z-10">
-          <div className="flex items-center gap-2 rounded-full bg-black/75 backdrop-blur-md border border-white/15 px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-mono text-white shadow-md">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            <span className="font-semibold tracking-wide">Autonomous Agent Live</span>
-          </div>
-
-          <div className="hidden sm:flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-white/80 bg-black/75 backdrop-blur-md border border-white/15 px-3 py-1.5 rounded-full shadow-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            <span>LLaMA 3.3 Engine • 128K Context</span>
-          </div>
-        </div>
-
-        {/* Center Floating Primary CTA: Let's talk with VIAN */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 z-20 pointer-events-none">
-          <div className="pointer-events-auto transform transition-transform duration-300 group-hover:scale-105">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleOpenVian();
-              }}
-              className="group/btn relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full border-2 border-cyan-400/80 bg-black/85 hover:bg-black/95 backdrop-blur-xl px-7 sm:px-10 py-3.5 sm:py-4 text-base sm:text-xl font-bold text-white shadow-[0_0_40px_rgba(34,211,238,0.45)] hover:shadow-[0_0_65px_rgba(34,211,238,0.7)] transition-all cursor-pointer"
-            >
-              <IconSparkles className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400 transition-transform duration-300 group-hover/btn:rotate-12 group-hover/btn:scale-125" />
-              <span>Let&apos;s talk with VIAN</span>
-              <span className="rounded-md border border-cyan-500/40 bg-cyan-500/20 px-2 sm:px-2.5 py-0.5 text-xs font-mono text-cyan-300">
-                ⌘K
-              </span>
-            </button>
-          </div>
-
-          <p className="mt-3 sm:mt-4 text-[11px] sm:text-xs font-mono text-white/80 bg-black/70 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/10 pointer-events-none">
-            Click anywhere on the stream to launch interactive session
-          </p>
-        </div>
-
-        {/* Bottom Floating Telemetry Bar */}
-        <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-6 sm:right-6 flex items-center justify-between pointer-events-none z-10">
-          <div className="flex items-center gap-2 bg-black/80 backdrop-blur-md border border-white/15 px-3 sm:px-4 py-1.5 rounded-lg text-[11px] sm:text-xs font-mono text-white/90 max-w-full truncate">
-            <span className="text-cyan-400 font-bold">❯</span>
-            <span className="truncate">
-              Trained on Vivek&apos;s codebase, research, architectures &amp; background
-            </span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-3 text-[11px] font-mono text-zinc-400 bg-black/80 backdrop-blur-md border border-white/15 px-3 py-1.5 rounded-lg">
-            <span>Latency: ~300ms</span>
-            <span>•</span>
-            <span>Bilingual: EN / GUJ</span>
-          </div>
-        </div>
+        {/* Corner Circular Action Button: TALK WITH VIAN */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleOpenVian();
+          }}
+          aria-label="Talk with VIAN"
+          className="group/btn absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-20 flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-full border-2 border-cyan-400/80 bg-black/85 hover:bg-black backdrop-blur-xl shadow-[0_0_30px_rgba(34,211,238,0.45)] hover:shadow-[0_0_55px_rgba(34,211,238,0.8)] transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer p-2 text-center"
+        >
+          <IconSparkles className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400 transition-transform duration-300 group-hover/btn:rotate-12 group-hover/btn:scale-125 mb-0.5 sm:mb-1" />
+          <span className="font-[family-name:var(--font-anton)] text-[9.5px] sm:text-[11px] uppercase tracking-wider text-white leading-tight">
+            TALK WITH<br />VIAN
+          </span>
+          <span className="mt-1 rounded border border-cyan-500/40 bg-cyan-500/20 px-1.5 py-0.2 text-[8px] sm:text-[9px] font-mono text-cyan-300 font-bold">
+            ⌘K
+          </span>
+        </button>
       </div>
     </div>
   );
