@@ -20,7 +20,6 @@ import {
     IconSearch,
     IconSun,
     IconFileText,
-    IconBrandSpotify,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
@@ -194,13 +193,6 @@ export function CommandPalette({ posts }: CommandPaletteProps) {
                                 icon={<IconFileText className="h-4 w-4" />}
                                 label="Resume"
                                 onSelect={() => run(() => router.push("/resume"))}
-                            />
-                            <Item
-                                icon={<IconBrandSpotify className="h-4 w-4 text-emerald-500" />}
-                                label="Music"
-                                sublabel="Spotify Player & Curated Tracks"
-                                keywords={["music", "spotify", "songs", "playlist", "audio", "player", "vivek"]}
-                                onSelect={() => run(() => router.push("/music"))}
                             />
                             <Item
                                 icon={<IconPencil className="h-4 w-4" />}

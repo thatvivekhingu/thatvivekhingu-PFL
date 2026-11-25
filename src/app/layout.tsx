@@ -11,7 +11,6 @@ import { CommandPalette } from "@/components/command-palette/command-palette";
 import { getAllPosts } from "@/lib/blog";
 import { ViewTransitions } from "next-view-transitions";
 import { VianAssistant } from "@/components/vian/VianAssistant";
-import SpotifyPlayer from "@/components/SpotifyPlayer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -114,7 +113,6 @@ export default function RootLayout({
             {children}
             <Footer />
             <VianAssistant />
-            <SpotifyPlayer />
           </ThemeProvider>
 
           <Analytics />

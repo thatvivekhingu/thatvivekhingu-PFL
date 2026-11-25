@@ -11,7 +11,6 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { getSunsetPhotos } from "@/lib/sunsets";
 import { IntroAnimation } from "@/components/ui/intro-animation";
 import { ReadingRail } from "@/components/layout/reading-rail";
-import FrequencyLoungeSection from "@/components/home/frequency-lounge-section";
 
 const BLUR_FADE_DELAY = 0.005;
 
@@ -76,11 +75,6 @@ export default async function Home() {
         <BlurFade delay={BLUR_FADE_DELAY * 7} offset={0} inView>
           <section id="earth" className="scroll-mt-16 sm:scroll-mt-24 w-full">
             <Earth photos={sunsetPhotos} />
-          </section>
-        </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 7.5} offset={0} inView>
-          <section id="music-space" className="scroll-mt-16 sm:scroll-mt-24 w-full">
-            <FrequencyLoungeSection />
           </section>
         </BlurFade>
       </div>

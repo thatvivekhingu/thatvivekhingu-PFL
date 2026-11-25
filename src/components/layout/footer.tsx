@@ -100,7 +100,6 @@ export const Footer = () => {
     { name: "Achievements", link: "achievements" },
     { name: "Education", link: "experience" },
     { name: "Resume", link: "/resume" },
-    { name: "Music", link: "/music" },
   ];
 
   const connectLinks = [
