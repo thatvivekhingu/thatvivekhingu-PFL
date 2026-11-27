@@ -12,19 +12,22 @@ interface ScratchToRevealProps {
   className?: string;
   onComplete?: () => void;
   gradientColors?: [string, string, string];
+  coverColor?: string;
   resetKey?: string | number;
 }
 
 export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
   width,
   height,
-  minScratchPercentage = 50,
+  minScratchPercentage = 25,
   onComplete,
   children,
   className,
   gradientColors = ["#A97CF8", "#F38CB8", "#FDCC92"],
+  coverColor = "#D8D0DE",
   resetKey,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isScratching, setIsScratching] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
@@ -33,34 +36,37 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
   const initializeCanvas = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (canvas && ctx) {
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "#ccc";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        canvas.width,
-        canvas.height,
-      );
+    const container = containerRef.current;
+    if (!canvas) return;
+
+    const w = width || container?.offsetWidth || canvas.offsetWidth || 300;
+    const h = height || container?.offsetHeight || canvas.offsetHeight || 180;
+    canvas.width = w;
+    canvas.height = h;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.globalCompositeOperation = "source-over";
+    if (coverColor) {
+      ctx.fillStyle = coverColor;
+      ctx.fillRect(0, 0, w, h);
+    } else {
+      const gradient = ctx.createLinearGradient(0, 0, w, h);
       gradient.addColorStop(0, gradientColors[0]);
       gradient.addColorStop(0.5, gradientColors[1]);
       gradient.addColorStop(1, gradientColors[2]);
       ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, w, h);
     }
   };
 
   useEffect(() => {
     initializeCanvas();
-    // initializeCanvas is a stable closure over gradientColors; tracking it
-    // as a dep would re-run on every render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gradientColors]);
+  }, [gradientColors, coverColor]);
 
   useEffect(() => {
-    // Reset the scratch area when resetKey changes
     setIsComplete(false);
     initializeCanvas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,8 +111,6 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       document.removeEventListener("touchend", handleDocumentTouchEnd);
       document.removeEventListener("touchcancel", handleDocumentTouchEnd);
     };
-    // checkCompletion / scratch are stable closures; only isScratching should
-    // re-attach the document listeners.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isScratching]);
 
@@ -119,23 +123,21 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
     const ctx = canvas?.getContext("2d");
     if (canvas && ctx) {
       const rect = canvas.getBoundingClientRect();
-      const x = clientX - rect.left + 16;
-      const y = clientY - rect.top + 16;
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
       ctx.globalCompositeOperation = "destination-out";
       ctx.beginPath();
-      ctx.arc(x, y, 30, 0, Math.PI * 2);
+      ctx.arc(x, y, 26, 0, Math.PI * 2);
       ctx.fill();
     }
   };
 
   const startAnimation = async () => {
     await controls.start({
-      scale: [1, 1.5, 1],
-      rotate: [0, 10, -10, 10, -10, 0],
-      transition: { duration: 0.5 },
+      scale: [1, 1.04, 1],
+      transition: { duration: 0.35 },
     });
 
-    // Call onComplete after animation finishes
     if (onComplete) {
       onComplete();
     }
@@ -146,7 +148,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
-    if (canvas && ctx) {
+    if (canvas && ctx && canvas.width > 0 && canvas.height > 0) {
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const pixels = imageData.data;
       const totalPixels = pixels.length / 4;
@@ -168,24 +170,29 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
   return (
     <motion.div
-      className={cn("relative select-none touch-none", className)}
+      ref={containerRef}
+      className={cn("relative select-none touch-none overflow-hidden rounded-xl", className)}
       style={{
-        width,
-        height,
         cursor:
           "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxNSIgc3R5bGU9ImZpbGw6I2ZmZjtzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MXB4OyIgLz4KPC9zdmc+'), auto",
       }}
       animate={controls}
     >
+      {/* Full-bleed meme image container */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden rounded-xl">
+        {children}
+      </div>
+
+      {/* Pastel lavender scratch cover canvas */}
       <canvas
         ref={canvasRef}
-        width={width}
-        height={height}
-        className="absolute left-0 top-0"
+        className={cn(
+          "absolute inset-0 w-full h-full z-10 rounded-xl transition-opacity duration-300 pointer-events-auto",
+          isComplete && "opacity-0 pointer-events-none"
+        )}
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
-      ></canvas>
-      {children}
+      />
     </motion.div>
   );
 };

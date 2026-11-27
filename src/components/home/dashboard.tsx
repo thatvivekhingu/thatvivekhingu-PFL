@@ -85,7 +85,7 @@ export default function Dashboard() {
           transitionDuration="100ms"
           cursorEmoji="✈️"
         >
-          <div className="min-h-[160px] md:min-h-0">
+          <div className="w-full h-[170px] sm:h-[178px] flex items-center justify-center">
             <Globe />
           </div>
         </GridItem>
@@ -135,21 +135,21 @@ export default function Dashboard() {
           title="Scratch Me"
           transitionDuration="600ms"
         >
-          <div className="relative">
+          <div className="relative w-full h-[170px] sm:h-[178px]">
             <ScratchToReveal
-              minScratchPercentage={20}
-              className="flex items-center h-24 sm:h-35 justify-center overflow-hidden rounded-md bg-background"
-              gradientColors={["#A97CF8", "#F38CB8", "#FDCC92"]}
+              minScratchPercentage={25}
+              className="relative w-full h-full overflow-hidden rounded-xl"
+              coverColor="#D8D0DE"
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
             >
               {scratchGif && (
                 <Image
                   src={scratchGif}
-                  alt="Scratch to reveal"
-                  width={100}
-                  height={100}
-                  className="h-14 sm:h-16 object-contain"
+                  alt="Scratch to reveal meme"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  className="w-full h-full object-cover rounded-xl select-none"
                   unoptimized
                 />
               )}
@@ -160,9 +160,10 @@ export default function Dashboard() {
               onMouseDown={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
               aria-label="Refresh scratch"
-              className="absolute top-1 right-1 z-20 p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-background/80 backdrop-blur-xs transition-colors group cursor-pointer"
+              title="Refresh Meme"
+              className="absolute top-2 right-2 z-20 w-7 h-7 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white/90 hover:text-white backdrop-blur-md transition-all shadow-xs group cursor-pointer border border-white/20"
             >
-              <IconRefresh className="h-4 w-4 transition-transform group-hover:rotate-180 duration-300" />
+              <IconRefresh className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 duration-300" />
             </button>
           </div>
         </GridItem>
@@ -194,9 +195,9 @@ export default function Dashboard() {
           tooltip="Last 7 Weeks"
           cursorEmoji="💻"
         >
-          <div className="flex flex-col gap-[22px] sm:gap-6 h-full">
+          <div className="flex flex-col justify-center items-center h-[170px] sm:h-[178px] gap-2.5">
             {/* Heatmap */}
-            <div className="flex-1">
+            <div className="flex items-center justify-center">
               <GitHubHeatmap
                 contributions={githubData?.contributions || []}
                 isLoading={isLoadingGitHub}
@@ -204,14 +205,14 @@ export default function Dashboard() {
             </div>
 
             {/* Legend */}
-            <div className="flex items-center justify-center gap-2 sm:gap-1.5 text-xs sm:text-[11px] text-neutral-400">
+            <div className="flex items-center justify-center gap-1.5 text-[10px] text-neutral-400">
               <span>Less</span>
               <div className="flex gap-1 sm:gap-[3px]">
-                <div className="w-3 h-3 sm:w-2.5 sm:h-2.5 rounded-[2px] bg-neutral-100 dark:bg-neutral-800/50" />
-                <div className="w-3 h-3 sm:w-2.5 sm:h-2.5 rounded-[2px] bg-green-200 dark:bg-green-900/70" />
-                <div className="w-3 h-3 sm:w-2.5 sm:h-2.5 rounded-[2px] bg-green-400 dark:bg-green-700/80" />
-                <div className="w-3 h-3 sm:w-2.5 sm:h-2.5 rounded-[2px] bg-green-600 dark:bg-green-500/90" />
-                <div className="w-3 h-3 sm:w-2.5 sm:h-2.5 rounded-[2px] bg-green-700 dark:bg-green-400" />
+                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-neutral-100 dark:bg-neutral-800/50" />
+                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-green-200 dark:bg-green-900/70" />
+                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-green-400 dark:bg-green-700/80" />
+                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-green-600 dark:bg-green-500/90" />
+                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-green-700 dark:bg-green-400" />
               </div>
               <span>More</span>
             </div>

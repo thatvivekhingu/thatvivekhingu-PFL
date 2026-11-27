@@ -81,9 +81,9 @@ export function GitHubHeatmap({ contributions, isLoading }: GitHubHeatmapProps) 
   return (
     <TooltipProvider delayDuration={0}>
       <div className="flex items-center justify-center w-full h-full">
-        <div className="flex gap-1.5 sm:gap-1">
+        <div className="flex gap-1 sm:gap-1">
           {weeks.map((week, weekIndex) => (
-            <div key={weekIndex} className="flex flex-col gap-1.5 sm:gap-1">
+            <div key={weekIndex} className="flex flex-col gap-1 sm:gap-1">
               {week.map((day) => {
                 const currentIndex = flatIndex++;
                 const isRevealed = isLoading || revealedIndices.has(currentIndex);
@@ -98,7 +98,7 @@ export function GitHubHeatmap({ contributions, isLoading }: GitHubHeatmapProps) 
                         rel="noopener noreferrer"
                         aria-label="View GitHub profile"
                         className={`
-                          block w-3.5 h-3.5 sm:w-3 sm:h-3 rounded-[2px]
+                          block w-2.5 h-2.5 sm:w-2.5 sm:h-2.5 rounded-[2px]
                           ${levelColors[displayLevel]}
                           transition-all duration-300
                           hover:scale-125

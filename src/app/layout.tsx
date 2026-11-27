@@ -103,14 +103,23 @@ export default function RootLayout({
             <Navbar navItems={data.nav} />
             <CommandPalette posts={palettePosts} />
             
-            {/* Seamless Vertical Cross-Section Minecraft Voxel World Background */}
+            {/* Responsive Minecraft Atmosphere Background (Desktop & Mobile) */}
             <div className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
+              {/* Desktop View */}
               <Image
-                src="/images/minecraft-bg.jpg"
-                alt="Minecraft Voxel World Cross Section"
+                src="/images/minecraft-desktop.jpg"
+                alt="Minecraft Atmosphere Desktop"
                 fill
                 priority
-                className="object-cover object-top opacity-45 sm:opacity-55 scale-100"
+                className="hidden md:block object-cover object-center opacity-45 sm:opacity-55 scale-100"
+              />
+              {/* Mobile View */}
+              <Image
+                src="/images/minecraft-mobile.jpg"
+                alt="Minecraft Atmosphere Mobile"
+                fill
+                priority
+                className="block md:hidden object-cover object-top opacity-50 scale-100"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/75 pointer-events-none" />
             </div>
