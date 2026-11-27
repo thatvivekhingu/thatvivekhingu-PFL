@@ -70,8 +70,8 @@ export function VianMessage({
           {/* Contact Avatar */}
           <div className="mt-0.5 relative h-7.5 w-7.5 shrink-0 overflow-hidden rounded-full border border-black/10 dark:border-white/10 shadow-xs">
             <Image
-              src="/avatars/vivek.jpg"
-              alt="Vivek Hingu"
+              src="/avatars/pixel-avatar.png"
+              alt="Vian"
               fill
               sizes="30px"
               className="object-cover"
@@ -81,15 +81,10 @@ export function VianMessage({
           <div className="flex flex-1 flex-col items-start min-w-0">
             {/* White WhatsApp Incoming Bubble */}
             <div className="w-full rounded-2xl rounded-tl-xs bg-white dark:bg-[#202c33] text-[#111b21] dark:text-[#e9edef] px-3.5 pt-2 pb-2 shadow-[0_1px_0.5px_rgba(0,0,0,0.12)] border border-black/[0.04] dark:border-white/5 text-[12.5px] leading-relaxed">
-              {/* Bold Colored Sender Name (Matching Maya/Theo/Priya style in screenshot) */}
+              {/* Bold Colored Sender Name */}
               <span className="font-bold text-[12px] text-[#00a884] dark:text-[#25d366] font-sans block mb-1 tracking-tight">
-                Vivek Hingu
+                Vian
               </span>
-
-              {/* Render Agentic Workflow Trace if present */}
-              {message.trace && message.trace.length > 1 && (
-                <VianAgentWorkflowTrace trace={message.trace} />
-              )}
 
               <MarkdownContent content={message.content} />
 

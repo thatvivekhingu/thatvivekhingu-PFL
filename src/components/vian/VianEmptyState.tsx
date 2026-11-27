@@ -12,8 +12,8 @@ export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
       <div className="relative mb-2.5">
         <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-emerald-500/60 shadow-xl p-0.5">
           <Image
-            src="/avatars/vivek.jpg"
-            alt="Vivek Hingu"
+            src="/avatars/pixel-avatar.png"
+            alt="Vian"
             fill
             sizes="80px"
             className="object-cover rounded-full"
@@ -29,20 +29,20 @@ export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
       {/* Name and Status */}
       <div className="flex items-center gap-1.5 mb-0.5">
         <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[#e9edef] tracking-tight">
-          Vivek Hingu
+          Vian
         </h3>
-        <span className="inline-flex items-center justify-center h-4 w-4 rounded-full bg-[#00a884] text-white text-[10px] shrink-0" title="Verified AI Engineer">
+        <span className="inline-flex items-center justify-center h-4 w-4 rounded-full bg-[#00a884] text-white text-[10px] shrink-0" title="Verified AI Assistant">
           ✓
         </span>
       </div>
 
       <p className="text-xs font-mono font-medium text-emerald-600 dark:text-[#25d366]">
-        AI & Machine Learning Engineer
+        Vivek&apos;s AI Assistant • Multi-Agent RAG
       </p>
 
       {/* WhatsApp Status Quote */}
       <div className="mt-2.5 max-w-xs px-3.5 py-1.5 rounded-xl bg-white/70 dark:bg-[#182229]/80 border border-slate-200/60 dark:border-white/5 text-[11px] text-slate-600 dark:text-[#8696a0] italic leading-relaxed">
-        &ldquo;Hey there! I am using WhatsApp • Building agentic AI systems & training neural nets in Ahmedabad 🇮🇳&rdquo;
+        &ldquo;Hey there! I am Vian, Vivek Hingu&apos;s personal AI Assistant. Ask me anything about Vivek&apos;s engineering projects, ML models, or background! 🚀&rdquo;
       </div>
     </div>
   );

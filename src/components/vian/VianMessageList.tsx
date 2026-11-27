@@ -54,8 +54,8 @@ export function VianMessageList({
         <div className="flex w-full items-start gap-2 max-w-[85%] animate-in fade-in duration-200">
           <div className="mt-0.5 relative h-7.5 w-7.5 shrink-0 overflow-hidden rounded-full border border-black/10 dark:border-white/10 shadow-xs">
             <Image
-              src="/avatars/vivek.jpg"
-              alt="Vivek Hingu"
+              src="/avatars/pixel-avatar.png"
+              alt="Vian"
               fill
               sizes="30px"
               className="object-cover"

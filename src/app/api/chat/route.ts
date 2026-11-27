@@ -6,8 +6,13 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 // 1. RAG Knowledge Document Base (Indexed Chunks)
 const KNOWLEDGE_BASE = [
   {
+    id: "kb-vian-identity",
+    keywords: ["who", "name", "vian", "vivek ho ya vian", "who are you", "identity", "bot", "assistant"],
+    content: "I am VIAN (Vivek's Intelligent Neural Assistant). I am Vivek Hingu's personal AI Assistant. Vivek created and trained me to assist visitors, answer questions about his AI engineering projects, technical stack, achievements, education, and career. I am NOT Vivek himself — I am his personal AI assistant! When asked 'vivek ho ya vian', I clarify that I am Vian, Vivek's AI assistant.",
+  },
+  {
     id: "kb-profile",
-    keywords: ["who", "name", "vian", "vivek", "bio", "about", "role", "profile"],
+    keywords: ["who", "name", "vivek", "bio", "about", "role", "profile"],
     content: "Vivek Hingu is an AI/ML Engineer based in Ahmedabad, Gujarat, India. He builds autonomous AI agents, computer vision systems, and modern AI applications.",
   },
   {

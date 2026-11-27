@@ -79,8 +79,8 @@ export function VianHeader({
             {/* Profile Avatar */}
             <div className="relative h-8.5 w-8.5 shrink-0 rounded-full overflow-hidden border border-black/10 dark:border-white/10 shadow-xs">
               <Image
-                src="/avatars/vivek.jpg"
-                alt="Vivek Hingu"
+                src="/avatars/pixel-avatar.png"
+                alt="Vian"
                 fill
                 sizes="34px"
                 className="object-cover"
@@ -90,7 +90,7 @@ export function VianHeader({
             {/* Contact Name & Status */}
             <div className="flex flex-col min-w-0">
               <span className="text-[13px] font-bold text-slate-900 dark:text-[#e9edef] truncate tracking-tight font-sans leading-tight">
-                Vivek Hingu
+                Vian
               </span>
               {isGenerating ? (
                 <span className="text-[10.5px] font-medium text-[#00a884] dark:text-[#25d366] italic tracking-wide animate-pulse leading-none mt-0.5">
@@ -98,7 +98,7 @@ export function VianHeader({
                 </span>
               ) : (
                 <span className="text-[10.5px] text-slate-500 dark:text-[#8696a0] font-sans leading-none mt-0.5">
-                  Online
+                  Vivek&apos;s AI Assistant • Online
                 </span>
               )}
             </div>
@@ -157,16 +157,16 @@ export function VianHeader({
               <div className="flex items-center gap-3 pb-3 border-b border-black/[0.06] dark:border-white/10">
                 <div className="relative h-12 w-12 rounded-full overflow-hidden border border-black/10 shadow-xs shrink-0">
                   <Image
-                    src="/avatars/vivek.jpg"
-                    alt="Vivek Hingu"
+                    src="/avatars/pixel-avatar.png"
+                    alt="Vian"
                     fill
                     sizes="48px"
                     className="object-cover"
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-sm text-slate-900 dark:text-white truncate">Vivek Hingu</h4>
-                  <p className="text-xs text-slate-500 dark:text-[#8696a0]">AI & ML Engineer • Always Active</p>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white truncate">Vian</h4>
+                  <p className="text-xs text-slate-500 dark:text-[#8696a0]">Vivek&apos;s AI Assistant • Always Active</p>
                 </div>
                 <button
                   type="button"

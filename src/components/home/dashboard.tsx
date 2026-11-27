@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh } from "@tabler/icons-react";
+import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconSun, IconMoon, IconSparkles, IconRobot } from "@tabler/icons-react";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { Globe } from "@/components/ui/globe";
 import styles from "./dashboard.module.css";
@@ -136,21 +136,23 @@ export default function Dashboard() {
         >
           <div className="relative">
             <ScratchToReveal
-              minScratchPercentage={20}
-              className="flex items-center h-24 sm:h-35 justify-center overflow-hidden rounded-md bg-background"
+              minScratchPercentage={18}
+              className="flex items-center h-28 sm:h-38 justify-center overflow-hidden rounded-md bg-background"
               gradientColors={["#A97CF933", "#F38CB933", "#FDCC9233"]}
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
             >
               {scratchGif && (
-                <Image
-                  src={scratchGif}
-                  alt="Scratch to reveal"
-                  width={100}
-                  height={100}
-                  className="h-14 sm:h-16 object-contain"
-                  unoptimized
-                />
+                <div className="relative w-full h-full flex items-center justify-center p-1 sm:p-2">
+                  <Image
+                    src={scratchGif}
+                    alt="Scratch to reveal"
+                    width={320}
+                    height={220}
+                    className="max-h-24 sm:max-h-34 w-auto max-w-full object-contain rounded-md shadow-md"
+                    unoptimized
+                  />
+                </div>
               )}
             </ScratchToReveal>
             <button
@@ -159,7 +161,7 @@ export default function Dashboard() {
               onMouseDown={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
               aria-label="Refresh scratch"
-              className="absolute top-1 right-1 z-10 p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-background/60 transition-colors group"
+              className="absolute top-1 right-1 z-10 p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-background/80 backdrop-blur-xs transition-colors group cursor-pointer"
             >
               <IconRefresh className="h-4 w-4 transition-transform group-hover:rotate-180 duration-300" />
             </button>
@@ -167,37 +169,23 @@ export default function Dashboard() {
         </GridItem>
         <GridItem
           area="hours"
-          icon={<IconClockHour4 className={dashboardIconClass} />}
-          title="Hours Coding"
+          icon={<IconRobot className={dashboardIconClass} />}
+          title="Ask My AI"
           transitionDuration="800ms"
-          tooltip="Powered by WakaTime"
-          cursorEmoji="🕐"
+          tooltip="Powered by VIAN Multi-Agent RAG"
+          cursorEmoji="🤖"
         >
-          <NumberTicker
-            value={totalHours}
-            className="whitespace-pre-wrap text-3xl font-semibold tracking-tighter text-muted-foreground"
-          />
+          <AskMyAI />
         </GridItem>
         <GridItem
           area="coffees"
-          icon={
-            <div className="flex items-center justify-center drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]">
-              <LottiePlayer
-                src="/lottie/chai.json"
-                className="h-6 w-6 text-primary"
-                fallbackIcon={<IconCup className={dashboardIconClass} />}
-              />
-            </div>
-          }
-          title="Teas Drank"
+          icon={<IconSun className={dashboardIconClass} />}
+          title="Weather & Time"
           transitionDuration="700ms"
-          tooltip="1 Tea 🍵 = 4 Hours Coding"
-          cursorEmoji="🍵"
+          tooltip="Ahmedabad, Gujarat (IST)"
+          cursorEmoji="🌤️"
         >
-          <NumberTicker
-            value={totalCoffees}
-            className="whitespace-pre-wrap text-3xl font-semibold tracking-tighter text-muted-foreground"
-          />
+          <LiveWeatherTime />
         </GridItem>
         <GridItem
           area="github"
@@ -521,6 +509,118 @@ const FavoriteLanguage = () => {
       <span className="ml-2 sm:ml-3 mb-1 text-md sm:text-lg font-normal tracking-tight text-muted-foreground">
         Python
       </span>
+    </div>
+  );
+};
+
+const LiveWeatherTime = () => {
+  const [timeStr, setTimeStr] = useState("");
+  const [period, setPeriod] = useState("PM");
+  const [isDay, setIsDay] = useState(true);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      };
+      const formatter = new Intl.DateTimeFormat("en-US", options);
+      const parts = formatter.formatToParts(now);
+      const h = parts.find((p) => p.type === "hour")?.value || "12";
+      const m = parts.find((p) => p.type === "minute")?.value || "00";
+      const s = parts.find((p) => p.type === "second")?.value || "00";
+      const dayPeriod = parts.find((p) => p.type === "dayPeriod")?.value || "PM";
+
+      const hourNum = parseInt(
+        now.toLocaleTimeString("en-US", {
+          timeZone: "Asia/Kolkata",
+          hour12: false,
+          hour: "numeric",
+        }),
+        10
+      );
+      setIsDay(hourNum >= 6 && hourNum < 19);
+      setTimeStr(`${h}:${m}:${s}`);
+      setPeriod(dayPeriod);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex flex-col justify-between h-full pt-0.5 space-y-2 select-none">
+      <div className="flex items-baseline gap-1.5 font-mono">
+        <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground font-mono">
+          {timeStr || "04:45:00"}
+        </span>
+        <span className="text-[11px] font-bold text-cyan-400 font-mono uppercase">
+          {period} IST
+        </span>
+      </div>
+
+      <div className="flex items-center justify-between pt-1.5 border-t border-border/40 text-[11px]">
+        <div className="flex items-center gap-1.5 text-muted-foreground font-mono">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span>Ahmedabad, IN</span>
+        </div>
+        <div className="flex items-center gap-1 font-semibold text-amber-500 dark:text-amber-400 font-mono">
+          {isDay ? <IconSun className="w-3.5 h-3.5" /> : <IconMoon className="w-3.5 h-3.5 text-cyan-400" />}
+          <span>31°C {isDay ? "Sunny" : "Clear"}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AskMyAI = () => {
+  const handleOpenAI = (query?: string) => {
+    playTapSound("chime");
+    if (typeof window !== "undefined") {
+      if (query) {
+        window.dispatchEvent(new CustomEvent("openVianWithQuery", { detail: { query } }));
+      } else {
+        window.dispatchEvent(new CustomEvent("openVianFresh"));
+      }
+    }
+  };
+
+  return (
+    <div className="flex flex-col justify-between h-full pt-0.5 space-y-2 select-none">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+          <span className="text-[11px] font-mono font-bold text-cyan-400 tracking-wider uppercase">
+            VIAN • ONLINE
+          </span>
+        </div>
+        <span className="text-[9.5px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+          Ask My AI
+        </span>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => handleOpenAI()}
+        className="group/btn relative w-full flex items-center justify-between px-3 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400 transition-all text-left cursor-pointer shadow-sm active:scale-95"
+      >
+        <div className="flex flex-col min-w-0 pr-2">
+          <span className="text-xs font-bold text-foreground group-hover/btn:text-cyan-400 transition-colors truncate">
+            Ask Vian anything...
+          </span>
+          <span className="text-[10px] text-muted-foreground truncate font-sans">
+            Projects, skills, hackathons &amp; career
+          </span>
+        </div>
+        <div className="h-6 w-6 rounded-lg bg-cyan-500 text-black flex items-center justify-center shrink-0 group-hover/btn:scale-110 transition-transform shadow-xs">
+          <IconSparkles className="w-3.5 h-3.5 fill-black" />
+        </div>
+      </button>
     </div>
   );
 };

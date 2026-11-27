@@ -11,6 +11,17 @@ export interface PortfolioChunk {
 
 export const PORTFOLIO_KNOWLEDGE: PortfolioChunk[] = [
   {
+    id: "vian-identity",
+    category: "profile",
+    title: "VIAN - Vivek Hingu's Personal AI Assistant Identity",
+    keywords: ["vian", "assistant", "bot", "who are you", "vivek ho ya vian", "kya ho", "identity", "vivek kaun hai", "tum kaun ho"],
+    content: "I am VIAN (Vivek's Intelligent Neural Assistant). I am Vivek Hingu's personal AI Assistant. Vivek created and trained me to assist visitors, answer questions about his AI engineering projects, technical stack, achievements, education, and career. I am NOT Vivek himself — I am his personal AI assistant! When asked 'vivek ho ya vian', I clarify that I am Vian, Vivek's AI assistant.",
+    links: [
+      { label: "GitHub", url: "https://github.com/thatvivekhingu" },
+      { label: "LinkedIn", url: "https://linkedin.com/in/thatvivekhingu" },
+    ],
+  },
+  {
     id: "profile",
     category: "profile",
     title: "Vivek Hingu Profile & Bio",

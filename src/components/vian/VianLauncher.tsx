@@ -28,8 +28,8 @@ export function VianLauncher({ onClick, isOpen }: VianLauncherProps) {
       {/* Profile Avatar Logo */}
       <div className="relative h-full w-full overflow-hidden rounded-full">
         <Image
-          src="/avatars/vivek.jpg"
-          alt="Vivek Hingu"
+          src="/avatars/pixel-avatar.png"
+          alt="Vian"
           fill
           sizes="52px"
           className="object-cover transition-transform duration-300 group-hover:scale-110"
@@ -38,7 +38,7 @@ export function VianLauncher({ onClick, isOpen }: VianLauncherProps) {
 
       {/* Tooltip on Hover */}
       <span className="absolute right-15 whitespace-nowrap rounded-md bg-[#182229] px-2.5 py-1 text-xs font-semibold text-white opacity-0 transition-all duration-200 group-hover:opacity-100 pointer-events-none shadow-xl border border-white/10 flex items-center gap-1.5">
-        <span>Chat with Vivek</span>
+        <span>Chat with Vian</span>
         <span className="text-[10px] text-[#25d366]">● online</span>
       </span>
     </button>
