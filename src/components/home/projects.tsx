@@ -345,13 +345,7 @@ export default function Projects() {
             </p>
           </div>
 
-          {/* Center-Left Subtle Natural Indicator Dot */}
-          <div className="hidden xl:flex items-center justify-center self-center mb-10" aria-hidden="true">
-            <span
-              style={{ backgroundColor: accent }}
-              className="w-2.5 h-2.5 rounded-full inline-block opacity-90 shadow-sm"
-            />
-          </div>
+
 
           {/* Right Side: True 3D CSS Perspective Hardcover Manga Shelf */}
           <div className="shelf-stage w-full lg:w-auto overflow-x-auto lg:overflow-visible pt-4 lg:pt-6 pb-2 flex items-end justify-start lg:justify-end no-scrollbar snap-x snap-mandatory touch-pan-x">

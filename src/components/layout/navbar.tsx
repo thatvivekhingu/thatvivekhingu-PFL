@@ -18,8 +18,7 @@ import { playTapSound } from "@/lib/sound";
 import { Magnetic } from "@/components/ui/magnetic";
 
 const FALLBACK_REPO_URL = "https://github.com/thatvivekhingu/thatvivekhingu-PFL";
-// import Link from "next/link";
-// import Image from "next/image";
+import Image from "next/image";
 
 
 export const Navbar = ({
@@ -71,7 +70,10 @@ export const Navbar = ({
       router.push(link);
       return;
     }
-    if (window.location.pathname !== "/") {
+    if (typeof window !== "undefined" && window.location.pathname !== "/") {
+      try {
+        sessionStorage.setItem("hasSeenIntro", "true");
+      } catch {}
       router.push(`/#${link}`);
       return;
     }
@@ -109,13 +111,22 @@ export const Navbar = ({
         >
           {/* Logo on the left */}
           <div className="flex items-center mr-1 sm:mr-8 flex-shrink-0">
-            {mounted && (
-              <AnimatedLogo
-                theme={resolvedTheme === "dark" ? "dark" : "light"}
-                className="w-7 h-7 sm:w-12 sm:h-12 cursor-pointer flex-shrink-0"
-                onClick={handleLogoClick}
+            <button
+              onClick={handleLogoClick}
+              data-cursor="Home"
+              className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-zinc-700/80 hover:border-cyan-400 ring-2 ring-cyan-500/30 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md flex items-center justify-center shrink-0 cursor-pointer"
+              title="Vivek Hingu"
+              aria-label="Vivek Hingu Home"
+            >
+              <Image
+                src="/avatars/pixel-avatar.png"
+                alt="Vivek Hingu"
+                width={40}
+                height={40}
+                className="object-cover w-full h-full"
+                priority
               />
-            )}
+            </button>
           </div>
 
           {/* Links in the center */}
@@ -126,7 +137,7 @@ export const Navbar = ({
                   onClick={() => handleNavClick(navItem.link)}
                   data-cursor="Nav"
                   className={cn(
-                    "relative font-bold text-zinc-900 dark:text-zinc-50 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer text-sm sm:text-[15.5px] tracking-normal sm:tracking-wide shrink-0"
+                    "relative font-sans font-semibold text-zinc-900 dark:text-zinc-100 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer text-xs sm:text-[14.5px] tracking-normal sm:tracking-wide shrink-0"
                   )}
                 >
                   <span className="block sm:hidden">{navItem.icon}</span>

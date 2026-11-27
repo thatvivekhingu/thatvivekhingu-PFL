@@ -60,6 +60,19 @@ export interface ScratchMemeItem {
 
 export const scratchMemes: ScratchMemeItem[] = [
   // ==========================================
+  // PROFESSIONAL DEVELOPER & TECH MEMES (GIPHY)
+  // ==========================================
+  { id: "giphy-typing-cat", src: "https://media.giphy.com/media/unQ3IJU2RG7DO/giphy.gif", title: "10x Developer in the Flow", isNew: true, weight: 25 },
+  { id: "giphy-thumbs-up", src: "https://media.giphy.com/media/111ebonMs90YLu/giphy.gif", title: "Code Review Approved 👍", isNew: true, weight: 25 },
+  { id: "giphy-matrix-code", src: "https://media.giphy.com/media/ule4akeEDWAYE/giphy.gif", title: "Deciphering Matrix Telemetry", isNew: true, weight: 25 },
+  { id: "giphy-its-working", src: "https://media.giphy.com/media/3owzW5c1tPq63MPmWk/giphy.gif", title: "Production Deployment Passed!", isNew: true, weight: 25 },
+  { id: "giphy-success-kid", src: "https://media.giphy.com/media/nXxOjZrbnbRxS/giphy.gif", title: "Zero Build Errors on First Run", isNew: true, weight: 25 },
+  { id: "giphy-mind-blown", src: "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif", title: "Mind Blown by System Architecture", isNew: true, weight: 25 },
+  { id: "giphy-cheers-leo", src: "https://media.giphy.com/media/GCLlQnV7dXZ2E/giphy.gif", title: "Cheers to Great Code & Coffee", isNew: true, weight: 25 },
+  { id: "giphy-it-crowd", src: "https://media.giphy.com/media/9K2nFglCAQClO/giphy.gif", title: "Have You Tried Turning It Off?", isNew: true, weight: 25 },
+  { id: "giphy-remote-cat", src: "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif", title: "Remote Engineer Daily Standup", isNew: true, weight: 25 },
+
+  // ==========================================
   // 31 BRAND NEW DEVELOPER MEMES (High Priority ~98% Weighted)
   // ==========================================
   { id: "php-panic", src: "/memes/meme-php-panic.gif", title: "PHP Code Stressed Dev", isNew: true, weight: 15 },

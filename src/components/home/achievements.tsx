@@ -441,9 +441,9 @@ export default function Achievements() {
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-l from-black via-black/80 to-transparent z-20" />
 
           <Marquee pauseOnHover repeat={3} className="[--duration:55s] [--gap:1.5rem] py-3">
-            {data.certificates.map((cert) => (
-              <div key={cert.title} className="shrink-0">
-                <CertFlipCard cert={cert} />
+            {data.certificates.map((cert, idx) => (
+              <div key={`${cert.title}-${idx}`} className="shrink-0">
+                <CertFlipCard cert={cert} index={idx} />
               </div>
             ))}
           </Marquee>
@@ -453,12 +453,84 @@ export default function Achievements() {
   );
 }
 
+const CERT_PALETTES = [
+  {
+    name: "cyan",
+    hex: "#06B6D4",
+    borderHover: "group-hover:border-cyan-400/90",
+    textHover: "group-hover:text-cyan-300",
+    badgeBorder: "border-cyan-400/60",
+    badgeText: "text-cyan-400",
+    backBorder: "border-cyan-400/90",
+    shadowHover: "group-hover:shadow-[0_16px_48px_rgba(6,182,212,0.3)]",
+    linkText: "text-cyan-400 hover:text-cyan-300",
+  },
+  {
+    name: "purple",
+    hex: "#A855F7",
+    borderHover: "group-hover:border-purple-400/90",
+    textHover: "group-hover:text-purple-300",
+    badgeBorder: "border-purple-400/60",
+    badgeText: "text-purple-400",
+    backBorder: "border-purple-400/90",
+    shadowHover: "group-hover:shadow-[0_16px_48px_rgba(168,85,247,0.3)]",
+    linkText: "text-purple-400 hover:text-purple-300",
+  },
+  {
+    name: "emerald",
+    hex: "#10B981",
+    borderHover: "group-hover:border-emerald-400/90",
+    textHover: "group-hover:text-emerald-300",
+    badgeBorder: "border-emerald-400/60",
+    badgeText: "text-emerald-400",
+    backBorder: "border-emerald-400/90",
+    shadowHover: "group-hover:shadow-[0_16px_48px_rgba(16,185,129,0.3)]",
+    linkText: "text-emerald-400 hover:text-emerald-300",
+  },
+  {
+    name: "rose",
+    hex: "#F43F5E",
+    borderHover: "group-hover:border-rose-400/90",
+    textHover: "group-hover:text-rose-300",
+    badgeBorder: "border-rose-400/60",
+    badgeText: "text-rose-400",
+    backBorder: "border-rose-400/90",
+    shadowHover: "group-hover:shadow-[0_16px_48px_rgba(244,63,94,0.3)]",
+    linkText: "text-rose-400 hover:text-rose-300",
+  },
+  {
+    name: "blue",
+    hex: "#3B82F6",
+    borderHover: "group-hover:border-blue-400/90",
+    textHover: "group-hover:text-blue-300",
+    badgeBorder: "border-blue-400/60",
+    badgeText: "text-blue-400",
+    backBorder: "border-blue-400/90",
+    shadowHover: "group-hover:shadow-[0_16px_48px_rgba(59,130,246,0.3)]",
+    linkText: "text-blue-400 hover:text-blue-300",
+  },
+  {
+    name: "amber",
+    hex: "#F59E0B",
+    borderHover: "group-hover:border-amber-400/90",
+    textHover: "group-hover:text-amber-300",
+    badgeBorder: "border-amber-400/60",
+    badgeText: "text-amber-400",
+    backBorder: "border-amber-400/90",
+    shadowHover: "group-hover:shadow-[0_16px_48px_rgba(245,158,11,0.3)]",
+    linkText: "text-amber-400 hover:text-amber-300",
+  },
+];
+
 function CertFlipCard({
   cert,
+  index = 0,
 }: {
   cert: (typeof data.certificates)[number];
+  index?: number;
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const theme = CERT_PALETTES[index % CERT_PALETTES.length];
 
   return (
     <div
@@ -478,7 +550,13 @@ function CertFlipCard({
         {/* ============================================================ */}
         {/* FRONT SIDE                                                   */}
         {/* ============================================================ */}
-        <div className="absolute inset-0 w-full h-full backface-hidden bg-[#0E0E10] border-2 border-[#FAF9F5]/90 rounded-2xl p-4 sm:p-5 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] group-hover:border-amber-400/80 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.95)] transition-all">
+        <div
+          className={cn(
+            "absolute inset-0 w-full h-full backface-hidden bg-[#0E0E10] border-2 border-[#FAF9F5]/90 rounded-2xl p-4 sm:p-5 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)] transition-all",
+            theme.borderHover,
+            theme.shadowHover
+          )}
+        >
           {/* Upper Halftone / Carbon Texture Frame */}
           <div
             className="w-full relative rounded-xl border border-white/10 p-3 sm:p-4 flex items-center justify-center min-h-[175px] sm:min-h-[185px] overflow-hidden"
@@ -490,7 +568,13 @@ function CertFlipCard({
             }}
           >
             {/* 3D FLIP Badge */}
-            <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black/85 text-[#F59E0B] border border-[#F59E0B]/50 font-mono font-bold text-[9.5px] tracking-wider uppercase shadow-md pointer-events-none select-none">
+            <div
+              className={cn(
+                "absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black/85 font-mono font-bold text-[9.5px] tracking-wider uppercase shadow-md pointer-events-none select-none border",
+                theme.badgeBorder,
+                theme.badgeText
+              )}
+            >
               <span>3D FLIP</span>
               <span className="text-xs">⟳</span>
             </div>
@@ -509,7 +593,12 @@ function CertFlipCard({
 
           {/* Middle Section: Anton Title & Issuer */}
           <div className="space-y-1 relative z-10">
-            <h3 className="font-[family-name:var(--font-anton)] text-2xl sm:text-[25px] uppercase tracking-wide text-[#FAF9F5] leading-[1.08] line-clamp-2 min-h-[3.4rem] flex items-center mt-2.5 group-hover:text-amber-300 transition-colors">
+            <h3
+              className={cn(
+                "font-[family-name:var(--font-anton)] text-2xl sm:text-[25px] uppercase tracking-wide text-[#FAF9F5] leading-[1.08] line-clamp-2 min-h-[3.4rem] flex items-center mt-2.5 transition-colors",
+                theme.textHover
+              )}
+            >
               {cert.title}
             </h3>
             <p className="font-sans text-sm sm:text-base text-zinc-400 font-medium tracking-normal">
@@ -519,7 +608,12 @@ function CertFlipCard({
 
           {/* Bottom Footer Row */}
           <div className="border-t border-white/20 mt-3 pt-3 flex items-center justify-between relative z-10">
-            <span className="font-[family-name:var(--font-anton)] text-sm sm:text-base tracking-wider uppercase text-[#FAF9F5] flex items-center gap-1.5 group-hover:text-amber-300 transition-colors">
+            <span
+              className={cn(
+                "font-[family-name:var(--font-anton)] text-sm sm:text-base tracking-wider uppercase text-[#FAF9F5] flex items-center gap-1.5 transition-colors",
+                theme.textHover
+              )}
+            >
               <span>FLIP FOR SKILLS</span>
               <span className="text-base font-sans">→</span>
             </span>
@@ -532,11 +626,19 @@ function CertFlipCard({
         {/* ============================================================ */}
         {/* BACK SIDE                                                    */}
         {/* ============================================================ */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-[#0E0E10] border-2 border-amber-400/80 rounded-2xl p-5 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)]">
+        <div
+          className={cn(
+            "absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-[#0E0E10] border-2 rounded-2xl p-5 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.85)]",
+            theme.backBorder
+          )}
+        >
           <div className="space-y-3">
             {/* Top Meta Row */}
             <div className="flex items-center justify-between border-b border-white/15 pb-2">
-              <span className="text-xs font-mono font-black text-[#F59E0B] uppercase tracking-wider">
+              <span
+                style={{ color: theme.hex }}
+                className="text-xs font-mono font-black uppercase tracking-wider"
+              >
                 {cert.issuer}
               </span>
               <span className="text-xs font-mono text-zinc-400 font-semibold">
@@ -578,7 +680,10 @@ function CertFlipCard({
                   e.stopPropagation();
                   playTapSound("pop");
                 }}
-                className="font-mono text-xs font-bold text-[#F59E0B] hover:text-amber-300 hover:underline flex items-center gap-1 transition-colors"
+                className={cn(
+                  "font-mono text-xs font-bold hover:underline flex items-center gap-1 transition-colors",
+                  theme.linkText
+                )}
               >
                 <span>VERIFY CREDENTIAL</span>
                 <span>↗</span>

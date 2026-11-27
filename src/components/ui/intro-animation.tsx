@@ -47,7 +47,7 @@ const INTRO_PAIRS: IntroPair[] = [
 ];
 
 export function IntroAnimation() {
-  const [shouldShow, setShouldShow] = useState(true);
+  const [shouldShow, setShouldShow] = useState(false);
   const [activePair, setActivePair] = useState<IntroPair | null>(null);
   const [displayedText, setDisplayedText] = useState("");
   const [currentStep, setCurrentStep] = useState<"en" | "hi">("en");
@@ -56,13 +56,44 @@ export function IntroAnimation() {
   const [isComplete, setIsComplete] = useState(false);
   const soundPlayedRef = useRef(false);
 
-  // Pick a random pair on mount
+  // Check sessionStorage on mount so returning from resume doesn't replay intro
   useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        const hasSeen = sessionStorage.getItem("hasSeenIntro");
+        if (hasSeen === "true") {
+          setShouldShow(false);
+          setIsComplete(true);
+          return;
+        }
+      }
+    } catch {}
+
     const randomIndex = Math.floor(Math.random() * INTRO_PAIRS.length);
     setActivePair(INTRO_PAIRS[randomIndex]);
+    setShouldShow(true);
+  }, []);
+
+  // Smooth scroll to section if URL has a hash (e.g. from navbar navigation)
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const targetId = window.location.hash.replace("#", "");
+      const timer = setTimeout(() => {
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 350);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const handleComplete = useCallback(() => {
+    try {
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("hasSeenIntro", "true");
+      }
+    } catch {}
     setIsComplete(true);
     setShouldShow(false);
   }, []);

@@ -131,7 +131,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="relative w-full bg-background text-neutral-200 overflow-hidden select-none">
+    <footer className="relative w-full bg-black text-neutral-200 overflow-hidden select-none">
       {/* ============================================================== */}
       {/* 1. UPPER CTA & SIGNATURE ELEMENTS (Seamless bg-background)      */}
       {/* ============================================================== */}
@@ -518,16 +518,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Subtle Background Glow */}
-      <Image
-        src="/layout/background-ellipse3.svg"
-        alt=""
-        fill={false}
-        width={100}
-        height={900}
-        className="absolute bottom-0 blur-md left-1/2 transform -translate-x-1/2 translate-y-3/5 w-auto z-0 pointer-events-none select-none opacity-30"
-        aria-hidden="true"
-      />
+
     </footer>
   );
 };
