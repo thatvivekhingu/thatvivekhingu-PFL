@@ -114,18 +114,16 @@ export default function Achievements() {
             <div className="flex flex-col h-full bg-[#0A0A0A] gap-2 lg:gap-0">
               {/* --- PANEL 01: GOOGLE CLOUD ARCADE --- */}
               <motion.div
-                className="group/panel relative flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                className="group/panel relative flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl rounded-2xl lg:rounded-none panel-01-clip"
                 style={{
                   flex: 1.15,
                   background: "#F3F0E8",
                   padding: "12px 14px 20px 14px",
-                  clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 26px), 0 100%)",
                 }}
               >
-                {/* Photo Box: Increased height, NO extra tag on image */}
+                {/* Photo Box: Responsive height with clean borders */}
                 <div
-                  className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "235px", border: "2px solid #0A0A0A" }}
+                  className="relative w-full overflow-hidden shrink-0 h-48 sm:h-56 lg:h-[235px] border-2 border-[#0A0A0A] rounded-xl lg:rounded-none"
                 >
                   <Image
                     src={PANELS[0].image}
@@ -186,18 +184,16 @@ export default function Achievements() {
 
               {/* --- PANEL 02: ROBO SOCCER --- */}
               <motion.div
-                className="group/panel relative flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl mt-0 lg:-mt-[16px]"
+                className="group/panel relative flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl mt-0 lg:-mt-[16px] rounded-2xl lg:rounded-none panel-02-clip"
                 style={{
                   flex: 1,
                   background: "#F3F0E8",
                   padding: "26px 14px 12px 14px",
-                  clipPath: "polygon(0 26px, 100% 0, 100% 100%, 0 100%)",
                 }}
               >
-                {/* Photo Box: Increased height, NO extra tag on image */}
+                {/* Photo Box: Responsive height with clean borders */}
                 <div
-                  className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "205px", border: "2px solid #0A0A0A" }}
+                  className="relative w-full overflow-hidden shrink-0 h-48 sm:h-56 lg:h-[205px] border-2 border-[#0A0A0A] rounded-xl lg:rounded-none"
                 >
                   <Image
                     src={PANELS[1].image}
@@ -262,16 +258,15 @@ export default function Achievements() {
             {/* ============================================================== */}
             <div className="flex flex-col h-full">
               <motion.div
-                className="group/panel relative flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                className="group/panel relative flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl rounded-2xl lg:rounded-none"
                 style={{
                   background: "#F3F0E8",
                   padding: "12px 14px 14px 14px",
                 }}
               >
-                {/* Photo Box: Increased height, NO extra tag on image */}
+                {/* Photo Box: Responsive height with clean borders */}
                 <div
-                  className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "76%", minHeight: "480px", border: "2px solid #0A0A0A" }}
+                  className="relative w-full overflow-hidden shrink-0 h-52 sm:h-64 lg:h-[76%] lg:min-h-[480px] border-2 border-[#0A0A0A] rounded-xl lg:rounded-none"
                 >
                   <Image
                     src={PANELS[2].image}
@@ -336,16 +331,15 @@ export default function Achievements() {
             {/* ============================================================== */}
             <div className="flex flex-col h-full">
               <motion.div
-                className="group/panel relative flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                className="group/panel relative flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl rounded-2xl lg:rounded-none"
                 style={{
                   background: "#F3F0E8",
                   padding: "12px 14px 14px 14px",
                 }}
               >
-                {/* Photo Box: Increased height, NO extra tag on image */}
+                {/* Photo Box: Responsive height with clean borders */}
                 <div
-                  className="relative w-full overflow-hidden shrink-0"
-                  style={{ height: "76%", minHeight: "480px", border: "2px solid #0A0A0A" }}
+                  className="relative w-full overflow-hidden shrink-0 h-52 sm:h-64 lg:h-[76%] lg:min-h-[480px] border-2 border-[#0A0A0A] rounded-xl lg:rounded-none"
                 >
                   <Image
                     src={PANELS[3].image}

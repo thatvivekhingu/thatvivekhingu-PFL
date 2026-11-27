@@ -700,3 +700,27 @@ input[type="range"].vol-slider::-moz-range-thumb {
 .panel-enter {
   animation: panelEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* =========================================================================
+   RESPONSIVE MANGA PANELS & MOBILE APP TOUCH RULES
+   ========================================================================= */
+@media (min-width: 1024px) {
+  .panel-01-clip {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 26px), 0 100%);
+  }
+  .panel-02-clip {
+    clip-path: polygon(0 26px, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Native mobile tap & smooth gesture responsiveness */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .shelf-stage {
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+  }
+}

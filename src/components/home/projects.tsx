@@ -327,19 +327,22 @@ export default function Projects() {
         </SectionHeading>
 
         {/* Shelf Split Container Resting on Warm Charcoal Line */}
-        <div className="w-full border-b border-[#282725] flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-6 relative pb-0">
+        <div className="w-full border-b border-[#282725] flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-6 relative pb-0">
           {/* Left Editorial Heading */}
-          <div className="pb-6 lg:pb-8 max-w-md">
+          <div className="pb-4 lg:pb-8 max-w-md">
             <p className="text-[10px] sm:text-[11px] font-mono font-semibold tracking-[0.2em] uppercase text-[#9C968B] mb-2 sm:mb-3">
               ALSO ON THE SHELF
             </p>
-            <h2 className="font-serif text-[38px] sm:text-[48px] lg:text-[56px] leading-[0.98] tracking-[-0.01em] text-[#ECE7DD]">
+            <h2 className="font-serif text-[34px] sm:text-[48px] lg:text-[56px] leading-[0.98] tracking-[-0.01em] text-[#ECE7DD]">
               Every project as a<br />
               volume.{" "}
               <span className="italic" style={{ color: accent }}>
                 Pull one out.
               </span>
             </h2>
+            <p className="text-[10.5px] font-mono text-[#9C968B] lg:hidden mt-2 select-none flex items-center gap-1.5">
+              <span>👆 Tap volume to pull out • Swipe shelf</span>
+            </p>
           </div>
 
           {/* Center-Left Subtle Natural Indicator Dot */}
@@ -351,9 +354,9 @@ export default function Projects() {
           </div>
 
           {/* Right Side: True 3D CSS Perspective Hardcover Manga Shelf */}
-          <div className="shelf-stage w-full lg:w-auto overflow-x-auto lg:overflow-visible pt-6 pb-0 flex items-end justify-start lg:justify-end">
+          <div className="shelf-stage w-full lg:w-auto overflow-x-auto lg:overflow-visible pt-4 lg:pt-6 pb-2 flex items-end justify-start lg:justify-end no-scrollbar snap-x snap-mandatory touch-pan-x">
             <div
-              className="flex items-end gap-[2px] min-w-max pr-5"
+              className="flex items-end gap-[3px] sm:gap-[2px] min-w-max pr-6 pl-2"
               role="list"
               aria-label="Interactive 3D Project Volumes Shelf"
             >
@@ -385,7 +388,7 @@ export default function Projects() {
                     role="listitem"
                     tabIndex={0}
                     style={{ "--book-h": `${vol.heightPx}px` } as React.CSSProperties}
-                    className={`book-slot ${leaningClass} ${pulledClass}`}
+                    className={`book-slot ${leaningClass} ${pulledClass} snap-center shrink-0 active:scale-95 transition-transform`}
                     data-cursor="Open"
                     aria-label={`Volume ${vol.code}: ${vol.title}`}
                     onMouseEnter={() => {
@@ -395,7 +398,14 @@ export default function Projects() {
                     onMouseLeave={() => {
                       if (!selectedVolume) setActiveId(null);
                     }}
-                    onClick={() => handleOpenCaseStudy(vol)}
+                    onClick={() => {
+                      if (activeId === vol.id) {
+                        handleOpenCaseStudy(vol);
+                      } else {
+                        playTapSound("pop");
+                        setActiveId(vol.id);
+                      }
+                    }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
@@ -437,7 +447,11 @@ export default function Projects() {
 
                           <span
                             style={stampStyle}
-                            className="w-11 h-11 rounded-full font-mono text-[8.5px] font-extrabold uppercase tracking-wider flex items-center justify-center shrink-0 shadow-md"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleOpenCaseStudy(vol);
+                            }}
+                            className="w-11 h-11 rounded-full font-mono text-[8.5px] font-extrabold uppercase tracking-wider flex items-center justify-center shrink-0 shadow-md active:scale-90 transition-transform cursor-pointer"
                           >
                             OPEN
                           </span>
@@ -488,7 +502,7 @@ export default function Projects() {
             <article
               key={proj.id}
               tabIndex={0}
-              className={`work-row py-5 sm:py-7 lg:py-8 px-2 sm:px-4 grid grid-cols-12 items-center gap-y-3 gap-x-4 ${
+              className={`work-row py-4 sm:py-7 lg:py-8 px-3 sm:px-4 grid grid-cols-12 items-center gap-y-2 sm:gap-y-3 gap-x-4 rounded-xl sm:rounded-none active:bg-white/5 active:scale-[0.99] transition-all cursor-pointer ${
                 isActive ? "is-active" : ""
               }`}
               data-cursor="Open"
@@ -546,30 +560,35 @@ export default function Projects() {
         })}
       </div>
 
-      {/* Case Study Modal */}
+      {/* Case Study Modal (Native App Bottom Sheet on Mobile, Centered Modal on Desktop) */}
       {selectedVolume && (
         <div
-          className="fixed inset-0 z-50 bg-[#121211]/88 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
+          className="fixed inset-0 z-50 bg-[#121211]/88 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-6"
           role="dialog"
           aria-modal="true"
           onClick={handleCloseCaseStudy}
         >
           <div
-            className="w-full max-w-2xl bg-[#181817] text-[#ECE7DD] border-2 border-[#3A3835] shadow-[0_24px_60px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col max-h-[90vh] rounded-none"
+            className="w-full max-w-2xl bg-[#181817] text-[#ECE7DD] border-t-2 sm:border-2 border-[#3A3835] shadow-[0_24px_60px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col max-h-[88vh] sm:max-h-[90vh] rounded-t-[28px] sm:rounded-2xl"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Mobile Drag Indicator Bar */}
+            <div className="w-full flex items-center justify-center pt-2.5 pb-1 sm:hidden bg-[#121211]">
+              <span className="w-10 h-1 bg-neutral-600 rounded-full" />
+            </div>
+
             {/* Modal Top Strip */}
-            <div className="px-5 sm:px-6 py-3.5 bg-[#121211] border-b border-[#282725] text-[#ECE7DD] flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3 text-[11px] font-mono font-bold uppercase tracking-[0.16em]">
-                <span style={{ backgroundColor: accent }} className="px-2 py-0.5 text-[#121211] font-extrabold">
+            <div className="px-5 sm:px-6 py-3 bg-[#121211] border-b border-[#282725] text-[#ECE7DD] flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2.5 sm:gap-3 text-[11px] font-mono font-bold uppercase tracking-[0.16em]">
+                <span style={{ backgroundColor: accent }} className="px-2 py-0.5 text-[#121211] font-extrabold rounded-sm">
                   VOL. {selectedVolume.code}
                 </span>
-                <span className="text-[#9C968B]">{selectedVolume.category}</span>
+                <span className="text-[#9C968B] text-[10px] sm:text-xs truncate max-w-[200px] sm:max-w-none">{selectedVolume.category}</span>
               </div>
               <button
                 type="button"
                 onClick={handleCloseCaseStudy}
-                className="w-7 h-7 border border-[#3A3835] text-[#ECE7DD] hover:bg-[#ECE7DD] hover:text-[#121211] font-mono text-xs flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full sm:rounded-none border border-[#3A3835] text-[#ECE7DD] hover:bg-[#ECE7DD] hover:text-[#121211] font-mono text-xs flex items-center justify-center transition-all active:scale-90 cursor-pointer"
                 aria-label="Close Case Study"
               >
                 <IconX className="w-4 h-4" />

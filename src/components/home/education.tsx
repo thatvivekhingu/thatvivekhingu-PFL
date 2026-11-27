@@ -18,8 +18,8 @@ const EDUCATION_DATA = {
   location: "Ahmedabad, India",
   period: "2023 — 2027",
   status: "Final Year",
-  grade: "8.61 CGPA",
-  gradeLabel: "First Class with Distinction",
+  grade: "8.61 / 10",
+  gradeLabel: "CGPA • First Class with Distinction",
   description:
     "Specializing in Machine Learning, AI Systems, Probability & Statistics, and Distributed Enterprise Computing.",
   coursework: ["Machine Learning", "Deep Learning", "Data Science", "DSA", "DBMS"],

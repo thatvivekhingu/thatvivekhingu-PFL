@@ -212,7 +212,15 @@ export default function Dashboard() {
         </GridItem>
         <GridItem
           area="coffees"
-          icon={<LottiePlayer src="/lottie/chai.json" className="h-6 w-6" fallbackIcon={<IconCup className={dashboardIconClass} />} />}
+          icon={
+            <div className="flex items-center justify-center drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]">
+              <LottiePlayer
+                src="/lottie/chai.json"
+                className="h-6 w-6 text-primary"
+                fallbackIcon={<IconCup className={dashboardIconClass} />}
+              />
+            </div>
+          }
           title="Teas Drank"
           transitionDuration="700ms"
           tooltip="1 Tea 🍵 = 4 Hours Coding"

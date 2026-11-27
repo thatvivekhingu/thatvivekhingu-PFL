@@ -50,8 +50,8 @@ export default function VianSection() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
 
           {/* Apple iPhone Dynamic Island Pill positioned at TOP of Video with Magnetic Physics */}
-          <div className="absolute top-5 sm:top-7 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center pointer-events-auto">
-            <Magnetic strength={0.4}>
+          <div className="absolute top-3 sm:top-5 md:top-6 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center pointer-events-auto">
+            <Magnetic strength={0.35}>
               <button
                 type="button"
                 onClick={(e) => {
@@ -60,25 +60,25 @@ export default function VianSection() {
                 }}
                 data-cursor="Talk"
                 aria-label="lets talk with vian"
-                className="group/island relative flex items-center gap-3 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-black/90 hover:bg-black backdrop-blur-2xl border border-white/20 hover:border-cyan-400/60 shadow-[0_12px_40px_rgba(0,0,0,0.85),0_0_25px_rgba(34,211,238,0.25)] hover:shadow-[0_16px_50px_rgba(34,211,238,0.45)] transition-all duration-300 ease-out active:scale-95 cursor-pointer"
+                className="group/island relative flex items-center gap-2 sm:gap-2.5 px-3 py-1 sm:px-4 sm:py-1.5 h-7 sm:h-8.5 rounded-full bg-black/95 hover:bg-black backdrop-blur-2xl border border-white/15 hover:border-cyan-400/50 shadow-[0_4px_24px_rgba(0,0,0,0.85),0_0_15px_rgba(34,211,238,0.2)] hover:shadow-[0_6px_28px_rgba(34,211,238,0.4)] transition-all duration-300 ease-out active:scale-95 cursor-pointer"
               >
-                {/* Dynamic Island Pulsing AI Sensor Dot */}
-                <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
-                </span>
+                {/* iPhone TrueDepth Camera & Sensor Pinhole Cutout */}
+                <div className="relative flex items-center justify-center shrink-0">
+                  <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-[#18181b] ring-1 ring-white/15 flex items-center justify-center">
+                    <span className="h-1 w-1 rounded-full bg-cyan-400/90 shadow-[0_0_4px_#22d3ee] animate-pulse" />
+                  </span>
+                </div>
 
-                {/* Exact User Text: lets talk with vian */}
-                <span className="text-xs sm:text-sm font-medium tracking-wide text-white/95 group-hover/island:text-white transition-colors capitalize font-sans">
+                {/* Sleek Linear Island Label */}
+                <span className="text-[10px] sm:text-xs font-mono font-medium tracking-tight text-white/90 group-hover/island:text-white transition-colors capitalize whitespace-nowrap">
                   lets talk with vian
                 </span>
 
                 {/* Apple Dynamic Island Live Audio Waveform Bars */}
-                <div className="flex items-center gap-0.5 pl-1 shrink-0">
-                  <span className="w-0.5 h-3 bg-cyan-400/90 rounded-full animate-[pulse_1s_ease-in-out_infinite]" />
-                  <span className="w-0.5 h-4.5 bg-cyan-300 rounded-full animate-[pulse_1.4s_ease-in-out_infinite_0.2s]" />
-                  <span className="w-0.5 h-2.5 bg-cyan-400/90 rounded-full animate-[pulse_0.9s_ease-in-out_infinite_0.4s]" />
-                  <span className="w-0.5 h-3.5 bg-cyan-300 rounded-full animate-[pulse_1.2s_ease-in-out_infinite_0.1s]" />
+                <div className="flex items-center gap-[2px] pl-0.5 shrink-0">
+                  <span className="w-[1.5px] h-2 sm:h-2.5 bg-cyan-400/90 rounded-full animate-[pulse_0.9s_ease-in-out_infinite]" />
+                  <span className="w-[1.5px] h-3 sm:h-3.5 bg-cyan-300 rounded-full animate-[pulse_1.3s_ease-in-out_infinite_0.15s]" />
+                  <span className="w-[1.5px] h-1.5 sm:h-2 bg-cyan-400/90 rounded-full animate-[pulse_0.8s_ease-in-out_infinite_0.3s]" />
                 </div>
               </button>
             </Magnetic>
