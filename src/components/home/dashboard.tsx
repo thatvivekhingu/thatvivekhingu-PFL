@@ -85,7 +85,7 @@ export default function Dashboard() {
           transitionDuration="100ms"
           cursorEmoji="✈️"
         >
-          <div className="w-full h-[170px] sm:h-[178px] flex items-center justify-center">
+          <div className="w-full h-[120px] sm:h-[135px] flex items-center justify-center">
             <Globe />
           </div>
         </GridItem>
@@ -135,7 +135,7 @@ export default function Dashboard() {
           title="Scratch Me"
           transitionDuration="600ms"
         >
-          <div className="relative w-full h-[170px] sm:h-[178px]">
+          <div className="relative w-full h-[120px] sm:h-[135px]">
             <ScratchToReveal
               minScratchPercentage={25}
               className="relative w-full h-full overflow-hidden rounded-xl"
@@ -161,9 +161,9 @@ export default function Dashboard() {
               onTouchStart={(e) => e.stopPropagation()}
               aria-label="Refresh scratch"
               title="Refresh Meme"
-              className="absolute top-2 right-2 z-20 w-7 h-7 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white/90 hover:text-white backdrop-blur-md transition-all shadow-xs group cursor-pointer border border-white/20"
+              className="absolute top-1.5 right-1.5 z-20 w-6 h-6 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white/90 hover:text-white backdrop-blur-md transition-all shadow-xs group cursor-pointer border border-white/20"
             >
-              <IconRefresh className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 duration-300" />
+              <IconRefresh className="h-3 w-3 transition-transform group-hover:rotate-180 duration-300" />
             </button>
           </div>
         </GridItem>
@@ -195,7 +195,7 @@ export default function Dashboard() {
           tooltip="Last 7 Weeks"
           cursorEmoji="💻"
         >
-          <div className="flex flex-col justify-center items-center h-[170px] sm:h-[178px] gap-2.5">
+          <div className="flex flex-col justify-center items-center h-[120px] sm:h-[135px] gap-1.5">
             {/* Heatmap */}
             <div className="flex items-center justify-center">
               <GitHubHeatmap
@@ -205,14 +205,14 @@ export default function Dashboard() {
             </div>
 
             {/* Legend */}
-            <div className="flex items-center justify-center gap-1.5 text-[10px] text-neutral-400">
+            <div className="flex items-center justify-center gap-1.5 text-[9.5px] text-neutral-400">
               <span>Less</span>
               <div className="flex gap-1 sm:gap-[3px]">
-                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-neutral-100 dark:bg-neutral-800/50" />
-                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-green-200 dark:bg-green-900/70" />
-                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-green-400 dark:bg-green-700/80" />
-                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-green-600 dark:bg-green-500/90" />
-                <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-[2px] bg-green-700 dark:bg-green-400" />
+                <div className="w-2 h-2 sm:w-2 sm:h-2 rounded-[2px] bg-neutral-100 dark:bg-neutral-800/50" />
+                <div className="w-2 h-2 sm:w-2 sm:h-2 rounded-[2px] bg-green-200 dark:bg-green-900/70" />
+                <div className="w-2 h-2 sm:w-2 sm:h-2 rounded-[2px] bg-green-400 dark:bg-green-700/80" />
+                <div className="w-2 h-2 sm:w-2 sm:h-2 rounded-[2px] bg-green-600 dark:bg-green-500/90" />
+                <div className="w-2 h-2 sm:w-2 sm:h-2 rounded-[2px] bg-green-700 dark:bg-green-400" />
               </div>
               <span>More</span>
             </div>
@@ -283,7 +283,7 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
         />
 
         <div
-          className="group/glow relative flex h-full flex-col justify-between gap-2 overflow-hidden rounded-lg border-0.75 p-4 shadow-[0px_0px_12px_0px_#ebecf0] dark:shadow-[0px_0px_27px_0px_#2D2D2D] bg-background transition-all"
+          className="group/glow relative flex h-full flex-col justify-between gap-1.5 sm:gap-2 overflow-hidden rounded-lg border-0.75 p-2.5 sm:p-3.5 shadow-[0px_0px_12px_0px_#ebecf0] dark:shadow-[0px_0px_27px_0px_#2D2D2D] bg-background transition-all"
           style={{
             transitionDuration,
           }}
@@ -291,8 +291,8 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
           <SpotlightGlow />
           <div className="relative flex flex-row items-center gap-2 sm:gap-3">
             <div className="pt-0">{icon}</div>
-            <div className="space-y-2">
-              <h3 className="text-sm sm:text-md md:text-base tracking-tight text-start font-semibold text-black dark:text-white">
+            <div className="space-y-1">
+              <h3 className="text-xs sm:text-sm md:text-base tracking-tight text-start font-semibold text-black dark:text-white">
                 {title}
               </h3>
             </div>
@@ -339,7 +339,7 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
 
 const ContactMe = () => {
   return (
-    <div className="flex flex-col gap-4 sm:p-4">
+    <div className="flex flex-col gap-2 sm:gap-3 py-1 sm:p-2">
       {data.contact.map(({ href, label, icon, aria }) => (
         <a
           key={label}
@@ -351,9 +351,9 @@ const ContactMe = () => {
         >
           {React.cloneElement(icon, {
             className:
-              "h-5 w-5 text-muted-foreground transition-all group-hover:animate-wiggle group-hover:scale-125 group-hover:text-primary",
+              "h-4 w-4 text-muted-foreground transition-all group-hover:animate-wiggle group-hover:scale-125 group-hover:text-primary",
           })}
-          <span className="text-muted-foreground transition-all group-hover:text-primary group-hover:font-bold">
+          <span className="text-xs sm:text-sm text-muted-foreground transition-all group-hover:text-primary group-hover:font-bold">
             {label}
           </span>
         </a>
@@ -554,17 +554,17 @@ const LiveWeatherTime = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center h-full select-none py-0.5 space-y-1">
+    <div className="flex flex-col justify-center h-full select-none py-0 space-y-0.5">
       <div className="flex items-baseline gap-1 font-mono">
-        <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-mono">
+        <span className="text-lg sm:text-xl font-extrabold tracking-tight text-foreground font-mono">
           {timeStr || "04:45:00"}
         </span>
-        <span className="text-[10px] font-bold text-white font-mono uppercase">
+        <span className="text-[9.5px] font-bold text-white font-mono uppercase">
           {period} IST
         </span>
       </div>
 
-      <div className="flex items-center justify-between pt-1 border-t border-border/40 text-[10px] font-mono text-neutral-400">
+      <div className="flex items-center justify-between pt-0.5 border-t border-border/40 text-[9.5px] font-mono text-neutral-400">
         <span>Ahmedabad, IN</span>
         <span className="text-white font-semibold">{isDay ? "31°C Sunny" : "31°C Clear"}</span>
       </div>
