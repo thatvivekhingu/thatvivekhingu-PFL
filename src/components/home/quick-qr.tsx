@@ -17,9 +17,8 @@ export const QuickQrWidget = () => {
     try {
       setIsGenerating(true);
       playTapSound("pop");
-      // Generate crisp pure white QR code on transparent/black
       const url = await QRCode.toDataURL(textToEncode, {
-        width: 320,
+        width: 300,
         margin: 1,
         color: {
           dark: "#000000",
@@ -56,34 +55,24 @@ export const QuickQrWidget = () => {
   };
 
   return (
-    <div className="relative flex flex-col justify-between h-full select-none">
-      {/* Top Header: QR Generator & Corner Cancel Button */}
-      <div className="flex items-center justify-between mb-1.5">
-        <div className="flex items-center gap-1.5 text-white">
-          <IconQrcode className="w-3.5 h-3.5 text-white" />
-          <span className="text-xs font-mono font-bold tracking-tight text-white uppercase">
-            QR Generator
-          </span>
-        </div>
-        {qrDataUrl && (
+    <div className="relative flex flex-col justify-center h-full select-none py-0.5">
+      {qrDataUrl ? (
+        /* Generated QR Code Preview with corner Cancel button */
+        <div className="relative flex items-center justify-between gap-2.5 p-1">
+          {/* Corner cancel button */}
           <button
             type="button"
             onClick={handleClear}
-            className="p-1 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+            aria-label="Cancel and close QR"
             title="Cancel & Clear"
+            className="absolute -top-6 right-0 p-1 text-neutral-400 hover:text-white transition-colors cursor-pointer"
           >
-            <IconX className="w-3.5 h-3.5" />
+            <IconX className="w-4 h-4" />
           </button>
-        )}
-      </div>
 
-      {/* Main Content Area */}
-      {qrDataUrl ? (
-        /* Generated QR Code Preview State */
-        <div className="relative flex items-center justify-center gap-3 py-1">
           <div
             onClick={handleDownload}
-            className="group/preview relative w-20 h-20 bg-white p-1 rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform"
+            className="group/preview relative w-16 h-16 sm:w-18 sm:h-18 bg-white p-1 rounded-md shadow-md cursor-pointer shrink-0 hover:scale-105 transition-transform"
             title="Click to Download PNG"
           >
             <img
@@ -92,23 +81,23 @@ export const QuickQrWidget = () => {
               className="w-full h-full object-contain"
             />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center rounded-md transition-opacity">
-              <IconDownload className="w-5 h-5 text-white drop-shadow" />
+              <IconDownload className="w-4 h-4 text-white drop-shadow" />
             </div>
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1.5 flex-1 min-w-0">
             <button
               type="button"
               onClick={handleDownload}
-              className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-neutral-200 text-black font-mono font-bold text-[10px] rounded transition-all active:scale-95 cursor-pointer shadow-xs"
+              className="w-full inline-flex items-center justify-center gap-1.5 h-7 bg-white hover:bg-neutral-200 text-black font-mono font-bold text-xs rounded transition-all active:scale-95 cursor-pointer shadow-xs"
             >
-              {downloaded ? <IconCheck className="w-3 h-3 text-emerald-600" /> : <IconDownload className="w-3 h-3" />}
+              {downloaded ? <IconCheck className="w-3.5 h-3.5 text-emerald-600" /> : <IconDownload className="w-3.5 h-3.5" />}
               <span>{downloaded ? "Saved" : "Download"}</span>
             </button>
             <button
               type="button"
               onClick={handleClear}
-              className="inline-flex items-center gap-1 px-2 py-1 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 font-mono text-[10px] rounded transition-all cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-1 h-6 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 font-mono text-[11px] rounded transition-all cursor-pointer"
             >
               <IconX className="w-3 h-3" />
               <span>Cancel</span>
@@ -117,7 +106,7 @@ export const QuickQrWidget = () => {
         </div>
       ) : (
         /* Input & Generate QR Button State */
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5 w-full">
           <input
             ref={inputRef}
             type="text"

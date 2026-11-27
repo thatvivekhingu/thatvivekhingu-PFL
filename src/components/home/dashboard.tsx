@@ -553,25 +553,19 @@ const LiveWeatherTime = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-between h-full pt-0.5 space-y-2 select-none">
-      <div className="flex items-baseline gap-1.5 font-mono">
-        <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground font-mono">
+    <div className="flex flex-col justify-center h-full select-none py-0.5 space-y-1">
+      <div className="flex items-baseline gap-1 font-mono">
+        <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-mono">
           {timeStr || "04:45:00"}
         </span>
-        <span className="text-[11px] font-bold text-cyan-400 font-mono uppercase">
+        <span className="text-[10px] font-bold text-white font-mono uppercase">
           {period} IST
         </span>
       </div>
 
-      <div className="flex items-center justify-between pt-1.5 border-t border-border/40 text-[11px]">
-        <div className="flex items-center gap-1.5 text-muted-foreground font-mono">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>Ahmedabad, IN</span>
-        </div>
-        <div className="flex items-center gap-1 font-semibold text-amber-500 dark:text-amber-400 font-mono">
-          {isDay ? <IconSun className="w-3.5 h-3.5" /> : <IconMoon className="w-3.5 h-3.5 text-cyan-400" />}
-          <span>31°C {isDay ? "Sunny" : "Clear"}</span>
-        </div>
+      <div className="flex items-center justify-between pt-1 border-t border-border/40 text-[10px] font-mono text-neutral-400">
+        <span>Ahmedabad, IN</span>
+        <span className="text-white font-semibold">{isDay ? "31°C Sunny" : "31°C Clear"}</span>
       </div>
     </div>
   );

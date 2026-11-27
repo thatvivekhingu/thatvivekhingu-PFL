@@ -110,9 +110,9 @@ export default function RootLayout({
                 alt="Minecraft Voxel World Cross Section"
                 fill
                 priority
-                className="object-cover object-top opacity-35 sm:opacity-40 mix-blend-screen scale-100"
+                className="object-cover object-top opacity-45 sm:opacity-55 scale-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/75 to-black/85 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/75 pointer-events-none" />
             </div>
 
             <Image
