@@ -33,15 +33,36 @@ export function VianAssistant() {
     };
   }, []);
 
-  // Prevent background scrolling when assistant modal is open
+  // Prevent background scrolling when assistant modal is open (robust mobile touch + desktop lock)
   useEffect(() => {
-    if (isOpen) {
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = originalOverflow;
-      };
-    }
+    if (!isOpen) return;
+
+    const scrollY = window.scrollY;
+    const originalBodyStyle = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+      touchAction: document.body.style.touchAction,
+    };
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    document.body.style.touchAction = "none";
+
+    return () => {
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.overflow = originalBodyStyle.overflow;
+      document.body.style.position = originalBodyStyle.position;
+      document.body.style.top = originalBodyStyle.top;
+      document.body.style.width = originalBodyStyle.width;
+      document.body.style.touchAction = originalBodyStyle.touchAction;
+      window.scrollTo(0, scrollY);
+    };
   }, [isOpen]);
 
   const {
@@ -202,36 +223,40 @@ export function VianAssistant() {
       {/* iPhone 17 Pro Max Interactive Phone Modal */}
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2.5 sm:p-6 overflow-hidden overscroll-none touch-none">
             {/* Dimmed Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
               onClick={handleClose}
-              className="fixed inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-md cursor-pointer"
+              className="fixed inset-0 bg-black/65 dark:bg-black/80 backdrop-blur-md cursor-pointer"
             />
 
-            {/* iPhone Pro Sleek Device Frame Container (Exact slim proportions matching screenshot) */}
+            {/* Apple Dynamic Island Expansion Frame (Blooms outward from top pill with Apple spring physics) */}
             <motion.div
               ref={phoneContainerRef}
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ type: "spring", damping: 26, stiffness: 320 }}
-              className="relative z-10 flex flex-col overflow-hidden rounded-[48px] sm:rounded-[52px] border-[4px] sm:border-[5px] border-[#18181b] bg-[#0c0c0e] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.12)] w-full max-w-[360px] sm:max-w-[372px] h-[86vh] max-h-[770px] min-h-[560px]"
+              initial={{ opacity: 0, scale: 0.84, y: -45, scaleY: 0.72 }}
+              animate={{ opacity: 1, scale: 1, y: 0, scaleY: 1 }}
+              exit={{ opacity: 0, scale: 0.84, y: -45, scaleY: 0.72 }}
+              transition={{ type: "spring", damping: 28, stiffness: 350, mass: 0.82 }}
+              style={{ transformOrigin: "top center" }}
+              className="relative z-10 flex flex-col overflow-hidden rounded-[44px] sm:rounded-[52px] border-[4px] sm:border-[5px] border-[#18181b] bg-[#0c0c0e] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.14)] w-full max-w-[360px] sm:max-w-[372px] h-[86vh] max-h-[770px] min-h-[540px] touch-auto overscroll-contain"
             >
               {/* Phone Inner Screen Display (Seamless Edge-to-Edge) */}
-              <div className="relative flex flex-col flex-1 w-full h-full overflow-hidden rounded-[44px] sm:rounded-[47px] bg-[#f0ede6] dark:bg-[#0b141a] text-slate-900 dark:text-zinc-100 shadow-inner">
+              <div className="relative flex flex-col flex-1 w-full h-full overflow-hidden rounded-[40px] sm:rounded-[47px] bg-[#f0ede6] dark:bg-[#0b141a] text-slate-900 dark:text-zinc-100 shadow-inner">
                 
-                {/* iPhone Status Bar & Dynamic Island (Matching WhatsApp Header) */}
+                {/* iPhone Status Bar & Dynamic Island (Matching Apple iOS) */}
                 <div className="relative shrink-0 w-full pt-2.5 pb-1 px-5 flex items-center justify-between text-[11px] font-semibold text-slate-900 dark:text-zinc-200 z-30 select-none bg-[#f6f4f0]/95 dark:bg-[#1f2c34]">
                   {/* Left Clock */}
                   <span className="font-semibold tracking-tight text-slate-900 dark:text-zinc-100 pl-1 font-sans">09:41</span>
 
                   {/* Dynamic Island Notch Center */}
-                  <div className="h-5.5 w-24 sm:w-26 rounded-full bg-black flex items-center justify-between px-2.5 shadow-sm">
-                    <span className="h-2 w-2 rounded-full bg-[#18181b] ring-1 ring-neutral-800" />
+                  <div className="h-5.5 w-24 sm:w-26 rounded-full bg-black flex items-center justify-between px-2.5 shadow-md border border-white/5">
+                    <span className="h-2 w-2 rounded-full bg-[#18181b] ring-1 ring-neutral-800 flex items-center justify-center">
+                      <span className="h-0.5 w-0.5 rounded-full bg-cyan-400/90 shadow-[0_0_3px_#22d3ee]" />
+                    </span>
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/80 animate-pulse" />
                   </div>
 
@@ -332,9 +357,27 @@ export function VianAssistant() {
                   isSpeaking={isSpeaking}
                 />
 
-                {/* iPhone Bottom Home Indicator Bar */}
-                <div className="shrink-0 pt-1 pb-1 flex justify-center bg-[#f0f2f5] dark:bg-[#202c33]">
-                  <div className="w-32 h-1 bg-slate-400 dark:bg-neutral-600 rounded-full" />
+                {/* Interactive iPhone Bottom Home Indicator Bar (Tap or Swipe up to go Home) */}
+                <div className="shrink-0 pt-2 pb-2.5 flex flex-col items-center justify-center bg-[#f0f2f5] dark:bg-[#202c33] select-none border-t border-black/[0.04] dark:border-white/5">
+                  <motion.button
+                    type="button"
+                    onClick={handleClose}
+                    drag="y"
+                    dragConstraints={{ top: 0, bottom: 0 }}
+                    dragElastic={{ top: 0.65, bottom: 0 }}
+                    onDragEnd={(_e, info) => {
+                      if (info.offset.y < -25 || info.velocity.y < -200) {
+                        handleClose();
+                      }
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.92, opacity: 0.6 }}
+                    aria-label="Home Indicator - Tap or swipe up to go Home"
+                    title="Tap or swipe up to return Home"
+                    className="group relative flex items-center justify-center py-1.5 px-6 cursor-pointer touch-none"
+                  >
+                    <div className="w-32 h-1.5 bg-slate-400/90 dark:bg-neutral-500/90 group-hover:bg-slate-600 dark:group-hover:bg-white/80 active:bg-slate-800 dark:active:bg-white rounded-full transition-all duration-200 shadow-xs" />
+                  </motion.button>
                 </div>
               </div>
             </motion.div>

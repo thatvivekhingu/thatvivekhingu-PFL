@@ -11,14 +11,6 @@ interface VianMessageListProps {
   onSelectPrompt?: (prompt: string) => void;
 }
 
-const QUICK_PROMPTS = [
-  "👋 Hey Vivek! Kya chal raha hai?",
-  "🚀 Tell me about your top AI builds",
-  "🏆 Flinders AI Hackathon Win",
-  "💼 Let's collaborate on an AI project",
-  "🍵 Chai & Tech Discussion",
-];
-
 export function VianMessageList({
   messages,
   isGenerating,
@@ -56,27 +48,6 @@ export function VianMessageList({
           onRegenerate={onRegenerate}
         />
       ))}
-
-      {/* WhatsApp Quick Reply Suggestion Chips (Visible on initial greeting) */}
-      {messages.length <= 1 && onSelectPrompt && (
-        <div className="pt-1 pl-9 pr-1 space-y-1.5 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <p className="text-[10px] font-mono font-medium text-slate-500 dark:text-[#8696a0] select-none">
-            QUICK REPLIES:
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {QUICK_PROMPTS.map((prompt) => (
-              <button
-                key={prompt}
-                type="button"
-                onClick={() => onSelectPrompt(prompt)}
-                className="px-3 py-1.5 rounded-full bg-white dark:bg-[#202c33] border border-[#00a884]/35 dark:border-[#25d366]/30 text-[11.5px] font-sans font-medium text-slate-800 dark:text-[#e9edef] hover:bg-[#00a884]/10 dark:hover:bg-[#25d366]/10 active:scale-95 transition-all shadow-[0_1px_0.5px_rgba(0,0,0,0.08)] cursor-pointer text-left"
-              >
-                {prompt}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* WhatsApp Real-time Typing Bubble */}
       {isGenerating && (

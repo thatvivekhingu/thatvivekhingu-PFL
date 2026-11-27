@@ -24,7 +24,7 @@ export interface VianSession {
 
 export type DateGroup = "Today" | "Yesterday" | "Previous 7 Days" | "Earlier";
 
-const STORAGE_KEY = "vian_sessions_v3";
+const STORAGE_KEY = "vian_sessions_v4";
 
 const generateSessionId = () => `session-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 
@@ -42,8 +42,8 @@ const getDateGroup = (timestamp: number): DateGroup => {
 export const createWelcomeMessage = (): VianMessageItem => ({
   id: `welcome-${Date.now()}`,
   role: "assistant",
-  content: "Hey! 👋 Vivek here. Kaise ho? Welcome to my chat! Ask me anything about my AI models, agentic systems, hackathons, or let's collaborate on an idea.",
-  timestamp: Date.now() - 1000 * 60,
+  content: "Hey! How can I help you today?",
+  timestamp: Date.now(),
 });
 
 export function useVianSessions() {
