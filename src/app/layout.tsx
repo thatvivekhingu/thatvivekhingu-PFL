@@ -12,7 +12,7 @@ import { getAllPosts } from "@/lib/blog";
 import { ViewTransitions } from "next-view-transitions";
 import { VianAssistant } from "@/components/vian/VianAssistant";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
-import { InteractiveCursor } from "@/components/ui/interactive-cursor";
+import { CanvasCursorTrail } from "@/components/ui/canvas-cursor-trail";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -102,6 +102,19 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <Navbar navItems={data.nav} />
             <CommandPalette posts={palettePosts} />
+            
+            {/* Seamless Vertical Cross-Section Minecraft Voxel World Background */}
+            <div className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
+              <Image
+                src="/images/minecraft-bg.jpg"
+                alt="Minecraft Voxel World Cross Section"
+                fill
+                priority
+                className="object-cover object-top opacity-35 sm:opacity-40 mix-blend-screen scale-100"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/75 to-black/85 pointer-events-none" />
+            </div>
+
             <Image
               src="/layout/background-ellipse3.svg"
               alt=""
@@ -117,7 +130,7 @@ export default function RootLayout({
             </SmoothScroll>
             <Footer />
             <VianAssistant />
-            <InteractiveCursor />
+            <CanvasCursorTrail />
           </ThemeProvider>
 
           <Analytics />

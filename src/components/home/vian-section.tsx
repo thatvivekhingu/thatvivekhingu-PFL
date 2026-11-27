@@ -58,7 +58,6 @@ export default function VianSection() {
                   e.stopPropagation();
                   handleOpenVian();
                 }}
-                data-cursor="Talk"
                 aria-label="Say hi to Vian"
                 className="group/island relative flex items-center gap-1.5 sm:gap-2.5 px-2.5 py-0.5 sm:px-4 sm:py-1.5 h-6 sm:h-8.5 rounded-full bg-black/95 hover:bg-black backdrop-blur-2xl border border-white/15 hover:border-cyan-400/50 shadow-[0_4px_24px_rgba(0,0,0,0.85),0_0_15px_rgba(34,211,238,0.2)] hover:shadow-[0_6px_28px_rgba(34,211,238,0.4)] transition-all duration-300 ease-out active:scale-95 cursor-pointer select-none"
               >

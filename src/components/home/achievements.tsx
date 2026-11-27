@@ -539,7 +539,6 @@ function CertFlipCard({
         playTapSound("pop");
         setIsFlipped((prev) => !prev);
       }}
-      data-cursor="Flip"
     >
       <div
         className={cn(

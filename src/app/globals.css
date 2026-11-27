@@ -110,6 +110,19 @@ body {
   color: var(--foreground);
 }
 
+@media (pointer: fine) {
+  html,
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
+    cursor: none !important;
+  }
+}
+
 
 
 .perspective-1000 {

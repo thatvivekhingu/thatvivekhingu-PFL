@@ -243,7 +243,6 @@ export default function Hero() {
                         onMouseMove={handleCtaMove}
                         onClick={() => playTapSound("pop")}
                         href="#projects"
-                        data-cursor="View"
                         className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg active:scale-95"
                       >
                         <span
@@ -267,7 +266,6 @@ export default function Hero() {
                           playTapSound("chime");
                           setIsResumeOpen(true);
                         }}
-                        data-cursor="Open"
                         className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border/60 bg-background/50 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-foreground transition-all hover:border-border hover:shadow-lg active:scale-95 cursor-pointer"
                       >
                         <span

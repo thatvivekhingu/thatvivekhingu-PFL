@@ -198,7 +198,6 @@ export default function SkillsStack() {
         onClick={() => handleTileClick(item)}
         onMouseEnter={() => setHoveredItem(item)}
         onMouseLeave={() => setHoveredItem(null)}
-        data-cursor={item.name}
         className="group relative shrink-0 cursor-pointer select-none p-1.5"
       >
         {/* Mobile App Icon Squircle Tile (Full Bleed, ZERO Padding) */}

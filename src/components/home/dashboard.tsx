@@ -2,7 +2,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconSun, IconMoon, IconSparkles, IconRobot } from "@tabler/icons-react";
+import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconSun, IconMoon, IconSparkles, IconRobot, IconQrcode } from "@tabler/icons-react";
+import { QuickQrWidget } from "./quick-qr";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { Globe } from "@/components/ui/globe";
 import styles from "./dashboard.module.css";
@@ -136,20 +137,20 @@ export default function Dashboard() {
         >
           <div className="relative">
             <ScratchToReveal
-              minScratchPercentage={18}
-              className="flex items-center h-28 sm:h-38 justify-center overflow-hidden rounded-md bg-background"
-              gradientColors={["#A97CF933", "#F38CB933", "#FDCC9233"]}
+              minScratchPercentage={35}
+              className="flex items-center h-24 sm:h-35 justify-center overflow-hidden rounded-md bg-background"
+              gradientColors={["#1e1b4b", "#4c1d95", "#831843"]}
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
             >
               {scratchGif && (
-                <div className="relative w-full h-full flex items-center justify-center p-1 sm:p-2">
+                <div className="relative w-full h-full flex items-center justify-center p-1">
                   <Image
                     src={scratchGif}
                     alt="Scratch to reveal"
-                    width={320}
-                    height={220}
-                    className="max-h-24 sm:max-h-34 w-auto max-w-full object-contain rounded-md shadow-md"
+                    width={180}
+                    height={140}
+                    className="h-14 sm:h-16 w-auto object-contain rounded shadow-xs"
                     unoptimized
                   />
                 </div>
@@ -161,7 +162,7 @@ export default function Dashboard() {
               onMouseDown={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
               aria-label="Refresh scratch"
-              className="absolute top-1 right-1 z-10 p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-background/80 backdrop-blur-xs transition-colors group cursor-pointer"
+              className="absolute top-1 right-1 z-20 p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-background/80 backdrop-blur-xs transition-colors group cursor-pointer"
             >
               <IconRefresh className="h-4 w-4 transition-transform group-hover:rotate-180 duration-300" />
             </button>
@@ -169,13 +170,13 @@ export default function Dashboard() {
         </GridItem>
         <GridItem
           area="hours"
-          icon={<IconRobot className={dashboardIconClass} />}
-          title="Ask My AI"
+          icon={<IconQrcode className={dashboardIconClass} />}
+          title="QUICK QR"
           transitionDuration="800ms"
-          tooltip="Powered by VIAN Multi-Agent RAG"
-          cursorEmoji="🤖"
+          tooltip="Client-Side QR Engine"
+          cursorEmoji="⚡"
         >
-          <AskMyAI />
+          <QuickQrWidget />
         </GridItem>
         <GridItem
           area="coffees"

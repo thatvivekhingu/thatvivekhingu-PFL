@@ -63,7 +63,6 @@ export function TiltCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      data-cursor={dataCursor}
       data-tilt="true"
       style={{
         rotateX,

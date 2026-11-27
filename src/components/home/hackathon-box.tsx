@@ -96,7 +96,6 @@ export default function HackathonBox() {
             <button
               type="button"
               onClick={toggleOpen}
-              data-cursor="Open"
               className="inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-[#FAF9F5] hover:bg-white text-black font-mono font-bold text-xs sm:text-sm tracking-wider border-2 border-black shadow-[4px_4px_0px_#3B82F6] hover:shadow-[5px_5px_0px_#3B82F6] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer shrink-0"
             >
               <span>{isOpen ? "HIDE CERTIFICATES" : "VIEW CERTIFICATES"}</span>

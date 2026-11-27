@@ -113,7 +113,6 @@ export const Navbar = ({
           <div className="flex items-center mr-1 sm:mr-8 flex-shrink-0">
             <button
               onClick={handleLogoClick}
-              data-cursor="Home"
               className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-zinc-700/80 hover:border-cyan-400 ring-2 ring-cyan-500/30 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md flex items-center justify-center shrink-0 cursor-pointer"
               title="Vivek Hingu"
               aria-label="Vivek Hingu Home"
@@ -135,7 +134,6 @@ export const Navbar = ({
               <Magnetic key={`link=${idx}`} strength={0.25}>
                 <button
                   onClick={() => handleNavClick(navItem.link)}
-                  data-cursor="Nav"
                   className={cn(
                     "relative font-sans font-semibold text-zinc-900 dark:text-zinc-100 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white transition-all duration-200 cursor-pointer text-xs sm:text-[14.5px] tracking-normal sm:tracking-wide shrink-0"
                   )}

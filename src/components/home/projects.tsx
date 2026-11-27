@@ -383,7 +383,6 @@ export default function Projects() {
                     tabIndex={0}
                     style={{ "--book-h": `${vol.heightPx}px` } as React.CSSProperties}
                     className={`book-slot ${leaningClass} ${pulledClass} snap-center shrink-0 active:scale-95 transition-transform`}
-                    data-cursor="Open"
                     aria-label={`Volume ${vol.code}: ${vol.title}`}
                     onMouseEnter={() => {
                       playTapSound("pop");
@@ -499,7 +498,6 @@ export default function Projects() {
               className={`work-row py-4 sm:py-7 lg:py-8 px-3 sm:px-4 grid grid-cols-12 items-center gap-y-2 sm:gap-y-3 gap-x-4 rounded-xl sm:rounded-none active:bg-white/5 active:scale-[0.99] transition-all cursor-pointer ${
                 isActive ? "is-active" : ""
               }`}
-              data-cursor="Open"
               aria-label={`${proj.code} ${proj.title}`}
               onMouseEnter={() => {
                 setActiveId(proj.id);

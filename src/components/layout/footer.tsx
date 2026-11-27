@@ -365,7 +365,7 @@ export const Footer = () => {
                   className="overflow-hidden border-x border-black/30"
                 />
 
-                {/* 6. BACK COVER: SYNOPSIS, BARCODE, ISBN & SPECS */}
+                {/* 6. BACK COVER: REAL UPLOADED BOOK COVER ARTWORK */}
                 <div
                   style={{
                     position: "absolute",
@@ -375,65 +375,24 @@ export const Footer = () => {
                     backfaceVisibility: "hidden",
                     backgroundColor: "#FAF9F5",
                   }}
-                  className="w-full h-full rounded-l-[3px] rounded-r-[1px] text-black border-2 border-black p-4 flex flex-col justify-between overflow-hidden shadow-[0_15px_35px_rgba(0,0,0,0.6)]"
+                  className="w-full h-full rounded-l-[3px] rounded-r-[1px] overflow-hidden border-2 border-black/80 shadow-[0_15px_35px_rgba(0,0,0,0.6)]"
                 >
-                  <div className="flex flex-col justify-between h-full">
-                    <div>
-                      {/* Top Bar */}
-                      <div className="flex items-center justify-between border-b border-black/20 pb-1.5 mb-2.5">
-                        <span className="font-[family-name:var(--font-anton)] text-xs tracking-wider uppercase text-black">
-                          VIVEK HINGU • VOL. 01
-                        </span>
-                        <span className="font-mono text-[9px] font-bold text-neutral-600">
-                          FIRST EDITION 2026
-                        </span>
-                      </div>
+                  <Image
+                    src="/images/manga-back-cover.jpg"
+                    alt="Vivek Hingu Manga Back Cover"
+                    fill
+                    sizes="(max-width: 640px) 260px, (max-width: 768px) 280px, 300px"
+                    priority
+                    className="object-cover object-center w-full h-full"
+                  />
 
-                      {/* Manga Synopsis */}
-                      <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-black mb-1">
-                        SYNOPSIS: THE AI ARCHITECT
-                      </h4>
-                      <p className="text-[10px] sm:text-[11px] leading-relaxed text-neutral-700 italic border-l-2 border-[#B92B27] pl-2 mb-3">
-                        &quot;From training neural networks from scratch to engineering real-time multi-agent workflows and voice intelligence, Vivek Hingu chronicles his journey across Applied AI and creative web systems.&quot;
-                      </p>
-
-                      {/* Specifications Box */}
-                      <div className="bg-black/5 rounded p-2.5 border border-black/15 text-[9px] sm:text-[10px] font-mono flex flex-col gap-1.5 text-neutral-800">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-black font-bold">▶ PRODUCTION:</span>
-                          <span>10+ Autonomous AI Systems</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-black font-bold">▶ CORE STACK:</span>
-                          <span>Next.js, PyTorch, LLMs, Three.js</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-black font-bold">▶ HONORS:</span>
-                          <span>Flinders AI &amp; HackOut Winner</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bottom Barcode & ISBN */}
-                    <div className="border-t border-black/20 pt-2.5 flex items-end justify-between">
-                      <div className="flex flex-col">
-                        <div className="font-mono text-sm tracking-tighter leading-none select-none text-black">
-                          |||| ||| || |||||| | |||| ||
-                        </div>
-                        <span className="font-mono text-[8px] text-neutral-600 mt-1">
-                          ISBN 978-0-123456-78-9
-                        </span>
-                      </div>
-                      <div className="flex flex-col items-end">
-                        <span className="text-[8px] font-mono font-bold text-amber-900 bg-amber-400/30 px-1.5 py-0.5 rounded-[2px] uppercase border border-amber-500/40">
-                          1 CUP OF CHAI ☕
-                        </span>
-                        <span className="text-[8px] font-mono font-semibold text-neutral-500 uppercase mt-0.5">
-                          MADE IN GUJARAT
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  {/* Subtle paper sheen overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-30"
+                    style={{
+                      background: "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.2) 50%, transparent 65%)",
+                    }}
+                  />
                 </div>
               </motion.div>
             </div>

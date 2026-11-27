@@ -186,8 +186,9 @@ export function Globe({
   const updateMovement = (clientX: number) => {
     if (pointerInteracting.current !== null) {
       const delta = clientX - pointerInteracting.current;
+      pointerInteracting.current = clientX;
       pointerInteractionMovement.current = delta;
-      r.set(r.get() + delta / MOVEMENT_DAMPING);
+      r.set(r.get() + delta / 260);
     }
   };
 
@@ -493,25 +494,34 @@ export function Globe({
   return (
     <div
       className={cn(
-        "absolute inset-0 mt-8 mx-auto aspect-[1/1] w-full max-w-[450px]",
+        "absolute inset-0 mt-8 mx-auto aspect-[1/1] w-full max-w-[450px] touch-none select-none",
         className
       )}
     >
       <canvas
         className={cn(
-          "size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]"
+          "size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size] touch-none cursor-grab active:cursor-grabbing"
         )}
         ref={canvasRef}
         onPointerDown={(e) => {
-          pointerInteracting.current = e.clientX;
           updatePointerInteraction(e.clientX);
         }}
         onPointerUp={() => updatePointerInteraction(null)}
         onPointerOut={() => updatePointerInteraction(null)}
+        onPointerCancel={() => updatePointerInteraction(null)}
         onMouseMove={(e) => updateMovement(e.clientX)}
-        onTouchMove={(e) =>
-          e.touches[0] && updateMovement(e.touches[0].clientX)
-        }
+        onTouchStart={(e) => {
+          if (e.touches[0]) {
+            updatePointerInteraction(e.touches[0].clientX);
+          }
+        }}
+        onTouchMove={(e) => {
+          if (e.touches[0]) {
+            updateMovement(e.touches[0].clientX);
+          }
+        }}
+        onTouchEnd={() => updatePointerInteraction(null)}
+        onTouchCancel={() => updatePointerInteraction(null)}
       />
       <canvas
         ref={overlayRef}
