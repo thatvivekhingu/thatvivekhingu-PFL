@@ -86,6 +86,10 @@ export function VianMessage({
                 Vian
               </span>
 
+              {message.trace && message.trace.length > 0 && (
+                <VianAgentWorkflowTrace trace={message.trace} />
+              )}
+
               <MarkdownContent content={message.content} />
 
               {/* Render Tool Action Cards if any */}

@@ -1,11 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-interface VianEmptyStateProps {
-  onSelectPrompt?: (prompt: string) => void;
-}
-
-export function VianEmptyState({ onSelectPrompt }: VianEmptyStateProps) {
+export function VianEmptyState() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center p-4 sm:p-6 text-center select-none">
       {/* WhatsApp Profile Avatar Card */}

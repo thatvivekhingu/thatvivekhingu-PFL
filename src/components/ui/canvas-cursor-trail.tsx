@@ -24,7 +24,6 @@ export function CanvasCursorTrail() {
 
     let mouseX = -100;
     let mouseY = -100;
-    let isMoving = false;
     let animationId: number;
     const MAX_FRAMES = 20;
     let points: TrailPoint[] = [];
@@ -40,13 +39,11 @@ export function CanvasCursorTrail() {
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      isMoving = true;
       // Add current position to ribbon trail
       points.push({ x: mouseX, y: mouseY, age: 0 });
     };
 
     const onMouseLeave = () => {
-      isMoving = false;
       mouseX = -100;
       mouseY = -100;
     };
@@ -76,7 +73,7 @@ export function CanvasCursorTrail() {
           ctx.beginPath();
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = gba(6, 182, 212, );
+          ctx.strokeStyle = `rgba(6, 182, 212, ${opacity})`;
           ctx.lineWidth = strokeWidth;
           ctx.lineCap = "round";
           ctx.lineJoin = "round";
@@ -97,7 +94,7 @@ export function CanvasCursorTrail() {
         ctx.save();
         ctx.beginPath();
         ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = gba(6, 182, 212, );
+        ctx.fillStyle = `rgba(6, 182, 212, ${opacity})`;
         ctx.shadowColor = "#06b6d4";
         ctx.shadowBlur = 6 * (1 - progress);
         ctx.fill();

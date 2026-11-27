@@ -8,7 +8,6 @@ interface TiltCardProps {
   className?: string;
   maxTilt?: number;
   glareOpacity?: number;
-  dataCursor?: string;
 }
 
 export function TiltCard({
@@ -16,7 +15,6 @@ export function TiltCard({
   className = "",
   maxTilt = 7,
   glareOpacity = 0.15,
-  dataCursor,
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [glarePosition, setGlarePosition] = useState({ x: 50, y: 50 });

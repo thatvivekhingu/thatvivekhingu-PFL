@@ -16,7 +16,6 @@ export function VianMessageList({
   isGenerating,
   endRef,
   onRegenerate,
-  onSelectPrompt,
 }: VianMessageListProps) {
   // Find index of the last assistant message
   const lastAssistantIdx = [...messages].reverse().findIndex((m) => m.role === "assistant");

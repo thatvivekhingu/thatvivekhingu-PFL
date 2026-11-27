@@ -2,12 +2,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconSun, IconMoon, IconSparkles, IconRobot, IconQrcode } from "@tabler/icons-react";
+import { IconTool, IconLink, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconSun, IconQrcode } from "@tabler/icons-react";
 import { QuickQrWidget } from "./quick-qr";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { Globe } from "@/components/ui/globe";
 import styles from "./dashboard.module.css";
-import { NumberTicker } from "@/components/ui/number-ticker";
 import { Marquee } from "@/components/ui/marquee";
 import {
   Tooltip,
@@ -19,10 +18,8 @@ import Image from "next/image";
 import { data, getNextScratchMeme } from "@/data/data";
 import { useTheme } from "next-themes";
 import { ScratchToReveal } from "../magicui/scratch-to-reveal";
-import { useWakaTime } from "@/hooks/useWakaTime";
 import { useSpotify } from "@/hooks/useSpotify";
 import { useGitHub } from "@/hooks/useGitHub";
-import { Spotlight } from "@/components/ui/spotlight";
 import { useAlbumColor } from "@/hooks/useAlbumColor";
 import { GitHubHeatmap } from "./github-heatmap";
 import { SoundWave } from "@/components/ui/sound-wave";
@@ -33,9 +30,6 @@ import { LottiePlayer } from "@/components/ui/lottie-player";
 
 
 export default function Dashboard() {
-  const { totalHours } = useWakaTime();
-
-  const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
   const [scratchGif, setScratchGif] = useState("");
@@ -568,53 +562,6 @@ const LiveWeatherTime = () => {
         <span>Ahmedabad, IN</span>
         <span className="text-white font-semibold">{isDay ? "31°C Sunny" : "31°C Clear"}</span>
       </div>
-    </div>
-  );
-};
-
-const AskMyAI = () => {
-  const handleOpenAI = (query?: string) => {
-    playTapSound("chime");
-    if (typeof window !== "undefined") {
-      if (query) {
-        window.dispatchEvent(new CustomEvent("openVianWithQuery", { detail: { query } }));
-      } else {
-        window.dispatchEvent(new CustomEvent("openVianFresh"));
-      }
-    }
-  };
-
-  return (
-    <div className="flex flex-col justify-between h-full pt-0.5 space-y-2 select-none">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-          <span className="text-[11px] font-mono font-bold text-cyan-400 tracking-wider uppercase">
-            VIAN • ONLINE
-          </span>
-        </div>
-        <span className="text-[9.5px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-          Ask My AI
-        </span>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => handleOpenAI()}
-        className="group/btn relative w-full flex items-center justify-between px-3 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400 transition-all text-left cursor-pointer shadow-sm active:scale-95"
-      >
-        <div className="flex flex-col min-w-0 pr-2">
-          <span className="text-xs font-bold text-foreground group-hover/btn:text-cyan-400 transition-colors truncate">
-            Ask Vian anything...
-          </span>
-          <span className="text-[10px] text-muted-foreground truncate font-sans">
-            Projects, skills, hackathons &amp; career
-          </span>
-        </div>
-        <div className="h-6 w-6 rounded-lg bg-cyan-500 text-black flex items-center justify-center shrink-0 group-hover/btn:scale-110 transition-transform shadow-xs">
-          <IconSparkles className="w-3.5 h-3.5 fill-black" />
-        </div>
-      </button>
     </div>
   );
 };

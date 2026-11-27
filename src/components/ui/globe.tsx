@@ -6,8 +6,6 @@ import { useEffect, useMemo, useRef } from "react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
-const MOVEMENT_DAMPING = 1400;
-
 // Coordinates
 const AHMEDABAD = { lat: 23.0225, lng: 72.5714, name: "Ahmedabad", label: "Ahmedabad, IN" };
 

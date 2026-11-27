@@ -2,7 +2,8 @@
 
 import React, { useState, useRef } from "react";
 import QRCode from "qrcode";
-import { IconQrcode, IconX, IconDownload, IconCheck } from "@tabler/icons-react";
+import Image from "next/image";
+import { IconX, IconDownload, IconCheck } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 
 export const QuickQrWidget = () => {
@@ -75,10 +76,13 @@ export const QuickQrWidget = () => {
             className="group/preview relative w-16 h-16 sm:w-18 sm:h-18 bg-white p-1 rounded-md shadow-md cursor-pointer shrink-0 hover:scale-105 transition-transform"
             title="Click to Download PNG"
           >
-            <img
+            <Image
               src={qrDataUrl}
               alt="QR Code"
+              width={72}
+              height={72}
               className="w-full h-full object-contain"
+              unoptimized
             />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center rounded-md transition-opacity">
               <IconDownload className="w-4 h-4 text-white drop-shadow" />

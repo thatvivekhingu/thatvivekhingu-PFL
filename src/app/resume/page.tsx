@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import {
   IconDownload,
   IconPrinter,
@@ -13,9 +12,6 @@ import {
   IconPhone,
   IconAward,
   IconBook,
-  IconCode,
-  IconCpu,
-  IconSparkles,
   IconArrowLeft,
   IconCheck,
   IconSchool,

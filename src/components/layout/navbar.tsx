@@ -1,5 +1,5 @@
 "use client";
-import React, { JSX, useState, useEffect } from "react";
+import React, { JSX, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -8,8 +8,6 @@ import {
 } from "motion/react";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "../theme-toggle";
-import { useTheme } from "next-themes";
-import { AnimatedLogo } from "../ui/logo-animation"
 import { useTransitionRouter } from "next-view-transitions";
 import { CommandPaletteButton } from "../command-palette/command-palette-button";
 import { IconBrandGithub, IconStar } from "@tabler/icons-react";
@@ -33,19 +31,12 @@ export const Navbar = ({
   className?: string;
 }) => {
 
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const { data: starsData, refetch: refetchStars } = useGitHubStars();
   const repoUrl = starsData?.url ?? FALLBACK_REPO_URL;
   const stars = starsData?.stars ?? 0;
   const { scrollY } = useScroll();
   const [visible, setVisible] = useState(true);
   const router = useTransitionRouter();
-
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useMotionValueEvent(scrollY, "change", (current) => {
 

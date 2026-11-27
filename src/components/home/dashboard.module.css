@@ -19,7 +19,7 @@
 @media (min-width: 700px) {
   .dashboardGrid {
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: 96px 96px minmax(0, min-content) minmax(0, min-content);
+    grid-template-rows: 108px 108px minmax(0, min-content) minmax(0, min-content);
     grid-template-areas:
       "location location location location scratch scratch github github coffees coffees"
       "location location location location scratch scratch github github hours hours"
