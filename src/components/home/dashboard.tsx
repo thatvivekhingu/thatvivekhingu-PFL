@@ -137,23 +137,21 @@ export default function Dashboard() {
         >
           <div className="relative">
             <ScratchToReveal
-              minScratchPercentage={35}
+              minScratchPercentage={20}
               className="flex items-center h-24 sm:h-35 justify-center overflow-hidden rounded-md bg-background"
-              gradientColors={["#1e1b4b", "#4c1d95", "#831843"]}
+              gradientColors={["#A97CF8", "#F38CB8", "#FDCC92"]}
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
             >
               {scratchGif && (
-                <div className="relative w-full h-full flex items-center justify-center p-1">
-                  <Image
-                    src={scratchGif}
-                    alt="Scratch to reveal"
-                    width={180}
-                    height={140}
-                    className="h-14 sm:h-16 w-auto object-contain rounded shadow-xs"
-                    unoptimized
-                  />
-                </div>
+                <Image
+                  src={scratchGif}
+                  alt="Scratch to reveal"
+                  width={100}
+                  height={100}
+                  className="h-14 sm:h-16 object-contain"
+                  unoptimized
+                />
               )}
             </ScratchToReveal>
             <button
@@ -171,7 +169,7 @@ export default function Dashboard() {
         <GridItem
           area="hours"
           icon={<IconQrcode className={dashboardIconClass} />}
-          title="QUICK QR"
+          title="QR Generator"
           transitionDuration="800ms"
           tooltip="Client-Side QR Engine"
           cursorEmoji="⚡"

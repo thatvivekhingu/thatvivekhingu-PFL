@@ -365,7 +365,7 @@ export const Footer = () => {
                   className="overflow-hidden border-x border-black/30"
                 />
 
-                {/* 6. BACK COVER: REAL UPLOADED BOOK COVER ARTWORK */}
+                {/* 6. BACK COVER: REAL BOOK COVER ARTWORK (Edge-to-Edge Bleed) */}
                 <div
                   style={{
                     position: "absolute",
@@ -373,9 +373,9 @@ export const Footer = () => {
                     transform: "translateZ(-18px) rotateY(180deg)",
                     transformStyle: "preserve-3d",
                     backfaceVisibility: "hidden",
-                    backgroundColor: "#FAF9F5",
+                    backgroundColor: "#f5f3ec",
                   }}
-                  className="w-full h-full rounded-l-[3px] rounded-r-[1px] overflow-hidden border-2 border-black/80 shadow-[0_15px_35px_rgba(0,0,0,0.6)]"
+                  className="w-full h-full rounded-l-[3px] rounded-r-[1px] overflow-hidden bg-[#f5f3ec] shadow-[0_15px_35px_rgba(0,0,0,0.6)] border border-neutral-900/60"
                 >
                   <Image
                     src="/images/manga-back-cover.jpg"
@@ -383,14 +383,18 @@ export const Footer = () => {
                     fill
                     sizes="(max-width: 640px) 260px, (max-width: 768px) 280px, 300px"
                     priority
-                    className="object-cover object-center w-full h-full"
+                    className="object-cover object-center w-full h-full scale-[1.10] origin-center"
                   />
 
-                  {/* Subtle paper sheen overlay */}
+                  {/* Tactile Book Crease Groove near spine hinge (on the right when rotated 180deg) */}
+                  <div className="absolute right-[7px] top-0 bottom-0 w-[2px] bg-gradient-to-l from-black/45 via-black/15 to-transparent pointer-events-none" />
+                  <div className="absolute right-[9px] top-0 bottom-0 w-[1px] bg-white/25 pointer-events-none" />
+
+                  {/* Subtle glossy paper sheen */}
                   <div
-                    className="absolute inset-0 pointer-events-none opacity-30"
+                    className="absolute inset-0 pointer-events-none opacity-35"
                     style={{
-                      background: "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.2) 50%, transparent 65%)",
+                      background: "linear-gradient(115deg, transparent 32%, rgba(255,255,255,0.18) 46%, rgba(255,255,255,0.28) 50%, transparent 62%)",
                     }}
                   />
                 </div>

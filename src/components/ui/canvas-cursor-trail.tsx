@@ -140,7 +140,7 @@ export function CanvasCursorTrail() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-50 select-none overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-[99999] select-none overflow-hidden"
     />
   );
 }

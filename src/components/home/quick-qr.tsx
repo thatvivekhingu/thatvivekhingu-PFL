@@ -1,76 +1,45 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import QRCode from "qrcode";
-import {
-  IconQrcode,
-  IconDownload,
-  IconCopy,
-  IconCheck,
-  IconTrash,
-  IconSparkles,
-} from "@tabler/icons-react";
+import { IconQrcode, IconX, IconDownload, IconCheck } from "@tabler/icons-react";
 import { playTapSound } from "@/lib/sound";
 
 export const QuickQrWidget = () => {
-  const [inputVal, setInputVal] = useState("https://vivekhingu.vercel.app");
+  const [inputVal, setInputVal] = useState("");
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
-  const [copied, setCopied] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [downloaded, setDownloaded] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const generateQR = async (text: string) => {
-    if (!text.trim()) {
-      setError("Please enter text or URL");
-      setQrDataUrl("");
-      return;
-    }
-
+  const generateQR = async () => {
+    const textToEncode = inputVal.trim() || "https://vivekhingu.vercel.app";
     try {
       setIsGenerating(true);
-      setError(null);
-      const url = await QRCode.toDataURL(text.trim(), {
-        width: 480,
-        margin: 1.5,
+      playTapSound("pop");
+      // Generate crisp pure white QR code on transparent/black
+      const url = await QRCode.toDataURL(textToEncode, {
+        width: 320,
+        margin: 1,
         color: {
-          dark: "#08090a",
-          light: "#22d3ee",
+          dark: "#000000",
+          light: "#ffffff",
         },
         errorCorrectionLevel: "M",
       });
       setQrDataUrl(url);
     } catch (err) {
-      console.error("QR Generation Error:", err);
-      setError("Failed to generate QR");
+      console.error(err);
     } finally {
       setIsGenerating(false);
     }
   };
 
-  useEffect(() => {
-    generateQR("https://vivekhingu.vercel.app");
-  }, []);
-
-  const handleGenerate = () => {
+  const handleClear = () => {
     playTapSound("pop");
-    generateQR(inputVal);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleGenerate();
-    }
-  };
-
-  const handleCopyText = async () => {
-    if (!inputVal) return;
-    try {
-      await navigator.clipboard.writeText(inputVal);
-      playTapSound("chime");
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {}
+    setQrDataUrl("");
+    setInputVal("");
+    setTimeout(() => inputRef.current?.focus(), 50);
   };
 
   const handleDownload = () => {
@@ -78,142 +47,97 @@ export const QuickQrWidget = () => {
     playTapSound("pop");
     const a = document.createElement("a");
     a.href = qrDataUrl;
-    a.download = `quick-qr-${Date.now()}.png`;
+    a.download = `qr-code-${Date.now()}.png`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-  };
-
-  const handleClear = () => {
-    playTapSound("pop");
-    setInputVal("");
-    setQrDataUrl("");
-    setError(null);
-    setTimeout(() => inputRef.current?.focus(), 50);
+    setDownloaded(true);
+    setTimeout(() => setDownloaded(false), 2000);
   };
 
   return (
-    <div className="flex flex-col justify-between h-full pt-0.5 space-y-2 select-none">
-      {/* Top Header Badge & Scanning Indicator */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
-          </span>
-          <span className="text-[11px] font-mono font-bold text-cyan-400 tracking-wider uppercase">
-            QUICK QR
+    <div className="relative flex flex-col justify-between h-full select-none">
+      {/* Top Header: QR Generator & Corner Cancel Button */}
+      <div className="flex items-center justify-between mb-1.5">
+        <div className="flex items-center gap-1.5 text-white">
+          <IconQrcode className="w-3.5 h-3.5 text-white" />
+          <span className="text-xs font-mono font-bold tracking-tight text-white uppercase">
+            QR Generator
           </span>
         </div>
-        <div className="flex items-center gap-1">
-          <span className="text-[9.5px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-            Client-Side
-          </span>
-        </div>
+        {qrDataUrl && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="p-1 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+            title="Cancel & Clear"
+          >
+            <IconX className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
 
-      {/* Main Interactive Content */}
-      <div className="relative flex items-center justify-between gap-2 p-1.5 sm:p-2 rounded-xl bg-cyan-950/20 border border-cyan-500/20">
-        {/* QR Code Thumbnail Preview */}
-        <div
-          onClick={handleDownload}
-          className="relative group/qr shrink-0 w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden border border-cyan-500/40 bg-cyan-950/50 flex items-center justify-center p-1 cursor-pointer transition-all hover:scale-105 hover:border-cyan-400 shadow-sm"
-          title="Click to download PNG"
-        >
-          {qrDataUrl ? (
+      {/* Main Content Area */}
+      {qrDataUrl ? (
+        /* Generated QR Code Preview State */
+        <div className="relative flex items-center justify-center gap-3 py-1">
+          <div
+            onClick={handleDownload}
+            className="group/preview relative w-20 h-20 bg-white p-1 rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform"
+            title="Click to Download PNG"
+          >
             <img
               src={qrDataUrl}
-              alt="Generated QR Code"
-              className="w-full h-full object-contain rounded-[4px]"
+              alt="QR Code"
+              className="w-full h-full object-contain"
             />
-          ) : (
-            <div className="flex flex-col items-center justify-center text-cyan-500/60">
-              <IconQrcode className="w-8 h-8 animate-pulse" />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center rounded-md transition-opacity">
+              <IconDownload className="w-5 h-5 text-white drop-shadow" />
             </div>
-          )}
-
-          {/* Futuristic Scanning Line Overlay */}
-          <div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_8px_#22d3ee] animate-[bounce_2s_infinite] pointer-events-none opacity-70" />
-        </div>
-
-        {/* Input & Action Panel */}
-        <div className="flex-1 min-w-0 flex flex-col justify-between h-16 sm:h-18 py-0.5">
-          {/* Text/URL Input */}
-          <div className="relative">
-            <input
-              ref={inputRef}
-              type="text"
-              value={inputVal}
-              onChange={(e) => {
-                setInputVal(e.target.value);
-                if (error) setError(null);
-              }}
-              onKeyDown={handleKeyDown}
-              placeholder="Paste URL or type text..."
-              className="w-full h-7 px-2 text-[11px] font-mono rounded-md bg-black/60 border border-zinc-700/80 focus:border-cyan-400 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all truncate"
-            />
           </div>
 
-          {/* Error Message */}
-          {error && (
-            <span className="text-[9px] font-mono text-rose-400 truncate">
-              {error}
-            </span>
-          )}
-
-          {/* Action Button Strip */}
-          <div className="flex items-center justify-between gap-1 mt-1">
+          <div className="flex flex-col gap-1.5">
             <button
               type="button"
-              onClick={handleGenerate}
-              disabled={isGenerating}
-              className="flex items-center gap-1 px-2 py-1 rounded bg-cyan-500 hover:bg-cyan-400 text-black font-mono font-bold text-[10px] transition-all hover:scale-102 active:scale-95 cursor-pointer shadow-xs"
-              title="Generate QR"
+              onClick={handleDownload}
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-neutral-200 text-black font-mono font-bold text-[10px] rounded transition-all active:scale-95 cursor-pointer shadow-xs"
             >
-              <IconSparkles className="w-3 h-3" />
-              <span>{qrDataUrl ? "Refresh" : "Create"}</span>
+              {downloaded ? <IconCheck className="w-3 h-3 text-emerald-600" /> : <IconDownload className="w-3 h-3" />}
+              <span>{downloaded ? "Saved" : "Download"}</span>
             </button>
-
-            <div className="flex items-center gap-1">
-              {/* Copy input text */}
-              <button
-                type="button"
-                onClick={handleCopyText}
-                disabled={!inputVal}
-                className="p-1 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-cyan-300 border border-zinc-700/60 transition-all cursor-pointer disabled:opacity-40"
-                title="Copy text to clipboard"
-              >
-                {copied ? (
-                  <IconCheck className="w-3 h-3 text-emerald-400" />
-                ) : (
-                  <IconCopy className="w-3 h-3" />
-                )}
-              </button>
-
-              {/* Download PNG */}
-              <button
-                type="button"
-                onClick={handleDownload}
-                disabled={!qrDataUrl}
-                className="p-1 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-cyan-300 border border-zinc-700/60 transition-all cursor-pointer disabled:opacity-40"
-                title="Download high-res PNG"
-              >
-                <IconDownload className="w-3 h-3" />
-              </button>
-
-              {/* Clear */}
-              <button
-                type="button"
-                onClick={handleClear}
-                className="p-1 rounded bg-zinc-800/80 hover:bg-rose-950/60 text-zinc-400 hover:text-rose-300 border border-zinc-700/60 hover:border-rose-500/40 transition-all cursor-pointer"
-                title="Clear input"
-              >
-                <IconTrash className="w-3 h-3" />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={handleClear}
+              className="inline-flex items-center gap-1 px-2 py-1 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 font-mono text-[10px] rounded transition-all cursor-pointer"
+            >
+              <IconX className="w-3 h-3" />
+              <span>Cancel</span>
+            </button>
           </div>
         </div>
-      </div>
+      ) : (
+        /* Input & Generate QR Button State */
+        <div className="flex flex-col gap-2">
+          <input
+            ref={inputRef}
+            type="text"
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && generateQR()}
+            placeholder="Enter text or URL..."
+            className="w-full h-7 px-2.5 text-xs font-mono rounded bg-neutral-900 border border-neutral-700 focus:border-white text-white placeholder:text-neutral-500 focus:outline-none transition-colors"
+          />
+
+          <button
+            type="button"
+            onClick={generateQR}
+            disabled={isGenerating}
+            className="w-full h-7 inline-flex items-center justify-center gap-1.5 bg-white hover:bg-neutral-200 text-black font-mono font-bold text-xs rounded transition-all active:scale-98 cursor-pointer shadow-sm"
+          >
+            <span>{isGenerating ? "Generating..." : "Generate QR"}</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

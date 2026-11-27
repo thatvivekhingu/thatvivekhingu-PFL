@@ -18,11 +18,11 @@ interface ScratchToRevealProps {
 export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
   width,
   height,
-  minScratchPercentage = 40,
+  minScratchPercentage = 20,
   onComplete,
   children,
   className,
-  gradientColors = ["#1e1b4b", "#4c1d95", "#831843"],
+  gradientColors = ["#A97CF8", "#F38CB8", "#FDCC92"],
   resetKey,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,24 +47,15 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
     if (!ctx) return;
 
     ctx.globalCompositeOperation = "source-over";
-    // 100% Opaque base layer
-    ctx.fillStyle = "#18181b";
+    ctx.fillStyle = "#ccc";
     ctx.fillRect(0, 0, w, h);
 
-    // Opaque metallic holographic gradient
     const gradient = ctx.createLinearGradient(0, 0, w, h);
     gradient.addColorStop(0, gradientColors[0]);
     gradient.addColorStop(0.5, gradientColors[1]);
     gradient.addColorStop(1, gradientColors[2]);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, w, h);
-
-    // Subtle scratch foil text & grid accents
-    ctx.fillStyle = "rgba(255, 255, 255, 0.22)";
-    ctx.font = "bold 11px monospace";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("✦ SCRATCH TO REVEAL ✦", w / 2, h / 2);
   };
 
   useEffect(() => {
