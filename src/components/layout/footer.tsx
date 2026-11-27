@@ -202,17 +202,6 @@ export const Footer = () => {
               className="relative group cursor-pointer [perspective:1400px] select-none my-4"
               title="Click book to inspect front / synopsis"
             >
-              {/* Background 4-pointed silver star sparkle */}
-              <div className="absolute -bottom-6 -right-6 w-24 h-24 pointer-events-none select-none text-neutral-700/40 z-0">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-full h-full drop-shadow-[0_0_12px_rgba(255,255,255,0.1)]"
-                >
-                  <path d="M12 0 C12 6.5 17.5 12 24 12 C17.5 12 12 17.5 12 24 C12 17.5 6.5 12 0 12 C6.5 12 12 6.5 12 0 Z" />
-                </svg>
-              </div>
-
               {/* Soft contact ground shadow */}
               <div
                 className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[85%] h-10 rounded-[100%] bg-black/80 blur-xl pointer-events-none z-0 transform -rotate-1 transition-opacity duration-300 group-hover:opacity-90"
