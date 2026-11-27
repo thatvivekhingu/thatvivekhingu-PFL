@@ -183,82 +183,16 @@ export const Footer = () => {
       {/* 2. MAIN HERO SPLIT SECTION (END OF VOLUME 01 + LINKS + 3D MANGA BOOK) */}
       {/* ============================================================== */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 pt-4 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
-          {/* Left Side: Bold Display Typography + 3-Column Navigation */}
-          <div className="lg:col-span-7 flex flex-col justify-between">
-            {/* Bold Headline */}
-            <h2 className="font-[family-name:var(--font-anton)] text-5xl sm:text-7xl md:text-8xl lg:text-[88px] xl:text-[96px] text-[#ECE7DC] tracking-tight leading-[0.88] uppercase select-none mb-8 sm:mb-12">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-8 items-start">
+          {/* 1. Bold Headline (Mobile: 1st / Desktop: Left Col 1-7 Row 1) */}
+          <div className="w-full lg:col-span-7 lg:col-start-1 lg:row-start-1">
+            <h2 className="font-[family-name:var(--font-anton)] text-5xl sm:text-7xl md:text-8xl lg:text-[88px] xl:text-[96px] text-[#ECE7DC] tracking-tight leading-[0.88] uppercase select-none mb-4 lg:mb-8">
               END OF VOLUME 01
             </h2>
-
-            {/* 3 Columns (Bio, Navigate, Connect) */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 pt-2 border-t border-white/5">
-              {/* Column 1: Bio */}
-              <div className="flex flex-col items-start">
-                <div
-                  onClick={handleLogoClick}
-                  className="w-10 h-10 rounded-full border border-amber-500/40 bg-neutral-950 p-1.5 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.25)] cursor-pointer hover:scale-105 transition-transform"
-                >
-                  {mounted && (
-                    <AnimatedLogo
-                      theme={resolvedTheme === "dark" ? "dark" : "light"}
-                      className="w-7 h-7"
-                    />
-                  )}
-                </div>
-                <p className="text-sm font-semibold tracking-tight text-white mt-3.5">
-                  Vivek Hingu
-                </p>
-                <p className="text-xs text-neutral-400 leading-relaxed max-w-[240px] mt-2">
-                  AI/ML Engineer, building intelligent products, predictive models, and voice AI systems.
-                </p>
-              </div>
-
-              {/* Column 2: Navigate */}
-              <div className="flex flex-col">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3.5">
-                  NAVIGATE
-                </h3>
-                <ul className="flex flex-col gap-2.5">
-                  {navLinks.map((item) => (
-                    <li key={item.name}>
-                      <button
-                        onClick={() => handleNavClick(item.link)}
-                        className="text-sm text-neutral-400 hover:text-white transition-colors text-left"
-                      >
-                        {item.name}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Column 3: Connect */}
-              <div className="flex flex-col">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3.5">
-                  CONNECT
-                </h3>
-                <ul className="flex flex-col gap-2.5">
-                  {connectLinks.map((item) => (
-                    <li key={item.label}>
-                      <a
-                        href={item.href}
-                        target={item.href.startsWith("http") ? "_blank" : undefined}
-                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="group inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors"
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
           </div>
 
-          {/* Right Side: Tactile 3D Manga Book */}
-          <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center relative pt-8 lg:pt-0">
+          {/* 2. Tactile 3D Manga Book (Mobile: 2nd, directly below headline / Desktop: Right Col 8-12 Rows 1-2) */}
+          <div className="w-full flex flex-col items-center lg:items-end justify-center relative py-4 lg:py-0 lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2">
             {/* 3D Tilted Manga Tankōbon Book */}
             <div
               ref={bookCardRef}
@@ -515,15 +449,82 @@ export const Footer = () => {
               </motion.div>
             </div>
           </div>
+
+          {/* 3. Footer Bio & Links (Mobile: 3rd, below book / Desktop: Left Col 1-7 Row 2) */}
+          <div className="w-full lg:col-span-7 lg:col-start-1 lg:row-start-2 border-t border-white/5 pt-6">
+            <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8">
+              {/* Item A: Bio */}
+              <div className="flex flex-col items-start">
+                <div
+                  onClick={handleLogoClick}
+                  className="w-10 h-10 rounded-full border border-amber-500/40 bg-neutral-950 p-1.5 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.25)] cursor-pointer hover:scale-105 transition-transform"
+                >
+                  {mounted && (
+                    <AnimatedLogo
+                      theme={resolvedTheme === "dark" ? "dark" : "light"}
+                      className="w-7 h-7"
+                    />
+                  )}
+                </div>
+                <p className="text-sm font-semibold tracking-tight text-white mt-3.5">
+                  Vivek Hingu
+                </p>
+                <p className="text-xs text-neutral-400 leading-relaxed max-w-[280px] lg:max-w-[240px] mt-2">
+                  AI/ML Engineer, building intelligent products, predictive models, and voice AI systems.
+                </p>
+              </div>
+
+              {/* Item B: Navigate & Parallel Connect (side-by-side on mobile, 2 columns on desktop) */}
+              <div className="grid grid-cols-2 gap-6 lg:contents pt-6 border-t border-white/5 lg:border-t-0 lg:pt-0">
+                {/* Column 2: Navigate */}
+                <div className="flex flex-col">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3.5">
+                    NAVIGATE
+                  </h3>
+                  <ul className="flex flex-col gap-2.5">
+                    {navLinks.map((item) => (
+                      <li key={item.name}>
+                        <button
+                          onClick={() => handleNavClick(item.link)}
+                          className="text-sm text-neutral-400 hover:text-white transition-colors text-left"
+                        >
+                          {item.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Column 3: Connect */}
+                <div className="flex flex-col">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3.5">
+                    CONNECT
+                  </h3>
+                  <ul className="flex flex-col gap-2.5">
+                    {connectLinks.map((item) => (
+                      <li key={item.label}>
+                        <a
+                          href={item.href}
+                          target={item.href.startsWith("http") ? "_blank" : undefined}
+                          rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          className="group inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors"
+                        >
+                          {item.icon}
+                          <span>{item.label}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Bar Separated by Subtle Border */}
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between items-center border-t border-white/10 pt-6 mt-12">
           <p className="text-xs text-neutral-400 leading-none">
             &copy; {new Date().getFullYear()} Vivek Hingu. All rights reserved.
-          </p>
-          <p className="text-xs text-neutral-400 leading-none">
-            Crafted with 💖 by Vivek Hingu
           </p>
         </div>
       </div>

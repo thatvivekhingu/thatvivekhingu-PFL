@@ -71,7 +71,7 @@ export default async function Home() {
       </BlurFade>
 
       {/* Main Content Sections Continued - Edge-to-Edge */}
-      <div className="w-full flex flex-col space-y-12 sm:space-y-16 md:space-y-20 px-3 sm:px-6 md:px-8 lg:px-12 pb-12 sm:pb-20">
+      <div className="w-full flex flex-col space-y-12 sm:space-y-16 md:space-y-20 px-3 sm:px-6 md:px-8 lg:px-12 pb-0 sm:pb-4">
         <BlurFade delay={BLUR_FADE_DELAY * 7} offset={0} inView>
           <section id="earth" className="scroll-mt-16 sm:scroll-mt-24 w-full">
             <Earth photos={sunsetPhotos} />

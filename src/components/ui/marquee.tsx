@@ -35,10 +35,15 @@ interface MarqueeProps extends ComponentPropsWithoutRef<"div"> {
    * @default false
    */
   paused?: boolean;
+  /**
+   * Optional CSS class name for the inner track wrapper
+   */
+  innerClassName?: string;
 }
 
 export function Marquee({
   className,
+  innerClassName,
   reverse = false,
   pauseOnHover = false,
   children,
@@ -70,7 +75,7 @@ export function Marquee({
               "group-hover:[animation-play-state:paused]": pauseOnHover,
               "[animation-play-state:paused]": paused,
               "[animation-direction:reverse]": reverse,
-            })}
+            }, innerClassName)}
           >
             {children}
           </div>
