@@ -116,7 +116,7 @@ export default function RootLayout({
                 alt="Minecraft Atmosphere Desktop"
                 fill
                 priority
-                className="hidden md:block object-cover object-center opacity-45 sm:opacity-55 scale-100"
+                className="hidden md:block object-cover object-center opacity-85 sm:opacity-90 scale-100"
               />
               {/* Mobile View */}
               <Image
@@ -124,9 +124,9 @@ export default function RootLayout({
                 alt="Minecraft Atmosphere Mobile"
                 fill
                 priority
-                className="block md:hidden object-cover object-top opacity-50 scale-100"
+                className="block md:hidden object-cover object-top opacity-85 scale-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/75 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/35 to-black/50 pointer-events-none" />
             </div>
 
             <Image
