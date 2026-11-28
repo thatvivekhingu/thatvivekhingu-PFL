@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { IconTool, IconLink, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconSun, IconQrcode } from "@tabler/icons-react";
+import { IconTool, IconLink, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconQrcode } from "@tabler/icons-react";
 import { QuickQrWidget } from "./quick-qr";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { Globe } from "@/components/ui/globe";
@@ -171,16 +171,7 @@ export default function Dashboard() {
         >
           <QuickQrWidget />
         </GridItem>
-        <GridItem
-          area="coffees"
-          icon={<IconSun className={dashboardIconClass} />}
-          title="Weather & Time"
-          transitionDuration="700ms"
-          tooltip="Ahmedabad, Gujarat (IST)"
-          cursorEmoji="🌤️"
-        >
-          <LiveWeatherTime />
-        </GridItem>
+
         <GridItem
           area="github"
           icon={<IconBrandGithub className={dashboardIconClass} />}
@@ -506,62 +497,4 @@ const FavoriteLanguage = () => {
     </div>
   );
 };
-
-const LiveWeatherTime = () => {
-  const [timeStr, setTimeStr] = useState("");
-  const [period, setPeriod] = useState("PM");
-  const [isDay, setIsDay] = useState(true);
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone: "Asia/Kolkata",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-      };
-      const formatter = new Intl.DateTimeFormat("en-US", options);
-      const parts = formatter.formatToParts(now);
-      const h = parts.find((p) => p.type === "hour")?.value || "12";
-      const m = parts.find((p) => p.type === "minute")?.value || "00";
-      const s = parts.find((p) => p.type === "second")?.value || "00";
-      const dayPeriod = parts.find((p) => p.type === "dayPeriod")?.value || "PM";
-
-      const hourNum = parseInt(
-        now.toLocaleTimeString("en-US", {
-          timeZone: "Asia/Kolkata",
-          hour12: false,
-          hour: "numeric",
-        }),
-        10
-      );
-      setIsDay(hourNum >= 6 && hourNum < 19);
-      setTimeStr(`${h}:${m}:${s}`);
-      setPeriod(dayPeriod);
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="flex flex-col justify-center h-full select-none py-0 space-y-0.5">
-      <div className="flex items-baseline gap-1 font-mono">
-        <span className="text-lg sm:text-xl font-extrabold tracking-tight text-foreground font-mono">
-          {timeStr || "04:45:00"}
-        </span>
-        <span className="text-[9.5px] font-bold text-white font-mono uppercase">
-          {period} IST
-        </span>
-      </div>
-
-      <div className="flex items-center justify-between pt-0.5 border-t border-border/40 text-[9.5px] font-mono text-neutral-400">
-        <span>Ahmedabad, IN</span>
-        <span className="text-white font-semibold">{isDay ? "31°C Sunny" : "31°C Clear"}</span>
-      </div>
-    </div>
-  );
-};
+

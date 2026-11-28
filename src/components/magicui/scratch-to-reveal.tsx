@@ -160,9 +160,9 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
       const percentage = (clearPixels / totalPixels) * 100;
 
+      // Only trigger completion animation when scratched sufficiently without wiping the unscratched area
       if (percentage >= minScratchPercentage) {
         setIsComplete(true);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         startAnimation();
       }
     }
@@ -186,10 +186,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       {/* Pastel lavender scratch cover canvas */}
       <canvas
         ref={canvasRef}
-        className={cn(
-          "absolute inset-0 w-full h-full z-10 rounded-xl transition-opacity duration-300 pointer-events-auto",
-          isComplete && "opacity-0 pointer-events-none"
-        )}
+        className="absolute inset-0 w-full h-full z-10 rounded-xl pointer-events-auto"
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
       />

@@ -113,49 +113,8 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Concentric Marvel Arc Reactor & Avengers Orbit - Centered mathematically on Avatar Image */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] sm:w-[580px] sm:h-[580px] md:w-[660px] md:h-[660px] lg:w-[720px] lg:h-[720px] pointer-events-none z-[10] select-none flex items-center justify-center opacity-20 dark:opacity-25 hover:opacity-35 transition-opacity duration-500">
-                  <div className="relative w-full h-full animate-[spin_80s_linear_infinite]">
-                    <svg
-                      viewBox="0 0 400 400"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-full h-full text-cyan-400/40 dark:text-cyan-400/45 drop-shadow-[0_0_8px_rgba(34,211,238,0.18)]"
-                    >
-                      <circle cx="200" cy="200" r="190" stroke="currentColor" strokeWidth="1" strokeDasharray="6 8" />
-                      <circle cx="200" cy="200" r="172" stroke="currentColor" strokeWidth="1.2" opacity="0.7" />
-                      <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="1" strokeDasharray="16 6" />
-                      <circle cx="200" cy="200" r="128" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.75" />
-                      <circle cx="200" cy="200" r="105" stroke="currentColor" strokeWidth="1" strokeDasharray="8 12" />
-                      <circle cx="200" cy="200" r="85" stroke="currentColor" strokeWidth="1.2" opacity="0.65" />
-
-                      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
-                        <line
-                          key={deg}
-                          x1="200"
-                          y1="8"
-                          x2="200"
-                          y2="26"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          transform={`rotate(${deg} 200 200)`}
-                        />
-                      ))}
-
-                      <g transform="translate(100, 100) scale(1)">
-                        <circle cx="100" cy="100" r="70" stroke="currentColor" strokeWidth="2.5" strokeDasharray="140 30" opacity="0.75" />
-                        <path d="M30 115 L160 115 L145 95 L25 95 Z" fill="currentColor" opacity="0.7" />
-                        <polygon points="155,90 185,105 155,120" fill="currentColor" />
-                        <polygon points="98,35 118,35 142,145 122,145 114,105 92,105 95,95 112,95 106,62 86,145 68,145" fill="currentColor" />
-                      </g>
-                    </svg>
-                  </div>
-                  <div className="absolute inset-10 rounded-full bg-cyan-500/8 dark:bg-cyan-400/10 blur-2xl pointer-events-none" />
-                </div>
-
-                {/* Gradient Ring & Photo */}
-                <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 opacity-70 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse" />
-                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52 lg:h-56 lg:w-56 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_30px_rgba(6,182,212,0.35)] bg-slate-950 z-20">
+                {/* Photo with clean neutral border */}
+                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52 lg:h-56 lg:w-56 rounded-full overflow-hidden border-2 border-white/20 shadow-2xl bg-slate-950 z-20">
                   <Image
                     src="/avatars/vivek.jpg"
                     alt="Vivek Hingu"
@@ -166,7 +125,7 @@ export default function Hero() {
                   />
                 </div>
                 {/* Verified AI Pulse Indicator */}
-                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 md:bottom-2.5 md:right-2.5 flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-full bg-slate-950 border-2 border-cyan-400 shadow-md z-30">
+                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 md:bottom-2.5 md:right-2.5 flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-full bg-slate-950 border-2 border-white/30 shadow-md z-30">
                   <span className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-emerald-400 animate-pulse" />
                 </div>
               </div>

@@ -17,11 +17,11 @@ export const AnimatedLogo = ({
       whileHover={{ scale: 1.12, rotate: 4 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className={`relative cursor-pointer overflow-hidden rounded-full border border-cyan-400/80 shadow-[0_0_20px_rgba(6,182,212,0.6)] hover:shadow-[0_0_30px_rgba(6,182,212,0.9)] transition-all duration-300 ${className}`}
+      className={`relative cursor-pointer overflow-hidden rounded-full border border-zinc-700/80 hover:border-zinc-500 shadow-md transition-all duration-300 ${className}`}
       title="Vivek Hingu • Home"
     >
       <Image
-        src="/logo/personal-logo.png"
+        src="/avatars/pixel-avatar.png"
         alt="Vivek Hingu Logo"
         fill
         sizes="48px"
