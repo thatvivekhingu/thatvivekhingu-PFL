@@ -270,12 +270,39 @@ const getStatus = () => {
   }
 };
 
-const iconClass = (label: string, wiggleIcon: string | null) =>
-  `text-secondary-foreground ${
-    wiggleIcon === label.toLowerCase()
-      ? "animate-wiggle scale-150 transition-transform duration-200"
-      : ""
-  } hover:scale-130 hover:animate-wiggle transition-transform duration-300`;
+const getBrandClasses = (label: string, isWiggling: boolean) => {
+  const base = "transition-all duration-300 transform";
+  const wiggle = isWiggling ? "animate-wiggle scale-150" : "hover:scale-130 hover:animate-wiggle";
+
+  switch (label.toLowerCase()) {
+    case "email":
+      return `${base} ${wiggle} ${
+        isWiggling
+          ? "text-[#EA4335] drop-shadow-[0_0_10px_rgba(234,67,53,0.7)]"
+          : "text-zinc-400 hover:text-[#EA4335] hover:drop-shadow-[0_0_8px_rgba(234,67,53,0.6)]"
+      }`;
+    case "linkedin":
+      return `${base} ${wiggle} ${
+        isWiggling
+          ? "text-[#0A66C2] drop-shadow-[0_0_10px_rgba(10,102,194,0.7)]"
+          : "text-zinc-400 hover:text-[#0A66C2] hover:drop-shadow-[0_0_8px_rgba(10,102,194,0.6)]"
+      }`;
+    case "github":
+      return `${base} ${wiggle} ${
+        isWiggling
+          ? "text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+          : "text-zinc-400 hover:text-white dark:hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+      }`;
+    case "instagram":
+      return `${base} ${wiggle} ${
+        isWiggling
+          ? "[stroke:url(#ig-brand-gradient)] text-[#E4405F] drop-shadow-[0_0_10px_rgba(225,48,108,0.8)]"
+          : "text-zinc-400 hover:[stroke:url(#ig-brand-gradient)] hover:text-[#E4405F] hover:drop-shadow-[0_0_8px_rgba(225,48,108,0.7)]"
+      }`;
+    default:
+      return `${base} ${wiggle} text-zinc-400 hover:text-primary`;
+  }
+};
 
 function ContactIcons({
   wiggleIcon,
@@ -285,25 +312,42 @@ function ContactIcons({
   handleIconClick: (label: string) => void;
 }) {
   return (
-    <div className="flex flex-row items-center justify-center space-x-6">
-      {data.contact.map((link) => (
-        <Tooltip key={link.label}>
-          <TooltipTrigger asChild>
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={link.aria}
-              onClick={() => handleIconClick(link.label.toLowerCase())}
-            >
-              {React.cloneElement(link.icon, {
-                className: iconClass(link.label, wiggleIcon),
-              })}
-            </a>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">{link.label}</TooltipContent>
-        </Tooltip>
-      ))}
+    <div className="flex flex-row items-center justify-center space-x-6 relative">
+      {/* SVG Gradient Def for Instagram */}
+      <svg width="0" height="0" className="absolute pointer-events-none" aria-hidden="true">
+        <defs>
+          <linearGradient id="ig-brand-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
+            <stop stopColor="#fdf497" offset="0%" />
+            <stop stopColor="#fd5949" offset="45%" />
+            <stop stopColor="#d6249f" offset="65%" />
+            <stop stopColor="#285AEB" offset="90%" />
+          </linearGradient>
+        </defs>
+      </svg>
+      {data.contact.map((link) => {
+        const isWiggling = wiggleIcon === link.label.toLowerCase();
+        return (
+          <Tooltip key={link.label}>
+            <TooltipTrigger asChild>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.aria}
+                onClick={() => handleIconClick(link.label.toLowerCase())}
+                className="group p-1"
+              >
+                {React.cloneElement(link.icon, {
+                  className: `h-5 w-5 ${getBrandClasses(link.label, isWiggling)}`,
+                })}
+              </a>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" className="text-xs font-medium">
+              {link.label}
+            </TooltipContent>
+          </Tooltip>
+        );
+      })}
     </div>
   );
 }

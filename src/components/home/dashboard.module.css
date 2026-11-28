@@ -18,7 +18,7 @@
 }
 @media (min-width: 700px) {
   .dashboardGrid {
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-template-rows: auto auto minmax(0, min-content) minmax(0, min-content);
     grid-template-areas:
       "location location location location scratch scratch github github coffees coffees"

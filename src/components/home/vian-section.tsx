@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { SectionHeading } from "@/components/layout/section-heading";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 import { playTapSound } from "@/lib/sound";
 import { TiltCard } from "@/components/ui/tilt-card";
@@ -14,11 +15,13 @@ export default function VianSection() {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-col items-center justify-center text-center my-6">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-[0.22em] text-[#C084FC] uppercase font-mono">
-          MEET VIAN - AI ENGINEERING ASSISTANT
-        </h2>
-      </div>
+      <SectionHeading
+        number="02"
+        chapter="CHAPTER 02 — AUTONOMOUS AGENT"
+      >
+        <span className="text-[#3B82F6]">TALK WITH</span>{" "}
+        <span className="text-white">VIAN</span>
+      </SectionHeading>
 
       {/* 3D Tilt Cinematic Video Container */}
       <TiltCard

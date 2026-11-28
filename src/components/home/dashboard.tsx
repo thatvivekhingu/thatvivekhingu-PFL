@@ -27,6 +27,7 @@ import { SoundWave } from "@/components/ui/sound-wave";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 import { playTapSound } from "@/lib/sound";
+import { SectionHeading } from "@/components/layout/section-heading";
 
 export default function Dashboard() {
   const { totalHours } = useWakaTime();
@@ -46,10 +47,26 @@ export default function Dashboard() {
 
   const pickNewGif = () => {
     playTapSound("pop");
+    if (typeof window !== "undefined" && "vibrate" in navigator) {
+      try {
+        navigator.vibrate(15);
+      } catch {
+        // ignore
+      }
+    }
     const nextGif = getNextScratchMeme(scratchGif);
     setScratchGif(nextGif);
   };
 
+  useEffect(() => {
+    // Preload all GIF stickers into browser cache for instant lag-free switching
+    if (typeof window !== "undefined" && data.scratchGifs) {
+      data.scratchGifs.forEach((url) => {
+        const img = new window.Image();
+        img.src = url;
+      });
+    }
+  }, []);
 
   const handleScratchComplete = () => {
     // Keep revealed meme visible
@@ -58,15 +75,13 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col w-full">
       <CustomCursor />
-      <div className="flex flex-col items-center justify-center text-center my-6">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-[0.22em] text-[#22d3ee] uppercase font-mono">
-          DEVELOPER TELEMETRY &amp; CORE MATRIX
-        </h2>
-        <p className="text-xs sm:text-sm font-mono tracking-widest text-[#06b6d4] mt-2 mb-3">
-          {"// LIVE TELEMETRY MATRIX"}
-        </p>
-        <div className="w-16 h-[2px] bg-[#0284c7] rounded-full" />
-      </div>
+      <SectionHeading 
+        number="01" 
+        chapter="CHAPTER 01 — TELEMETRY & MATRIX"
+      >
+        <span className="text-[#3B82F6]">DEVELOPER</span>{" "}
+        <span className="text-white">TELEMETRY &amp; MATRIX</span>
+      </SectionHeading>
 
       <ul
         className={`grid w-full gap-4 ${styles.dashboardGrid}`}>
@@ -77,7 +92,7 @@ export default function Dashboard() {
           transitionDuration="100ms"
           cursorEmoji="✈️"
         >
-          <div className="w-full h-full flex items-center justify-center min-h-[140px]">
+          <div className="w-full h-full flex items-center justify-center min-h-[160px] md:min-h-0">
             <Globe />
           </div>
         </GridItem>
@@ -159,23 +174,25 @@ export default function Dashboard() {
           title="Scratch Me"
           transitionDuration="600ms"
         >
-          <div className="relative w-full h-[140px]">
+          <div className="relative w-full h-[140px] sm:h-[150px]">
             <ScratchToReveal
-              minScratchPercentage={20}
+              minScratchPercentage={25}
               className="relative w-full h-full overflow-hidden rounded-xl bg-background"
-              coverColor="#D8D0DE"
+              gradientColors={["#A97CF8", "#F38CB8", "#FDCC92"]}
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
             >
               {scratchGif && (
-                <Image
-                  src={scratchGif}
-                  alt="Scratch to reveal meme"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 300px"
-                  className="w-full h-full object-cover rounded-xl select-none"
-                  unoptimized
-                />
+                <div className="relative w-full h-full flex items-center justify-center p-1.5">
+                  <Image
+                    src={scratchGif}
+                    alt="Scratch to reveal meme"
+                    width={200}
+                    height={140}
+                    className="max-h-28 sm:max-h-32 w-auto object-contain rounded-lg select-none"
+                    unoptimized
+                  />
+                </div>
               )}
             </ScratchToReveal>
             <button
@@ -187,7 +204,7 @@ export default function Dashboard() {
               title="Refresh Meme"
               className="absolute top-1.5 right-1.5 z-20 w-6 h-6 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white/90 hover:text-white backdrop-blur-md transition-all shadow-xs group cursor-pointer border border-white/20"
             >
-              <IconRefresh className="h-3 w-3 transition-transform group-hover:rotate-180 duration-300" />
+              <IconRefresh className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 duration-300" />
             </button>
           </div>
         </GridItem>
@@ -313,7 +330,7 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
         />
 
         <div
-          className="group/glow relative flex h-full flex-col justify-start gap-1.5 sm:gap-2 overflow-hidden rounded-lg border-0.75 p-2.5 sm:p-3.5 shadow-[0px_0px_12px_0px_#ebecf0] dark:shadow-[0px_0px_27px_0px_#2D2D2D] bg-background transition-all"
+          className="group/glow relative flex h-full flex-col justify-between gap-2 overflow-hidden rounded-lg border-0.75 p-3.5 sm:p-4 shadow-[0px_0px_12px_0px_#ebecf0] dark:shadow-[0px_0px_27px_0px_#2D2D2D] bg-background transition-all"
           style={{
             transitionDuration,
           }}
@@ -322,7 +339,7 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
           <div className="relative flex flex-row items-center gap-2 sm:gap-3">
             <div className="pt-0">{icon}</div>
             <div className="space-y-1">
-              <h3 className="text-xs sm:text-sm md:text-base tracking-tight text-start font-semibold text-black dark:text-white">
+              <h3 className="text-sm sm:text-md md:text-base tracking-tight text-start font-semibold text-black dark:text-white">
                 {title}
               </h3>
             </div>
@@ -367,9 +384,34 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
   return content;
 };
 
+const getConnectBrandClass = (label: string) => {
+  switch (label.toLowerCase()) {
+    case "email":
+      return "group-hover:text-[#EA4335] group-hover:drop-shadow-[0_0_8px_rgba(234,67,53,0.6)]";
+    case "linkedin":
+      return "group-hover:text-[#0A66C2] group-hover:drop-shadow-[0_0_8px_rgba(10,102,194,0.6)]";
+    case "github":
+      return "group-hover:text-white dark:group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]";
+    case "instagram":
+      return "group-hover:[stroke:url(#connect-ig-gradient)] group-hover:text-[#E4405F] group-hover:drop-shadow-[0_0_8px_rgba(225,48,108,0.7)]";
+    default:
+      return "group-hover:text-primary";
+  }
+};
+
 const ContactMe = () => {
   return (
-    <div className="flex flex-col gap-1.5 sm:gap-2 py-0.5 sm:py-1">
+    <div className="flex flex-col gap-1.5 sm:gap-2 py-0.5 sm:py-1 relative">
+      <svg width="0" height="0" className="absolute pointer-events-none" aria-hidden="true">
+        <defs>
+          <linearGradient id="connect-ig-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
+            <stop stopColor="#fdf497" offset="0%" />
+            <stop stopColor="#fd5949" offset="45%" />
+            <stop stopColor="#d6249f" offset="65%" />
+            <stop stopColor="#285AEB" offset="90%" />
+          </linearGradient>
+        </defs>
+      </svg>
       {data.contact.map(({ href, label, icon, aria }) => (
         <a
           key={label}
@@ -380,10 +422,11 @@ const ContactMe = () => {
           className="flex items-center gap-2 group py-0.5"
         >
           {React.cloneElement(icon, {
-            className:
-              "h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground transition-all group-hover:animate-wiggle group-hover:scale-125 group-hover:text-primary",
+            className: `h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground transition-all duration-300 group-hover:animate-wiggle group-hover:scale-125 ${getConnectBrandClass(
+              label
+            )}`,
           })}
-          <span className="text-xs sm:text-[13px] text-muted-foreground transition-all group-hover:text-primary group-hover:font-semibold">
+          <span className={`text-xs sm:text-[13px] text-muted-foreground transition-all duration-300 group-hover:font-semibold ${getConnectBrandClass(label)}`}>
             {label}
           </span>
         </a>

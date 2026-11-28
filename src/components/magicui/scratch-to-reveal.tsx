@@ -24,7 +24,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
   children,
   className,
   gradientColors = ["#A97CF8", "#F38CB8", "#FDCC92"],
-  coverColor = "#D8D0DE",
+  coverColor,
   resetKey,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -129,6 +129,15 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       ctx.beginPath();
       ctx.arc(x, y, 26, 0, Math.PI * 2);
       ctx.fill();
+
+      // Subtle haptic tick during scratching
+      if (typeof window !== "undefined" && "vibrate" in navigator && Math.random() < 0.25) {
+        try {
+          navigator.vibrate(8);
+        } catch {
+          // ignore
+        }
+      }
     }
   };
 
@@ -163,6 +172,13 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       // Only trigger completion animation when scratched sufficiently without wiping the unscratched area
       if (percentage >= minScratchPercentage) {
         setIsComplete(true);
+        if (typeof window !== "undefined" && "vibrate" in navigator) {
+          try {
+            navigator.vibrate([15, 30, 20]);
+          } catch {
+            // ignore
+          }
+        }
         startAnimation();
       }
     }
