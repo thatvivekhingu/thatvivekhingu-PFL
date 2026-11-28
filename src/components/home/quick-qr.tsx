@@ -110,7 +110,7 @@ export const QuickQrWidget = () => {
         </div>
       ) : (
         /* Input & Generate QR Button State */
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-1.5 w-full pt-0.5">
           <input
             ref={inputRef}
             type="text"
@@ -118,14 +118,14 @@ export const QuickQrWidget = () => {
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && generateQR()}
             placeholder="Enter text or URL..."
-            className="w-full h-6 px-2 text-[11px] font-mono rounded bg-neutral-900 border border-neutral-700 focus:border-white text-white placeholder:text-neutral-500 focus:outline-none transition-colors"
+            className="w-full h-7 px-2.5 text-xs font-mono rounded bg-neutral-900 border border-neutral-700 focus:border-white text-white placeholder:text-neutral-500 focus:outline-none transition-colors"
           />
 
           <button
             type="button"
             onClick={generateQR}
             disabled={isGenerating}
-            className="w-full h-6 inline-flex items-center justify-center gap-1 bg-white hover:bg-neutral-200 text-black font-mono font-bold text-[11px] rounded transition-all active:scale-98 cursor-pointer shadow-sm"
+            className="w-full h-7 inline-flex items-center justify-center gap-1.5 bg-white hover:bg-neutral-200 text-black font-mono font-bold text-xs rounded transition-all active:scale-98 cursor-pointer shadow-sm"
           >
             <span>{isGenerating ? "Generating..." : "Generate QR"}</span>
           </button>

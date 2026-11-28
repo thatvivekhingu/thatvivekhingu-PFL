@@ -277,7 +277,7 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
         />
 
         <div
-          className="group/glow relative flex h-full flex-col justify-between gap-1.5 sm:gap-2 overflow-hidden rounded-lg border-0.75 p-2.5 sm:p-3.5 shadow-[0px_0px_12px_0px_#ebecf0] dark:shadow-[0px_0px_27px_0px_#2D2D2D] bg-background transition-all"
+          className="group/glow relative flex h-full flex-col justify-start gap-1.5 sm:gap-2 overflow-hidden rounded-lg border-0.75 p-2.5 sm:p-3.5 shadow-[0px_0px_12px_0px_#ebecf0] dark:shadow-[0px_0px_27px_0px_#2D2D2D] bg-background transition-all"
           style={{
             transitionDuration,
           }}
@@ -333,7 +333,7 @@ const GridItem = ({ area, icon, title, children, transitionDuration = "300ms", t
 
 const ContactMe = () => {
   return (
-    <div className="flex flex-col gap-2 sm:gap-3 py-1 sm:p-2">
+    <div className="flex flex-col gap-1.5 sm:gap-2 py-0.5 sm:py-1">
       {data.contact.map(({ href, label, icon, aria }) => (
         <a
           key={label}
@@ -341,13 +341,13 @@ const ContactMe = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={aria}
-          className="flex items-center gap-2 group"
+          className="flex items-center gap-2 group py-0.5"
         >
           {React.cloneElement(icon, {
             className:
-              "h-4 w-4 text-muted-foreground transition-all group-hover:animate-wiggle group-hover:scale-125 group-hover:text-primary",
+              "h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground transition-all group-hover:animate-wiggle group-hover:scale-125 group-hover:text-primary",
           })}
-          <span className="text-xs sm:text-sm text-muted-foreground transition-all group-hover:text-primary group-hover:font-bold">
+          <span className="text-xs sm:text-[13px] text-muted-foreground transition-all group-hover:text-primary group-hover:font-semibold">
             {label}
           </span>
         </a>

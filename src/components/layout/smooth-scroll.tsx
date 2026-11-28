@@ -7,8 +7,11 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Respect user's motion preferences
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    // Respect user's motion preferences or coarse pointer (mobile devices)
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      window.matchMedia("(pointer: coarse)").matches
+    ) {
       return;
     }
 

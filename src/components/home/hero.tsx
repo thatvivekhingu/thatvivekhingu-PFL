@@ -78,7 +78,7 @@ export default function Hero() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen pointer-events-none z-[2] flex items-center justify-center select-none">
                   {/* Tape A: Dark / Ink Tape - High-contrast crisp border and wider angle on mobile */}
                   <div className="absolute w-[250vw] min-w-[2200px] -rotate-[7.5deg] sm:-rotate-[3.2deg] bg-[#121214] border-y border-white/40 py-3 sm:py-5 md:py-6 shadow-[0_8px_32px_rgba(0,0,0,0.9)] z-[1]">
-                    <Marquee repeat={8} className="[--duration:30s] py-0 text-xl sm:text-3xl md:text-[38px] lg:text-[42px] font-[family-name:var(--font-anton)] tracking-wider text-white uppercase leading-none">
+                    <Marquee repeat={4} className="[--duration:30s] py-0 text-xl sm:text-3xl md:text-[38px] lg:text-[42px] font-[family-name:var(--font-anton)] tracking-wider text-white uppercase leading-none">
                       <span className="mx-3 sm:mx-5 text-zinc-400 font-normal">✦</span>
                       <span>VIVEK HINGU // AI &amp; ML ENGINEER</span>
                       <span className="mx-3 sm:mx-5 text-zinc-400 font-normal">✦</span>
@@ -96,7 +96,7 @@ export default function Hero() {
 
                   {/* Tape B: Paper / Cream Tape - Crossing in Front with Bold Black Typography */}
                   <div className="absolute w-[250vw] min-w-[2200px] rotate-[6.5deg] sm:rotate-[2.8deg] bg-[#ECE7DC] border-y-2 border-black py-3 sm:py-5 md:py-6 shadow-[0_12px_40px_rgba(0,0,0,0.7)] z-[2]">
-                    <Marquee reverse repeat={8} className="[--duration:34s] py-0 text-xl sm:text-3xl md:text-[38px] lg:text-[42px] font-[family-name:var(--font-anton)] tracking-tight text-black uppercase leading-none">
+                    <Marquee reverse repeat={4} className="[--duration:34s] py-0 text-xl sm:text-3xl md:text-[38px] lg:text-[42px] font-[family-name:var(--font-anton)] tracking-tight text-black uppercase leading-none">
                       <span className="mx-3 sm:mx-5 text-black font-normal">✦</span>
                       <span>BHARATBHASHA AI</span>
                       <span className="mx-3 sm:mx-5 text-black font-normal">✦</span>

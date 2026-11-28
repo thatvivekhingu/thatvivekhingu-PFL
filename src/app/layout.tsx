@@ -99,6 +99,11 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} ${notoSansGujarati.variable} ${anekGujarati.variable} ${anton.variable} antialiased relative bg-black text-white selection:bg-blue-500/30 selection:text-white`}
         >
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(){try{if(sessionStorage.getItem('hasSeenIntro')==='true'){document.documentElement.classList.add('has-seen-intro');}}catch(e){}})();`,
+            }}
+          />
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <Navbar navItems={data.nav} />
             <CommandPalette posts={palettePosts} />

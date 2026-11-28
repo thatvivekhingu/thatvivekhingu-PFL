@@ -47,8 +47,8 @@ const INTRO_PAIRS: IntroPair[] = [
 ];
 
 export function IntroAnimation() {
-  const [shouldShow, setShouldShow] = useState(false);
-  const [activePair, setActivePair] = useState<IntroPair | null>(null);
+  const [shouldShow, setShouldShow] = useState(true);
+  const [activePair, setActivePair] = useState<IntroPair>(() => INTRO_PAIRS[0]);
   const [displayedText, setDisplayedText] = useState("");
   const [currentStep, setCurrentStep] = useState<"en" | "hi">("en");
   const [isTypingDone, setIsTypingDone] = useState(false);
@@ -192,7 +192,7 @@ export function IntroAnimation() {
             }
           }}
           onClick={handleSkip}
-          className="fixed inset-0 z-[99999] bg-black select-none cursor-pointer overflow-hidden flex flex-col justify-between"
+          className="intro-animation-screen fixed inset-0 z-[99999] bg-black select-none cursor-pointer overflow-hidden flex flex-col justify-between"
         >
           {/* Left Vertical Thin Red Line stretching downward */}
           <div className="absolute left-6 sm:left-12 md:left-16 top-0 bottom-0 w-[2px] pointer-events-none z-30">

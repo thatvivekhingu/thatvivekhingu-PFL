@@ -67,15 +67,15 @@ const DESTINATIONS = [
 const AMBER = "rgb(245, 158, 11)";
 
 const GLOBE_CONFIG: COBEOptions = {
-  width: 800,
-  height: 800,
+  width: 500,
+  height: 500,
   onRender: () => {},
-  devicePixelRatio: 2,
+  devicePixelRatio: 1.25,
   phi: 4.6,
   theta: 0.3,
   dark: 0,
   diffuse: 0.5,
-  mapSamples: 22000,
+  mapSamples: 10000,
   mapBrightness: 1.2,
   baseColor: [1, 1, 1],
   markerColor: [245 / 255, 158 / 255, 11 / 255],

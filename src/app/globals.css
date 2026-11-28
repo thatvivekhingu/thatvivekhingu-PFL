@@ -22,6 +22,10 @@
     transform: rotate(360deg);
   }
 }
+html.has-seen-intro .intro-animation-screen {
+  display: none !important;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -24,15 +24,14 @@ export function BlurFade({
   delay = 0,
   offset = 6,
   direction = "down",
-  blur = "6px",
 }: BlurFadeProps) {
   const yOffset = direction === "down" ? -offset : direction === "up" ? offset : 0;
   const xOffset = direction === "right" ? -offset : direction === "left" ? offset : 0;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: yOffset, x: xOffset, filter: `blur(${blur})` }}
-      animate={{ opacity: 1, y: 0, x: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: yOffset, x: xOffset }}
+      animate={{ opacity: 1, y: 0, x: 0 }}
       transition={{
         duration,
         delay,
