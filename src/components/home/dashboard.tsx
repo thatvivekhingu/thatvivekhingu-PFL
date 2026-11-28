@@ -2,11 +2,10 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { IconTool, IconLink, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh, IconQrcode } from "@tabler/icons-react";
-import { QuickQrWidget } from "./quick-qr";
-import { SectionHeading } from "@/components/layout/section-heading";
+import { IconTool, IconLink, IconCup, IconClockHour4, IconMapPin, IconHeart, IconHandClick, IconBrandGithub, IconBrandSpotifyFilled, IconRefresh } from "@tabler/icons-react";
 import { Globe } from "@/components/ui/globe";
 import styles from "./dashboard.module.css";
+import { NumberTicker } from "@/components/ui/number-ticker";
 import { Marquee } from "@/components/ui/marquee";
 import {
   Tooltip,
@@ -18,18 +17,20 @@ import Image from "next/image";
 import { data, getNextScratchMeme } from "@/data/data";
 import { useTheme } from "next-themes";
 import { ScratchToReveal } from "../magicui/scratch-to-reveal";
+import { useWakaTime } from "@/hooks/useWakaTime";
 import { useSpotify } from "@/hooks/useSpotify";
 import { useGitHub } from "@/hooks/useGitHub";
+import { Spotlight } from "@/components/ui/spotlight";
 import { useAlbumColor } from "@/hooks/useAlbumColor";
 import { GitHubHeatmap } from "./github-heatmap";
 import { SoundWave } from "@/components/ui/sound-wave";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { SpotlightGlow } from "@/components/ui/spotlight-glow";
 import { playTapSound } from "@/lib/sound";
-import { LottiePlayer } from "@/components/ui/lottie-player";
-
 
 export default function Dashboard() {
+  const { totalHours } = useWakaTime();
+  const totalCoffees = Math.ceil(totalHours / 4);
   const { track } = useSpotify();
   const { data: githubData, isLoading: isLoadingGitHub } = useGitHub();
   const [scratchGif, setScratchGif] = useState("");
@@ -57,18 +58,15 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col w-full">
       <CustomCursor />
-      <SectionHeading 
-        number="01" 
-        chapter="CHAPTER 01 — TELEMETRY & MATRIX"
-        rightElement={
-          <div className="hidden sm:flex items-center gap-2 drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-            <LottiePlayer src="/lottie/developer.json" className="w-16 h-16 md:w-20 md:h-20" />
-          </div>
-        }
-      >
-        <span className="text-[#3B82F6]">DEVELOPER</span>{" "}
-        <span className="text-white">TELEMETRY &amp; MATRIX</span>
-      </SectionHeading>
+      <div className="flex flex-col items-center justify-center text-center my-6">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-[0.22em] text-[#22d3ee] uppercase font-mono">
+          DEVELOPER TELEMETRY &amp; CORE MATRIX
+        </h2>
+        <p className="text-xs sm:text-sm font-mono tracking-widest text-[#06b6d4] mt-2 mb-3">
+          {"// LIVE TELEMETRY MATRIX"}
+        </p>
+        <div className="w-16 h-[2px] bg-[#0284c7] rounded-full" />
+      </div>
 
       <ul
         className={`grid w-full gap-4 ${styles.dashboardGrid}`}>
@@ -79,7 +77,7 @@ export default function Dashboard() {
           transitionDuration="100ms"
           cursorEmoji="✈️"
         >
-          <div className="w-full h-[120px] sm:h-[135px] flex items-center justify-center">
+          <div className="w-full h-full flex items-center justify-center min-h-[140px]">
             <Globe />
           </div>
         </GridItem>
@@ -91,9 +89,41 @@ export default function Dashboard() {
           tooltip="Spotify"
           cursorEmoji="🎵"
         >
-          <div className="w-full">
+          <div className="flex flex-col-reverse sm:flex-row-reverse items-center gap-4 sm:gap-6 w-full">
+            {/* Dancing Animation Section */}
+            <div className="relative flex items-center justify-center w-full sm:w-12 h-16 sm:h-12 overflow-visible">
+              <div className="absolute -top-36 -right-20 sm:-top-72 sm:-right-32 w-64 h-64 sm:w-96 sm:h-96 pointer-events-none z-0 scale-x-[-1]" style={{ opacity: 1 }}>
+                <Spotlight
+                  className="!opacity-100 scale-75 z-50"
+                  fill={spotlightColor}
+                />
+              </div>
+              <div
+                aria-hidden
+                className="absolute left-1/2 top-1/2 w-40 sm:w-32 aspect-[480/65] overflow-hidden opacity-60 z-0 pointer-events-none"
+                style={{ transform: "translate(-50%, calc(-50% + 20px))" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://media.giphy.com/media/GZQGgGtosl3Fm4k0A9/giphy.gif"
+                  alt=""
+                  className="absolute top-0 left-0 w-full aspect-square max-w-none"
+                  style={{ transform: "translateY(-67.7%)" }}
+                />
+              </div>
+              <Image
+                src="https://media.giphy.com/media/l41lFw057lAJdcwg0/giphy.gif"
+                alt="Guitar Boy"
+                width={80}
+                height={80}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-20 sm:h-20 object-contain z-10 pointer-events-none"
+                unoptimized
+              />
+            </div>
             {/* Spotify Last Played Section */}
-            <LastPlayed track={track} />
+            <div className="flex-1 min-w-0 w-full">
+              <LastPlayed track={track} />
+            </div>
           </div>
         </GridItem>
         <GridItem
@@ -129,10 +159,10 @@ export default function Dashboard() {
           title="Scratch Me"
           transitionDuration="600ms"
         >
-          <div className="relative w-full h-[120px] sm:h-[135px]">
+          <div className="relative w-full h-[140px]">
             <ScratchToReveal
-              minScratchPercentage={25}
-              className="relative w-full h-full overflow-hidden rounded-xl"
+              minScratchPercentage={20}
+              className="relative w-full h-full overflow-hidden rounded-xl bg-background"
               coverColor="#D8D0DE"
               onComplete={handleScratchComplete}
               resetKey={scratchGif}
@@ -162,16 +192,31 @@ export default function Dashboard() {
           </div>
         </GridItem>
         <GridItem
-          area="hours"
-          icon={<IconQrcode className={dashboardIconClass} />}
-          title="QR Generator"
-          transitionDuration="800ms"
-          tooltip="Client-Side QR Engine"
-          cursorEmoji="⚡"
+          area="coffees"
+          icon={<IconCup className={dashboardIconClass} />}
+          title="Teas Drank"
+          transitionDuration="700ms"
+          tooltip="1 Tea 🍵 = 4 Hours Coding"
+          cursorEmoji="🍵"
         >
-          <QuickQrWidget />
+          <NumberTicker
+            value={totalCoffees}
+            className="whitespace-pre-wrap text-2xl sm:text-3xl font-semibold tracking-tighter text-muted-foreground"
+          />
         </GridItem>
-
+        <GridItem
+          area="hours"
+          icon={<IconClockHour4 className={dashboardIconClass} />}
+          title="Hours Coding"
+          transitionDuration="800ms"
+          tooltip="Powered by WakaTime"
+          cursorEmoji="🕐"
+        >
+          <NumberTicker
+            value={totalHours}
+            className="whitespace-pre-wrap text-2xl sm:text-3xl font-semibold tracking-tighter text-muted-foreground"
+          />
+        </GridItem>
         <GridItem
           area="github"
           icon={<IconBrandGithub className={dashboardIconClass} />}
@@ -180,7 +225,7 @@ export default function Dashboard() {
           tooltip="Last 7 Weeks"
           cursorEmoji="💻"
         >
-          <div className="flex flex-col justify-center items-center h-[120px] sm:h-[135px] gap-1.5">
+          <div className="flex flex-col justify-center items-center h-full gap-2 py-1">
             {/* Heatmap */}
             <div className="flex items-center justify-center">
               <GitHubHeatmap
